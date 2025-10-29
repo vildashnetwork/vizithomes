@@ -418,7 +418,7 @@ function MainPage({ onRoleSelect = () => { } }) {
                                 style={{ backgroundImage: `url("${img}")` }}
                             >
                                 <div className="mp-gallery-overlay">
-                                    <h4>Modern Apartment {index + 1}</h4>
+                                    <h4>Modern Apartment {index + 2}</h4>
                                     <p>{(3000 + index * 1000).toLocaleString()}FCFA/month</p>
                                 </div>
                             </div>
@@ -435,22 +435,22 @@ function MainPage({ onRoleSelect = () => { } }) {
                     <div className="mp-testimonial-grid">
                         {[
                             {
-                                quote: "HouseLink made listing my guest house effortless — bookings rose 40% in the first month! The AI pricing suggestions are incredibly accurate.",
-                                author: "Ada Lovelace",
+                                quote: "Vizit.homes made finding my apartment in Douala so easy! The platform connected me with verified landlords and I found my perfect 3-bedroom in just 2 weeks.",
+                                author: "Jean Mbarga",
+                                role: "Tenant in Douala",
+                                avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80"
+                            },
+                            {
+                                quote: "As a property owner in Yaoundé, Vizit.homes has helped me manage my rentals efficiently. The booking system is seamless and I've increased my occupancy rate by 35%.",
+                                author: "Samuel Eto'o",
                                 role: "Property Owner",
-                                avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?auto=format&fit=crop&w=150&q=80"
+                                avatar: "https://images.unsplash.com/photo-1513956589380-bad6acb9b9d4?auto=format&fit=crop&w=150&q=80"
                             },
                             {
-                                quote: "Found my dream apartment in 3 days. The virtual tours and instant messaging made the process smooth and stress-free. Highly recommended!",
-                                author: "Paul Reynolds",
-                                role: "Tenant",
-                                avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=150&q=80"
-                            },
-                            {
-                                quote: "As a real estate agent, HouseLink has transformed how I manage listings. The analytics and automation save me 10+ hours weekly.",
-                                author: "Maria Garcia",
-                                role: "Real Estate Agent",
-                                avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=150&q=80"
+                                quote: "Moving to Buea was stress-free thanks to Vizit.homes. The virtual tours saved me multiple trips and the agents were incredibly helpful throughout the process.",
+                                author: "David Nganou",
+                                role: "Client in Buea",
+                                avatar: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=150&q=80"
                             }
                         ].map((testimonial, index) => (
                             <blockquote key={index} className="mp-testimonial">
@@ -477,7 +477,7 @@ function MainPage({ onRoleSelect = () => { } }) {
                                 <div className="mp-brand-icon">
                                     <ion-icon name="home-outline" />
                                 </div>
-                                <span className="mp-brand-text">HouseLink</span>
+                                <span className="mp-brand-text">Vizit.homes</span>
                             </div>
                             <p>Modern property management reimagined</p>
                         </div>
@@ -503,7 +503,7 @@ function MainPage({ onRoleSelect = () => { } }) {
                         </div>
                     </div>
                     <div className="mp-footer-bottom">
-                        <p>© {new Date().getFullYear()} HouseLink · Built with ❤️ for better living</p>
+                        <p>© {new Date().getFullYear()} Vizit.homes · Built with love for better living</p>
                     </div>
                 </footer>
             </main>
