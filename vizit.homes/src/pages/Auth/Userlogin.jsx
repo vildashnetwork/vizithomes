@@ -93,6 +93,30 @@ export default function UserAuthLanding() {
 
     return (
         <div className="landing">
+            <div className="left-background" aria-hidden={false}>
+                {/* embed simple Google Maps search/center for Cameroon — replace q param if you want a specific location */}
+                <div className="left-background__map-wrap" role="img" aria-label="Map of Cameroon">
+                    <iframe
+                        title="Map of Cameroon"
+                        src="https://www.google.com/maps?q=Cameroon&z=6&output=embed"
+                        allowFullScreen
+                        loading="lazy"
+                    />
+                    {/* dotted points overlay (SVG) */}
+                    <svg className="left-background__dots" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden>
+
+                        <circle cx="55" cy="38" r="1.6" className="dot" />
+                        <circle cx="62" cy="45" r="1.6" className="dot" />
+                        <circle cx="48" cy="52" r="1.6" className="dot" />
+                    </svg>
+
+                    {/* Floating message bubble — you can edit text */}
+                    <div className="left-background__bubble" role="note" aria-label="Housing message">
+                        <strong>The future of housing in Cameroon</strong>
+                        <p>Connecting owners and tenants with smarter listings, payments & local support.</p>
+                    </div>
+                </div>
+            </div>
             <div className="landing__card fade-in" role="region" aria-label="Owner Authentication">
                 <div className="landing__header">
                     <div className="landing__icon" aria-hidden>

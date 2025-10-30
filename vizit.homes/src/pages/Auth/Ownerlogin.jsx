@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./style/osner.css";
 import GoogleLoginButton from "./GoogleLoginButton";
+import Dropdown from "./Select";
 
 
 
@@ -74,8 +75,52 @@ export default function OwnerAuthLanding() {
         }, 1400);
     }
 
+
+
+
+
+
+
+
+
+
+
+    const roles = [
+        { value: "owner", label: "Rent A House" },
+        { value: "client", label: "Real Estate" },
+        { value: "agent", label: "Hotels" },
+        { value: "unique", label: "Guest Houses" },
+        { value: "motels", label: "Motels" },
+
+    ];
+    const [role, setRole] = useState("");
+
     return (
         <div className="landing">
+            <div className="left-background" aria-hidden={false}>
+                {/* embed simple Google Maps search/center for Cameroon — replace q param if you want a specific location */}
+                <div className="left-background__map-wrap" role="img" aria-label="Map of Cameroon">
+                    <iframe
+                        title="Map of Cameroon"
+                        src="https://www.google.com/maps?q=Cameroon&z=6&output=embed"
+                        allowFullScreen
+                        loading="lazy"
+                    />
+                    {/* dotted points overlay (SVG) */}
+                    <svg className="left-background__dots" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden>
+
+                        <circle cx="55" cy="38" r="1.6" className="dot" />
+                        <circle cx="62" cy="45" r="1.6" className="dot" />
+                        <circle cx="48" cy="52" r="1.6" className="dot" />
+                    </svg>
+
+                    {/* Floating message bubble — you can edit text */}
+                    <div className="left-background__bubble" role="note" aria-label="Housing message">
+                        <strong>The future of housing in Cameroon</strong>
+                        <p>Connecting owners and tenants with smarter listings, payments & local support.</p>
+                    </div>
+                </div>
+            </div>
             <div className="landing__card fade-in" role="region" aria-label="Owner Authentication">
                 <div className="landing__header">
                     <div className="landing__icon" aria-hidden>
@@ -146,8 +191,14 @@ export default function OwnerAuthLanding() {
                                         <ion-icon name="eye-outline"></ion-icon>
                                     </a>
                                 }
-
                             </div>
+                            <label htmlFor="login-password" className="form-label" style={{
+                                display: "flex",
+                                textAlign: "left",
+                                justifyContent: "end",
+                                float: "left", color: "#333", cursor: "pointer"
+                            }}>Reset Password</label>
+
                         </div>
 
                         {message.text && (
@@ -172,6 +223,40 @@ export default function OwnerAuthLanding() {
                                     type="text"
                                     className="form-input"
                                     placeholder="John Doe"
+                                    value={fullName}
+                                    onChange={(e) => setFullName(e.target.value)}
+                                    autoComplete="name"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="form-row">
+                            <label htmlFor="reg-name" className="form-label">Company Name</label>
+                            <div className="input-wrap">
+                                <ion-icon name="person-outline" class="input-icon" />
+                                <input
+                                    ref={firstInputRef}
+                                    id="reg-name"
+                                    type="text"
+                                    className="form-input"
+                                    placeholder="Company LTD"
+                                    value={fullName}
+                                    onChange={(e) => setFullName(e.target.value)}
+                                    autoComplete="name"
+                                />
+                            </div>
+                        </div>
+                        <div className="form-row">
+                            <label htmlFor="reg-name" className="form-label">Company's BIO</label>
+                            <div className="input-wrap">
+                                {/* <ion-icon name="albums-outline" ></ion-icon> */}
+                                <textarea
+                                    rows={5}
+                                    ref={firstInputRef}
+                                    id="reg-name"
+                                    type="text"
+                                    className="form-input"
+                                    placeholder="About Your Company"
                                     value={fullName}
                                     onChange={(e) => setFullName(e.target.value)}
                                     autoComplete="name"
@@ -210,7 +295,16 @@ export default function OwnerAuthLanding() {
                                 />
                             </div>
                         </div>
-
+                        <div className="form-row">
+                            <label htmlFor="reg-email" className="form-label">What's Your Interest?</label>
+                            <Dropdown
+                                label=""
+                                options={roles}
+                                value={role}
+                                onChange={setRole}
+                                placeholder="Click Here To Choose your Interest"
+                            />
+                        </div>
                         <div className="form-row">
                             <label htmlFor="reg-password" className="form-label">Password</label>
                             <div className="input-wrap">
@@ -281,6 +375,7 @@ export default function OwnerAuthLanding() {
                     <p> Vizit.Homes Cameroon</p>
                 </div>
             </div>
+
         </div>
     );
 }
