@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./style.css"
+import { useNavigate } from "react-router-dom";
 function MainPage({ onRoleSelect = () => { } }) {
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [activeFeature, setActiveFeature] = useState(0);
     const drawerRef = useRef(null);
     const heroRef = useRef(null);
-
+    const navigate = useNavigate()
     // Enhanced scroll lock + focus trap
     useEffect(() => {
         document.body.style.overflow = drawerOpen ? "hidden" : "";
@@ -127,13 +128,19 @@ function MainPage({ onRoleSelect = () => { } }) {
                             window.location.href = "#home"
 
                         }
-                        }>Vizit.homes</span>
+                        }>Vizit.homes
+                    </span>
+
                 </div>
 
                 <div className="mp-actions">
                     <button
                         className="mp-cta-mini mp-cta-mini--owner"
-                        onClick={() => onRoleSelect("owner")}
+                        onClick={() => {
+                            onRoleSelect("owner")
+                            navigate("/owner/login")
+
+                        }}
                         title="Quick Owner"
                     >
                         <ion-icon name="business" />
@@ -142,7 +149,11 @@ function MainPage({ onRoleSelect = () => { } }) {
 
                     <button
                         className="mp-cta-mini mp-cta-mini--client"
-                        onClick={() => onRoleSelect("client")}
+                        onClick={() => {
+                            onRoleSelect("client")
+                            navigate("/user/login")
+
+                        }}
                         title="Quick Client"
                     >
                         <ion-icon name="person" />
@@ -208,6 +219,7 @@ function MainPage({ onRoleSelect = () => { } }) {
                         onClick={() => {
                             setDrawerOpen(false);
                             onRoleSelect("owner");
+                            navigate("/owner/login")
                         }}
                     >
                         <div className="mp-btn-glow" />
@@ -219,6 +231,8 @@ function MainPage({ onRoleSelect = () => { } }) {
                         onClick={() => {
                             setDrawerOpen(false);
                             onRoleSelect("client");
+                            navigate("/user/login")
+
                         }}
                     >
                         <div className="mp-btn-glow" />
@@ -256,7 +270,10 @@ function MainPage({ onRoleSelect = () => { } }) {
                             <div className="mp-cta-row">
                                 <button
                                     className="mp-btn mp-btn--owner mp-btn--large mp-btn--glow"
-                                    onClick={() => onRoleSelect("owner")}
+                                    onClick={() => {
+                                        onRoleSelect("owner");
+                                        navigate("/owner/login")
+                                    }}
                                 >
                                     <div className="mp-btn-glow" />
                                     <ion-icon name="business" />
@@ -265,7 +282,10 @@ function MainPage({ onRoleSelect = () => { } }) {
 
                                 <button
                                     className="mp-btn mp-btn--client mp-btn--large mp-btn--glow"
-                                    onClick={() => onRoleSelect("client")}
+                                    onClick={() => {
+                                        onRoleSelect("client")
+                                        navigate("/user/login")
+                                    }}
                                 >
                                     <div className="mp-btn-glow" />
                                     <ion-icon name="person" />

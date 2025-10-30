@@ -1144,36 +1144,6 @@
   font-size: 14px;
 }
 
-@-webkit-keyframes gradientShift {
-  0% {
-    background-position: 0% 50%;
-    overflow-x: hidden !important;
-  }
-  50% {
-    background-position: 100% 50%;
-    overflow-x: hidden !important;
-  }
-  100% {
-    background-position: 0% 50%;
-    overflow-x: hidden !important;
-  }
-}
-
-@keyframes gradientShift {
-  0% {
-    background-position: 0% 50%;
-    overflow-x: hidden !important;
-  }
-  50% {
-    background-position: 100% 50%;
-    overflow-x: hidden !important;
-  }
-  100% {
-    background-position: 0% 50%;
-    overflow-x: hidden !important;
-  }
-}
-
 @-webkit-keyframes slideInRight {
   from {
     opacity: 0;
