@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import "./style/osner.css";
 import GoogleLoginButton from "./GoogleLoginButton";
 import Dropdown from "./Select";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -36,10 +37,13 @@ export default function OwnerAuthLanding() {
         setEmail(""); setPassword("");
         setFullName(""); setPhone(""); setRegEmail(""); setRegPassword(""); setConfirmPassword("");
     };
+    const navigate = useNavigate()
 
     function handleLogin(e) {
         e.preventDefault();
         setMessage({ type: "", text: "" });
+        localStorage.setItem("role", "owner");
+        window.location.href = "/owner/home"
 
         if (!email) return setMessage({ type: "error", text: "Enter your email." });
         if (!isEmail(email)) return setMessage({ type: "error", text: "Enter a valid email." });
@@ -231,7 +235,7 @@ export default function OwnerAuthLanding() {
                         </div>
 
                         <div className="form-row">
-                            <label htmlFor="reg-name" className="form-label">Company Name</label>
+                            <label htmlFor="reg-name" className="form-label">Company's Name</label>
                             <div className="input-wrap">
                                 <ion-icon name="person-outline" class="input-icon" />
                                 <input
@@ -304,6 +308,41 @@ export default function OwnerAuthLanding() {
                                 onChange={setRole}
                                 placeholder="Click Here To Choose your Interest"
                             />
+                        </div>
+
+                        <div className="form-row">
+                            <label htmlFor="reg-name" className="form-label">Company's Location</label>
+                            <div className="input-wrap">
+                                <ion-icon name="location-outline"></ion-icon>
+                                <input
+                                    ref={firstInputRef}
+                                    id="reg-name"
+                                    type="location"
+                                    className="form-input"
+                                    placeholder="xxxxxx Cameroon"
+                                    value={fullName}
+                                    onChange={(e) => setFullName(e.target.value)}
+                                    autoComplete="location"
+                                />
+                            </div>
+                        </div>
+
+
+                        <div className="form-row">
+                            <label htmlFor="reg-name" className="form-label">ID Card Number</label>
+                            <div className="input-wrap">
+                                <ion-icon name="document-lock-outline"></ion-icon>
+                                <input
+                                    ref={firstInputRef}
+                                    id="reg-name"
+                                    type="text"
+                                    className="form-input"
+                                    placeholder="xxxxxxxxxxxxxx"
+                                    value={fullName}
+                                    onChange={(e) => setFullName(e.target.value)}
+                                    autoComplete="name"
+                                />
+                            </div>
                         </div>
                         <div className="form-row">
                             <label htmlFor="reg-password" className="form-label">Password</label>

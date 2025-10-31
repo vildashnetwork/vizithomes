@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import "./style/osner.css";
 import GoogleLoginButton from "./GoogleLoginButton";
 import Dropdown from "./Select";
+import { navigate } from "ionicons/icons";
 
 
 
@@ -40,7 +41,7 @@ export default function UserAuthLanding() {
     function handleLogin(e) {
         e.preventDefault();
         setMessage({ type: "", text: "" });
-
+        localStorage.setItem("role", "user")
         if (!email) return setMessage({ type: "error", text: "Enter your email." });
         if (!isEmail(email)) return setMessage({ type: "error", text: "Enter a valid email." });
         if (!password) return setMessage({ type: "error", text: "Enter your password." });
@@ -48,7 +49,8 @@ export default function UserAuthLanding() {
         setLoading(true);
         setTimeout(() => {
             setLoading(false);
-            localStorage.setItem("role", "owner");
+            localStorage.setItem("role", "user");
+            window.location.href = "/user/home"
             setMessage({ type: "success", text: "Login successful — demo role saved." });
             // optionally redirect here
         }, 1100);
@@ -190,6 +192,12 @@ export default function UserAuthLanding() {
                                 }
 
                             </div>
+                            <label htmlFor="login-password" className="form-label" style={{
+                                display: "flex",
+                                textAlign: "left",
+                                justifyContent: "end",
+                                float: "left", color: "#333", cursor: "pointer"
+                            }}>Reset Password</label>
                         </div>
 
                         {message.text && (
@@ -337,3 +345,18 @@ export default function UserAuthLanding() {
         </div>
     );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
