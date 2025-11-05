@@ -3,7 +3,7 @@ import 'leaflet/dist/leaflet.css';
 export function MapComponent() {
 
   return (
-<MapContainer center={[4.0511, 9.7679]} zoom={13} style={{ height: '500px', width: '100%',borderRadius:"30px" ,zIndex:-2 }}>
+<MapContainer center={[4.0511, 9.7679]} zoom={13} style={{ height: '500px', width: '100%',borderRadius:"30px"  }}>
   <TileLayer
     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
   />
