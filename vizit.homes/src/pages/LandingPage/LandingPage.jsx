@@ -27,6 +27,36 @@ import HomeIcon from "@mui/icons-material/Home";
 // import PersonIcon from '@mui/icons-material/Person';
 import TravelExploreIcon from "@mui/icons-material/TravelExplore";
 import ChatIcon from "@mui/icons-material/Chat";
+
+//Test Data 
+//?========================================================================
+///
+
+  const center = [4.0511, 9.7679];
+  const zoom = 10;
+  const locations = [
+    {
+    position: [4.7, 9.7],
+    title: "Verified Zone",
+    images: ["https://loremflickr.com/400/300/douala?random=1"]
+  },
+    {
+    position: [4.5, 9.9],
+    title: "Under Verification",
+    images: ["https://loremflickr.com/400/300/douala?random=2"]
+  },
+    {
+    position: [4.3, 9.2],
+    title: "Market Area",
+    images: ["https://loremflickr.com/400/300/douala?random=3"]
+  },
+    {
+    position: [4.4, 9.2],
+    title: "Behind Grand town Area",
+    images: ["https://loremflickr.com/400/300/douala?random=4"]
+  },
+  
+  ]
 const cameroonTowns = [
   "Douala",
   "Nkongsamba",
@@ -95,6 +125,7 @@ export const links = [
   },
 ];
 
+
 function Select({ title, data }) {
   return (
     <div>
@@ -143,7 +174,7 @@ export function RangeSlider() {
 }
 export function SideNav() {
   return (
-    <div className="side-nav" id="side-nav">
+    <div className="side-nav" id="side-nav" style={{display:"none"}}>
       <nav className="pages">
         <ul className="side-nav">
           {links.map((item, key) => {
@@ -164,6 +195,27 @@ export function SideNav() {
         </ul>
       </nav>
     </div>
+  );
+}
+export function BottomTabs() {
+  return (
+    <nav className="bottom-tabs">
+      {links.map((item, key) => {
+        return (
+          <Link key={key} to={item.link} className="link">
+            <li
+              className={window.location.pathname === item.link ? "on" : ""}
+              onClick={() => {
+                window.location.pathname = item.link;
+              }}
+            >
+              {item.icon}
+              {/* <div className="title">{item.title}</div> */}
+            </li>
+          </Link>
+        );
+      })}
+    </nav>
   );
 }
 export function Header() {
@@ -390,9 +442,10 @@ function LandingPage() {
       />
       <div className="map-container">
         <div className="map-main">
-          <MapComponent></MapComponent>
+          <MapComponent zoom={zoom} locations={locations} center={center} />
         </div>
       </div>
+      <BottomTabs/>
       <Footer />
     </>
   );
