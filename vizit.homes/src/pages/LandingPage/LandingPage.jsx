@@ -17,13 +17,16 @@ import SearchIcon from "@mui/icons-material/Search";
 import PersonIcon from "@mui/icons-material/Person";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { MapComponent } from "./MapComponent";
-import FacebookIcon from '@mui/icons-material/Facebook';
-import XIcon from '@mui/icons-material/X';
-import InstagramIcon from '@mui/icons-material/Instagram';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import IosShareIcon from '@mui/icons-material/IosShare';
-import MenuIcon from '@mui/icons-material/Menu';
-
+import FacebookIcon from "@mui/icons-material/Facebook";
+import XIcon from "@mui/icons-material/X";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import IosShareIcon from "@mui/icons-material/IosShare";
+import MenuIcon from "@mui/icons-material/Menu";
+import HomeIcon from "@mui/icons-material/Home";
+// import PersonIcon from '@mui/icons-material/Person';
+import TravelExploreIcon from "@mui/icons-material/TravelExplore";
+import ChatIcon from "@mui/icons-material/Chat";
 const cameroonTowns = [
   "Douala",
   "Nkongsamba",
@@ -68,6 +71,28 @@ const posibleDuration = [
   "1 Year, 5 Months",
   "2 Years",
   " More Than 3 Years ",
+];
+export const links = [
+  {
+    link: "/home",
+    title: "Home",
+    icon: <HomeIcon />,
+  },
+  {
+    link: "/home",
+    title: "Search Properties",
+    icon: <TravelExploreIcon />,
+  },
+  {
+    link: "/user/login",
+    title: "Profile",
+    icon: <PersonIcon />,
+  },
+  {
+    link: "/home",
+    title: "Chat",
+    icon: <ChatIcon />,
+  },
 ];
 
 function Select({ title, data }) {
@@ -116,27 +141,32 @@ export function RangeSlider() {
     </Box>
   );
 }
+export function SideNav() {
+  return (
+    <div className="side-nav" id="side-nav">
+      <nav className="pages">
+        <ul className="side-nav">
+          {links.map((item, key) => {
+            return (
+              <Link key={key} to={item.link} className="link">
+                <li
+                  className={window.location.pathname === item.link ? "on" : ""}
+                  onClick={() => {
+                    window.location.pathname = item.link;
+                  }}
+                >
+                  {item.icon}
+                  <div className="title">{item.title}</div>
+                </li>
+              </Link>
+            );
+          })}
+        </ul>
+      </nav>
+    </div>
+  );
+}
 export function Header() {
-
-
-  const links = [
-    {
-      link: "/home",
-      title: "Home",
-    },
-    {
-      link: "/home",
-      title: "Search Properties",
-    },
-    {
-      link: "/user/login",
-      title: "Profile",
-    },
-    {
-      link: "/home",
-      title: "Chat",
-    },
-  ];
   const profile = logo ? (
     <img src={logo} alt="" width={50} height={50} className="img-container" />
   ) : (
@@ -144,19 +174,29 @@ export function Header() {
   );
   return (
     <>
-
       <div className="lpHead">
-        
-        <div>
+        <div className="logo-container">
+          <button
+            onClick={() => {
+              let nav = document.getElementById("side-nav");
+              if (nav.style.display == "none") {
+                nav.style.display = "flex";
+              } else {
+                nav.style.display = "none";
+              }
+            }}
+          >
+            <MenuIcon />
+          </button>
           <img
             src={logo}
             alt="What will show if image fails to load"
             width={100}
             height={100}
-            style={{ marginTop: -32 }}
+            // style={{ marginTop: -32 }}
           />
         </div>
-        
+
         <div className="links-container">
           <nav className="pages">
             <ul className="topnav-links flex-row">
@@ -234,7 +274,7 @@ export function ListingsCard() {
           <span className="listing-price-fcfa">70,000 XFA</span> /month
         </div>
         <div className="location">
-          <LocationOnIcon className="icon-xs"/>
+          <LocationOnIcon className="icon-xs" />
           <p className="location-literal">Bonapriso, Douala, Cameroon</p>
         </div>
         <button className="details-btn">View Details</button>
@@ -242,99 +282,97 @@ export function ListingsCard() {
     </div>
   );
 }
-export function Footer(){
-  return(
+export function Footer() {
+  return (
     <footer className="footer-container">
-     <div className="footer-main">
-      <div className="vizit-socials">
-        <h3>Discover your next home with vizit.</h3>
-        <ul>
-          <a href="http://facebook.com">
-              <FacebookIcon/>
-          </a>
-          <a href="http://x.com">
-           <XIcon/>
-          </a>
-          <a href="http://instagram.com">
-          <InstagramIcon/>
-          </a>
-          <a href="http://linkedin.com">
-          <LinkedInIcon/>
-          </a>
-          
-        </ul>
+      <div className="footer-main">
+        <div className="vizit-socials">
+          <h3>Discover your next home with vizit.</h3>
+          <ul>
+            <a href="http://facebook.com">
+              <FacebookIcon />
+            </a>
+            <a href="http://x.com">
+              <XIcon />
+            </a>
+            <a href="http://instagram.com">
+              <InstagramIcon />
+            </a>
+            <a href="http://linkedin.com">
+              <LinkedInIcon />
+            </a>
+          </ul>
+        </div>
+        <div className="company-links">
+          <h3>Company</h3>
+          <ul className="links">
+            <li>
+              <Link to=" ">About Us</Link>
+            </li>
+            <li>
+              <Link to="">Careers</Link>
+            </li>
+            <li>
+              <Link to="">Press</Link>
+            </li>
+          </ul>
+        </div>
+        <div className="resources-links">
+          <h3>Resources</h3>
+          <ul className="links">
+            <li>
+              <Link to=" ">Blog</Link>
+            </li>
+            <li>
+              <Link to="">FAQ</Link>
+            </li>
+            <li>
+              <Link to="">Support</Link>
+            </li>
+          </ul>
+        </div>
+        <div className="legal-links">
+          {/* legal */}
+          <h3>Legal</h3>
+          <ul className="links">
+            <li>
+              <Link to=" " style={{ whiteSpace: "nowrap" }}>
+                Terms of service
+              </Link>
+            </li>
+            <li>
+              <Link to="">Privacy Policy</Link>
+            </li>
+          </ul>
+        </div>
+        <div className="advertiseme-links">
+          <h3>Spread the Word</h3>
+          <button className="share-btn">
+            <IosShareIcon />
+            Share Vizit
+          </button>
+        </div>
       </div>
-      <div className="company-links">
-        
-        <h3>Company</h3>
-        <ul className="links">
-          <li>
-            <Link to=" " >About Us</Link>
-          </li>
-          <li>
-            <Link to="" >Careers</Link>
-          </li>
-          <li>
-            <Link to= "">Press</Link>
-          </li>
-        </ul>
-      </div>
-      <div className="resources-links">
-        
-        <h3>Resources</h3>
-                <ul className="links">
-          <li>
-            <Link to=" " >Blog</Link>
-          </li>
-          <li>
-            <Link to="" >FAQ</Link>
-          </li>
-          <li>
-            <Link to= "">Support</Link>
-          </li>
-        </ul>
-      </div>
-      <div className="legal-links">
-        {/* legal */}
-        <h3>Legal</h3>
-                <ul className="links">
-          <li>
-            <Link to=" " style={{whiteSpace:"nowrap"}}>Terms of service</Link>
-          </li>
-          <li>
-            <Link to="" >Privacy Policy</Link>
-          </li>
-        </ul>
-      </div>
-      <div className="advertiseme-links">
-        
-        <h3>Spread the Word</h3>
-        <button className="share-btn">
-          <IosShareIcon/>
-          Share Vizit
-        </button>
-
-      </div>
-     </div>
     </footer>
-  )
-
+  );
 }
-function SectionHeader({title, description}){
-return (
-  <>
-        <p className="section-title">
-        {title}
-      </p>
-      <p style={{textAlign:"center",color:"#333"}}>{description}</p>
-      </>
-)
+function SectionHeader({ title, description }) {
+  return (
+    <>
+      <p className="section-title">{title}</p>
+      <p style={{ textAlign: "center", color: "#333" }}>{description}</p>
+    </>
+  );
 }
 function LandingPage() {
   return (
     <>
       <Header></Header>
-      <SectionHeader title= "Vizit Verified Listings" description="Explore Vizit's top verified listings around Cameroon "/>
+      <SideNav />
+      <SectionHeader
+        title="Vizit Verified Listings"
+        description="Explore Vizit's top verified listings around Cameroon "
+      />
       <div className="listings-card-container">
         <ListingsCard />
         <ListingsCard />
@@ -346,14 +384,16 @@ function LandingPage() {
         <ListingsCard />
         <ListingsCard />
       </div>
-            <SectionHeader title= "Explore Popular Housing Zones" description="Navigate through our interactive map to discover prime locations and their available properties in Douala. "/>
-            <div className="map-container">
-              <div className="map-main">
-                <MapComponent></MapComponent>
-              </div>
-              
-            </div>
-        <Footer/>    
+      <SectionHeader
+        title="Explore Popular Housing Zones"
+        description="Navigate through our interactive map to discover prime locations and their available properties in Douala. "
+      />
+      <div className="map-container">
+        <div className="map-main">
+          <MapComponent></MapComponent>
+        </div>
+      </div>
+      <Footer />
     </>
   );
 }

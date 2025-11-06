@@ -23,7 +23,7 @@ html{
     top: 0;
     left: 0;
     right: 0;
-    z-index: 100 ;
+    z-index: 100000000 ;
 
     /* animation: smothcolor 5s cubic-bezier(0.075, 0.82, 0.165, 1) 0 infinite forwards  normal ; */
     /* animation: name duration timing-function delay iteration-count direction fill-mode; */
@@ -62,6 +62,58 @@ html{
      /* margin-right: -40px; */
      /* border:solid 1px white; */
      
+
+}
+.logo-container{
+     /* background-color: #bafcf3; */
+    display:flex ;
+     gap: 10px;
+     justify-content: flex-start;
+     align-items: center;
+     /* display: none; */
+     width: 200px;
+}
+.logo-container button{
+     display: none;
+}
+.logo-container button{
+  background-color: transparent;
+  color: white;
+  border: none;
+  align-self: flex-end;
+  font-size: 2em;
+  cursor: pointer;
+}
+.side-nav{
+     /* background-color: rgb(0, 77, 64); */
+     position: fixed;
+     top: 60px;
+     left: 0px;
+     padding: 10px px;
+     color: black;
+     padding-top: 30px;
+     min-height: 90vh;
+     /* display: none; */
+     /* height: ; */
+     animation: smothcolor linear  10s infinite;
+     z-index: 1000000;
+}
+.side-nav * li{
+     list-style: none;
+     padding: 8px 5px;
+     /* background-color: rgba(146, 212, 221, 0.212); */
+     margin-top: 3px;
+     display: flex;
+     justify-content: flex-start;
+     gap: 10px;
+     align-items: center;
+     border-radius: 2px;
+}
+.side-nav * a{
+     text-decoration: none;
+}
+.side-nav * li:hover{
+   background-color: rgba(146, 212, 221, 0.212);
 
 }
 .search-input{
@@ -442,6 +494,9 @@ cursor: pointer;
 @media screen and (max-width:800px) {
      .links-container,.right-top{
           display: none;
+     }
+     .logo-container button{
+          display: flex;
      }
      .lpHead{
      justify-content: space-between;
