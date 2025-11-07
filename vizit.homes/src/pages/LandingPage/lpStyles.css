@@ -30,6 +30,12 @@ html{
    animation: smothcolor linear  10s infinite;
 
 }
+.container{
+     color: #000000;
+     padding: 64px 0 20px  0 ;
+     /* background-color: red; */
+
+}
 .bottom-tabs{
       animation: smothcolor linear  10s infinite;
       display: none;
@@ -576,4 +582,8 @@ cursor: pointer;
      display: flex;
 }
 
+}
+/*Force Fix*/
+.leaflet-popup-pane {
+  z-index: 100000000 !important;
 }

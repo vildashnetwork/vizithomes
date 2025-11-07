@@ -11,6 +11,7 @@ import UserAuthLanding from "./pages/Auth/Userlogin";
 import ClientDashboard from "./ClientsDash";
 import OwnerDashboard from "./OwnersDASH";
 import LandingPage from "./pages/LandingPage/LandingPage";
+import SearchProperty from "./pages/SearchPropertyPage/SearchProperty";
 // Simple protected route for owners
 function ProtectedOwner({ children }) {
   const role = localStorage.getItem("role");
@@ -49,10 +50,13 @@ export default function App() {
     setRole(newRole);
   };
 LandingPage
+SearchProperty
   return (
     <Routes>
       {/* <Route path="/" element={<MainPage onRoleSelect={(r) => setAppRole(r)} />} /> */}
       <Route path="/" element={<LandingPage onRoleSelect={(r) => setAppRole(r)} />} />
+      <Route path="/search-property" element={<SearchProperty onRoleSelect={(r) => setAppRole(r)} />} />
+
 
       <Route path="/owner/login" element={<OwnerLoginLanding onLogin={() => setAppRole("owner")} />} />
       <Route

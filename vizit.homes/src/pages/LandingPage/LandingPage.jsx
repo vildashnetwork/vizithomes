@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Children } from "react";
 import "./lpStyles.css";
 import { Link } from "react-router-dom";
 //material ui
@@ -27,36 +27,28 @@ import HomeIcon from "@mui/icons-material/Home";
 // import PersonIcon from '@mui/icons-material/Person';
 import TravelExploreIcon from "@mui/icons-material/TravelExplore";
 import ChatIcon from "@mui/icons-material/Chat";
+import { data } from "../../data/listingdata";
+import { image } from "ionicons/icons";
 
-//Test Data 
-//?========================================================================
+//Test Data
+//?=========
+// ===============================================================
 ///
 
-  const center = [4.0511, 9.7679];
-  const zoom = 10;
-  const locations = [
-    {
-    position: [4.7, 9.7],
-    title: "Verified Zone",
-    images: ["https://loremflickr.com/400/300/douala?random=1"]
-  },
-    {
-    position: [4.5, 9.9],
-    title: "Under Verification",
-    images: ["https://loremflickr.com/400/300/douala?random=2"]
-  },
-    {
-    position: [4.3, 9.2],
-    title: "Market Area",
-    images: ["https://loremflickr.com/400/300/douala?random=3"]
-  },
-    {
-    position: [4.4, 9.2],
-    title: "Behind Grand town Area",
-    images: ["https://loremflickr.com/400/300/douala?random=4"]
-  },
-  
-  ]
+const center = [4.0511, 9.7679];
+const zoom = 12;
+const locations = 
+  data.map((item) => {
+    return {
+      position: [item.location.coordinates.lat, item.location.coordinates.lng],
+      // position: [4.0714, 9.6818],
+      title: item.title,
+      images: [item.image],
+    };
+  })
+;
+
+ 
 const cameroonTowns = [
   "Douala",
   "Nkongsamba",
@@ -109,7 +101,7 @@ export const links = [
     icon: <HomeIcon />,
   },
   {
-    link: "/home",
+    link: "/search-property",
     title: "Search Properties",
     icon: <TravelExploreIcon />,
   },
@@ -124,7 +116,6 @@ export const links = [
     icon: <ChatIcon />,
   },
 ];
-
 
 function Select({ title, data }) {
   return (
@@ -144,7 +135,7 @@ function Select({ title, data }) {
 }
 
 export function RangeSlider() {
-  const [value, setValue] = React.useState([70, 500]);
+  const [value, setValue] = React.useState([0, 500]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -174,7 +165,7 @@ export function RangeSlider() {
 }
 export function SideNav() {
   return (
-    <div className="side-nav" id="side-nav" style={{display:"none"}}>
+    <div className="side-nav" id="side-nav" style={{ display: "none" }}>
       <nav className="pages">
         <ul className="side-nav">
           {links.map((item, key) => {
@@ -218,74 +209,87 @@ export function BottomTabs() {
     </nav>
   );
 }
-export function Header() {
+export function Head() {
   const profile = logo ? (
     <img src={logo} alt="" width={50} height={50} className="img-container" />
   ) : (
     <PersonIcon style={{ fontSize: "40px" }} />
   );
   return (
-    <>
-      <div className="lpHead">
-        <div className="logo-container">
-          <button
-            onClick={() => {
-              let nav = document.getElementById("side-nav");
-              if (nav.style.display == "none") {
-                nav.style.display = "flex";
-              } else {
-                nav.style.display = "none";
-              }
-            }}
-          >
-            <MenuIcon />
-          </button>
-          <img
-            src={logo}
-            alt="What will show if image fails to load"
-            width={100}
-            height={100}
-            // style={{ marginTop: -32 }}
-          />
-        </div>
-
-        <div className="links-container">
-          <nav className="pages">
-            <ul className="topnav-links flex-row">
-              {links.map((item, key) => {
-                return (
-                  <Link key={key} to={item.link} className="link">
-                    <li
-                      className={
-                        window.location.pathname === item.link ? "on" : ""
-                      }
-                      onClick={() => {
-                        window.location.pathname = item.link;
-                      }}
-                    >
-                      <div className="title">{item.title}</div>
-                    </li>
-                  </Link>
-                );
-              })}
-            </ul>
-          </nav>
-        </div>
-        <div className="right-top">
-          <div className="search-input">
-            <SearchIcon />
-            {/* <div className = "img-container"> */}
-
-            <input
-              type="text"
-              className="input-search"
-              placeholder="Search Location, Property type, "
-            />
-            {/* </div> */}
-          </div>
-          <div>{profile}</div>
-        </div>
+    <div className="lpHead">
+      <div className="logo-container">
+        <button
+          onClick={() => {
+            let nav = document.getElementById("side-nav");
+            if (nav.style.display == "none") {
+              nav.style.display = "flex";
+            } else {
+              nav.style.display = "none";
+            }
+          }}
+        >
+          <MenuIcon />
+        </button>
+        <img
+          src={logo}
+          alt="What will show if image fails to load"
+          width={100}
+          height={100}
+          // style={{ marginTop: -32 }}
+        />
       </div>
+
+      <div className="links-container">
+        <nav className="pages">
+          <ul className="topnav-links flex-row">
+            {links.map((item, key) => {
+              return (
+                <Link key={key} to={item.link} className="link">
+                  <li
+                    className={
+                      window.location.pathname === item.link ? "on" : ""
+                    }
+                    onClick={() => {
+                      window.location.pathname = item.link;
+                    }}
+                  >
+                    <div className="title">{item.title}</div>
+                  </li>
+                </Link>
+              );
+            })}
+          </ul>
+        </nav>
+      </div>
+      <div className="right-top">
+        <div className="search-input">
+          <SearchIcon />
+          {/* <div className = "img-container"> */}
+
+          <input
+            type="text"
+            className="input-search"
+            placeholder="Search Location, Property type, "
+          />
+          {/* </div> */}
+        </div>
+        <div>{profile}</div>
+      </div>
+    </div>
+  );
+}
+export function Container({ children }) {
+  return (
+    <div className="container">
+      {children}
+      {/*divs */}
+    </div>
+  );
+}
+export function Header() {
+  return (
+    <>
+      <Head />
       <div className="header">
         <div className="header-main">
           <p className="header-caption">Discover Your Perfect Home</p>
@@ -312,22 +316,20 @@ export function Header() {
     </>
   );
 }
-export function ListingsCard() {
+export function ListingsCard({ image, title, location, rent }) {
   return (
     <div className="listings-card">
       <div className="listing-card-img-container">
-        <img src={sampleImg} alt="" width={500} />
+        <img src={image} alt="" width={500} />
       </div>
       <div className="listings-description">
-        <p className="listing-title">
-          Luxurious Bonapriso Apartment with City View
-        </p>
+        <p className="listing-title">{title}</p>
         <div className="listing-cost">
-          <span className="listing-price-fcfa">70,000 XFA</span> /month
+          <span className="listing-price-fcfa">{rent}</span> /month
         </div>
         <div className="location">
           <LocationOnIcon className="icon-xs" />
-          <p className="location-literal">Bonapriso, Douala, Cameroon</p>
+          <p className="location-literal"> {location}</p>
         </div>
         <button className="details-btn">View Details</button>
       </div>
@@ -425,16 +427,20 @@ function LandingPage() {
         title="Vizit Verified Listings"
         description="Explore Vizit's top verified listings around Cameroon "
       />
+
       <div className="listings-card-container">
-        <ListingsCard />
-        <ListingsCard />
-        <ListingsCard />
-        <ListingsCard />
-        <ListingsCard />
-        <ListingsCard />
-        <ListingsCard />
-        <ListingsCard />
-        <ListingsCard />
+        {data.map((item, index) => {
+          return (
+            <ListingsCard
+              key={index}
+              id={item.listingId}
+              image={item.image}
+              title={item.title}
+              location={item.location.address}
+              rent={item.rent}
+            />
+          );
+        })}
       </div>
       <SectionHeader
         title="Explore Popular Housing Zones"
@@ -445,10 +451,12 @@ function LandingPage() {
           <MapComponent zoom={zoom} locations={locations} center={center} />
         </div>
       </div>
-      <BottomTabs/>
+      <BottomTabs />
       <Footer />
     </>
+    
   );
+  
 }
 
 export default LandingPage;
