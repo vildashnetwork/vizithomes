@@ -18,10 +18,10 @@ const customIcon = new L.Icon({
 });
 
 
-export function MapComponent( {center,locations,zoom}) {
-
+export function MapComponent( {center,locations,zoom,customStyles}) {
+ const defaultStyle = customStyles? customStyles : { height: '500px', width: '100%',borderRadius:"0px"  } 
   return (
-<MapContainer center={center} zoom={zoom} style={{ height: '500px', width: '100%',borderRadius:"0px"  }}>
+<MapContainer center={center} zoom={zoom} style={defaultStyle}>
   <TileLayer
     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
   />

@@ -37,7 +37,7 @@ import { image } from "ionicons/icons";
 
 const center = [4.0511, 9.7679];
 const zoom = 12;
-const locations = 
+export const locations = 
   data.map((item) => {
     return {
       position: [item.location.coordinates.lat, item.location.coordinates.lng],
@@ -96,7 +96,7 @@ const posibleDuration = [
 ];
 export const links = [
   {
-    link: "/home",
+    link: "/",
     title: "Home",
     icon: <HomeIcon />,
   },

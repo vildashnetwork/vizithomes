@@ -47,7 +47,7 @@ html{
       bottom: 0;
       left: 0;
       right: 0;
-      z-index: 1000000000000000000;
+      z-index: 10000;
 }
 .bottom-tabs * li{
    list-style: none;
@@ -584,6 +584,3 @@ cursor: pointer;
 
 }
 /*Force Fix*/
-.leaflet-popup-pane {
-  z-index: 100000000 !important;
-}

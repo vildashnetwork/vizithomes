@@ -1,0 +1,8 @@
+.main{
+    /* background-color: blue; */
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    overflow: hidden;
+    /* gap: 30px; */
+}
