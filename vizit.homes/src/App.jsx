@@ -12,6 +12,7 @@ import ClientDashboard from "./ClientsDash";
 import OwnerDashboard from "./OwnersDASH";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import SearchProperty from "./pages/SearchPropertyPage/SearchProperty";
+import PropertyDetails from "./pages/PropertyDetails/PropertyDetails";
 // Simple protected route for owners
 function ProtectedOwner({ children }) {
   const role = localStorage.getItem("role");
@@ -54,8 +55,10 @@ SearchProperty
   return (
     <Routes>
       {/* <Route path="/" element={<MainPage onRoleSelect={(r) => setAppRole(r)} />} /> */}
+      //!Modified by Achenyu
       <Route path="/" element={<LandingPage onRoleSelect={(r) => setAppRole(r)} />} />
       <Route path="/search-property" element={<SearchProperty onRoleSelect={(r) => setAppRole(r)} />} />
+      <Route path="/property/:propertyId" element={<PropertyDetails onRoleSelect={(r) => setAppRole(r)} />} />
 
 
       <Route path="/owner/login" element={<OwnerLoginLanding onLogin={() => setAppRole("owner")} />} />

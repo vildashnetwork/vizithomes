@@ -1,6 +1,6 @@
  export const  data  = 
  [
-  {
+  { "type": "Apartment",
     "image": "https://images.unsplash.com/photo-1564013799919-ab600027ffc6",
     "title": "Saint Anthony Plaza VIP Apartment",
     "location": {
@@ -20,6 +20,7 @@
     "listingId": "apt-bonapriso-001"
   },
   {
+    "type": "Guest House",
     "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c",
     "title": "Modern Akwa Luxury Suite",
     "location": {
@@ -39,6 +40,7 @@
     "listingId": "apt-akwa-002"
   },
   {
+    "type": "Hotel",
     "image": "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3",
     "title": "Deido Executive Residence",
     "location": {
@@ -77,6 +79,7 @@
   //   "listingId": "apt-bonanjo-004"
   // },
   {
+    "type": "Modern Room",
     "image": "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d",
     "title": "Makepe Studio Apartment",
     "location": {
@@ -96,6 +99,7 @@
     "listingId": "apt-makepe-005"
   },
   {
+    "type": "Apartment",
     "image": "https://images.unsplash.com/photo-1600566753151-384129cf4e3e",
     "title": "Logbaba Garden Residence",
     "location": {
@@ -115,6 +119,7 @@
     "listingId": "apt-logbaba-006"
   },
   {
+    "type": "Studio",
     "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c",
     "title": "Bepanda Modern Flat",
     "location": {
@@ -134,6 +139,7 @@
     "listingId": "apt-bepanda-007"
   },
   {
+    "type": "Modern Room",
     "image": "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d",
     "title": "New Bell Luxury Apartment",
     "location": {
@@ -153,6 +159,7 @@
     "listingId": "apt-newbell-008"
   },
   {
+    "type": "Guest House",
     "image": "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3",
     "title": "Bali Executive Suite",
     "location": {
@@ -172,6 +179,7 @@
     "listingId": "apt-bali-009"
   },
   {
+    "type": "Hotel",
     "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c",
     "title": "Bonaberi Riverside Apartment",
     "location": {
@@ -210,6 +218,7 @@
   //   "listingId": "apt-akwa-north-011"
   // },
   {
+    "type": "Apartment",
     "image": "https://images.unsplash.com/photo-1600566753151-384129cf4e3e",
     "title": "Makepe Douala Mansion",
     "location": {
@@ -229,6 +238,7 @@
     "listingId": "apt-makepe-mansion-012"
   },
   {
+    "type": "Modern Room",
     "image": "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d",
     "title": "Deido Central Apartment",
     "location": {
@@ -248,6 +258,7 @@
     "listingId": "apt-deido-central-013"
   },
   {
+    "type": "Apartment",
     "image": "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3",
     "title": "Bonapriso Elite Residence",
     "location": {
@@ -286,6 +297,7 @@
   //   "listingId": "apt-akwa-penthouse-015"
   // },
   {
+    "type": "Apartment",
     "image": "https://images.unsplash.com/photo-1600566753151-384129cf4e3e",
     "title": "Bonanjo Business Apartment",
     "location": {
@@ -305,6 +317,7 @@
     "listingId": "apt-bonanjo-business-016"
   },
   {
+    "type": "Apartment",
     "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c",
     "title": "Logbaba Family Home",
     "location": {
@@ -324,6 +337,7 @@
     "listingId": "apt-logbaba-family-017"
   },
   {
+    "type": "Modern Room",
     "image": "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d",
     "title": "Bepanda Economy Flat",
     "location": {
@@ -343,6 +357,7 @@
     "listingId": "apt-bepanda-economy-018"
   },
   {
+    "type": "Modern Room",
     "image": "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3",
     "title": "New Bell Standard Apartment",
     "location": {
@@ -360,7 +375,7 @@
     "isAvailable": true,
     "postedAt": "2025-10-19T15:10:00Z",
     "listingId": "apt-newbell-standard-019"
-  },
+  }
   // {
   //   "image": "https://images.unsplash.com/photo-1600607687644-c7171b42498b",
   //   "title": "Bali Premium Suite",

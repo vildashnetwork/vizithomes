@@ -74,14 +74,12 @@ const cameroonTowns = [
   "Ebolowa",
   "Ambam",
 ];
-const biuldingTypes = [
-  "Apartment",
+export const biuldingTypes = [
+  "Apartment", //apartment
   "Guest House",
   "Hotel",
   "Modern Room",
   "Studio",
-  "3 months",
-  "5 months ",
 ];
 const posibleDuration = [
   "3 - 30 Days",
@@ -316,11 +314,11 @@ export function Header() {
     </>
   );
 }
-export function ListingsCard({ image, title, location, rent }) {
+export function ListingsCard({ image, title, location, rent,id }) {
   return (
     <div className="listings-card">
       <div className="listing-card-img-container">
-        <img src={image} alt="" width={500} />
+        <img src={image} onClick={()=> window.location = `/property/${id}`} alt="" width={500}  style={{cursor:"pointer"}}/>
       </div>
       <div className="listings-description">
         <p className="listing-title">{title}</p>
@@ -331,7 +329,12 @@ export function ListingsCard({ image, title, location, rent }) {
           <LocationOnIcon className="icon-xs" />
           <p className="location-literal"> {location}</p>
         </div>
-        <button className="details-btn">View Details</button>
+        {/* <button className="details-btn"> */}
+          <Link className="details-btn" to={`/property/${id}`}>
+               View Details
+            </Link>
+         
+          {/* </button> */}
       </div>
     </div>
   );
@@ -433,11 +436,13 @@ function LandingPage() {
           return (
             <ListingsCard
               key={index}
+              
               id={item.listingId}
               image={item.image}
               title={item.title}
               location={item.location.address}
               rent={item.rent}
+              
             />
           );
         })}
