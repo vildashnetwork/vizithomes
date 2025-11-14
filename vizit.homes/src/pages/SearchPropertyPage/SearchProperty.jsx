@@ -243,36 +243,93 @@ const SearchProperty = () => {
     setFilters((prevFilters) => ({
       ...prevFilters,
       [str]: !prevFilters[str],
-    }));
-  }
 
+    }));
+    console.log(filters)
+  }
+ function filterPropertyByAmenities(){
+  // const amenities = []
+  const activeFilters = Object.entries(filters)
+  .filter(([key, value]) => value === true)
+  .map(([key]) => key);
+  return activeFilters;
+ }
+ function includeAmenities(listings,data){
+listings.push(data);
+
+if (filterPropertyByAmenities.length > 0) {
+  const cleanedFilter = filterPropertyByAmenities.map(cleanString);
+
+  const hasMatchingAmenity = data.amenities.some((amenity) =>
+    cleanedFilter.includes(cleanString(amenity))
+  );
+
+  if (!hasMatchingAmenity) {
+    listings.pop(); // remove last item
+  }
+}
+
+ }
   function filterBuildingsByPreference(){
     let listings  = [];
     let locations = [];
-    console.log(data)
+    let selections = filterPropertyByAmenities();
+
+    function addParameterAmenities(currData){
+
+        if (selections.length > 0){
+          const matches = selections.some(item => currData.amenities.some(keyword => item.includes(cleanString(keyword))));
+          if(matches){
+            // alert(currData.amenities)
+            listings.push(currData)
+          }
+        }
+        else{
+        listings.push(currData)
+        }
+    }
+    // console.log(data)
     
     data.forEach((data)=>{
       
+
       if( data.isAvailable && propertyTypeFilter.apartment && cleanString(data.type) === "apartment" ){
-        console.log(data)
-        listings.push(data)
+
+        // if (selections.length > 0){
+        //   const matches = addParameterAmenities(data)
+        //   if(matches){
+        //     alert(data.amenities)
+        //     listings.push(data)
+        //   }
+        // }
+        // else{
+        // listings.push(data)
+        // }
+        addParameterAmenities(data)
       }
       else if ( data.isAvailable && propertyTypeFilter.guesthouse && cleanString(data.type) === "guesthouse" ){
-        console.log(data)
-        listings.push(data)
+        addParameterAmenities(data)
       }
       else if ( data.isAvailable && propertyTypeFilter.hotel && cleanString(data.type) === "hotel" ){
-        console.log(data)
-        listings.push(data)
+        addParameterAmenities(data)
       }
       else if ( data.isAvailable && propertyTypeFilter.modernroom && cleanString(data.type) === "modernroom" ){
-        console.log(data)
-        listings.push(data)
+
+        addParameterAmenities(data)
       }
       else if ( data.isAvailable && propertyTypeFilter.studio && cleanString(data.type) === "studio" ){
-        console.log(data)
-        listings.push(data)
+        addParameterAmenities(data)
       }
+      else {
+          const activeBuildingFilters = Object.entries(propertyTypeFilter)
+          .filter(([key, value]) => value === true)
+          .map(([key]) => key);
+          if(activeBuildingFilters.length === 0){
+            addParameterAmenities(data)
+          }
+       
+      }
+      filterPropertyByAmenities();
     })
   
 
@@ -294,7 +351,7 @@ const SearchProperty = () => {
 
     //   }
     // )
-console.log(listings)
+// console.log(listings)
 
 
               locations =  listings.map ((data) => {return {  
