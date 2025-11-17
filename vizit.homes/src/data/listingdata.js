@@ -17,7 +17,41 @@
     "amenities": ["Air Conditioning", "Balcony", "Wi-Fi", "24/7 Security", "Parking"],
     "isAvailable": true,
     "postedAt": "2025-11-06T10:00:00Z",
-    "listingId": "apt-bonapriso-001"
+    "listingId": "apt-bonapriso-001",
+    //added recent
+    "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste velit id illum earum.Rem provident nostrum qui tenetur, assumenda quam distinctio eligendi minus maxime, itaque dolorem?Eveniet consectetur velit ad minus fuga, nulla nam, ratione, blanditiis in consequatur quas?Illum tempore quidem, sunt consequatur vero iure. Quo dicta magnam culpa error non.Aperiam impedit necessitatibus molestias reprehenderit. Accusantium eligendi quidem delectus earum ullam, inventore sed.Similique, soluta debitis, itaque ad aperiam mollitia rem nam asperiores accusamus, in tempore?Voluptatibus temporibus ab expedita nulla officia earum alias possimus consequatur, voluptates cum ipsa.Minus beatae quis veritatis nesciunt? Excepturi iusto iste doloremque ipsum eveniet possimus. Blanditiis!Perferendis repellat numquam nisi, amet debitis hic necessitatibus repellendus ipsam reiciendis aspernatur ",
+      reviews: {
+    overallRating: 4.7,
+    totalReviews: 3,
+    entries: [
+      {
+        name: "Sarah J.",
+        rating: 5,
+        comment: "Absolutely loved living here! The apartment is beautiful, spacious, and the building amenities are fantastic. The location is unbeatable, close to everything I needed. Highly recommend!"
+      },
+      {
+        name: "Michael T.",
+        rating: 4,
+        comment: "Great apartment with modern finishes. The staff is very responsive to maintenance requests. Only minor issue was occasional street noise, but overall a wonderful experience."
+      },
+      {
+        name: "Jessica L.",
+        rating: 5,
+        comment: "Perfect for families! The nearby park and schools were a huge plus. The apartment itself is very well-maintained and felt very safe. Vizit Verified status gave us peace of mind."
+      }]},
+      images: [
+  "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=500",
+  "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=500",
+  "https://images.unsplash.com/photo-1484154218962-a197022b5858?w=500",
+  "https://images.unsplash.com/photo-1513584684374-8bab748fbf90?w=500",
+  "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=500",
+  "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=500",
+  "https://images.unsplash.com/photo-1558036117-15e82a2c9a9a?w=500",
+  "https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=500",
+  "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=500",
+  "https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=500"
+]
+
   },
   {
     "type": "Guest House",
@@ -37,7 +71,27 @@
     "amenities": ["Swimming Pool", "Gym", "Air Conditioning", "Wi-Fi", "Parking"],
     "isAvailable": true,
     "postedAt": "2025-11-05T14:30:00Z",
-    "listingId": "apt-akwa-002"
+    "listingId": "apt-akwa-002",
+       "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste velit id illum earum.Rem provident nostrum qui tenetur, assumenda quam distinctio eligendi minus maxime, itaque dolorem?Eveniet consectetur velit ad minus fuga, nulla nam, ratione, blanditiis in consequatur quas?Illum tempore quidem, sunt consequatur vero iure. Quo dicta magnam culpa error non.Aperiam impedit necessitatibus molestias reprehenderit. Accusantium eligendi quidem delectus earum ullam, inventore sed.Similique, soluta debitis, itaque ad aperiam mollitia rem nam asperiores accusamus, in tempore?Voluptatibus temporibus ab expedita nulla officia earum alias possimus consequatur, voluptates cum ipsa.Minus beatae quis veritatis nesciunt? Excepturi iusto iste doloremque ipsum eveniet possimus. Blanditiis!Perferendis repellat numquam nisi, amet debitis hic necessitatibus repellendus ipsam reiciendis aspernatur ",
+      reviews: {
+    overallRating: 4.7,
+    totalReviews: 3,
+    entries: [
+      {
+        name: "Sarah J.",
+        rating: 5,
+        comment: "Absolutely loved living here! The apartment is beautiful, spacious, and the building amenities are fantastic. The location is unbeatable, close to everything I needed. Highly recommend!"
+      },
+      {
+        name: "Michael T.",
+        rating: 4,
+        comment: "Great apartment with modern finishes. The staff is very responsive to maintenance requests. Only minor issue was occasional street noise, but overall a wonderful experience."
+      },
+      {
+        name: "Jessica L.",
+        rating: 5,
+        comment: "Perfect for families! The nearby park and schools were a huge plus. The apartment itself is very well-maintained and felt very safe. Vizit Verified status gave us peace of mind."
+      }]}
   },
   {
     "type": "Hotel",
@@ -57,7 +111,23 @@
     "amenities": ["Air Conditioning", "Wi-Fi", "Security", "Balcony"],
     "isAvailable": true,
     "postedAt": "2025-11-04T09:15:00Z",
-    "listingId": "apt-deido-003"
+    "listingId": "apt-deido-003",
+       "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste velit id illum earum.Rem provident nostrum qui tenetur, assumenda quam distinctio eligendi minus maxime, itaque dolorem?Eveniet consectetur velit ad minus fuga, nulla nam, ratione, blanditiis in consequatur quas?Illum tempore quidem, sunt consequatur vero iure. Quo dicta magnam culpa error non.Aperiam impedit necessitatibus molestias reprehenderit. Accusantium eligendi quidem delectus earum ullam, inventore sed.Similique, soluta debitis, itaque ad aperiam mollitia rem nam asperiores accusamus, in tempore?Voluptatibus temporibus ab expedita nulla officia earum alias possimus consequatur, voluptates cum ipsa.Minus beatae quis veritatis nesciunt? Excepturi iusto iste doloremque ipsum eveniet possimus. Blanditiis!Perferendis repellat numquam nisi, amet debitis hic necessitatibus repellendus ipsam reiciendis aspernatur ",
+      reviews: {
+    overallRating: 3,
+    totalReviews: 2,
+    entries: [
+      {
+        name: "Achenyu Bk",
+        rating: 5,
+        comment: "Absolutely loved living here! The apartment is beautiful, spacious, and the building amenities are fantastic. The location is unbeatable, close to everything I needed. Highly recommend!"
+      },
+      {
+        name: "Michael T.",
+        rating: 2,
+        comment: "Great apartment with modern finishes. The staff is very responsive to maintenance requests. Only minor issue was occasional street noise, but overall a wonderful experience."
+      },
+    ]}
   },
   // {
   //   "image": "https://images.unsplash.com/photo-1600607687644-c7171b42498b",
@@ -96,7 +166,27 @@
     "amenities": ["Wi-Fi", "Security", "Balcony"],
     "isAvailable": true,
     "postedAt": "2025-11-02T11:20:00Z",
-    "listingId": "apt-makepe-005"
+    "listingId": "apt-makepe-005",
+       "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste velit id illum earum.Rem provident nostrum qui tenetur, assumenda quam distinctio eligendi minus maxime, itaque dolorem?Eveniet consectetur velit ad minus fuga, nulla nam, ratione, blanditiis in consequatur quas?Illum tempore quidem, sunt consequatur vero iure. Quo dicta magnam culpa error non.Aperiam impedit necessitatibus molestias reprehenderit. Accusantium eligendi quidem delectus earum ullam, inventore sed.Similique, soluta debitis, itaque ad aperiam mollitia rem nam asperiores accusamus, in tempore?Voluptatibus temporibus ab expedita nulla officia earum alias possimus consequatur, voluptates cum ipsa.Minus beatae quis veritatis nesciunt? Excepturi iusto iste doloremque ipsum eveniet possimus. Blanditiis!Perferendis repellat numquam nisi, amet debitis hic necessitatibus repellendus ipsam reiciendis aspernatur ",
+      reviews: {
+    overallRating: 4.7,
+    totalReviews: 3,
+    entries: [
+      {
+        name: "Joyceline T",
+        rating: 5,
+        comment: "Absolutely loved living here! The apartment is beautiful, spacious, and the building amenities are fantastic. The location is unbeatable, close to everything I needed. Highly recommend!"
+      },
+      {
+        name: "Michael Olice",
+        rating: 4,
+        comment: "Great apartment with modern finishes. The staff is very responsive to maintenance requests. Only minor issue was occasional street noise, but overall a wonderful experience."
+      },
+      {
+        name: "Melissa L.",
+        rating: 5,
+        comment: "Perfect for families! The nearby park and schools were a huge plus. The apartment itself is very well-maintained and felt very safe. Vizit Verified status gave us peace of mind."
+      }]}
   },
   {
     "type": "Apartment",
@@ -116,7 +206,27 @@
     "amenities": ["Garden", "Parking", "Security", "Air Conditioning"],
     "isAvailable": true,
     "postedAt": "2025-11-01T13:10:00Z",
-    "listingId": "apt-logbaba-006"
+    "listingId": "apt-logbaba-006",
+       "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste velit id illum earum.Rem provident nostrum qui tenetur, assumenda quam distinctio eligendi minus maxime, itaque dolorem?Eveniet consectetur velit ad minus fuga, nulla nam, ratione, blanditiis in consequatur quas?Illum tempore quidem, sunt consequatur vero iure. Quo dicta magnam culpa error non.Aperiam impedit necessitatibus molestias reprehenderit. Accusantium eligendi quidem delectus earum ullam, inventore sed.Similique, soluta debitis, itaque ad aperiam mollitia rem nam asperiores accusamus, in tempore?Voluptatibus temporibus ab expedita nulla officia earum alias possimus consequatur, voluptates cum ipsa.Minus beatae quis veritatis nesciunt? Excepturi iusto iste doloremque ipsum eveniet possimus. Blanditiis!Perferendis repellat numquam nisi, amet debitis hic necessitatibus repellendus ipsam reiciendis aspernatur ",
+      reviews: {
+    overallRating: 4.7,
+    totalReviews: 3,
+    entries: [
+      {
+        name: "Chichel J.",
+        rating: 5,
+        comment: "Absolutely loved living here! The apartment is beautiful, spacious, and the building amenities are fantastic. The location is unbeatable, close to everything I needed. Highly recommend!"
+      },
+      {
+        name: "Michael T.",
+        rating: 4,
+        comment: "Great apartment with modern finishes. The staff is very responsive to maintenance requests. Only minor issue was occasional street noise, but overall a wonderful experience."
+      },
+      {
+        name: "Lawrence L.",
+        rating: 5,
+        comment: "Perfect for families! The nearby park and schools were a huge plus. The apartment itself is very well-maintained and felt very safe. Vizit Verified status gave us peace of mind."
+      }]}
   },
   {
     "type": "Studio",
@@ -136,7 +246,27 @@
     "amenities": ["Wi-Fi", "Security", "Balcony", "Parking"],
     "isAvailable": true,
     "postedAt": "2025-10-31T15:30:00Z",
-    "listingId": "apt-bepanda-007"
+    "listingId": "apt-bepanda-007",
+       "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste velit id illum earum.Rem provident nostrum qui tenetur, assumenda quam distinctio eligendi minus maxime, itaque dolorem?Eveniet consectetur velit ad minus fuga, nulla nam, ratione, blanditiis in consequatur quas?Illum tempore quidem, sunt consequatur vero iure. Quo dicta magnam culpa error non.Aperiam impedit necessitatibus molestias reprehenderit. Accusantium eligendi quidem delectus earum ullam, inventore sed.Similique, soluta debitis, itaque ad aperiam mollitia rem nam asperiores accusamus, in tempore?Voluptatibus temporibus ab expedita nulla officia earum alias possimus consequatur, voluptates cum ipsa.Minus beatae quis veritatis nesciunt? Excepturi iusto iste doloremque ipsum eveniet possimus. Blanditiis!Perferendis repellat numquam nisi, amet debitis hic necessitatibus repellendus ipsam reiciendis aspernatur ",
+      reviews: {
+    overallRating: 4.7,
+    totalReviews: 3,
+    entries: [
+      {
+        name: "Sarah J.",
+        rating: 5,
+        comment: "Absolutely loved living here! The apartment is beautiful, spacious, and the building amenities are fantastic. The location is unbeatable, close to everything I needed. Highly recommend!"
+      },
+      {
+        name: "Michael T.",
+        rating: 4,
+        comment: "Great apartment with modern finishes. The staff is very responsive to maintenance requests. Only minor issue was occasional street noise, but overall a wonderful experience."
+      },
+      {
+        name: "Jessica L.",
+        rating: 5,
+        comment: "Perfect for families! The nearby park and schools were a huge plus. The apartment itself is very well-maintained and felt very safe. Vizit Verified status gave us peace of mind."
+      }]}
   },
   {
     "type": "Modern Room",
@@ -156,7 +286,27 @@
     "amenities": ["Security", "Balcony"],
     "isAvailable": true,
     "postedAt": "2025-10-30T08:45:00Z",
-    "listingId": "apt-newbell-008"
+    "listingId": "apt-newbell-008",
+       "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste velit id illum earum.Rem provident nostrum qui tenetur, assumenda quam distinctio eligendi minus maxime, itaque dolorem?Eveniet consectetur velit ad minus fuga, nulla nam, ratione, blanditiis in consequatur quas?Illum tempore quidem, sunt consequatur vero iure. Quo dicta magnam culpa error non.Aperiam impedit necessitatibus molestias reprehenderit. Accusantium eligendi quidem delectus earum ullam, inventore sed.Similique, soluta debitis, itaque ad aperiam mollitia rem nam asperiores accusamus, in tempore?Voluptatibus temporibus ab expedita nulla officia earum alias possimus consequatur, voluptates cum ipsa.Minus beatae quis veritatis nesciunt? Excepturi iusto iste doloremque ipsum eveniet possimus. Blanditiis!Perferendis repellat numquam nisi, amet debitis hic necessitatibus repellendus ipsam reiciendis aspernatur ",
+      reviews: {
+    overallRating: 4.7,
+    totalReviews: 3,
+    entries: [
+      {
+        name: "Sarah J.",
+        rating: 5,
+        comment: "Absolutely loved living here! The apartment is beautiful, spacious, and the building amenities are fantastic. The location is unbeatable, close to everything I needed. Highly recommend!"
+      },
+      {
+        name: "Michael T.",
+        rating: 4,
+        comment: "Great apartment with modern finishes. The staff is very responsive to maintenance requests. Only minor issue was occasional street noise, but overall a wonderful experience."
+      },
+      {
+        name: "Jessica L.",
+        rating: 5,
+        comment: "Perfect for families! The nearby park and schools were a huge plus. The apartment itself is very well-maintained and felt very safe. Vizit Verified status gave us peace of mind."
+      }]}
   },
   {
     "type": "Guest House",
@@ -176,7 +326,27 @@
     "amenities": ["Air Conditioning", "Wi-Fi", "Gym", "Parking", "Security"],
     "isAvailable": false,
     "postedAt": "2025-10-29T14:20:00Z",
-    "listingId": "apt-bali-009"
+    "listingId": "apt-bali-009",
+       "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste velit id illum earum.Rem provident nostrum qui tenetur, assumenda quam distinctio eligendi minus maxime, itaque dolorem?Eveniet consectetur velit ad minus fuga, nulla nam, ratione, blanditiis in consequatur quas?Illum tempore quidem, sunt consequatur vero iure. Quo dicta magnam culpa error non.Aperiam impedit necessitatibus molestias reprehenderit. Accusantium eligendi quidem delectus earum ullam, inventore sed.Similique, soluta debitis, itaque ad aperiam mollitia rem nam asperiores accusamus, in tempore?Voluptatibus temporibus ab expedita nulla officia earum alias possimus consequatur, voluptates cum ipsa.Minus beatae quis veritatis nesciunt? Excepturi iusto iste doloremque ipsum eveniet possimus. Blanditiis!Perferendis repellat numquam nisi, amet debitis hic necessitatibus repellendus ipsam reiciendis aspernatur ",
+      reviews: {
+    overallRating: 4.7,
+    totalReviews: 3,
+    entries: [
+      {
+        name: "Sarah J.",
+        rating: 5,
+        comment: "Absolutely loved living here! The apartment is beautiful, spacious, and the building amenities are fantastic. The location is unbeatable, close to everything I needed. Highly recommend!"
+      },
+      {
+        name: "Michael T.",
+        rating: 4,
+        comment: "Great apartment with modern finishes. The staff is very responsive to maintenance requests. Only minor issue was occasional street noise, but overall a wonderful experience."
+      },
+      {
+        name: "Jessica L.",
+        rating: 5,
+        comment: "Perfect for families! The nearby park and schools were a huge plus. The apartment itself is very well-maintained and felt very safe. Vizit Verified status gave us peace of mind."
+      }]}
   },
   {
     "type": "Hotel",
@@ -196,7 +366,27 @@
     "amenities": ["River View", "Balcony", "Security", "Parking"],
     "isAvailable": true,
     "postedAt": "2025-10-28T10:15:00Z",
-    "listingId": "apt-bonaberi-010"
+    "listingId": "apt-bonaberi-010",
+       "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste velit id illum earum.Rem provident nostrum qui tenetur, assumenda quam distinctio eligendi minus maxime, itaque dolorem?Eveniet consectetur velit ad minus fuga, nulla nam, ratione, blanditiis in consequatur quas?Illum tempore quidem, sunt consequatur vero iure. Quo dicta magnam culpa error non.Aperiam impedit necessitatibus molestias reprehenderit. Accusantium eligendi quidem delectus earum ullam, inventore sed.Similique, soluta debitis, itaque ad aperiam mollitia rem nam asperiores accusamus, in tempore?Voluptatibus temporibus ab expedita nulla officia earum alias possimus consequatur, voluptates cum ipsa.Minus beatae quis veritatis nesciunt? Excepturi iusto iste doloremque ipsum eveniet possimus. Blanditiis!Perferendis repellat numquam nisi, amet debitis hic necessitatibus repellendus ipsam reiciendis aspernatur ",
+      reviews: {
+    overallRating: 4.7,
+    totalReviews: 3,
+    entries: [
+      {
+        name: "Sarah J.",
+        rating: 5,
+        comment: "Absolutely loved living here! The apartment is beautiful, spacious, and the building amenities are fantastic. The location is unbeatable, close to everything I needed. Highly recommend!"
+      },
+      {
+        name: "Michael T.",
+        rating: 4,
+        comment: "Great apartment with modern finishes. The staff is very responsive to maintenance requests. Only minor issue was occasional street noise, but overall a wonderful experience."
+      },
+      {
+        name: "Jessica L.",
+        rating: 5,
+        comment: "Perfect for families! The nearby park and schools were a huge plus. The apartment itself is very well-maintained and felt very safe. Vizit Verified status gave us peace of mind."
+      }]}
   },
   // {
   //   "image": "https://images.unsplash.com/photo-1600607687644-c7171b42498b",
@@ -235,7 +425,27 @@
     "amenities": ["Swimming Pool", "Garden", "Gym", "Security", "Parking"],
     "isAvailable": true,
     "postedAt": "2025-10-26T12:25:00Z",
-    "listingId": "apt-makepe-mansion-012"
+    "listingId": "apt-makepe-mansion-012",
+       "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste velit id illum earum.Rem provident nostrum qui tenetur, assumenda quam distinctio eligendi minus maxime, itaque dolorem?Eveniet consectetur velit ad minus fuga, nulla nam, ratione, blanditiis in consequatur quas?Illum tempore quidem, sunt consequatur vero iure. Quo dicta magnam culpa error non.Aperiam impedit necessitatibus molestias reprehenderit. Accusantium eligendi quidem delectus earum ullam, inventore sed.Similique, soluta debitis, itaque ad aperiam mollitia rem nam asperiores accusamus, in tempore?Voluptatibus temporibus ab expedita nulla officia earum alias possimus consequatur, voluptates cum ipsa.Minus beatae quis veritatis nesciunt? Excepturi iusto iste doloremque ipsum eveniet possimus. Blanditiis!Perferendis repellat numquam nisi, amet debitis hic necessitatibus repellendus ipsam reiciendis aspernatur ",
+      reviews: {
+    overallRating: 4.7,
+    totalReviews: 3,
+    entries: [
+      {
+        name: "Sarah J.",
+        rating: 5,
+        comment: "Absolutely loved living here! The apartment is beautiful, spacious, and the building amenities are fantastic. The location is unbeatable, close to everything I needed. Highly recommend!"
+      },
+      {
+        name: "Michael T.",
+        rating: 4,
+        comment: "Great apartment with modern finishes. The staff is very responsive to maintenance requests. Only minor issue was occasional street noise, but overall a wonderful experience."
+      },
+      {
+        name: "Jessica L.",
+        rating: 5,
+        comment: "Perfect for families! The nearby park and schools were a huge plus. The apartment itself is very well-maintained and felt very safe. Vizit Verified status gave us peace of mind."
+      }]}
   },
   {
     "type": "Modern Room",
@@ -255,7 +465,27 @@
     "amenities": ["Wi-Fi", "Security", "Balcony"],
     "isAvailable": true,
     "postedAt": "2025-10-25T09:50:00Z",
-    "listingId": "apt-deido-central-013"
+    "listingId": "apt-deido-central-013",
+       "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste velit id illum earum.Rem provident nostrum qui tenetur, assumenda quam distinctio eligendi minus maxime, itaque dolorem?Eveniet consectetur velit ad minus fuga, nulla nam, ratione, blanditiis in consequatur quas?Illum tempore quidem, sunt consequatur vero iure. Quo dicta magnam culpa error non.Aperiam impedit necessitatibus molestias reprehenderit. Accusantium eligendi quidem delectus earum ullam, inventore sed.Similique, soluta debitis, itaque ad aperiam mollitia rem nam asperiores accusamus, in tempore?Voluptatibus temporibus ab expedita nulla officia earum alias possimus consequatur, voluptates cum ipsa.Minus beatae quis veritatis nesciunt? Excepturi iusto iste doloremque ipsum eveniet possimus. Blanditiis!Perferendis repellat numquam nisi, amet debitis hic necessitatibus repellendus ipsam reiciendis aspernatur ",
+      reviews: {
+    overallRating: 4.7,
+    totalReviews: 3,
+    entries: [
+      {
+        name: "Sarah J.",
+        rating: 5,
+        comment: "Absolutely loved living here! The apartment is beautiful, spacious, and the building amenities are fantastic. The location is unbeatable, close to everything I needed. Highly recommend!"
+      },
+      {
+        name: "Michael T.",
+        rating: 4,
+        comment: "Great apartment with modern finishes. The staff is very responsive to maintenance requests. Only minor issue was occasional street noise, but overall a wonderful experience."
+      },
+      {
+        name: "Jessica L.",
+        rating: 5,
+        comment: "Perfect for families! The nearby park and schools were a huge plus. The apartment itself is very well-maintained and felt very safe. Vizit Verified status gave us peace of mind."
+      }]}
   },
   {
     "type": "Apartment",
@@ -275,7 +505,27 @@
     "amenities": ["Air Conditioning", "Wi-Fi", "Gym", "Parking", "Security"],
     "isAvailable": true,
     "postedAt": "2025-10-24T14:15:00Z",
-    "listingId": "apt-bonapriso-elite-014"
+    "listingId": "apt-bonapriso-elite-014",
+       "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste velit id illum earum.Rem provident nostrum qui tenetur, assumenda quam distinctio eligendi minus maxime, itaque dolorem?Eveniet consectetur velit ad minus fuga, nulla nam, ratione, blanditiis in consequatur quas?Illum tempore quidem, sunt consequatur vero iure. Quo dicta magnam culpa error non.Aperiam impedit necessitatibus molestias reprehenderit. Accusantium eligendi quidem delectus earum ullam, inventore sed.Similique, soluta debitis, itaque ad aperiam mollitia rem nam asperiores accusamus, in tempore?Voluptatibus temporibus ab expedita nulla officia earum alias possimus consequatur, voluptates cum ipsa.Minus beatae quis veritatis nesciunt? Excepturi iusto iste doloremque ipsum eveniet possimus. Blanditiis!Perferendis repellat numquam nisi, amet debitis hic necessitatibus repellendus ipsam reiciendis aspernatur ",
+      reviews: {
+    overallRating: 4.7,
+    totalReviews: 3,
+    entries: [
+      {
+        name: "Sarah J.",
+        rating: 5,
+        comment: "Absolutely loved living here! The apartment is beautiful, spacious, and the building amenities are fantastic. The location is unbeatable, close to everything I needed. Highly recommend!"
+      },
+      {
+        name: "Michael T.",
+        rating: 4,
+        comment: "Great apartment with modern finishes. The staff is very responsive to maintenance requests. Only minor issue was occasional street noise, but overall a wonderful experience."
+      },
+      {
+        name: "Jessica L.",
+        rating: 5,
+        comment: "Perfect for families! The nearby park and schools were a huge plus. The apartment itself is very well-maintained and felt very safe. Vizit Verified status gave us peace of mind."
+      }]}
   },
   // {
   //   "image": "https://images.unsplash.com/photo-1600607687644-c7171b42498b",
@@ -314,7 +564,27 @@
     "amenities": ["Business Center", "Wi-Fi", "Air Conditioning", "Parking", "Security"],
     "isAvailable": true,
     "postedAt": "2025-10-22T13:45:00Z",
-    "listingId": "apt-bonanjo-business-016"
+    "listingId": "apt-bonanjo-business-016",
+       "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste velit id illum earum.Rem provident nostrum qui tenetur, assumenda quam distinctio eligendi minus maxime, itaque dolorem?Eveniet consectetur velit ad minus fuga, nulla nam, ratione, blanditiis in consequatur quas?Illum tempore quidem, sunt consequatur vero iure. Quo dicta magnam culpa error non.Aperiam impedit necessitatibus molestias reprehenderit. Accusantium eligendi quidem delectus earum ullam, inventore sed.Similique, soluta debitis, itaque ad aperiam mollitia rem nam asperiores accusamus, in tempore?Voluptatibus temporibus ab expedita nulla officia earum alias possimus consequatur, voluptates cum ipsa.Minus beatae quis veritatis nesciunt? Excepturi iusto iste doloremque ipsum eveniet possimus. Blanditiis!Perferendis repellat numquam nisi, amet debitis hic necessitatibus repellendus ipsam reiciendis aspernatur ",
+      reviews: {
+    overallRating: 4.7,
+    totalReviews: 3,
+    entries: [
+      {
+        name: "Sarah J.",
+        rating: 5,
+        comment: "Absolutely loved living here! The apartment is beautiful, spacious, and the building amenities are fantastic. The location is unbeatable, close to everything I needed. Highly recommend!"
+      },
+      {
+        name: "Michael T.",
+        rating: 4,
+        comment: "Great apartment with modern finishes. The staff is very responsive to maintenance requests. Only minor issue was occasional street noise, but overall a wonderful experience."
+      },
+      {
+        name: "Jessica L.",
+        rating: 5,
+        comment: "Perfect for families! The nearby park and schools were a huge plus. The apartment itself is very well-maintained and felt very safe. Vizit Verified status gave us peace of mind."
+      }]}
   },
   {
     "type": "Apartment",
@@ -334,7 +604,27 @@
     "amenities": ["Garden", "Parking", "Security", "Balcony", "Wi-Fi"],
     "isAvailable": true,
     "postedAt": "2025-10-21T10:20:00Z",
-    "listingId": "apt-logbaba-family-017"
+    "listingId": "apt-logbaba-family-017",
+       "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste velit id illum earum.Rem provident nostrum qui tenetur, assumenda quam distinctio eligendi minus maxime, itaque dolorem?Eveniet consectetur velit ad minus fuga, nulla nam, ratione, blanditiis in consequatur quas?Illum tempore quidem, sunt consequatur vero iure. Quo dicta magnam culpa error non.Aperiam impedit necessitatibus molestias reprehenderit. Accusantium eligendi quidem delectus earum ullam, inventore sed.Similique, soluta debitis, itaque ad aperiam mollitia rem nam asperiores accusamus, in tempore?Voluptatibus temporibus ab expedita nulla officia earum alias possimus consequatur, voluptates cum ipsa.Minus beatae quis veritatis nesciunt? Excepturi iusto iste doloremque ipsum eveniet possimus. Blanditiis!Perferendis repellat numquam nisi, amet debitis hic necessitatibus repellendus ipsam reiciendis aspernatur ",
+      reviews: {
+    overallRating: 4.7,
+    totalReviews: 3,
+    entries: [
+      {
+        name: "Sarah J.",
+        rating: 5,
+        comment: "Absolutely loved living here! The apartment is beautiful, spacious, and the building amenities are fantastic. The location is unbeatable, close to everything I needed. Highly recommend!"
+      },
+      {
+        name: "Michael T.",
+        rating: 4,
+        comment: "Great apartment with modern finishes. The staff is very responsive to maintenance requests. Only minor issue was occasional street noise, but overall a wonderful experience."
+      },
+      {
+        name: "Jessica L.",
+        rating: 5,
+        comment: "Perfect for families! The nearby park and schools were a huge plus. The apartment itself is very well-maintained and felt very safe. Vizit Verified status gave us peace of mind."
+      }]}
   },
   {
     "type": "Modern Room",
@@ -354,7 +644,27 @@
     "amenities": ["Security", "Balcony"],
     "isAvailable": true,
     "postedAt": "2025-10-20T08:30:00Z",
-    "listingId": "apt-bepanda-economy-018"
+    "listingId": "apt-bepanda-economy-018",
+       "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste velit id illum earum.Rem provident nostrum qui tenetur, assumenda quam distinctio eligendi minus maxime, itaque dolorem?Eveniet consectetur velit ad minus fuga, nulla nam, ratione, blanditiis in consequatur quas?Illum tempore quidem, sunt consequatur vero iure. Quo dicta magnam culpa error non.Aperiam impedit necessitatibus molestias reprehenderit. Accusantium eligendi quidem delectus earum ullam, inventore sed.Similique, soluta debitis, itaque ad aperiam mollitia rem nam asperiores accusamus, in tempore?Voluptatibus temporibus ab expedita nulla officia earum alias possimus consequatur, voluptates cum ipsa.Minus beatae quis veritatis nesciunt? Excepturi iusto iste doloremque ipsum eveniet possimus. Blanditiis!Perferendis repellat numquam nisi, amet debitis hic necessitatibus repellendus ipsam reiciendis aspernatur ",
+      reviews: {
+    overallRating: 4.7,
+    totalReviews: 3,
+    entries: [
+      {
+        name: "Sarah J.",
+        rating: 5,
+        comment: "Absolutely loved living here! The apartment is beautiful, spacious, and the building amenities are fantastic. The location is unbeatable, close to everything I needed. Highly recommend!"
+      },
+      {
+        name: "Michael T.",
+        rating: 4,
+        comment: "Great apartment with modern finishes. The staff is very responsive to maintenance requests. Only minor issue was occasional street noise, but overall a wonderful experience."
+      },
+      {
+        name: "Jessica L.",
+        rating: 5,
+        comment: "Perfect for families! The nearby park and schools were a huge plus. The apartment itself is very well-maintained and felt very safe. Vizit Verified status gave us peace of mind."
+      }]}
   },
   {
     "type": "Modern Room",
@@ -374,7 +684,27 @@
     "amenities": ["Security", "Balcony", "Wi-Fi"],
     "isAvailable": true,
     "postedAt": "2025-10-19T15:10:00Z",
-    "listingId": "apt-newbell-standard-019"
+    "listingId": "apt-newbell-standard-019",
+       "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste velit id illum earum.Rem provident nostrum qui tenetur, assumenda quam distinctio eligendi minus maxime, itaque dolorem?Eveniet consectetur velit ad minus fuga, nulla nam, ratione, blanditiis in consequatur quas?Illum tempore quidem, sunt consequatur vero iure. Quo dicta magnam culpa error non.Aperiam impedit necessitatibus molestias reprehenderit. Accusantium eligendi quidem delectus earum ullam, inventore sed.Similique, soluta debitis, itaque ad aperiam mollitia rem nam asperiores accusamus, in tempore?Voluptatibus temporibus ab expedita nulla officia earum alias possimus consequatur, voluptates cum ipsa.Minus beatae quis veritatis nesciunt? Excepturi iusto iste doloremque ipsum eveniet possimus. Blanditiis!Perferendis repellat numquam nisi, amet debitis hic necessitatibus repellendus ipsam reiciendis aspernatur ",
+      reviews: {
+    overallRating: 4.7,
+    totalReviews: 3,
+    entries: [
+      {
+        name: "Sarah J.",
+        rating: 5,
+        comment: "Absolutely loved living here! The apartment is beautiful, spacious, and the building amenities are fantastic. The location is unbeatable, close to everything I needed. Highly recommend!"
+      },
+      {
+        name: "Michael T.",
+        rating: 4,
+        comment: "Great apartment with modern finishes. The staff is very responsive to maintenance requests. Only minor issue was occasional street noise, but overall a wonderful experience."
+      },
+      {
+        name: "Jessica L.",
+        rating: 5,
+        comment: "Perfect for families! The nearby park and schools were a huge plus. The apartment itself is very well-maintained and felt very safe. Vizit Verified status gave us peace of mind."
+      }]}
   }
   // {
   //   "image": "https://images.unsplash.com/photo-1600607687644-c7171b42498b",
