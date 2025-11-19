@@ -109,7 +109,7 @@
 @media (max-width: 760px) {
   .landing {
     display: block;
-    padding: 1rem;
+    padding: 0rem;
   }
   .landing .left-background {
     display: none;
