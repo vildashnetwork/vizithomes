@@ -3,7 +3,7 @@
 // Left background + responsive layout adjustments
 .landing {
     display: flex;
-    align-items: stretch; // stretch card height to map area gracefully
+    align-items: stretch;
     justify-content: center;
     min-height: 100vh;
     padding: 1.5rem;
@@ -99,7 +99,7 @@
 @media (max-width: 760px) {
     .landing {
         display: block;
-        padding: 1rem;
+        padding: 0rem;
 
         .left-background {
             display: none; // hide map on small screens to avoid clutter and reduce network use
