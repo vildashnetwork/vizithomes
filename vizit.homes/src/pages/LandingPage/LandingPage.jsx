@@ -1,4 +1,4 @@
-import React, { Children } from "react";
+import React, { Children, useState } from "react";
 import "./lpStyles.css";
 import { Link } from "react-router-dom";
 //material ui
@@ -29,6 +29,7 @@ import TravelExploreIcon from "@mui/icons-material/TravelExplore";
 import ChatIcon from "@mui/icons-material/Chat";
 import { data } from "../../data/listingdata";
 import { image } from "ionicons/icons";
+import { cleanString } from "../../utils/cleanString";
 
 //Test Data
 //?=========
@@ -37,18 +38,15 @@ import { image } from "ionicons/icons";
 
 const center = [4.0511, 9.7679];
 const zoom = 12;
-export const locations = 
-  data.map((item) => {
-    return {
-      position: [item.location.coordinates.lat, item.location.coordinates.lng],
-      // position: [4.0714, 9.6818],
-      title: item.title,
-      images: [item.image],
-    };
-  })
-;
+export const locations = data.map((item) => {
+  return {
+    position: [item.location.coordinates.lat, item.location.coordinates.lng],
+    // position: [4.0714, 9.6818],
+    title: item.title,
+    images: [item.image],
+  };
+});
 
- 
 const cameroonTowns = [
   "Douala",
   "Nkongsamba",
@@ -104,7 +102,8 @@ export const links = [
     icon: <TravelExploreIcon />,
   },
   {
-    link: "/user/login",
+    // todo Also needs fixing bro !!!!
+    link: "/profile",
     title: "Profile",
     icon: <PersonIcon />,
   },
@@ -115,11 +114,11 @@ export const links = [
   },
 ];
 
-function Select({ title, data }) {
+function Select({ title, data ,onChange, id, value}) {
   return (
     <div>
       <p style={{ margin: "5px" }}>{title}</p>
-      <select name={title} className="opt-select">
+      <select name={title} className="opt-select" id={id}  defaultValue={value} onChange={onChange} >
         {data.map((item, index) => {
           return (
             <option key={index} value={item}>
@@ -207,7 +206,10 @@ export function BottomTabs() {
     </nav>
   );
 }
-export function Head() {
+useState;
+export function Head({ carryOutSearch }) {
+  // const [listingsData,setListingsData] = useState({listings : data,locations})
+
   const profile = logo ? (
     <img src={logo} alt="" width={50} height={50} className="img-container" />
   ) : (
@@ -233,6 +235,7 @@ export function Head() {
           alt="What will show if image fails to load"
           width={100}
           height={100}
+
           // style={{ marginTop: -32 }}
         />
       </div>
@@ -267,7 +270,9 @@ export function Head() {
           <input
             type="text"
             className="input-search"
-            placeholder="Search Location, Property type, "
+            id="rxt-search-input"
+            placeholder="Search Location, Property type, house title "
+            onChange={carryOutSearch}
           />
           {/* </div> */}
         </div>
@@ -284,10 +289,10 @@ export function Container({ children }) {
     </div>
   );
 }
-export function Header() {
+export function Header({ carryOutSearch ,changeRegion}) {
   return (
     <>
-      <Head />
+      <Head carryOutSearch={carryOutSearch} />
       <div className="header">
         <div className="header-main">
           <p className="header-caption">Discover Your Perfect Home</p>
@@ -297,7 +302,8 @@ export function Header() {
           </p>
           <div className="search-filter-card">
             <div className="filter-container">
-              <Select title="Location" data={cameroonTowns} />
+              {/* //TODO ALSO NEEDS FIXING */}
+              <Select title="Location" data={cameroonTowns}  id={"rxt-location-select"} value={cameroonTowns[0]} onchange= {changeRegion}/>
               <RangeSlider />
               <Select title="Building Type" data={biuldingTypes} />
               <Select title="Duration Of Stay" data={posibleDuration} />
@@ -314,11 +320,17 @@ export function Header() {
     </>
   );
 }
-export function ListingsCard({ image, title, location, rent,id }) {
+export function ListingsCard({ image, title, location, rent, id }) {
   return (
     <div className="listings-card">
       <div className="listing-card-img-container">
-        <img src={image} onClick={()=> window.location = `/property/${id}`} alt="" width={500}  style={{cursor:"pointer"}}/>
+        <img
+          src={image}
+          onClick={() => (window.location = `/property/${id}`)}
+          alt=""
+          width={500}
+          style={{ cursor: "pointer" }}
+        />
       </div>
       <div className="listings-description">
         <p className="listing-title">{title}</p>
@@ -330,11 +342,11 @@ export function ListingsCard({ image, title, location, rent,id }) {
           <p className="location-literal"> {location}</p>
         </div>
         {/* <button className="details-btn"> */}
-          <Link className="details-btn" to={`/property/${id}`}>
-               View Details
-            </Link>
-         
-          {/* </button> */}
+        <Link className="details-btn" to={`/property/${id}`}>
+          View Details
+        </Link>
+
+        {/* </button> */}
       </div>
     </div>
   );
@@ -422,9 +434,59 @@ function SectionHeader({ title, description }) {
   );
 }
 function LandingPage() {
+  const [listingsData, setListingsData] = useState({
+    listings: data,
+    locations,
+  });
+  function carryOutSearch() {
+    // setListingsData()
+    let inputTex = document.getElementById("rxt-search-input").value;
+    let searchArray = [];
+    if (cleanString(inputTex) !== "") {
+      data.forEach((data) => {
+        // searchArray.push
+        inputTex = cleanString(inputTex)
+        if (
+          cleanString(data.location.address).includes(inputTex) ||
+          cleanString(data.title).includes(inputTex) ||
+          cleanString(data.type).includes(inputTex)
+        ) {
+          searchArray.push(data);
+          
+        }
+      });
+      let searchLocations = searchArray.map((item) => {
+        return {
+          position: [
+            item.location.coordinates.lat,
+            item.location.coordinates.lng,
+          ],
+          // position: [4.0714, 9.6818],
+          title: item.title,
+          images: [item.image],
+        };
+      });
+      setListingsData({
+        listings: searchArray,
+        locations: searchLocations,
+      });
+    }
+
+    console.table("data", searchArray);
+  }
+  // TODO PLEASE NEEDS FIXING
+
+  const [propertyType,setPropertyType] = useState("apartment");
+
+  const [regionOfSearch,setRegionOfSearch] = useState("douala");
+  function handleLocationChange(){
+    const selector =  document.getElementById("rxt-location-select").value
+    console.log(selector);
+  }
+  // TODO END FOR NOW 
   return (
     <>
-      <Header></Header>
+      <Header carryOutSearch={carryOutSearch}  changeRegion={handleLocationChange}/>
       <SideNav />
       <SectionHeader
         title="Vizit Verified Listings"
@@ -432,17 +494,15 @@ function LandingPage() {
       />
 
       <div className="listings-card-container">
-        {data.map((item, index) => {
+        {listingsData.listings.map((item, index) => {
           return (
             <ListingsCard
               key={index}
-              
               id={item.listingId}
               image={item.image}
               title={item.title}
               location={item.location.address}
               rent={item.rent}
-              
             />
           );
         })}
@@ -453,15 +513,17 @@ function LandingPage() {
       />
       <div className="map-container">
         <div className="map-main">
-          <MapComponent zoom={zoom} locations={locations} center={center} />
+          <MapComponent
+            zoom={zoom}
+            locations={listingsData.locations}
+            center={center}
+          />
         </div>
       </div>
       <BottomTabs />
       <Footer />
     </>
-    
   );
-  
 }
 
 export default LandingPage;

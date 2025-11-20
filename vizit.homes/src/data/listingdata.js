@@ -91,7 +91,20 @@
         name: "Jessica L.",
         rating: 5,
         comment: "Perfect for families! The nearby park and schools were a huge plus. The apartment itself is very well-maintained and felt very safe. Vizit Verified status gave us peace of mind."
-      }]}
+      }]},
+      images:
+      [
+    "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=500",
+    "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=500",
+    "https://images.unsplash.com/photo-1484154218962-a197022b5858?w=500",
+    "https://images.unsplash.com/photo-1513584684374-8bab748fbf90?w=500",
+    "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=500",
+    "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=500",
+    "https://images.unsplash.com/photo-1558036117-15e82a2c9a9a?w=500",
+    "https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=500",
+    "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=500",
+    "https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=500"
+  ],
   },
   {
     "type": "Hotel",
@@ -127,7 +140,20 @@
         rating: 2,
         comment: "Great apartment with modern finishes. The staff is very responsive to maintenance requests. Only minor issue was occasional street noise, but overall a wonderful experience."
       },
-    ]}
+    ]},
+    images:
+    [
+    "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=500",
+    "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=500",
+    "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=500",
+    "https://images.unsplash.com/photo-1600573472550-8090be8bfb6c?w=500",
+    "https://images.unsplash.com/photo-1600566753151-384129cf4e3e?w=500",
+    "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=500",
+    "https://images.unsplash.com/photo-1600585154084-4e8fe7c3f2ac?w=500",
+    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=500",
+    "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=500",
+    "https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=500"
+  ],
   },
   // {
   //   "image": "https://images.unsplash.com/photo-1600607687644-c7171b42498b",
@@ -186,7 +212,21 @@
         name: "Melissa L.",
         rating: 5,
         comment: "Perfect for families! The nearby park and schools were a huge plus. The apartment itself is very well-maintained and felt very safe. Vizit Verified status gave us peace of mind."
-      }]}
+      }]},
+     images: 
+        [
+    "https://images.unsplash.com/photo-1600585154340-9636a0dcd5a5?w=500",
+    "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=500",
+    "https://images.unsplash.com/photo-1600573472550-8090be8bfb6c?w=500",
+    "https://images.unsplash.com/photo-1600566753151-384129cf4e3e?w=500",
+    "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=500",
+    "https://images.unsplash.com/photo-1600585154084-4e8fe7c3f2ac?w=500",
+    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=500",
+    "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=500",
+    "https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=500",
+    "https://images.unsplash.com/photo-1600585154340-9636a0dcd5a5?w=500"
+  ]
+
   },
   {
     "type": "Apartment",
@@ -226,7 +266,20 @@
         name: "Lawrence L.",
         rating: 5,
         comment: "Perfect for families! The nearby park and schools were a huge plus. The apartment itself is very well-maintained and felt very safe. Vizit Verified status gave us peace of mind."
-      }]}
+      }]},
+      images:
+      [
+    "https://images.unsplash.com/photo-1600566753151-384129cf4e3e?w=500",
+    "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=500",
+    "https://images.unsplash.com/photo-1600585154084-4e8fe7c3f2ac?w=500",
+    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=500",
+    "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=500",
+    "https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=500",
+    "https://images.unsplash.com/photo-1600585154340-9636a0dcd5a5?w=500",
+    "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=500",
+    "https://images.unsplash.com/photo-1600573472550-8090be8bfb6c?w=500",
+    "https://images.unsplash.com/photo-1600566753151-384129cf4e3e?w=500"
+  ],
   },
   {
     "type": "Studio",
@@ -266,7 +319,20 @@
         name: "Jessica L.",
         rating: 5,
         comment: "Perfect for families! The nearby park and schools were a huge plus. The apartment itself is very well-maintained and felt very safe. Vizit Verified status gave us peace of mind."
-      }]}
+      }]},
+      images:
+       [
+    "https://images.unsplash.com/photo-1600573472550-8090be8bfb6c?w=500",
+    "https://images.unsplash.com/photo-1600566753151-384129cf4e3e?w=500",
+    "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=500",
+    "https://images.unsplash.com/photo-1600585154084-4e8fe7c3f2ac?w=500",
+    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=500",
+    "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=500",
+    "https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=500",
+    "https://images.unsplash.com/photo-1600585154340-9636a0dcd5a5?w=500",
+    "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=500",
+    "https://images.unsplash.com/photo-1600573472550-8090be8bfb6c?w=500"
+  ],
   },
   {
     "type": "Modern Room",
@@ -306,7 +372,20 @@
         name: "Jessica L.",
         rating: 5,
         comment: "Perfect for families! The nearby park and schools were a huge plus. The apartment itself is very well-maintained and felt very safe. Vizit Verified status gave us peace of mind."
-      }]}
+      }]},
+      images:   
+        [
+    "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=500",
+    "https://images.unsplash.com/photo-1600573472550-8090be8bfb6c?w=500",
+    "https://images.unsplash.com/photo-1600566753151-384129cf4e3e?w=500",
+    "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=500",
+    "https://images.unsplash.com/photo-1600585154084-4e8fe7c3f2ac?w=500",
+    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=500",
+    "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=500",
+    "https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=500",
+    "https://images.unsplash.com/photo-1600585154340-9636a0dcd5a5?w=500",
+    "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=500"
+  ],
   },
   {
     "type": "Guest House",
@@ -346,7 +425,20 @@
         name: "Jessica L.",
         rating: 5,
         comment: "Perfect for families! The nearby park and schools were a huge plus. The apartment itself is very well-maintained and felt very safe. Vizit Verified status gave us peace of mind."
-      }]}
+      }]},
+      images:
+      [
+    "https://images.unsplash.com/photo-1600573472550-8090be8bfb6c?w=500",
+    "https://images.unsplash.com/photo-1600566753151-384129cf4e3e?w=500",
+    "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=500",
+    "https://images.unsplash.com/photo-1600585154084-4e8fe7c3f2ac?w=500",
+    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=500",
+    "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=500",
+    "https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=500",
+    "https://images.unsplash.com/photo-1600585154340-9636a0dcd5a5?w=500",
+    "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=500",
+    "https://images.unsplash.com/photo-1600573472550-8090be8bfb6c?w=500"
+  ],
   },
   {
     "type": "Hotel",
@@ -386,7 +478,20 @@
         name: "Jessica L.",
         rating: 5,
         comment: "Perfect for families! The nearby park and schools were a huge plus. The apartment itself is very well-maintained and felt very safe. Vizit Verified status gave us peace of mind."
-      }]}
+      }]},
+      images:
+      [
+    "https://images.unsplash.com/photo-1600566753151-384129cf4e3e?w=500",
+    "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=500",
+    "https://images.unsplash.com/photo-1600585154084-4e8fe7c3f2ac?w=500",
+    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=500",
+    "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=500",
+    "https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=500",
+    "https://images.unsplash.com/photo-1600585154340-9636a0dcd5a5?w=500",
+    "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=500",
+    "https://images.unsplash.com/photo-1600573472550-8090be8bfb6c?w=500",
+    "https://images.unsplash.com/photo-1600566753151-384129cf4e3e?w=500"
+  ],
   },
   // {
   //   "image": "https://images.unsplash.com/photo-1600607687644-c7171b42498b",
@@ -445,7 +550,20 @@
         name: "Jessica L.",
         rating: 5,
         comment: "Perfect for families! The nearby park and schools were a huge plus. The apartment itself is very well-maintained and felt very safe. Vizit Verified status gave us peace of mind."
-      }]}
+      }]},
+      images:[
+    "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=500",
+    "https://images.unsplash.com/photo-1600585154084-4e8fe7c3f2ac?w=500",
+    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=500",
+    "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=500",
+    "https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=500",
+    "https://images.unsplash.com/photo-1600585154340-9636a0dcd5a5?w=500",
+    "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=500",
+    "https://images.unsplash.com/photo-1600573472550-8090be8bfb6c?w=500",
+    "https://images.unsplash.com/photo-1600566753151-384129cf4e3e?w=500",
+    "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=500"
+  ],
+
   },
   {
     "type": "Modern Room",
@@ -485,7 +603,20 @@
         name: "Jessica L.",
         rating: 5,
         comment: "Perfect for families! The nearby park and schools were a huge plus. The apartment itself is very well-maintained and felt very safe. Vizit Verified status gave us peace of mind."
-      }]}
+      }]},
+      images: [
+    "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=500",
+    "https://images.unsplash.com/photo-1600573472550-8090be8bfb6c?w=500",
+    "https://images.unsplash.com/photo-1600566753151-384129cf4e3e?w=500",
+    "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=500",
+    "https://images.unsplash.com/photo-1600585154084-4e8fe7c3f2ac?w=500",
+    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=500",
+    "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=500",
+    "https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=500",
+    "https://images.unsplash.com/photo-1600585154340-9636a0dcd5a5?w=500",
+    "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=500"
+  ],
+
   },
   {
     "type": "Apartment",
@@ -525,7 +656,20 @@
         name: "Jessica L.",
         rating: 5,
         comment: "Perfect for families! The nearby park and schools were a huge plus. The apartment itself is very well-maintained and felt very safe. Vizit Verified status gave us peace of mind."
-      }]}
+      }]},
+      images:
+       [
+    "https://images.unsplash.com/photo-1600585154084-4e8fe7c3f2ac?w=500",
+    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=500",
+    "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=500",
+    "https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=500",
+    "https://images.unsplash.com/photo-1600585154340-9636a0dcd5a5?w=500",
+    "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=500",
+    "https://images.unsplash.com/photo-1600573472550-8090be8bfb6c?w=500",
+    "https://images.unsplash.com/photo-1600566753151-384129cf4e3e?w=500",
+    "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=500",
+    "https://images.unsplash.com/photo-1600585154084-4e8fe7c3f2ac?w=500"
+  ],
   },
   // {
   //   "image": "https://images.unsplash.com/photo-1600607687644-c7171b42498b",
@@ -584,7 +728,21 @@
         name: "Jessica L.",
         rating: 5,
         comment: "Perfect for families! The nearby park and schools were a huge plus. The apartment itself is very well-maintained and felt very safe. Vizit Verified status gave us peace of mind."
-      }]}
+      }]},
+      images:
+      [
+    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=500",
+    "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=500",
+    "https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=500",
+    "https://images.unsplash.com/photo-1600585154340-9636a0dcd5a5?w=500",
+    "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=500",
+    "https://images.unsplash.com/photo-1600573472550-8090be8bfb6c?w=500",
+    "https://images.unsplash.com/photo-1600566753151-384129cf4e3e?w=500",
+    "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=500",
+    "https://images.unsplash.com/photo-1600585154084-4e8fe7c3f2ac?w=500",
+    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=500"
+  ],
+
   },
   {
     "type": "Apartment",
@@ -624,7 +782,21 @@
         name: "Jessica L.",
         rating: 5,
         comment: "Perfect for families! The nearby park and schools were a huge plus. The apartment itself is very well-maintained and felt very safe. Vizit Verified status gave us peace of mind."
-      }]}
+      }]},
+      images:
+       [
+    "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=500",
+    "https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=500",
+    "https://images.unsplash.com/photo-1600585154340-9636a0dcd5a5?w=500",
+    "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=500",
+    "https://images.unsplash.com/photo-1600573472550-8090be8bfb6c?w=500",
+    "https://images.unsplash.com/photo-1600566753151-384129cf4e3e?w=500",
+    "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=500",
+    "https://images.unsplash.com/photo-1600585154084-4e8fe7c3f2ac?w=500",
+    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=500",
+    "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=500"
+  ],
+
   },
   {
     "type": "Modern Room",
@@ -664,7 +836,20 @@
         name: "Jessica L.",
         rating: 5,
         comment: "Perfect for families! The nearby park and schools were a huge plus. The apartment itself is very well-maintained and felt very safe. Vizit Verified status gave us peace of mind."
-      }]}
+      }]},
+      images:
+      [
+    "https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=500",
+    "https://images.unsplash.com/photo-1600585154340-9636a0dcd5a5?w=500",
+    "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=500",
+    "https://images.unsplash.com/photo-1600573472550-8090be8bfb6c?w=500",
+    "https://images.unsplash.com/photo-1600566753151-384129cf4e3e?w=500",
+    "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=500",
+    "https://images.unsplash.com/photo-1600585154084-4e8fe7c3f2ac?w=500",
+    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=500",
+    "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=500",
+    "https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=500"
+  ],
   },
   {
     "type": "Modern Room",
@@ -704,25 +889,21 @@
         name: "Jessica L.",
         rating: 5,
         comment: "Perfect for families! The nearby park and schools were a huge plus. The apartment itself is very well-maintained and felt very safe. Vizit Verified status gave us peace of mind."
-      }]}
+      }]},
+      images:
+      [
+    "https://images.unsplash.com/photo-1600585154340-9636a0dcd5a5?w=500",
+    "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=500",
+    "https://images.unsplash.com/photo-1600573472550-8090be8bfb6c?w=500",
+    "https://images.unsplash.com/photo-1600566753151-384129cf4e3e?w=500",
+    "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=500",
+    "https://images.unsplash.com/photo-1600585154084-4e8fe7c3f2ac?w=500",
+    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=500",
+    "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=500",
+    "https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=500",
+    "https://images.unsplash.com/photo-1600585154340-9636a0dcd5a5?w=500"
+  ],
+
   }
-  // {
-  //   "image": "https://images.unsplash.com/photo-1600607687644-c7171b42498b",
-  //   "title": "Bali Premium Suite",
-  //   "location": {
-  //     "address": "Bali, Douala, Cameroon",
-  //     "coordinates": {
-  //       "lat": 4.0623,
-  //       "lng": 9.6889
-  //     }
-  //   },
-  //   "rent": "100,000 XFA",
-  //   "bedrooms": 2,
-  //   "bathrooms": 2,
-  //   "area_sqm": 108,
-  //   "amenities": ["Air Conditioning", "Wi-Fi", "Gym", "Parking", "Security"],
-  //   "isAvailable": true,
-  //   "postedAt": "2025-10-18T12:40:00Z",
-  //   "listingId": "apt-bali-premium-020"
-  // }
+
 ]

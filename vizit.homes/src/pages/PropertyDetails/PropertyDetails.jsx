@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { BottomTabs, Container, Footer, Head } from "../LandingPage/LandingPage";
+import { BottomTabs, Container, Footer, Head, SideNav } from "../LandingPage/LandingPage";
 import { data } from "../../data/listingdata";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import dayjs from "dayjs";
@@ -162,6 +162,7 @@ function PropertyDetails() {
   return (
     <div>
       <Head />
+      <SideNav/>
       <Container>
         <div className="details-main" style={{}}>
           <div
@@ -169,23 +170,8 @@ function PropertyDetails() {
             style={{
               // padding:"20px",
               borderRadius: "20px",
-              backgroundImage: `url(${imageIndex=== 0 ? house.image: data[0].images[imageIndex]})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              backgroundRepeat: "no-repeat",
-              width: "100%",
-              height: "80vh",
-              marginBottom: "20px",
-              // marginRight:"20px",
-              // position:"absolute",
-              // top:0,
-              // right:0,
-              // left
-              display:"flex",
-              flexDirection:"column",
-              alignItems:"center",
-              transition: "background-image",
-              justifyContent:"center"
+              backgroundImage: `url(${imageIndex=== 0 ? house.image: house.images[imageIndex]})`,
+              
             }}
           >
             <div className="nav-btns-container" >
@@ -198,12 +184,15 @@ function PropertyDetails() {
             <div className="dots">
               <div className="dots-container">
              {data[0].images.map((image,index)=>{
-              return <div className={`dots `}
+              return <button className={`dots `}
               key={index}
               style={{
                     opacity: index === imageIndex ? "1" : ".4",
+                    display:"block"
               }}
-              ></div>
+              onClick={()=>{setImageIndex(index)}}
+              
+              ></button>
              })}
               </div>
 
@@ -250,10 +239,11 @@ function PropertyDetails() {
 
           <div className="description-card">
             <h5 className="details-sub-heading">Amenities</h5>
+            <br />
             <div className=" card-container">
-              {house.amenities.map((amenity) => {
+              {house.amenities.map((amenity,index) => {
                 return (
-                  <div className="amenity-card">
+                  <div className="amenity-card" key={index}>
                     {findIcon(amenity)} <p>{amenity}</p>
                   </div>
                 );
@@ -262,7 +252,7 @@ function PropertyDetails() {
           </div>
 
           <div className="description-card">
-            <h4 className="details-sub-heading">Property Description</h4>
+            <h4 className="details-sub-heading">Explore In Map</h4>
             Explore the Vicinity , Find important loactions closde to this
             Lisiting
             <button
@@ -308,18 +298,20 @@ function PropertyDetails() {
               <Ratings
                 method="get"
                 count={house.reviews.overallRating}
-                size= {window.screen.width >= 425 ? "large" : "medium" }
+                size= {window.innerWidth >= 425 ? "large" : "medium" }
               />
-              <p>
-                {" "}
+              <p
+              className="rating-overall"
+              >
+                
                 {house.reviews.overallRating} out of 5 (
                 {house.reviews.totalReviews} Reviews)
               </p>
             </div>
             <div className="comments-container">
-              {house.reviews.entries.map((entry) => {
+              {house.reviews.entries.map((entry,index) => {
                 return (
-                  <div className="comment-card">
+                  <div className="comment-card" key={index}>
                     <div className="comment-profile-info">
                       <div
                         className="comment-profile-img-container"
@@ -350,6 +342,16 @@ function PropertyDetails() {
                } */}
           </div>
         </div>
+        <button className="start-discussion-with-owner-button"
+        style={{
+
+
+        }}
+        
+        >
+          Chat With Owner
+        </button>
+        
       </Container>
       <BottomTabs></BottomTabs>
       <Footer />
