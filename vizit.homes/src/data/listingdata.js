@@ -1,6 +1,7 @@
  export const  data  = 
  [
-  { "type": "Apartment",
+  { 
+    "type": "Apartment",
     "image": "https://images.unsplash.com/photo-1564013799919-ab600027ffc6",
     "title": "Saint Anthony Plaza VIP Apartment",
     "location": {
@@ -53,6 +54,19 @@
 ]
 
   },
+
+
+
+
+
+
+
+
+
+
+
+
+  
   {
     "type": "Guest House",
     "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c",

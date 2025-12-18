@@ -135,7 +135,10 @@ export function Switcher({ callback, size, defaultValue }) {
 }
 const SearchProperty = () => {
   //
-  const [listingsData,setListingsData] = useState({listings : data,locations})
+  const [listingsData, setListingsData] = useState({
+    listings: data,
+    locations,
+  });
   const [mapview, setmapview] = useState(true);
   const [mapFull, setMapFull] = useState(true);
   const [showInfo, setShowInfo] = useState(false);
@@ -243,58 +246,59 @@ const SearchProperty = () => {
     setFilters((prevFilters) => ({
       ...prevFilters,
       [str]: !prevFilters[str],
-
     }));
-    console.log(filters)
+    console.log(filters);
   }
- function filterPropertyByAmenities(){
-  // const amenities = []
-  const activeFilters = Object.entries(filters)
-  .filter(([key, value]) => value === true)
-  .map(([key]) => key);
-  return activeFilters;
- }
- function includeAmenities(listings,data){
-listings.push(data);
-
-if (filterPropertyByAmenities.length > 0) {
-  const cleanedFilter = filterPropertyByAmenities.map(cleanString);
-
-  const hasMatchingAmenity = data.amenities.some((amenity) =>
-    cleanedFilter.includes(cleanString(amenity))
-  );
-
-  if (!hasMatchingAmenity) {
-    listings.pop(); // remove last item
+  function filterPropertyByAmenities() {
+    // const amenities = []
+    const activeFilters = Object.entries(filters)
+      .filter(([key, value]) => value === true)
+      .map(([key]) => key);
+    return activeFilters;
   }
-}
+  function includeAmenities(listings, data) {
+    listings.push(data);
 
- }
-  function filterBuildingsByPreference(){
-    let listings  = [];
+    if (filterPropertyByAmenities.length > 0) {
+      const cleanedFilter = filterPropertyByAmenities.map(cleanString);
+
+      const hasMatchingAmenity = data.amenities.some((amenity) =>
+        cleanedFilter.includes(cleanString(amenity))
+      );
+
+      if (!hasMatchingAmenity) {
+        listings.pop(); // remove last item
+      }
+    }
+  }
+  function filterBuildingsByPreference() {
+    let listings = [];
     let locations = [];
     let selections = filterPropertyByAmenities();
 
-    function addParameterAmenities(currData){
-
-        if (selections.length > 0){
-          const matches = selections.some(item => currData.amenities.some(keyword => item.includes(cleanString(keyword))));
-          if(matches){
-            // alert(currData.amenities)
-            listings.push(currData)
-          }
+    function addParameterAmenities(currData) {
+      if (selections.length > 0) {
+        const matches = selections.some((item) =>
+          currData.amenities.some((keyword) =>
+            item.includes(cleanString(keyword))
+          )
+        );
+        if (matches) {
+          // alert(currData.amenities)
+          listings.push(currData);
         }
-        else{
-        listings.push(currData)
-        }
+      } else {
+        listings.push(currData);
+      }
     }
     // console.log(data)
-    
-    data.forEach((data)=>{
-      
 
-      if( data.isAvailable && propertyTypeFilter.apartment && cleanString(data.type) === "apartment" ){
-
+    data.forEach((data) => {
+      if (
+        data.isAvailable &&
+        propertyTypeFilter.apartment &&
+        cleanString(data.type) === "apartment"
+      ) {
         // if (selections.length > 0){
         //   const matches = addParameterAmenities(data)
         //   if(matches){
@@ -305,33 +309,41 @@ if (filterPropertyByAmenities.length > 0) {
         // else{
         // listings.push(data)
         // }
-        addParameterAmenities(data)
-      }
-      else if ( data.isAvailable && propertyTypeFilter.guesthouse && cleanString(data.type) === "guesthouse" ){
-        addParameterAmenities(data)
-      }
-      else if ( data.isAvailable && propertyTypeFilter.hotel && cleanString(data.type) === "hotel" ){
-        addParameterAmenities(data)
-      }
-      else if ( data.isAvailable && propertyTypeFilter.modernroom && cleanString(data.type) === "modernroom" ){
-
-        addParameterAmenities(data)
-      }
-      else if ( data.isAvailable && propertyTypeFilter.studio && cleanString(data.type) === "studio" ){
-        addParameterAmenities(data)
-      }
-      else {
-          const activeBuildingFilters = Object.entries(propertyTypeFilter)
+        addParameterAmenities(data);
+      } else if (
+        data.isAvailable &&
+        propertyTypeFilter.guesthouse &&
+        cleanString(data.type) === "guesthouse"
+      ) {
+        addParameterAmenities(data);
+      } else if (
+        data.isAvailable &&
+        propertyTypeFilter.hotel &&
+        cleanString(data.type) === "hotel"
+      ) {
+        addParameterAmenities(data);
+      } else if (
+        data.isAvailable &&
+        propertyTypeFilter.modernroom &&
+        cleanString(data.type) === "modernroom"
+      ) {
+        addParameterAmenities(data);
+      } else if (
+        data.isAvailable &&
+        propertyTypeFilter.studio &&
+        cleanString(data.type) === "studio"
+      ) {
+        addParameterAmenities(data);
+      } else {
+        const activeBuildingFilters = Object.entries(propertyTypeFilter)
           .filter(([key, value]) => value === true)
           .map(([key]) => key);
-          if(activeBuildingFilters.length === 0){
-            addParameterAmenities(data)
-          }
-       
+        if (activeBuildingFilters.length === 0) {
+          addParameterAmenities(data);
+        }
       }
       filterPropertyByAmenities();
-    })
-  
+    });
 
     //     console.log(data.type)
     //     if(data.type === undefined){
@@ -348,21 +360,24 @@ if (filterPropertyByAmenities.length > 0) {
     //     }
     //     }
 
-
     //   }
     // )
-// console.log(listings)
+    // console.log(listings)
 
-
-              locations =  listings.map ((data) => {return {  
-                  position: [data.location.coordinates.lat, data.location.coordinates.lng],
-          // position: [4.0714, 9.6818],
-          title: data.title,
-          images: [data.image]}})
-    setListingsData({listings,locations});
+    locations = listings.map((data) => {
+      return {
+        position: [
+          data.location.coordinates.lat,
+          data.location.coordinates.lng,
+        ],
+        // position: [4.0714, 9.6818],
+        title: data.title,
+        images: [data.image],
+      };
+    });
+    setListingsData({ listings, locations });
 
     // return search;
-
   }
 
   return (
@@ -401,7 +416,6 @@ if (filterPropertyByAmenities.length > 0) {
                       <label
                         htmlFor=""
                         key={index}
-                        
                         onChange={() => {
                           setPropertyTypeFilter((prevFilters) => ({
                             ...prevFilters,
@@ -411,7 +425,6 @@ if (filterPropertyByAmenities.length > 0) {
                           }));
                           console.log(propertyTypeFilter);
                           // filterBuildingsByPreference()
-                          
                         }}
                         checked={propertyTypeFilter[propertyType] || false}
                       >
@@ -479,7 +492,12 @@ if (filterPropertyByAmenities.length > 0) {
                   );
                 })}
               </ul>
-              <button className="apply-filter-btn" onClick={filterBuildingsByPreference}>Apply Filters</button>
+              <button
+                className="apply-filter-btn"
+                onClick={filterBuildingsByPreference}
+              >
+                Apply Filters
+              </button>
             </div>
             <div className="listings-card-container" style={{ width: "100%" }}>
               {listingsData.listings

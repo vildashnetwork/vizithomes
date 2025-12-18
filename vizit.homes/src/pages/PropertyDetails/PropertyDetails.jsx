@@ -1,6 +1,12 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { BottomTabs, Container, Footer, Head, SideNav } from "../LandingPage/LandingPage";
+import {
+  BottomTabs,
+  Container,
+  Footer,
+  Head,
+  SideNav,
+} from "../LandingPage/LandingPage";
 import { data } from "../../data/listingdata";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import dayjs from "dayjs";
@@ -37,8 +43,8 @@ import StarHalfOutlinedIcon from "@mui/icons-material/StarHalfOutlined";
 import StarIcon from "@mui/icons-material/Star";
 // import StarOutlinedIcon from '@mui/icons-material/StarOutlined';
 
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { useState } from "react";
 export function Ratings({ method, size, count }) {
   let ratings;
@@ -134,26 +140,23 @@ cleanString;
 MapComponent;
 function PropertyDetails() {
   const { propertyId } = useParams();
-  const [imageIndex,setImageIndex] = useState(0)
-
-
+  const [imageIndex, setImageIndex] = useState(0);
 
   let property = data.filter((data) => data.listingId === propertyId);
   let house = property[0];
   let detailsImageContainer = {};
 
-  function increaseIndex(){
-              if(imageIndex===9){
-                setImageIndex(-1)
-              }
-              setImageIndex(p=>p+1
-              )
+  function increaseIndex() {
+    if (imageIndex === 9) {
+      setImageIndex(-1);
+    }
+    setImageIndex((p) => p + 1);
   }
-  function decreaseIndex(){
-                  if(imageIndex === 0){
-                setImageIndex(10)
-              }
-              setImageIndex(p=>p-1)
+  function decreaseIndex() {
+    if (imageIndex === 0) {
+      setImageIndex(10);
+    }
+    setImageIndex((p) => p - 1);
   }
   // useEffect(()=>{
   //     let publicInterval = setInterval(increaseIndex,5000)
@@ -162,7 +165,7 @@ function PropertyDetails() {
   return (
     <div>
       <Head />
-      <SideNav/>
+      <SideNav />
       <Container>
         <div className="details-main" style={{}}>
           <div
@@ -170,35 +173,38 @@ function PropertyDetails() {
             style={{
               // padding:"20px",
               borderRadius: "20px",
-              backgroundImage: `url(${imageIndex=== 0 ? house.image: house.images[imageIndex]})`,
-              
+              backgroundImage: `url(${
+                imageIndex === 0 ? house.image : house.images[imageIndex]
+              })`,
             }}
           >
-            <div className="nav-btns-container" >
-            <button 
-            onClick={decreaseIndex}><ArrowBackIosNewIcon/></button>
-            <button
-                        onClick={increaseIndex}
-            ><ArrowForwardIosIcon/></button>
+            <div className="nav-btns-container">
+              <button onClick={decreaseIndex}>
+                <ArrowBackIosNewIcon />
+              </button>
+              <button onClick={increaseIndex}>
+                <ArrowForwardIosIcon />
+              </button>
             </div>
             <div className="dots">
               <div className="dots-container">
-             {data[0].images.map((image,index)=>{
-              return <button className={`dots `}
-              key={index}
-              style={{
-                    opacity: index === imageIndex ? "1" : ".4",
-                    display:"block"
-              }}
-              onClick={()=>{setImageIndex(index)}}
-              
-              ></button>
-             })}
+                {data[0].images.map((image, index) => {
+                  return (
+                    <button
+                      className={`dots `}
+                      key={index}
+                      style={{
+                        opacity: index === imageIndex ? "1" : ".4",
+                        display: "block",
+                      }}
+                      onClick={() => {
+                        setImageIndex(index);
+                      }}
+                    ></button>
+                  );
+                })}
               </div>
-
-
             </div>
-
           </div>
           <h2 className="details-sub-heading">{house.title}</h2>
           <h4 className="details-location">
@@ -241,7 +247,7 @@ function PropertyDetails() {
             <h5 className="details-sub-heading">Amenities</h5>
             <br />
             <div className=" card-container">
-              {house.amenities.map((amenity,index) => {
+              {house.amenities.map((amenity, index) => {
                 return (
                   <div className="amenity-card" key={index}>
                     {findIcon(amenity)} <p>{amenity}</p>
@@ -298,28 +304,28 @@ function PropertyDetails() {
               <Ratings
                 method="get"
                 count={house.reviews.overallRating}
-                size= {window.innerWidth >= 425 ? "large" : "medium" }
+                size={window.innerWidth >= 425 ? "large" : "medium"}
               />
-              <p
-              className="rating-overall"
-              >
-                
+              <p className="rating-overall">
                 {house.reviews.overallRating} out of 5 (
                 {house.reviews.totalReviews} Reviews)
               </p>
             </div>
             <div className="comments-container">
-              {house.reviews.entries.map((entry,index) => {
+              {house.reviews.entries.map((entry, index) => {
                 return (
                   <div className="comment-card" key={index}>
                     <div className="comment-profile-info">
                       <div
                         className="comment-profile-img-container"
                         style={{
-                          backgroundImage: `url(${ !entry.profileImg?defaultProfile:entry.profileImg})`
+                          backgroundImage: `url(${
+                            !entry.profileImg
+                              ? defaultProfile
+                              : entry.profileImg
+                          })`,
                         }}
-                      >
-                      </div>
+                      ></div>
                       <div className="name-and-rating">
                         <p>{entry.name}</p>
                         <Ratings
@@ -329,9 +335,7 @@ function PropertyDetails() {
                         />
                       </div>
                     </div>
-                    <div className="comment-content">
-                      {entry.comment}
-                    </div>
+                    <div className="comment-content">{entry.comment}</div>
                   </div>
                 );
               })}
@@ -342,16 +346,9 @@ function PropertyDetails() {
                } */}
           </div>
         </div>
-        <button className="start-discussion-with-owner-button"
-        style={{
-
-
-        }}
-        
-        >
+        <button className="start-discussion-with-owner-button" style={{}}>
           Chat With Owner
         </button>
-        
       </Container>
       <BottomTabs></BottomTabs>
       <Footer />

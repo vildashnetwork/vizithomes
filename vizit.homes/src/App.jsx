@@ -14,6 +14,7 @@ import LandingPage from "./pages/LandingPage/LandingPage";
 import SearchProperty from "./pages/SearchPropertyPage/SearchProperty";
 import PropertyDetails from "./pages/PropertyDetails/PropertyDetails";
 import SeekerProfile from "./pages/SeekerProfile/SeekerProfile";
+import Chat from "./pages/Shared/Chat/Chat";
 // Simple protected route for owners
 function ProtectedOwner({ children }) {
   const role = localStorage.getItem("role");
@@ -54,6 +55,7 @@ export default function App() {
 LandingPage
 SearchProperty
 SeekerProfile
+Chat
   return (
     <Routes>
       {/* <Route path="/" element={<MainPage onRoleSelect={(r) => setAppRole(r)} />} /> */}
@@ -64,6 +66,7 @@ SeekerProfile
 
       //!Testing purposes only ---need modification in the future
       <Route path="/profile" element={<SeekerProfile onRoleSelect={(r) => setAppRole(r)} />} />
+      <Route path="/chat" element={<Chat onRoleSelect={(r) => setAppRole(r)} />} />
         
       <Route path="/owner/login" element={<OwnerLoginLanding onLogin={() => setAppRole("owner")} />} />
       <Route

@@ -108,17 +108,23 @@ export const links = [
     icon: <PersonIcon />,
   },
   {
-    link: "/home",
+    link: "/chat",
     title: "Chat",
     icon: <ChatIcon />,
   },
 ];
 
-function Select({ title, data ,onChange, id, value}) {
+function Select({ title, data, onChange, id, value }) {
   return (
     <div>
       <p style={{ margin: "5px" }}>{title}</p>
-      <select name={title} className="opt-select" id={id}  defaultValue={value} onChange={onChange} >
+      <select
+        name={title}
+        className="opt-select"
+        id={id}
+        defaultValue={value}
+        onChange={onChange}
+      >
         {data.map((item, index) => {
           return (
             <option key={index} value={item}>
@@ -248,7 +254,7 @@ export function Head({ carryOutSearch }) {
                 <Link key={key} to={item.link} className="link">
                   <li
                     className={
-                      window.location.pathname === item.link ? "on" : ""
+                      window.location.pathname === item.link ? "on" : "off"
                     }
                     onClick={() => {
                       window.location.pathname = item.link;
@@ -289,7 +295,7 @@ export function Container({ children }) {
     </div>
   );
 }
-export function Header({ carryOutSearch ,changeRegion}) {
+export function Header({ carryOutSearch, changeRegion }) {
   return (
     <>
       <Head carryOutSearch={carryOutSearch} />
@@ -303,7 +309,13 @@ export function Header({ carryOutSearch ,changeRegion}) {
           <div className="search-filter-card">
             <div className="filter-container">
               {/* //TODO ALSO NEEDS FIXING */}
-              <Select title="Location" data={cameroonTowns}  id={"rxt-location-select"} value={cameroonTowns[0]} onchange= {changeRegion}/>
+              <Select
+                title="Location"
+                data={cameroonTowns}
+                id={"rxt-location-select"}
+                value={cameroonTowns[0]}
+                onchange={changeRegion}
+              />
               <RangeSlider />
               <Select title="Building Type" data={biuldingTypes} />
               <Select title="Duration Of Stay" data={posibleDuration} />
@@ -425,7 +437,7 @@ export function Footer() {
     </footer>
   );
 }
-function SectionHeader({ title, description }) {
+export function SectionHeader({ title, description }) {
   return (
     <>
       <p className="section-title">{title}</p>
@@ -445,14 +457,13 @@ function LandingPage() {
     if (cleanString(inputTex) !== "") {
       data.forEach((data) => {
         // searchArray.push
-        inputTex = cleanString(inputTex)
+        inputTex = cleanString(inputTex);
         if (
           cleanString(data.location.address).includes(inputTex) ||
           cleanString(data.title).includes(inputTex) ||
           cleanString(data.type).includes(inputTex)
         ) {
           searchArray.push(data);
-          
         }
       });
       let searchLocations = searchArray.map((item) => {
@@ -476,17 +487,20 @@ function LandingPage() {
   }
   // TODO PLEASE NEEDS FIXING
 
-  const [propertyType,setPropertyType] = useState("apartment");
+  const [propertyType, setPropertyType] = useState("apartment");
 
-  const [regionOfSearch,setRegionOfSearch] = useState("douala");
-  function handleLocationChange(){
-    const selector =  document.getElementById("rxt-location-select").value
+  const [regionOfSearch, setRegionOfSearch] = useState("douala");
+  function handleLocationChange() {
+    const selector = document.getElementById("rxt-location-select").value;
     console.log(selector);
   }
-  // TODO END FOR NOW 
+  // TODO END FOR NOW
   return (
     <>
-      <Header carryOutSearch={carryOutSearch}  changeRegion={handleLocationChange}/>
+      <Header
+        carryOutSearch={carryOutSearch}
+        changeRegion={handleLocationChange}
+      />
       <SideNav />
       <SectionHeader
         title="Vizit Verified Listings"
