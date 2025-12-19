@@ -15,6 +15,10 @@ import SearchProperty from "./pages/SearchPropertyPage/SearchProperty";
 import PropertyDetails from "./pages/PropertyDetails/PropertyDetails";
 import SeekerProfile from "./pages/SeekerProfile/SeekerProfile";
 import Chat from "./pages/Shared/Chat/Chat";
+import Dashboard from "./pages/Owners/Dashboard/Dashboard";
+import Earnings from "./pages/Owners/Earnings/Earnings";
+import Listings from "./pages/Owners/Listings/Listings";
+import Calender from "./pages/Owners/Calender/Calender";
 // Simple protected route for owners
 function ProtectedOwner({ children }) {
   const role = localStorage.getItem("role");
@@ -56,6 +60,10 @@ LandingPage
 SearchProperty
 SeekerProfile
 Chat
+Dashboard
+Earnings
+Listings
+Calender
   return (
     <Routes>
       {/* <Route path="/" element={<MainPage onRoleSelect={(r) => setAppRole(r)} />} /> */}
@@ -67,7 +75,14 @@ Chat
       //!Testing purposes only ---need modification in the future
       <Route path="/profile" element={<SeekerProfile onRoleSelect={(r) => setAppRole(r)} />} />
       <Route path="/chat" element={<Chat onRoleSelect={(r) => setAppRole(r)} />} />
-        
+
+        {/*//? Owners Only  */}
+      <Route path="/dashboard" element={<Dashboard onRoleSelect={(r) => setAppRole(r)} />} />
+      <Route path="/earnings" element={<Earnings onRoleSelect={(r) => setAppRole(r)} />} />
+      <Route path="/listings" element={<Listings onRoleSelect={(r) => setAppRole(r)} />} />
+      <Route path="/calender" element={<Calender onRoleSelect={(r) => setAppRole(r)} />} />
+              
+      
       <Route path="/owner/login" element={<OwnerLoginLanding onLogin={() => setAppRole("owner")} />} />
       <Route
         path="/owner/home"

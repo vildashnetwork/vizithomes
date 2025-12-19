@@ -134,6 +134,7 @@ th,td{
     border-radius: 6px;
     width: 150px;
     height: 150px;
+    object-fit: cover;
 }
 .comment-comment{
     width: auto;
@@ -214,6 +215,7 @@ th,td{
     border-radius: 6px;
     width: 100%;
     height: auto;
+    ob
 }
 .desktop-only{
     display: none;
