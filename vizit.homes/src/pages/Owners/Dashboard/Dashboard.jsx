@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Header from "../Header/Header";
+import Header from "../Components/Header/Header";
 import { Container, Footer } from "../../LandingPage/LandingPage";
 import "./Dashboard.css";
 
@@ -300,25 +300,21 @@ function Dashboard() {
       </div>
     );
   }
-//!! TODO : FETCH THE REAL VALUES HERE 
-  let activeListingsDemo = 4
-  let pendingAptDemo = 3
-  let unreadMsgDemo = 10
-  let monthsProfitDemo = 2000000
+  //!! TODO : FETCH THE REAL VALUES HERE
+  let activeListingsDemo = 4;
+  let pendingAptDemo = 3;
+  let unreadMsgDemo = 10;
+  let monthsProfitDemo = 2000000;
 
   const [actListLim, setActListLim] = useState(4);
-  const [expandBtnTxt ,setExpandBtnTxt] = useState("View All");
-  const [activeListings,setActiveListings] = useState(activeListingsDemo)
-  const [pendingApt,setPendingApt] = useState(pendingAptDemo)
-  const [unreadMsg,setUnreadMsg] = useState(unreadMsgDemo)
-  const [monthsProfit,setMonthsProfit] = useState(monthsProfitDemo)
-  
-
-
-
+  const [expandBtnTxt, setExpandBtnTxt] = useState("View All");
+  const [activeListings, setActiveListings] = useState(activeListingsDemo);
+  const [pendingApt, setPendingApt] = useState(pendingAptDemo);
+  const [unreadMsg, setUnreadMsg] = useState(unreadMsgDemo);
+  const [monthsProfit, setMonthsProfit] = useState(monthsProfitDemo);
 
   let data = [];
-  for (let i = 0; i <= actListLim -1; i++) {
+  for (let i = 0; i <= actListLim - 1; i++) {
     data.push(sampleActivities[i]);
   }
 
@@ -339,7 +335,7 @@ function Dashboard() {
     }
   }
   console.log(data);
-  console.log("Length",monthsProfit.toString().length)
+  console.log("Length", monthsProfit.toString().length);
   return (
     <div>
       <Header />
@@ -350,12 +346,11 @@ function Dashboard() {
             <p>What is going on with your properties today ?</p>
           </div>
           <div>
-            <button className="button"
-            onClick={
-                ()=>{
-                    // !! TODO IMPORT ADD NEW LISTING FUNCTION AND USE HERE
-                }
-            }
+            <button
+              className="button"
+              onClick={() => {
+                // !! TODO IMPORT ADD NEW LISTING FUNCTION AND USE HERE
+              }}
             >
               {" "}
               <AddIcon className="btn-icon" /> Add New Listings
@@ -415,9 +410,14 @@ function Dashboard() {
                 <AttachMoneyIcon className="dc-icon" />
               </div>
             </div>
-            <div className="count" style={{
-                fontSize: monthsProfit.toString().length > 9 ? "1.2em" : "2em"
-            }}>XFA  {monthsProfit.toLocaleString()}</div>
+            <div
+              className="count"
+              style={{
+                fontSize: monthsProfit.toString().length > 9 ? "1.2em" : "2em",
+              }}
+            >
+              XFA {monthsProfit.toLocaleString()}
+            </div>
             <div className="trend">
               <p className="bad">
                 <TrendingDownIcon /> <span className="count-value"> -12% </span>{" "}
@@ -462,22 +462,17 @@ function Dashboard() {
             <div className="top">
               <h2>Recent Activity</h2>
               <button
-              
                 onClick={() => {
-
-                  
-                    // !! TODO : CHANGE WITH ACTUAL VALUES
-                  if(expandBtnTxt == "View All"){
-                  sampleActivities.length > 20 ?
-                   setActListLim((sampleActivities.length / 2) -1 )
-                   : setActListLim(sampleActivities.length -1);
-                    setExpandBtnTxt("Fewer Items")
+                  // !! TODO : CHANGE WITH ACTUAL VALUES
+                  if (expandBtnTxt == "View All") {
+                    sampleActivities.length > 20
+                      ? setActListLim(sampleActivities.length / 2 - 1)
+                      : setActListLim(sampleActivities.length - 1);
+                    setExpandBtnTxt("Fewer Items");
+                  } else {
+                    setActListLim(4);
+                    setExpandBtnTxt("View All");
                   }
-                  else{
-                    setActListLim(4)
-                    setExpandBtnTxt("View All")
-                  }
-
                 }}
               >
                 {expandBtnTxt}

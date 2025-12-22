@@ -1,6 +1,6 @@
 import React from "react";
-import "../../LandingPage/lpStyles.css";
-import logo from "../../..//assets/images/logo.png";
+import "../../../LandingPage/lpStyles.css";
+import logo from "../../../..//assets/images/logo.png";
 import { Link } from "react-router-dom";
 //
 
@@ -20,6 +20,7 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import EventNoteIcon from '@mui/icons-material/EventNote';
 import RealEstateAgentIcon from '@mui/icons-material/RealEstateAgent';
+import PendingActionsIcon from "@mui/icons-material/PendingActions";
 export const links = [
   {
     link: "/dashboard",
@@ -41,6 +42,12 @@ export const links = [
     link: "/calender",
     title: "Calender",
     icon: <EventNoteIcon />,
+  },
+  {
+    // todo Also needs fixing bro !!!!
+    link: "/appointments",
+    title: "Appointments",
+    icon: <PendingActionsIcon />,
   },
   {
     link: "/earnings",
