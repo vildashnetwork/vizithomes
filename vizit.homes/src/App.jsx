@@ -16,10 +16,10 @@ import PropertyDetails from "./pages/PropertyDetails/PropertyDetails";
 import SeekerProfile from "./pages/SeekerProfile/SeekerProfile";
 import Chat from "./pages/Shared/Chat/Chat";
 import Dashboard from "./pages/Owners/Dashboard/Dashboard";
-import Earnings from "./pages/Owners/Earnings/Earnings";
 import Listings from "./pages/Owners/Listings/Listings";
 import Calender from "./pages/Owners/Calender/Calender";
 import Appointments from "./pages/Owners/Appointments/Appointments";
+import Reviews from "./pages/Owners/Reviews/Reviews";
 // Simple protected route for owners
 function ProtectedOwner({ children }) {
   const role = localStorage.getItem("role");
@@ -62,7 +62,7 @@ SearchProperty
 SeekerProfile
 Chat
 Dashboard
-Earnings
+Reviews
 Listings
 Calender
 Appointments
@@ -80,7 +80,7 @@ Appointments
 
         {/*//? Owners Only  */}
       <Route path="/dashboard" element={<Dashboard onRoleSelect={(r) => setAppRole(r)} />} />
-      <Route path="/earnings" element={<Earnings onRoleSelect={(r) => setAppRole(r)} />} />
+      <Route path="/reviews" element={<Reviews onRoleSelect={(r) => setAppRole(r)} />} />
       <Route path="/listings" element={<Listings onRoleSelect={(r) => setAppRole(r)} />} />
       <Route path="/calender" element={<Calender onRoleSelect={(r) => setAppRole(r)} />} />
       <Route path="/appointments" element={<Appointments onRoleSelect={(r) => setAppRole(r)} />} />

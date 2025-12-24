@@ -21,6 +21,8 @@ import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import EventNoteIcon from '@mui/icons-material/EventNote';
 import RealEstateAgentIcon from '@mui/icons-material/RealEstateAgent';
 import PendingActionsIcon from "@mui/icons-material/PendingActions";
+import ReviewsIcon from '@mui/icons-material/Reviews';
+
 export const links = [
   {
     link: "/dashboard",
@@ -50,9 +52,9 @@ export const links = [
     icon: <PendingActionsIcon />,
   },
   {
-    link: "/earnings",
-    title: "Earnings",
-    icon: <MonetizationOnIcon />,
+    link: "/reviews",
+    title: "Reviews",
+    icon: <ReviewsIcon />,
   },
 ];
 export function SideNav() {

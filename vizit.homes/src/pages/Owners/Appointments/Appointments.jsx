@@ -18,6 +18,7 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import Modal from "../Components/Modal";
 
 function AppointmentCard({ appointment }) {
   return (
@@ -270,12 +271,15 @@ function Appointments() {
                 Load more Appointments <ExpandMoreIcon />
               </button>
             ) : (
-              <div className="nothing-found">No Appointments Found Here :</div>
+              <div className="nothing-found">No Appointments Found Here </div>
             )}
           </div>
         </div>
       </Container>
       <Footer></Footer>
+      <Modal>
+        <p>Hello World</p>
+      </Modal>
     </div>
   );
 }
