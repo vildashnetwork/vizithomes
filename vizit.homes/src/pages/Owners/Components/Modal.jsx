@@ -1,12 +1,20 @@
 import React from "react";
+import CloseIcon from '@mui/icons-material/Close';
 
-function Modal({ children }) {
+function Modal({ children, justification }) {
   return (
-    <div className="modal">
+    <div className="modal"
+    style={{
+      justifyContent: justification? justification : "center",
+      paddingRight: "20px" ,
+    }}
+    
+    >
       <div className="div">
         <button className="btn-close-btn" onClick={()=>{
             document.querySelector(".modal").style.display = "none";
-        }}>Close</button>
+            
+        }}><CloseIcon/></button>
         
         <div className="main">
 

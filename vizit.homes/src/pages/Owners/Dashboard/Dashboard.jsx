@@ -350,6 +350,7 @@ function Dashboard() {
               className="button"
               onClick={() => {
                 // !! TODO IMPORT ADD NEW LISTING FUNCTION AND USE HERE
+                window.location.pathname = "/listings"
               }}
             >
               {" "}

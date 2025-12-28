@@ -1,6 +1,7 @@
-button{
+button {
     cursor: pointer;
 }
+
 .appointments {
     padding: 20px;
 
@@ -17,6 +18,7 @@ button{
         display: flex;
         gap: 10px;
         padding: 20px 0;
+        flex-wrap: wrap;
 
         .filter-btn {
             background-color: rgba(219, 168, 2, 0.945);
@@ -56,6 +58,7 @@ button{
             justify-content: space-between;
             align-items: center;
             border-radius: 15px;
+            flex-wrap: wrap;
 
             .batch {
                 display: flex;
@@ -67,7 +70,7 @@ button{
                 border: solid rgb(255, 255, 255);
                 align-items: center;
 
-                & *{
+                & * {
                     font-size: small;
                 }
 
@@ -101,10 +104,7 @@ button{
                     position: absolute;
                     bottom: 2px;
                     right: 4px;
-                    /* background-color: rgb(255, 209, 2);
-                    box-shadow: 0 1px 2px rgb(39, 38, 38); */
                     font-weight: 600;
-                    /* color: black; */
                 }
 
 
@@ -212,4 +212,35 @@ button{
     .nothing-found {
         height: 100px;
     }
+}
+
+@media screen and (max-width:470px) {
+    .appointments {
+        .apt-card-container {
+
+            .apt-card {
+
+                .apt-card-img-cont {
+                    .batch {
+                    bottom: -2px;
+                    right: -10px;
+                    font-weight: 400;
+                }
+                    img {
+                        width: 80px;
+                        height: 80px;
+                    }
+                }
+                .apt-details{
+                 .apt-date-time {
+                    font-weight: 600;
+                    font-size: 14px;
+                }
+                }
+                
+
+            }
+        }
+    }
+
 }

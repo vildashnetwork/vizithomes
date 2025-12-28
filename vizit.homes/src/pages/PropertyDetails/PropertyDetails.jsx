@@ -35,6 +35,8 @@ import TungstenOutlinedIcon from "@mui/icons-material/TungstenOutlined";
 import HotTubOutlinedIcon from "@mui/icons-material/HotTubOutlined";
 import LocalDrinkOutlinedIcon from "@mui/icons-material/LocalDrinkOutlined";
 import PoolOutlinedIcon from "@mui/icons-material/PoolOutlined";
+import PetsIcon from '@mui/icons-material/Pets';
+import ParkIcon from '@mui/icons-material/Park';
 
 //for the rating
 import StarOutlinedIcon from "@mui/icons-material/StarOutlined";
@@ -88,46 +90,50 @@ export function Ratings({ method, size, count }) {
   return ratings;
 }
 
-function findIcon(str) {
+export function findIcon(str,size) {
   function check(sStr, Tstr) {
     return cleanString(sStr).includes(Tstr);
   }
   let iicon;
 
   if (check(str, "air")) {
-    iicon = <AcUnitOutlinedIcon fontSize="large" className="icons-green" />;
-  } else if (check(str, "wifi") || check(str, "ac")) {
-    iicon = <WifiIcon fontSize="large" className="icons-green" />;
-  } else if (check(str, "runningwater") || check(str, "wateravailability")) {
-    iicon = <LocalDrinkOutlinedIcon fontSize="large" className="icons-green" />;
+    iicon = <AcUnitOutlinedIcon fontSize= {size? size :"large"} className="icons-green" />;
+  } else if (check(str, "wifi") || check(str, "internet")) {
+    iicon = <WifiIcon fontSize= {size? size :"large"} className="icons-green" />;
+  } else if (check(str, "water") || check(str, "wateravailability")) {
+    iicon = <LocalDrinkOutlinedIcon fontSize= {size? size :"large"} className="icons-green" />;
   } else if (check(str, "security") || check(str, "protection")) {
-    iicon = <SecurityIcon fontSize="large" className="icons-green" />;
+    iicon = <SecurityIcon fontSize= {size? size :"large"} className="icons-green" />;
   } else if (check(str, "balcony")) {
-    iicon = <BalconyIcon fontSize="large" className="icons-green" />;
+    iicon = <BalconyIcon fontSize= {size? size :"large"} className="icons-green" />;
   } else if (check(str, "parking")) {
     iicon = (
-      <LocalParkingOutlinedIcon fontSize="large" className="icons-green" />
+      <LocalParkingOutlinedIcon fontSize= {size? size :"large"} className="icons-green" />
     );
   } else if (check(str, "garden")) {
-    iicon = <YardOutlinedIcon fontSize="large" className="icons-green" />;
+    iicon = <YardOutlinedIcon fontSize= {size? size :"large"} className="icons-green" />;
   } else if (check(str, "gym") || check(str, "fitness")) {
     iicon = (
-      <FitnessCenterOutlinedIcon fontSize="large" className="icons-green" />
+      <FitnessCenterOutlinedIcon fontSize= {size? size :"large"} className="icons-green" />
     );
   } else if (check(str, "fence") || check(str, "gate")) {
-    iicon = <FenceIcon fontSize="large" className="icons-green" />;
+    iicon = <FenceIcon fontSize= {size? size :"large"} className="icons-green" />;
   } else if (check(str, "furnished") || check(str, "complete")) {
-    iicon = <ImagesearchRollerIcon fontSize="large" className="icons-green" />;
+    iicon = <ImagesearchRollerIcon fontSize= {size? size :"large"} className="icons-green" />;
   } else if (check(str, "kitchen")) {
-    iicon = <KitchenIcon fontSize="large" className="icons-green" />;
+    iicon = <KitchenIcon fontSize= {size? size :"large"} className="icons-green" />;
   } else if (check(str, "generator") || check(str, "solar")) {
-    iicon = <TungstenOutlinedIcon fontSize="large" className="icons-green" />;
+    iicon = <TungstenOutlinedIcon fontSize= {size? size :"large"} className="icons-green" />;
   } else if (check(str, "hotwater") || check(str, "heater")) {
-    iicon = <HotTubOutlinedIcon fontSize="large" className="icons-green" />;
+    iicon = <HotTubOutlinedIcon fontSize= {size? size :"large"} className="icons-green" />;
   } else if (check(str, "pool") || check(str, "swimming")) {
-    iicon = <PoolOutlinedIcon fontSize="large" className="icons-green" />;
+    iicon = <PoolOutlinedIcon fontSize= {size? size :"large"} className="icons-green" />;
+  } else if (check(str, "pet") || check(str, "animal")) {
+    iicon = <PetsIcon fontSize= {size? size :"large"} className="icons-green" />;
+  } else if (check(str, "near") || check(str, "green")) {
+    iicon = <ParkIcon fontSize= {size? size :"large"} className="icons-green" />;
   } else {
-    iicon = <CropOriginalIcon fontSize="large" className="icons-green" />;
+    iicon = <CropOriginalIcon fontSize= {size? size :"large"} className="icons-green" />;
   }
 
   return iicon;

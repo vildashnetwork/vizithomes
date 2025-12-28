@@ -104,7 +104,7 @@ export function BottomTabs() {
   );
 }
 
-export function TopNav() {
+export function TopNav( {search}) {
   // const [listingsData,setListingsData] = useState({listings : data,locations})
 
   const profile = logo ? (
@@ -159,8 +159,17 @@ export function TopNav() {
           </ul>
         </nav>
       </div>
-      <div className="right-top">
-        <div className="search-input">
+      <div className="right-top"
+      style={
+        {
+          justifyContent:"flex-end",
+          paddingInlineEnd:"40px"
+        }
+      }
+      >
+        {
+          search &&
+                  <div className="search-input">
           <SearchIcon />
           {/* <div className = "img-container"> */}
 
@@ -173,6 +182,8 @@ export function TopNav() {
           />
           {/* </div> */}
         </div>
+        }
+
         <div>{profile}</div>
       </div>
     </div>
