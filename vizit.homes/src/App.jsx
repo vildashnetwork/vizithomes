@@ -76,7 +76,7 @@ Appointments
 
       //!Testing purposes only ---need modification in the future
       <Route path="/profile" element={<SeekerProfile onRoleSelect={(r) => setAppRole(r)} />} />
-      <Route path="/chat" element={<Chat onRoleSelect={(r) => setAppRole(r)} />} />
+      <Route path="/chat" element={<Chat onRoleSelect={(r) => setAppRole(r)}   userType={"owner"}/>} /> //chat is a shared component between the seeker and owner
 
         {/*//? Owners Only  */}
       <Route path="/dashboard" element={<Dashboard onRoleSelect={(r) => setAppRole(r)} />} />

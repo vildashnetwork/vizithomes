@@ -704,7 +704,7 @@ function Listings() {
           <div className="search">
             <SearchIcon />{" "}
             <input
-              type="text"
+              type="search"
               name=""
               id=""
               placeholder="Search name or location ..."
