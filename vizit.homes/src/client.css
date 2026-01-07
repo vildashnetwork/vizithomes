@@ -41,7 +41,7 @@
 }
 
 .cd-header .cd-brand__icon {
-  color: #1d4ed8;
+  color: #368f13;
   font-size: 1.6rem;
 }
 
@@ -122,10 +122,10 @@
 }
 
 .cd-filterbar .cd-filter.is-active {
-  background: linear-gradient(135deg, rgba(29, 78, 216, 0.1), rgba(30, 64, 175, 0.06));
-  color: #1d4ed8;
-  -webkit-box-shadow: 0 8px 30px rgba(30, 64, 175, 0.06);
-          box-shadow: 0 8px 30px rgba(30, 64, 175, 0.06);
+  background: linear-gradient(135deg, rgba(54, 143, 19, 0.1), rgba(30, 175, 66, 0.06));
+  color: #368f13;
+  -webkit-box-shadow: 0 8px 30px rgba(30, 175, 66, 0.06);
+          box-shadow: 0 8px 30px rgba(30, 175, 66, 0.06);
   -webkit-transform: translateY(-2px);
           transform: translateY(-2px);
 }
@@ -250,7 +250,7 @@
 
 .cd-card .cd-card__price .cd-card__price-amount {
   font-weight: 800;
-  color: #1d4ed8;
+  color: #368f13;
   font-size: 1.25rem;
 }
 
@@ -363,11 +363,11 @@
 }
 
 .cd-card .cd-card__actions .cd-btn--primary {
-  background: linear-gradient(135deg, #1d4ed8, #1e40af);
+  background: linear-gradient(135deg, #368f13, #1eaf42);
   color: #ffffff;
   border: none;
-  -webkit-box-shadow: 0 10px 28px rgba(30, 64, 175, 0.12);
-          box-shadow: 0 10px 28px rgba(30, 64, 175, 0.12);
+  -webkit-box-shadow: 0 10px 28px rgba(30, 175, 66, 0.12);
+          box-shadow: 0 10px 28px rgba(30, 175, 66, 0.12);
 }
 
 .cd-card:hover {
@@ -473,9 +473,9 @@
 .cd-modal .cd-form .cd-form-row input:focus,
 .cd-modal .cd-form .cd-form-row select:focus,
 .cd-modal .cd-form .cd-form-row textarea:focus {
-  -webkit-box-shadow: 0 6px 20px rgba(29, 78, 216, 0.08);
-          box-shadow: 0 6px 20px rgba(29, 78, 216, 0.08);
-  border-color: #1d4ed8;
+  -webkit-box-shadow: 0 6px 20px rgba(54, 143, 19, 0.08);
+          box-shadow: 0 6px 20px rgba(54, 143, 19, 0.08);
+  border-color: #368f13;
 }
 
 .cd-modal .cd-form .cd-form-footer {
@@ -500,7 +500,7 @@
 .cd-modal .cd-form .cd-form-footer .cd-btn {
   padding: 0.6rem 0.8rem;
   border-radius: 8px;
-  background: #1d4ed8;
+  background: #368f13;
   color: #ffffff;
   border: none;
   cursor: pointer;
@@ -552,7 +552,7 @@
 }
 
 .cd-bottomnav .cd-bottomnav__btn.is-active {
-  color: #1d4ed8;
+  color: #368f13;
 }
 
 /* Responsive */
@@ -651,7 +651,7 @@
 }
 
 .cd-sidebar__brand ion-icon {
-  color: #1d4ed8;
+  color: #368f13;
   font-size: 1.4rem;
 }
 
@@ -699,22 +699,22 @@
 .cd-sidebar__item:hover {
   -webkit-transform: translateX(6px);
           transform: translateX(6px);
-  color: #1d4ed8;
+  color: #368f13;
 }
 
 .cd-sidebar__item:hover ion-icon {
-  color: #1d4ed8;
+  color: #368f13;
 }
 
 .cd-sidebar__item.is-active {
-  background: linear-gradient(135deg, rgba(29, 78, 216, 0.08), rgba(30, 64, 175, 0.02));
-  color: #1d4ed8;
+  background: linear-gradient(135deg, rgba(54, 143, 19, 0.08), rgba(30, 175, 66, 0.02));
+  color: #368f13;
   -webkit-transform: translateX(6px);
           transform: translateX(6px);
 }
 
 .cd-sidebar__item.is-active ion-icon {
-  color: #1d4ed8;
+  color: #368f13;
 }
 
 .cd-sidebar__footer {

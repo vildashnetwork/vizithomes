@@ -3,6 +3,7 @@ import "./style/osner.css";
 import GoogleLoginButton from "./GoogleLoginButton";
 import Dropdown from "./Select";
 import { navigate } from "ionicons/icons";
+import axios from "axios";
 
 
 
@@ -38,25 +39,47 @@ export default function UserAuthLanding() {
         setFullName(""); setPhone(""); setRegEmail(""); setRegPassword(""); setConfirmPassword("");
     };
 
-    function handleLogin(e) {
+    async function handleLogin(e) {
         e.preventDefault();
         setMessage({ type: "", text: "" });
         localStorage.setItem("role", "user")
         if (!email) return setMessage({ type: "error", text: "Enter your email." });
         if (!isEmail(email)) return setMessage({ type: "error", text: "Enter a valid email." });
         if (!password) return setMessage({ type: "error", text: "Enter your password." });
+        const logindata = { identifier: email, password: password }
 
-        setLoading(true);
-        setTimeout(() => {
+        try {
+            setLoading(true);
+            const res = await axios.post("https://vizit-backend-hubw.onrender.com/api/user/login", logindata);
+            if (res.status === 200) {
+                setMessage({ type: "success", text: res.data.message });
+
+                localStorage.setItem("token", res.data.token);
+
+                window.location.href = "/"
+
+            } else {
+                setMessage({ type: "success", text: res.data.message });
+            }
+        } catch (error) {
+            console.log(error);
+
+            setMessage({ type: "error", text: error?.message });
+        } finally {
             setLoading(false);
-            localStorage.setItem("role", "user");
-            window.location.href = "/user/home"
-            setMessage({ type: "success", text: "Login successful — demo role saved." });
-            // optionally redirect here
-        }, 1100);
+        }
+
+        // setLoading(true);
+        // setTimeout(() => {
+        //     setLoading(false);
+        //     localStorage.setItem("role", "user");
+        //     window.location.href = "/user/home"
+        //     setMessage({ type: "success", text: "Login successful — demo role saved." });
+        //     // optionally redirect here
+        // }, 1100);
     }
 
-    function handleRegister(e) {
+    async function handleRegister(e) {
         e.preventDefault();
         setMessage({ type: "", text: "" });
 
@@ -67,14 +90,43 @@ export default function UserAuthLanding() {
         if (!regPassword || regPassword.length < 6) return setMessage({ type: "error", text: "Password must be at least 6 characters." });
         if (regPassword !== confirmPassword) return setMessage({ type: "error", text: "Passwords do not match." });
 
-        setLoading(true);
-        setTimeout(() => {
+        const data = {
+            name: fullName,
+            number: phone,
+            email: regEmail,
+            password: regPassword,
+            interest: role
+        }
+
+
+        try {
+            setLoading(true);
+            const res = await axios.post("https://vizit-backend-hubw.onrender.com/api/user/register",
+                data
+            )
+
+            if (res.status === 201) {
+                setMessage({ type: "success", text: res.data.message });
+                localStorage.setItem("token", res.data.token);
+                window.location.href = "/"
+            } else {
+                setMessage({ type: "error", text: res.data.message });
+            }
+        } catch (err) {
+            console.log(err);
+            setMessage({ type: "error", text: err?.message });
+
+        } finally {
             setLoading(false);
-            localStorage.setItem("role", "user");
-            setMessage({ type: "success", text: "Account created — demo role saved." });
-            resetForm();
-            setMode("login");
-        }, 1400);
+        }
+        // setLoading(true);
+        // setTimeout(() => {
+        //     setLoading(false);
+        //     localStorage.setItem("role", "user");
+        //     setMessage({ type: "success", text: "Account created — demo role saved." });
+        //     resetForm();
+        //     setMode("login");
+        // }, 1400);
     }
 
 

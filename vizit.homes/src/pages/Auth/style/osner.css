@@ -193,7 +193,7 @@
 
 .landing__header .landing__icon ion-icon {
   font-size: 3.75rem;
-  color: #1d4ed8;
+  color: #368f13;
   -webkit-animation: float 3s ease-in-out infinite;
           animation: float 3s ease-in-out infinite;
   -webkit-filter: drop-shadow(0 6px 16px rgba(37, 99, 235, 0.18));
@@ -239,9 +239,9 @@
 }
 
 .landing .auth-tab.is-active {
-  background: linear-gradient(135deg, rgba(29, 78, 216, 0.12), rgba(107, 33, 168, 0.08));
+  background: linear-gradient(135deg, rgba(54, 143, 19, 0.12), rgba(107, 33, 168, 0.08));
   border-color: rgba(37, 99, 235, 0.12);
-  color: #1d4ed8;
+  color: #368f13;
   -webkit-transform: translateY(-2px);
           transform: translateY(-2px);
   -webkit-box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
@@ -376,14 +376,14 @@
 }
 
 .btn--owner {
-  background: linear-gradient(135deg, #1d4ed8, #1e40af);
+  background: linear-gradient(135deg, #368f13, #1eaf42);
 }
 
 .btn--owner:hover:not(:disabled) {
   -webkit-transform: translateY(-3px) scale(1.02);
           transform: translateY(-3px) scale(1.02);
-  -webkit-box-shadow: 0 14px 38px rgba(30, 64, 175, 0.18);
-          box-shadow: 0 14px 38px rgba(30, 64, 175, 0.18);
+  -webkit-box-shadow: 0 14px 38px rgba(30, 175, 66, 0.18);
+          box-shadow: 0 14px 38px rgba(30, 175, 66, 0.18);
 }
 
 @-webkit-keyframes fadeIn {
@@ -561,15 +561,15 @@
 }
 
 .dropdown__header:hover {
-  border-color: #2563eb;
-  -webkit-box-shadow: 0 6px 20px rgba(37, 99, 235, 0.08);
-          box-shadow: 0 6px 20px rgba(37, 99, 235, 0.08);
+  border-color: #53eb25;
+  -webkit-box-shadow: 0 6px 20px rgba(83, 235, 37, 0.08);
+          box-shadow: 0 6px 20px rgba(83, 235, 37, 0.08);
 }
 
 .dropdown__header.open {
-  border-color: #1d4ed8;
-  -webkit-box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
-          box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  border-color: #368f13;
+  -webkit-box-shadow: 0 0 0 3px rgba(83, 235, 37, 0.15);
+          box-shadow: 0 0 0 3px rgba(83, 235, 37, 0.15);
 }
 
 .dropdown__icon {
@@ -612,6 +612,6 @@
 
 .dropdown__list .dropdown__item:hover {
   background: #eff6ff;
-  color: #1d4ed8;
+  color: #368f13;
 }
 /*# sourceMappingURL=osner.css.map */

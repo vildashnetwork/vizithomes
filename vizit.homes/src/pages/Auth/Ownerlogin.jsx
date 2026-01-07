@@ -3,6 +3,7 @@ import "./style/osner.css";
 import GoogleLoginButton from "./GoogleLoginButton";
 import Dropdown from "./Select";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 
 
@@ -11,10 +12,13 @@ export default function OwnerAuthLanding() {
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState({ type: "", text: "" });
     const [view, notview] = useState(true)
+    const [companyname, setcompanyname] = useState("")
+    const [bio, setbio] = useState("")
+    const [location, setlocation] = useState("")
     // login fields
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-
+    const [idno, setidno] = useState("")
     // register fields
     const [fullName, setFullName] = useState("");
     const [phone, setPhone] = useState("");
@@ -39,26 +43,45 @@ export default function OwnerAuthLanding() {
     };
     const navigate = useNavigate()
 
-    function handleLogin(e) {
+    async function handleLogin(e) {
         e.preventDefault();
         setMessage({ type: "", text: "" });
-        localStorage.setItem("role", "owner");
-        window.location.href = "/owner/home"
+
 
         if (!email) return setMessage({ type: "error", text: "Enter your email." });
         if (!isEmail(email)) return setMessage({ type: "error", text: "Enter a valid email." });
         if (!password) return setMessage({ type: "error", text: "Enter your password." });
 
-        setLoading(true);
-        setTimeout(() => {
-            setLoading(false);
-            localStorage.setItem("role", "owner");
-            setMessage({ type: "success", text: "Login successful — demo role saved." });
-            // optionally redirect here
-        }, 1100);
+        const logindata = { identifier: email, password: password }
+
+        try {
+            setLoading(true);
+            const res = await axios.post("https://vizit-backend-hubw.onrender.com/api/owner/login",
+
+                logindata
+
+            );
+
+            if (res.status === 200) {
+                setMessage({ type: "success", text: res.data.message });
+                localStorage.setItem("token", res.data.token);
+                localStorage.setItem("role", "owner");
+                navigate("/dashboard")
+            } else {
+                setMessage({ type: "error", text: res.data.message });
+            }
+
+        } catch (error) {
+            console.log('====================================');
+            console.log(error);
+            setMessage({ type: "error", text: error?.message });
+            console.log('====================================');
+        } finally {
+            setLoading(false)
+        }
     }
 
-    function handleRegister(e) {
+    async function handleRegister(e) {
         e.preventDefault();
         setMessage({ type: "", text: "" });
 
@@ -69,14 +92,56 @@ export default function OwnerAuthLanding() {
         if (!regPassword || regPassword.length < 6) return setMessage({ type: "error", text: "Password must be at least 6 characters." });
         if (regPassword !== confirmPassword) return setMessage({ type: "error", text: "Passwords do not match." });
 
-        setLoading(true);
-        setTimeout(() => {
+        try {
+            setLoading(true);
+            const playload = {
+                name: fullName,
+                email: regEmail,
+                location: location,
+                password: regPassword,
+                companyname: companyname,
+                phone: phone,
+                interest: role,
+                IDno: idno,
+                bio: bio
+            }
+            const res = await axios.post("https://vizit-backend-hubw.onrender.com/api/owner/register",
+
+                playload
+
+            );
+
+
+
+            localStorage.setItem("token", res.data.token);
+            if (res.status === 201) {
+
+                alert(res.data.message);
+                localStorage.setItem("role", "owner");
+                setMessage({ type: "success", text: "Account created — role saved." });
+                navigate("/dashboard")
+
+            } else {
+
+                setMessage({ type: "success", text: res.data.message });
+                console.log(res.data.message)
+
+            }
+
+
+
+
+
+
+        } catch (error) {
+            console.log('====================================');
+            console.log(error);
+            console.log('====================================');
+        } finally {
             setLoading(false);
-            localStorage.setItem("role", "owner");
-            setMessage({ type: "success", text: "Account created — demo role saved." });
-            resetForm();
-            setMode("login");
-        }, 1400);
+        }
+
+
     }
 
 
@@ -244,8 +309,8 @@ export default function OwnerAuthLanding() {
                                     type="text"
                                     className="form-input"
                                     placeholder="Company LTD"
-                                    value={fullName}
-                                    onChange={(e) => setFullName(e.target.value)}
+                                    value={companyname}
+                                    onChange={(e) => setcompanyname(e.target.value)}
                                     autoComplete="name"
                                 />
                             </div>
@@ -261,8 +326,8 @@ export default function OwnerAuthLanding() {
                                     type="text"
                                     className="form-input"
                                     placeholder="About Your Company"
-                                    value={fullName}
-                                    onChange={(e) => setFullName(e.target.value)}
+                                    value={bio}
+                                    onChange={(e) => setbio(e.target.value)}
                                     autoComplete="name"
                                 />
                             </div>
@@ -320,8 +385,8 @@ export default function OwnerAuthLanding() {
                                     type="location"
                                     className="form-input"
                                     placeholder="xxxxxx Cameroon"
-                                    value={fullName}
-                                    onChange={(e) => setFullName(e.target.value)}
+                                    value={location}
+                                    onChange={(e) => setlocation(e.target.value)}
                                     autoComplete="location"
                                 />
                             </div>
@@ -338,8 +403,8 @@ export default function OwnerAuthLanding() {
                                     type="text"
                                     className="form-input"
                                     placeholder="xxxxxxxxxxxxxx"
-                                    value={fullName}
-                                    onChange={(e) => setFullName(e.target.value)}
+                                    value={idno}
+                                    onChange={(e) => setidno(e.target.value)}
                                     autoComplete="name"
                                 />
                             </div>

@@ -119,7 +119,7 @@
           transform: translate(-50%, -50%);
   width: 32px;
   height: 32px;
-  background: linear-gradient(135deg, #3b82f6, #9333ea);
+  background: linear-gradient(135deg, #249920, #9333ea);
   border-radius: 8px;
   -webkit-filter: blur(8px);
           filter: blur(8px);
@@ -177,9 +177,9 @@
 }
 
 .mp-cta-mini--owner:hover {
-  border-color: rgba(59, 130, 246, 0.4);
-  -webkit-box-shadow: 0 4px 20px rgba(59, 130, 246, 0.2);
-          box-shadow: 0 4px 20px rgba(59, 130, 246, 0.2);
+  border-color: rgba(36, 153, 32, 0.4);
+  -webkit-box-shadow: 0 4px 20px rgba(36, 153, 32, 0.2);
+          box-shadow: 0 4px 20px rgba(36, 153, 32, 0.2);
 }
 
 .mp-cta-mini--client:hover {
@@ -518,21 +518,21 @@
 }
 
 .mp-btn--owner {
-  background: linear-gradient(135deg, #2563eb, #1e40af);
+  background: linear-gradient(135deg, #53eb25, #1eaf42);
   color: #ffffff;
-  -webkit-box-shadow: 0 8px 32px rgba(37, 99, 235, 0.3);
-          box-shadow: 0 8px 32px rgba(37, 99, 235, 0.3);
+  -webkit-box-shadow: 0 8px 32px rgba(83, 235, 37, 0.3);
+          box-shadow: 0 8px 32px rgba(83, 235, 37, 0.3);
 }
 
 .mp-btn--owner .mp-btn-glow {
-  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  background: linear-gradient(135deg, #249920, #368f13);
 }
 
 .mp-btn--owner:hover {
   -webkit-transform: translateY(-3px) scale(1.02);
           transform: translateY(-3px) scale(1.02);
-  -webkit-box-shadow: 0 12px 40px rgba(37, 99, 235, 0.4);
-          box-shadow: 0 12px 40px rgba(37, 99, 235, 0.4);
+  -webkit-box-shadow: 0 12px 40px rgba(83, 235, 37, 0.4);
+          box-shadow: 0 12px 40px rgba(83, 235, 37, 0.4);
 }
 
 .mp-btn--owner:hover .mp-btn-glow {
@@ -634,7 +634,7 @@
   display: -ms-grid;
   display: grid;
   place-items: center;
-  background: linear-gradient(135deg, rgba(37, 99, 235, 0.2), rgba(147, 51, 234, 0.15));
+  background: linear-gradient(135deg, rgba(83, 235, 37, 0.2), rgba(147, 51, 234, 0.15));
   -webkit-box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
           box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
   margin-bottom: 24px;
@@ -645,7 +645,7 @@
 .mp-hero-left .mp-hero-badge .mp-badge-glow {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, #3b82f6, #9333ea);
+  background: linear-gradient(135deg, #249920, #9333ea);
   opacity: 0.3;
   -webkit-filter: blur(12px);
           filter: blur(12px);
@@ -851,8 +851,8 @@
   left: 0;
   right: 0;
   height: 2px;
-  background: -webkit-gradient(linear, left top, right top, from(transparent), color-stop(#3b82f6), color-stop(#a855f7), to(transparent));
-  background: linear-gradient(90deg, transparent, #3b82f6, #a855f7, transparent);
+  background: -webkit-gradient(linear, left top, right top, from(transparent), color-stop(#249920), color-stop(#a855f7), to(transparent));
+  background: linear-gradient(90deg, transparent, #249920, #a855f7, transparent);
   opacity: 0;
   -webkit-transition: opacity 0.4s ease;
   transition: opacity 0.4s ease;
@@ -890,7 +890,7 @@
   position: absolute;
   inset: 0;
   border-radius: 16px;
-  background: linear-gradient(135deg, rgba(37, 99, 235, 0.15), rgba(147, 51, 234, 0.1));
+  background: linear-gradient(135deg, rgba(83, 235, 37, 0.15), rgba(147, 51, 234, 0.1));
   opacity: 0.6;
 }
 
@@ -925,7 +925,7 @@
 
 .mp-feature .mp-feature-arrow ion-icon {
   font-size: 16px;
-  color: #3b82f6;
+  color: #249920;
 }
 
 .mp-gallery-grid {

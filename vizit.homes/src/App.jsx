@@ -1,11 +1,11 @@
+
+
+
 import React, { useEffect, useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
+import axios from "axios";
 
 import MainPage from "./MainPage";
-// import OwnerLogin from "./owner/OwnerLogin";
-// import OwnerDash from "./owner/OwnerDash";
-// import UserLogin from "./user/UserLogin";
-// import UserDash from "./user/UserDash";
 import OwnerLoginLanding from "./pages/Auth/Ownerlogin";
 import UserAuthLanding from "./pages/Auth/Userlogin";
 import ClientDashboard from "./ClientsDash";
@@ -20,73 +20,192 @@ import Listings from "./pages/Owners/Listings/Listings";
 import Calender from "./pages/Owners/Calender/Calender";
 import Appointments from "./pages/Owners/Appointments/Appointments";
 import Reviews from "./pages/Owners/Reviews/Reviews";
-// Simple protected route for owners
+import { connectSocket } from "./realTimeConnect/socketconnect";
+import AdminReelsApp from "./pages/Owners/Reel/App"
+import AdminChatApp from "./pages/Owners/Chats/App"
+import UserChatApp from "./pages/Chats/App"
+import UserReelsApp from "./pages/Reel/App"
+/* ================= PROTECTED ROUTES ================= */
+
 function ProtectedOwner({ children }) {
   const role = localStorage.getItem("role");
   if (role !== "owner") {
-    return <Navigate to="/owner/login" replace />;
+    return <Navigate to="/" replace />;
   }
   return children;
 }
 
-// Simple protected route for users
 function ProtectedUser({ children }) {
   const role = localStorage.getItem("role");
   if (role !== "user") {
-    return <Navigate to="/user/login" replace />;
+    return <Navigate to="/" replace />;
   }
   return children;
 }
 
+/* ================= MAIN APP ================= */
+
 export default function App() {
-  // keep local copy of role so app re-renders on change
   const [role, setRole] = useState(() => localStorage.getItem("role"));
+  const [loading, setLoading] = useState(true);
 
-  // optional: listen for storage changes from other tabs
   useEffect(() => {
-    function onStorage(e) {
-      if (e.key === "role") setRole(e.newValue);
-    }
-    window.addEventListener("storage", onStorage);
-    return () => window.removeEventListener("storage", onStorage);
-  }, []);
+    const storedRole = localStorage.getItem("role");
 
-  // helpful function to update role (call this when logging in/out)
+    async function decodeTokenAndConnect() {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token || !storedRole) {
+          setLoading(false);
+          return;
+        }
+
+        const endpoint =
+          storedRole === "owner"
+            ? "https://vizit-backend-hubw.onrender.com/api/owner/decode/token/owner"
+            : "https://vizit-backend-hubw.onrender.com/api/user/decode/token/user";
+
+        const response = await axios.get(endpoint, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (response.status === 200) {
+          const userId =
+            storedRole === "owner"
+              ? response.data?.res?._id
+              : response.data?.user?._id;
+
+          connectSocket(userId);
+
+        }
+      } catch (err) {
+        console.error("Token decode failed:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    decodeTokenAndConnect();
+
+    const onStorageChange = (e) => {
+      if (e.key === "role") {
+        setRole(e.newValue);
+      }
+    };
+
+    window.addEventListener("storage", onStorageChange);
+    return () => window.removeEventListener("storage", onStorageChange);
+  }, [role]);
+
   const setAppRole = (newRole) => {
-    if (newRole) localStorage.setItem("role", newRole);
-    else localStorage.removeItem("role");
+    if (newRole) {
+      localStorage.setItem("role", newRole);
+    } else {
+      localStorage.removeItem("role");
+      localStorage.removeItem("token");
+    }
     setRole(newRole);
   };
-LandingPage
-SearchProperty
-SeekerProfile
-Chat
-Dashboard
-Reviews
-Listings
-Calender
-Appointments
+
+  if (loading) {
+    return (
+      <div
+        style={{
+          position: "fixed",
+          inset: 0,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          background: "#000000aa",
+          color: "#fff",
+          zIndex: 9999,
+        }}
+      >
+        Loading...
+      </div>
+    );
+  }
+
   return (
     <Routes>
-      {/* <Route path="/" element={<MainPage onRoleSelect={(r) => setAppRole(r)} />} /> */}
-      //!Modified by Achenyu
-      <Route path="/" element={<LandingPage onRoleSelect={(r) => setAppRole(r)} />} />
-      <Route path="/search-property" element={<SearchProperty onRoleSelect={(r) => setAppRole(r)} />} />
-      <Route path="/property/:propertyId" element={<PropertyDetails onRoleSelect={(r) => setAppRole(r)} />} />
+      <Route path="/" element={<LandingPage onRoleSelect={setAppRole} />} />
 
-      //!Testing purposes only ---need modification in the future
-      <Route path="/profile" element={<SeekerProfile onRoleSelect={(r) => setAppRole(r)} />} />
-      <Route path="/chat" element={<Chat onRoleSelect={(r) => setAppRole(r)}   userType={"owner"}/>} /> //chat is a shared component between the seeker and owner
+      <Route path="/search-property" element={
+        <SearchProperty />
+      } />
+      <Route path="/property/:propertyId" element={
+        <PropertyDetails />
+      } />
 
-        {/*//? Owners Only  */}
-      <Route path="/dashboard" element={<Dashboard onRoleSelect={(r) => setAppRole(r)} />} />
-      <Route path="/reviews" element={<Reviews onRoleSelect={(r) => setAppRole(r)} />} />
-      <Route path="/listings" element={<Listings onRoleSelect={(r) => setAppRole(r)} />} />
-      <Route path="/calender" element={<Calender onRoleSelect={(r) => setAppRole(r)} />} />
-      <Route path="/appointments" element={<Appointments onRoleSelect={(r) => setAppRole(r)} />} />
-              
-      
-      <Route path="/owner/login" element={<OwnerLoginLanding onLogin={() => setAppRole("owner")} />} />
+
+
+
+
+
+      {/* OWNER ROUTES */}
+
+      <Route path="/chat" element={
+        <ProtectedOwner>
+          <AdminChatApp />
+        </ProtectedOwner>
+
+      } />
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedOwner>
+            <Dashboard />
+          </ProtectedOwner>
+        }
+      />
+
+      <Route
+        path="/reels"
+        element={
+
+          <AdminReelsApp />
+
+        }
+      />
+      <Route
+        path="/reviews"
+        element={
+          <ProtectedOwner>
+            <Reviews />
+          </ProtectedOwner>
+        }
+      />
+      <Route
+        path="/listings"
+        element={
+          <ProtectedOwner>
+            <Listings />
+          </ProtectedOwner>
+        }
+      />
+      <Route
+        path="/calender"
+        element={
+          <ProtectedOwner>
+            <Calender />
+          </ProtectedOwner>
+        }
+      />
+      <Route
+        path="/appointments"
+        element={
+          <ProtectedOwner>
+            <Appointments />
+          </ProtectedOwner>
+        }
+      />
+
+      <Route
+        path="/owner/login"
+        element={<OwnerLoginLanding onLogin={() => setAppRole("owner")} />}
+      />
       <Route
         path="/owner/home"
         element={
@@ -96,7 +215,32 @@ Appointments
         }
       />
 
-      <Route path="/user/login" element={<UserAuthLanding onLogin={() => setAppRole("user")} />} />
+      {/* USER ROUTES */}
+      <Route
+        path="/user/login"
+        element={<UserAuthLanding onLogin={() => setAppRole("user")} />}
+      />
+
+
+
+
+      <Route path="/profile" element={
+        <ProtectedUser>
+          <SeekerProfile />
+        </ProtectedUser>
+      } />
+
+      <Route path="/user/chat" element={
+        <ProtectedUser>
+          <UserChatApp />
+        </ProtectedUser>
+      } />
+
+      <Route path="/user/reel" element={
+        <ProtectedUser>
+          <UserReelsApp />
+        </ProtectedUser>
+      } />
       <Route
         path="/user/home"
         element={
@@ -105,9 +249,6 @@ Appointments
           </ProtectedUser>
         }
       />
-
-      {/* Fallback — redirect unknown URLs to home */}
-      {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
     </Routes>
   );
 }

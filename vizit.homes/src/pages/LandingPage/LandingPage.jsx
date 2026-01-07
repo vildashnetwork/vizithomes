@@ -1,6 +1,6 @@
-import React, { Children, useState } from "react";
+import React, { Children, useEffect, useRef, useState } from "react";
 import "./lpStyles.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 //material ui
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
@@ -11,7 +11,7 @@ function valuetext(value) {
 //images
 import logo from "../../assets/images/logo.png";
 import sampleImg from "../../assets/images/header-image.png";
-
+import { useLocation, NavLink } from "react-router-dom";
 //Icons
 import SearchIcon from "@mui/icons-material/Search";
 import PersonIcon from "@mui/icons-material/Person";
@@ -30,11 +30,9 @@ import ChatIcon from "@mui/icons-material/Chat";
 import { data } from "../../data/listingdata";
 import { image } from "ionicons/icons";
 import { cleanString } from "../../utils/cleanString";
-
-//Test Data
-//?=========
-// ===============================================================
-///
+import Modal from "../Owners/Components/Modal"
+import axios from "axios";
+import VideoLibraryIcon from "@mui/icons-material/VideoLibrary";
 
 const center = [4.0511, 9.7679];
 const zoom = 12;
@@ -108,10 +106,17 @@ export const links = [
     icon: <PersonIcon />,
   },
   {
-    link: "/chat",
+    link: "/user/chat",
     title: "Chat",
     icon: <ChatIcon />,
   },
+  {
+    link: "/user/reel",
+    title: "Reels",
+    icon: <VideoLibraryIcon />,
+  },
+
+
 ];
 
 function Select({ title, data, onChange, id, value }) {
@@ -167,6 +172,8 @@ export function RangeSlider() {
   );
 }
 export function SideNav() {
+  const navigate = useNavigate()
+
   return (
     <div className="side-nav" id="side-nav" style={{ display: "none" }}>
       <nav className="pages">
@@ -177,7 +184,8 @@ export function SideNav() {
                 <li
                   className={window.location.pathname === item.link ? "on" : ""}
                   onClick={() => {
-                    window.location.pathname = item.link;
+                    // window.location.pathname = item.link;
+                    navigate(item.link)
                   }}
                 >
                   {item.icon}
@@ -192,35 +200,41 @@ export function SideNav() {
   );
 }
 export function BottomTabs() {
+  const navigate = useNavigate()
   return (
     <nav className="bottom-tabs">
-      {links.map((item, key) => {
-        return (
-          <Link key={key} to={item.link} className="link">
-            <li
-              className={window.location.pathname === item.link ? "on" : ""}
-              onClick={() => {
-                window.location.pathname = item.link;
-              }}
-            >
-              {item.icon}
-              {/* <div className="title">{item.title}</div> */}
-            </li>
-          </Link>
-        );
-      })}
+      {links.map((item, key) => (
+        <NavLink
+          key={key}
+          to={item.link}
+          className={({ isActive }) =>
+            `link ${isActive ? "on" : ""}`
+          }
+        >
+          <li>
+            {item.icon}
+            {/* <div className="title">{item.title}</div> */}
+          </li>
+        </NavLink>
+      ))}
     </nav>
   );
 }
 useState;
-export function Head({ carryOutSearch }) {
+export function Head({ carryOutSearch, user }) {
   // const [listingsData,setListingsData] = useState({listings : data,locations})
-
+  const location = useLocation();
+  console.log("user", user)
+  const check = localStorage.getItem("token") ? true : false;
+  const [openit, setopen] = useState(false)
   const profile = logo ? (
-    <img src={logo} alt="" width={50} height={50} className="img-container" />
+    <img src={user?.profile} alt="" width={50} height={50} className="img-container" />
   ) : (
     <PersonIcon style={{ fontSize: "40px" }} />
   );
+  const [isOpen, setOpen] = useState(false);
+
+  const onClose = () => setOpen(!isOpen)
   return (
     <div className="lpHead">
       <div className="logo-container">
@@ -242,29 +256,24 @@ export function Head({ carryOutSearch }) {
           width={100}
           height={100}
 
-          // style={{ marginTop: -32 }}
+        // style={{ marginTop: -32 }}
         />
       </div>
 
       <div className="links-container">
         <nav className="pages">
           <ul className="topnav-links flex-row">
-            {links.map((item, key) => {
-              return (
-                <Link key={key} to={item.link} className="link">
-                  <li
-                    className={
-                      window.location.pathname === item.link ? "on" : "off"
-                    }
-                    onClick={() => {
-                      window.location.pathname = item.link;
-                    }}
-                  >
-                    <div className="title">{item.title}</div>
-                  </li>
-                </Link>
-              );
-            })}
+            {links.map((item, key) => (
+              <li key={key}>
+                <NavLink
+                  to={item.link}
+                  className={({ isActive }) => `link ${isActive ? "on" : "off"}`}
+                >
+                  <div className="title">{item.title}</div>
+                </NavLink>
+              </li>
+            ))}
+
           </ul>
         </nav>
       </div>
@@ -282,7 +291,43 @@ export function Head({ carryOutSearch }) {
           />
           {/* </div> */}
         </div>
-        <div>{profile}</div>
+
+
+        {
+          check ?
+            profile :
+            <button className="details-btn loginin" onClick={() => setopen(!openit)}>LogIn </button>
+
+        }
+
+
+        {openit &&
+          // <Modal justification="center">
+          <div className="auth-overlay" onClick={() => setopen(!openit)}>
+            <div
+              className="auth-modal"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button className="auth-close" onClick={() => setopen(!openit)}>
+                ×
+              </button>
+
+              <h2>Welcome</h2>
+              <p>Please login or create an account to continue</p>
+
+              <div className="auth-actions">
+                <a href="/user/login" className="auth-btn primary">
+                  Login / SignUp As A House Seeker
+                </a>
+
+                <a href="/owner/login" className="auth-btn secondary">
+                  Login / SignUp As A House Owner
+                </a>
+              </div>
+            </div>
+          </div>
+          // </Modal>
+        }
       </div>
     </div>
   );
@@ -295,10 +340,10 @@ export function Container({ children }) {
     </div>
   );
 }
-export function Header({ carryOutSearch, changeRegion }) {
+export function Header({ carryOutSearch, changeRegion, user }) {
   return (
     <>
-      <Head carryOutSearch={carryOutSearch} />
+      <Head carryOutSearch={carryOutSearch} user={user} />
       <div className="header">
         <div className="header-main">
           <p className="header-caption">Discover Your Perfect Home</p>
@@ -332,13 +377,24 @@ export function Header({ carryOutSearch, changeRegion }) {
     </>
   );
 }
-export function ListingsCard({ image, title, location, rent, id }) {
+export function ListingsCard({ image, title, location, rent, id, how, user }) {
+  const [openit, setopen] = useState(false)
+  const [checkuser, setcheckuser] = useState(false)
+  useEffect(() => {
+    const check = () => {
+      if (user) {
+        setcheckuser(true)
+      }
+    }
+    check()
+  }, [user])
+
   return (
     <div className="listings-card">
       <div className="listing-card-img-container">
         <img
           src={image}
-          onClick={() => (window.location = `/property/${id}`)}
+          onClick={() => checkuser ? (window.location = `/property/${id}`) : setopen(!openit)}
           alt=""
           width={500}
           style={{ cursor: "pointer" }}
@@ -347,18 +403,47 @@ export function ListingsCard({ image, title, location, rent, id }) {
       <div className="listings-description">
         <p className="listing-title">{title}</p>
         <div className="listing-cost">
-          <span className="listing-price-fcfa">{rent}</span> /month
+          <span className="listing-price-fcfa">{rent.replace(/\B(?=(\d{3})+(?!\d))/g, ",")} XFA </span> /{how}
+
         </div>
         <div className="location">
           <LocationOnIcon className="icon-xs" />
           <p className="location-literal"> {location}</p>
         </div>
         {/* <button className="details-btn"> */}
-        <Link className="details-btn" to={`/property/${id}`}>
-          View Details
-        </Link>
+        {checkuser ?
+          <Link className="details-btn" to={`/property/${id}`}>
+            View Details
+          </Link> :
+          <Link className="details-btn" onClick={() => setopen(!openit)}>
+            View Details
+          </Link>
+        }
+        {openit &&
+          <div className="auth-overlay" onClick={() => setopen(!openit)}>
+            <div
+              className="auth-modal"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button className="auth-close" onClick={() => setopen(!openit)}>
+                ×
+              </button>
 
-        {/* </button> */}
+              <h2>Welcome</h2>
+              <p>Please login or create an account to continue</p>
+
+              <div className="auth-actions">
+                <a href="/user/login" className="auth-btn primary">
+                  Login / SignUp As A House Seeker
+                </a>
+
+                <a href="/owner/login" className="auth-btn secondary">
+                  Login / SignUp As A House Owner
+                </a>
+              </div>
+            </div>
+          </div>
+        }
       </div>
     </div>
   );
@@ -446,6 +531,51 @@ export function SectionHeader({ title, description }) {
   );
 }
 function LandingPage() {
+  const role = localStorage.getItem("role")
+  const [user, setuser] = useState(null)
+  const [loading, setLoading] = useState(false)
+  useEffect(() => {
+    if (role === "owner") {
+
+      window.location.href = "/dashboard";
+    } else {
+      const decodingowner = async () => {
+        try {
+          const token = localStorage.getItem("token")
+          if (!token) {
+            console.warn("No token found")
+            setLoading(false)
+            return
+          }
+
+          const data = await axios.get(
+            `https://vizit-backend-hubw.onrender.com/api/user/decode/token/user`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`
+              }
+            }
+          )
+          if (data.status === 200) {
+
+
+            setuser(data.data.user)
+
+            console.log("user", data.data.user);
+          }
+        } catch (error) {
+          console.error("Failed to decode token:", error)
+        } finally {
+          setLoading(false)
+        }
+      }
+      decodingowner()
+    }
+
+
+
+  }, [role]);
+
   const [listingsData, setListingsData] = useState({
     listings: data,
     locations,
@@ -494,17 +624,46 @@ function LandingPage() {
     const selector = document.getElementById("rxt-location-select").value;
     console.log(selector);
   }
-  // TODO END FOR NOW
+
+
+
+  const [open, isopen] = useState(false)
+
+
+
+  const currentelement = useRef();
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isopen(entry.isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
+
+    if (currentelement.current && !user) {
+      observer.observe(currentelement.current);
+    }
+
+    return () => observer.disconnect();
+  }, [user]);
+
+
+
+
+
   return (
     <>
       <Header
         carryOutSearch={carryOutSearch}
         changeRegion={handleLocationChange}
+        user={user}
       />
       <SideNav />
       <SectionHeader
         title="Vizit Verified Listings"
         description="Explore Vizit's top verified listings around Cameroon "
+        user={user}
       />
 
       <div className="listings-card-container">
@@ -517,6 +676,8 @@ function LandingPage() {
               title={item.title}
               location={item.location.address}
               rent={item.rent}
+              how={item?.how}
+              user={user}
             />
           );
         })}
@@ -524,9 +685,10 @@ function LandingPage() {
       <SectionHeader
         title="Explore Popular Housing Zones"
         description="Navigate through our interactive map to discover prime locations and their available properties in Douala. "
+        user={user}
       />
       <div className="map-container">
-        <div className="map-main">
+        <div className="map-main" ref={currentelement}>
           <MapComponent
             zoom={zoom}
             locations={listingsData.locations}
@@ -534,8 +696,34 @@ function LandingPage() {
           />
         </div>
       </div>
-      <BottomTabs />
-      <Footer />
+      <BottomTabs user={user} />
+      <Footer user={user} />
+
+      {open &&
+        <div className="auth-overlay" onClick={() => isopen(!open)}>
+          <div
+            className="auth-modal"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button className="auth-close" onClick={() => isopen(!open)}>
+              ×
+            </button>
+
+            <h2>Welcome</h2>
+            <p>Please login or create an account to continue</p>
+
+            <div className="auth-actions">
+              <a href="/user/login" className="auth-btn primary">
+                Login / SignUp As A House Seeker
+              </a>
+
+              <a href="/owner/login" className="auth-btn secondary">
+                Login / SignUp As A House Owner
+              </a>
+            </div>
+          </div>
+        </div>
+      }
     </>
   );
 }

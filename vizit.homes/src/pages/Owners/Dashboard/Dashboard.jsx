@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../Components/Header/Header";
 import { Container, Footer } from "../../LandingPage/LandingPage";
 import "./Dashboard.css";
@@ -15,6 +15,7 @@ import EmailIcon from "@mui/icons-material/Email";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import PaymentsIcon from "@mui/icons-material/Payments";
+import axios from "axios";
 
 //!! TODO :: MAKE THIS FUNCTIONS FETCH ACTUAL DATA FROM BACKEND
 const businessStreams = [
@@ -301,17 +302,102 @@ function Dashboard() {
     );
   }
   //!! TODO : FETCH THE REAL VALUES HERE
-  let activeListingsDemo = 4;
+
+  // let activeListingsDemo = "0";
   let pendingAptDemo = 3;
   let unreadMsgDemo = 10;
   let monthsProfitDemo = 2000000;
 
   const [actListLim, setActListLim] = useState(4);
   const [expandBtnTxt, setExpandBtnTxt] = useState("View All");
-  const [activeListings, setActiveListings] = useState(activeListingsDemo);
+  const [activeListings, setActiveListings] = useState("");
   const [pendingApt, setPendingApt] = useState(pendingAptDemo);
   const [unreadMsg, setUnreadMsg] = useState(unreadMsgDemo);
   const [monthsProfit, setMonthsProfit] = useState(monthsProfitDemo);
+  const [listingsdate, setlistingsdate] = useState("")
+  const [user, setuser] = useState(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const decoding = async () => {
+      try {
+        const token = localStorage.getItem("token")
+        if (!token) {
+          console.warn("No token found")
+          setLoading(false)
+          return
+        }
+
+        const data = await axios.get(
+          `https://vizit-backend-hubw.onrender.com/api/owner/decode/token/owner`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }
+        )
+        if (data.status === 200) {
+          setuser(data.data.res)
+          console.log(loading ? "loading..." : user);
+
+        }
+      } catch (error) {
+        console.error("Failed to decode token:", error)
+      } finally {
+        setLoading(false)
+      }
+    }
+    decoding()
+  }, [])
+
+  const [properties, setpropertype] = useState(null)
+
+
+  useEffect(() => {
+    if (!user?._id) return;
+    //fetch property per user
+    const fetchHouses = async () => {
+      try {
+        const res = await axios.get(
+          `https://vizit-backend-hubw.onrender.com/api/house/houses/getting/${user._id}`
+        );
+
+        const housesData = Array.isArray(res.data.houses)
+          ? res.data.houses
+          : [];
+
+        const filteravaliable = housesData.filter((item) => item.isAvalable === true)
+
+        setActiveListings(filteravaliable?.length)
+        const currentDate = new Date();
+
+        const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+
+
+        const filterbydate = housesData.filter((item) => new Date(item.createdAt) >= firstDayOfMonth);
+
+
+        setlistingsdate(filterbydate.length)
+
+        setpropertype(housesData);
+
+      } catch (error) {
+        console.error("Failed to fetch houses", error);
+        setpropertype([]);
+
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchHouses();
+  }, [user?._id]);
+
+
+
+
+
+
 
   let data = [];
   for (let i = 0; i <= actListLim - 1; i++) {
@@ -336,14 +422,15 @@ function Dashboard() {
   }
   console.log(data);
   console.log("Length", monthsProfit.toString().length);
+
   return (
     <div>
       <Header />
       <Container>
         <div className="welcome">
           <div>
-            <h2>Welcome, {"John"}</h2>
-            <p>What is going on with your properties today ?</p>
+            <h2>Welcome, {user?.name}</h2>
+            <p>What is going on with <span style={{ color: "green", fontWeight: 900 }}> {user?.companyname}</span> properties today ?</p>
           </div>
           <div>
             <button
@@ -369,8 +456,9 @@ function Dashboard() {
             <div className="count">{activeListings}</div>
             <div className="trend">
               <p className="good">
-                <TrendingUpIcon /> <span className="count-value">+1 </span> new
-                Listing
+                <TrendingUpIcon /> <span className="count-value"
+                  style={{ color: !listingsdate < 1 ? "green" : "red" }}>
+                  +{listingsdate}</span> this month
               </p>
             </div>
           </div>
