@@ -94,26 +94,30 @@ export const links = [
     title: "Home",
     icon: <HomeIcon />,
   },
-  {
-    link: "/search-property",
-    title: "Search Properties",
-    icon: <TravelExploreIcon />,
-  },
+
   {
     // todo Also needs fixing bro !!!!
     link: "/profile",
     title: "Profile",
     icon: <PersonIcon />,
   },
+
   {
     link: "/user/chat",
     title: "Chat",
     icon: <ChatIcon />,
   },
+
   {
     link: "/user/reel",
     title: "Reels",
     icon: <VideoLibraryIcon />,
+  },
+
+  {
+    link: "/search-property",
+    title: "Search Properties",
+    icon: <TravelExploreIcon />,
   },
 
 
@@ -203,7 +207,7 @@ export function BottomTabs() {
   const navigate = useNavigate()
   return (
     <nav className="bottom-tabs">
-      {links.map((item, key) => (
+      {links.slice(0, 5).map((item, key) => (
         <NavLink
           key={key}
           to={item.link}

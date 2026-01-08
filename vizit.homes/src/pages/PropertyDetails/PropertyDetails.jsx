@@ -90,50 +90,50 @@ export function Ratings({ method, size, count }) {
   return ratings;
 }
 
-export function findIcon(str,size) {
+export function findIcon(str, size) {
   function check(sStr, Tstr) {
     return cleanString(sStr).includes(Tstr);
   }
   let iicon;
 
   if (check(str, "air")) {
-    iicon = <AcUnitOutlinedIcon fontSize= {size? size :"large"} className="icons-green" />;
+    iicon = <AcUnitOutlinedIcon fontSize={size ? size : "large"} className="icons-green" />;
   } else if (check(str, "wifi") || check(str, "internet")) {
-    iicon = <WifiIcon fontSize= {size? size :"large"} className="icons-green" />;
+    iicon = <WifiIcon fontSize={size ? size : "large"} className="icons-green" />;
   } else if (check(str, "water") || check(str, "wateravailability")) {
-    iicon = <LocalDrinkOutlinedIcon fontSize= {size? size :"large"} className="icons-green" />;
+    iicon = <LocalDrinkOutlinedIcon fontSize={size ? size : "large"} className="icons-green" />;
   } else if (check(str, "security") || check(str, "protection")) {
-    iicon = <SecurityIcon fontSize= {size? size :"large"} className="icons-green" />;
+    iicon = <SecurityIcon fontSize={size ? size : "large"} className="icons-green" />;
   } else if (check(str, "balcony")) {
-    iicon = <BalconyIcon fontSize= {size? size :"large"} className="icons-green" />;
+    iicon = <BalconyIcon fontSize={size ? size : "large"} className="icons-green" />;
   } else if (check(str, "parking")) {
     iicon = (
-      <LocalParkingOutlinedIcon fontSize= {size? size :"large"} className="icons-green" />
+      <LocalParkingOutlinedIcon fontSize={size ? size : "large"} className="icons-green" />
     );
   } else if (check(str, "garden")) {
-    iicon = <YardOutlinedIcon fontSize= {size? size :"large"} className="icons-green" />;
+    iicon = <YardOutlinedIcon fontSize={size ? size : "large"} className="icons-green" />;
   } else if (check(str, "gym") || check(str, "fitness")) {
     iicon = (
-      <FitnessCenterOutlinedIcon fontSize= {size? size :"large"} className="icons-green" />
+      <FitnessCenterOutlinedIcon fontSize={size ? size : "large"} className="icons-green" />
     );
   } else if (check(str, "fence") || check(str, "gate")) {
-    iicon = <FenceIcon fontSize= {size? size :"large"} className="icons-green" />;
+    iicon = <FenceIcon fontSize={size ? size : "large"} className="icons-green" />;
   } else if (check(str, "furnished") || check(str, "complete")) {
-    iicon = <ImagesearchRollerIcon fontSize= {size? size :"large"} className="icons-green" />;
+    iicon = <ImagesearchRollerIcon fontSize={size ? size : "large"} className="icons-green" />;
   } else if (check(str, "kitchen")) {
-    iicon = <KitchenIcon fontSize= {size? size :"large"} className="icons-green" />;
+    iicon = <KitchenIcon fontSize={size ? size : "large"} className="icons-green" />;
   } else if (check(str, "generator") || check(str, "solar")) {
-    iicon = <TungstenOutlinedIcon fontSize= {size? size :"large"} className="icons-green" />;
+    iicon = <TungstenOutlinedIcon fontSize={size ? size : "large"} className="icons-green" />;
   } else if (check(str, "hotwater") || check(str, "heater")) {
-    iicon = <HotTubOutlinedIcon fontSize= {size? size :"large"} className="icons-green" />;
+    iicon = <HotTubOutlinedIcon fontSize={size ? size : "large"} className="icons-green" />;
   } else if (check(str, "pool") || check(str, "swimming")) {
-    iicon = <PoolOutlinedIcon fontSize= {size? size :"large"} className="icons-green" />;
+    iicon = <PoolOutlinedIcon fontSize={size ? size : "large"} className="icons-green" />;
   } else if (check(str, "pet") || check(str, "animal")) {
-    iicon = <PetsIcon fontSize= {size? size :"large"} className="icons-green" />;
+    iicon = <PetsIcon fontSize={size ? size : "large"} className="icons-green" />;
   } else if (check(str, "near") || check(str, "green")) {
-    iicon = <ParkIcon fontSize= {size? size :"large"} className="icons-green" />;
+    iicon = <ParkIcon fontSize={size ? size : "large"} className="icons-green" />;
   } else {
-    iicon = <CropOriginalIcon fontSize= {size? size :"large"} className="icons-green" />;
+    iicon = <CropOriginalIcon fontSize={size ? size : "large"} className="icons-green" />;
   }
 
   return iicon;
@@ -170,190 +170,243 @@ function PropertyDetails() {
 
   return (
     <div>
+
+
       <Head />
       <SideNav />
       <Container>
-        <div className="details-main" style={{}}>
-          <div
-            className="property-details-image-container"
-            style={{
-              // padding:"20px",
-              borderRadius: "20px",
-              backgroundImage: `url(${
-                imageIndex === 0 ? house.image : house.images[imageIndex]
-              })`,
-            }}
-          >
-            <div className="nav-btns-container">
-              <button onClick={decreaseIndex}>
-                <ArrowBackIosNewIcon />
-              </button>
-              <button onClick={increaseIndex}>
-                <ArrowForwardIosIcon />
-              </button>
+        <div className="details-main" style={{ display: "flex" }}>
+
+
+
+          <div style={{ flex: "85%" }}>
+            <div
+              className="property-details-image-container"
+              style={{
+                // padding:"20px",
+                borderRadius: "20px",
+                backgroundImage: `url(${imageIndex === 0 ? house.image : house.images[imageIndex]
+                  })`,
+              }}
+            >
+              <div className="nav-btns-container">
+                <button onClick={decreaseIndex}>
+                  <ArrowBackIosNewIcon />
+                </button>
+                <button onClick={increaseIndex}>
+                  <ArrowForwardIosIcon />
+                </button>
+              </div>
+              <div className="dots">
+                <div className="dots-container">
+                  {data[0].images.map((image, index) => {
+                    return (
+                      <button
+                        className={`dots `}
+                        key={index}
+                        style={{
+                          opacity: index === imageIndex ? "1" : ".4",
+                          display: "block",
+                        }}
+                        onClick={() => {
+                          setImageIndex(index);
+                        }}
+                      ></button>
+                    );
+                  })}
+                </div>
+              </div>
             </div>
-            <div className="dots">
-              <div className="dots-container">
-                {data[0].images.map((image, index) => {
+            <h2 className="details-sub-heading">{house.title}</h2>
+            <h4 className="details-location">
+              <LocationOnIcon />
+              {house.location.address}
+            </h4>
+            <br />
+            <div className=" card-container">
+              <div className="amenity-card flex-row house-must">
+                <SquareFootIcon fontSize="large" className="icons-green" />{" "}
+                <p>
+                  {house.area_sqm}{" "}
+                  <span>
+                    m <sup>2</sup>
+                  </span>
+                </p>
+              </div>
+              <div className="amenity-card flex-row house-must">
+                <HotelOutlinedIcon fontSize="large" className="icons-green" />{" "}
+                <p>{house.bedrooms} Bed room(s)</p>
+              </div>
+              <div className="amenity-card flex-row house-must">
+                <BathtubOutlinedIcon fontSize="large" className="icons-green" />{" "}
+                <p>{house.bathrooms} Bath(s)</p>
+              </div>
+              <div className="amenity-card flex-row house-must">
+                <HistoryToggleOffOutlinedIcon
+                  fontSize="large"
+                  className="icons-green"
+                />{" "}
+                <p>{dayjs(house.postedAt).format("DD/MM/YYYY HH:mm")}</p>
+              </div>
+            </div>
+            <div className="description-card">
+              <h4 className="details-sub-heading">Property Description</h4>
+              {house.description}
+            </div>
+
+            <div className="description-card">
+              <h5 className="details-sub-heading">Amenities</h5>
+              <br />
+              <div className=" card-container">
+                {house.amenities.map((amenity, index) => {
                   return (
-                    <button
-                      className={`dots `}
-                      key={index}
-                      style={{
-                        opacity: index === imageIndex ? "1" : ".4",
-                        display: "block",
-                      }}
-                      onClick={() => {
-                        setImageIndex(index);
-                      }}
-                    ></button>
+                    <div className="amenity-card" key={index}>
+                      {findIcon(amenity)} <p>{amenity}</p>
+                    </div>
                   );
                 })}
               </div>
             </div>
-          </div>
-          <h2 className="details-sub-heading">{house.title}</h2>
-          <h4 className="details-location">
-            <LocationOnIcon />
-            {house.location.address}
-          </h4>
-          <br />
-          <div className=" card-container">
-            <div className="amenity-card flex-row house-must">
-              <SquareFootIcon fontSize="large" className="icons-green" />{" "}
-              <p>
-                {house.area_sqm}{" "}
-                <span>
-                  m <sup>2</sup>
-                </span>
-              </p>
-            </div>
-            <div className="amenity-card flex-row house-must">
-              <HotelOutlinedIcon fontSize="large" className="icons-green" />{" "}
-              <p>{house.bedrooms} Bed room(s)</p>
-            </div>
-            <div className="amenity-card flex-row house-must">
-              <BathtubOutlinedIcon fontSize="large" className="icons-green" />{" "}
-              <p>{house.bathrooms} Bath(s)</p>
-            </div>
-            <div className="amenity-card flex-row house-must">
-              <HistoryToggleOffOutlinedIcon
-                fontSize="large"
-                className="icons-green"
-              />{" "}
-              <p>{dayjs(house.postedAt).format("DD/MM/YYYY HH:mm")}</p>
-            </div>
-          </div>
-          <div className="description-card">
-            <h4 className="details-sub-heading">Property Description</h4>
-            {house.description}
-          </div>
 
-          <div className="description-card">
-            <h5 className="details-sub-heading">Amenities</h5>
-            <br />
-            <div className=" card-container">
-              {house.amenities.map((amenity, index) => {
-                return (
-                  <div className="amenity-card" key={index}>
-                    {findIcon(amenity)} <p>{amenity}</p>
-                  </div>
-                );
-              })}
+            <div className="description-card">
+              <h4 className="details-sub-heading">Explore In Map</h4>
+              Explore the Vicinity , Find important loactions closde to this
+              Lisiting
+              <button
+                onClick={() => {
+                  window.location = `https://www.google.com/maps/@${house.location.coordinates.lat
+                    },${house.location.coordinates.lng},${18}z`;
+                }}
+                style={{
+                  padding: "8px",
+                  cursor: "pointer",
+                  color: "#005345ff",
+                  backgroundColor: "white",
+                  margin: "20px 0",
+                  display: "block",
+                }}
+              >
+                View in google Map
+              </button>
             </div>
-          </div>
 
-          <div className="description-card">
-            <h4 className="details-sub-heading">Explore In Map</h4>
-            Explore the Vicinity , Find important loactions closde to this
-            Lisiting
-            <button
-              onClick={() => {
-                window.location = `https://www.google.com/maps/@${
-                  house.location.coordinates.lat
-                },${house.location.coordinates.lng},${18}z`;
-              }}
-              style={{
-                padding: "8px",
-                cursor: "pointer",
-                color: "#005345ff",
-                backgroundColor: "white",
-                margin: "20px 0",
-                display: "block",
-              }}
-            >
-              View in google Map
-            </button>
-          </div>
-
-          <MapComponent
-            center={[
-              house.location.coordinates.lat,
-              house.location.coordinates.lng,
-            ]}
-            zoom={23}
-            locations={[
-              {
-                position: [
-                  house.location.coordinates.lat,
-                  house.location.coordinates.lng,
-                ],
-                // position: [4.0714, 9.6818],
-                title: house.title,
-                images: [house.image],
-              },
-            ]}
-          />
-          <div className="description-card">
-            <h4 className="details-sub-heading">Ratings &amp; Reviews</h4>
-            <div className="ratings-and-text-title">
-              <Ratings
-                method="get"
-                count={house.reviews.overallRating}
-                size={window.innerWidth >= 425 ? "large" : "medium"}
-              />
-              <p className="rating-overall">
-                {house.reviews.overallRating} out of 5 (
-                {house.reviews.totalReviews} Reviews)
-              </p>
-            </div>
-            <div className="comments-container">
-              {house.reviews.entries.map((entry, index) => {
-                return (
-                  <div className="comment-card" key={index}>
-                    <div className="comment-profile-info">
-                      <div
-                        className="comment-profile-img-container"
-                        style={{
-                          backgroundImage: `url(${
-                            !entry.profileImg
+            <MapComponent
+              center={[
+                house.location.coordinates.lat,
+                house.location.coordinates.lng,
+              ]}
+              zoom={23}
+              locations={[
+                {
+                  position: [
+                    house.location.coordinates.lat,
+                    house.location.coordinates.lng,
+                  ],
+                  // position: [4.0714, 9.6818],
+                  title: house.title,
+                  images: [house.image],
+                },
+              ]}
+            />
+            <div className="description-card">
+              <h4 className="details-sub-heading">Ratings &amp; Reviews</h4>
+              <div className="ratings-and-text-title">
+                <Ratings
+                  method="get"
+                  count={house.reviews.overallRating}
+                  size={window.innerWidth >= 425 ? "large" : "medium"}
+                />
+                <p className="rating-overall">
+                  {house.reviews.overallRating} out of 5 (
+                  {house.reviews.totalReviews} Reviews)
+                </p>
+              </div>
+              <div className="comments-container">
+                {house.reviews.entries.map((entry, index) => {
+                  return (
+                    <div className="comment-card" key={index}>
+                      <div className="comment-profile-info">
+                        <div
+                          className="comment-profile-img-container"
+                          style={{
+                            backgroundImage: `url(${!entry.profileImg
                               ? defaultProfile
                               : entry.profileImg
-                          })`,
-                        }}
-                      ></div>
-                      <div className="name-and-rating">
-                        <p>{entry.name}</p>
-                        <Ratings
-                          method="get"
-                          count={entry.rating}
-                          size="small"
-                        />
+                              })`,
+                          }}
+                        ></div>
+                        <div className="name-and-rating">
+                          <p>{entry.name}</p>
+                          <Ratings
+                            method="get"
+                            count={entry.rating}
+                            size="small"
+                          />
+                        </div>
                       </div>
+                      <div className="comment-content">{entry.comment}</div>
                     </div>
-                    <div className="comment-content">{entry.comment}</div>
-                  </div>
-                );
-              })}
-            </div>
+                  );
+                })}
+              </div>
 
-            {/* {
+              {/* {
                 Ratings("get","large",1)
                } */}
+            </div>
           </div>
+
+          <div className="rem">
+            <div class="facebook-panel">
+              <div class="fb-header"></div>
+
+              <div class="user-section">
+                <div class="fb-avatar">
+                  <img src={house?.owner?.profile} alt="" />
+                  {/* <i class="fas fa-user"></i> */}
+                </div>
+
+                <div class="fb-user-info">
+                  <div class="fb-user-name">
+                    {house?.owner?.name}
+
+                    <span class="verified-text">
+                      <div class="fb-verified">
+                        <i class="fas fa-check"></i>
+                      </div>
+                    </span>
+                  </div>
+                  <div class="fb-user-subtitle">{house?.owner?.email}</div>
+                </div>
+              </div>
+
+              <div class="fb-menu">
+                <a href="#" class="fb-menu-item active">
+                  <div class="fb-menu-icon">
+                    <i class="far fa-calendar-check"></i>
+                  </div>
+                  <div class="fb-menu-text">Book a Visit</div>
+                </a>
+
+                <a href="#" class="fb-menu-item">
+                  <div class="fb-menu-icon">
+                    <i class="fas fa-comment-dots"></i>
+                  </div>
+                  <div class="fb-menu-text">Chat with Owner</div>
+                </a>
+              </div>
+
+              <button class="fb-button primary">Book a Visit</button>
+            </div>
+          </div>
+
+
+
         </div>
         <button className="start-discussion-with-owner-button" style={{}}>
-          Chat With Owner
+          <div class="fb-menu-icon shine">
+            <i class="fas fa-comment-dots"></i>
+          </div>
         </button>
       </Container>
       <BottomTabs></BottomTabs>

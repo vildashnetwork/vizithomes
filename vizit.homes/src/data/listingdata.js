@@ -29,4 +29,5 @@ export const data = response.data.houses.map((house) => ({
     entries: house.reviews.entries,
   },
   images: house.reviews.images,
+  owner: house.owner,
 }));

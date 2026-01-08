@@ -16,6 +16,7 @@ import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import PaymentsIcon from "@mui/icons-material/Payments";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 //!! TODO :: MAKE THIS FUNCTIONS FETCH ACTUAL DATA FROM BACKEND
 const businessStreams = [
@@ -268,6 +269,8 @@ defaults.plugins.title.font.size = 20;
 defaults.plugins.title.align = "start";
 
 function Dashboard() {
+
+  const navigate = useNavigate()
   function ActivityCard({ color, iconName, title, message, time }) {
     console.log(color, iconName, title, message, time);
     function Icon() {
@@ -436,8 +439,7 @@ function Dashboard() {
             <button
               className="button"
               onClick={() => {
-                // !! TODO IMPORT ADD NEW LISTING FUNCTION AND USE HERE
-                window.location.pathname = "/listings"
+                navigate("/createproperty")
               }}
             >
               {" "}

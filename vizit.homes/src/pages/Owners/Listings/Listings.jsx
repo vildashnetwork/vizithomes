@@ -18,9 +18,10 @@ import axios from "axios";
 import { cleanString } from "../../../utils/cleanString";
 import Modal from "../Components/Modal";
 import CreateHouseForm from "./CreateProperty";
+import { useNavigate } from "react-router-dom";
 
 function Listings() {
-
+  const navigate = useNavigate()
   const [opemodal, setopenmodal] = useState(false)
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -209,7 +210,7 @@ function Listings() {
             <button
               className="button"
               style={{ background: "green" }}
-              onClick={() => setopenmodal(!opemodal)}
+              onClick={() => navigate("/createproperty")}
             >
               {" "}
               <AddIcon className="btn-icon" />
@@ -316,16 +317,7 @@ function Listings() {
       </Container>
       <Footer />
 
-      {
-        opemodal &&
-        // <Modal>
-        // <div style={{ overflow: "auto" }}>
 
-        <CreateHouseForm />
-
-        // </div>
-        // </Modal>
-      }
     </div>
   );
 }

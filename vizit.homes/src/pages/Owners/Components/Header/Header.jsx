@@ -272,12 +272,15 @@ import axios from "axios";
 
 export const links = [
   { link: "/dashboard", title: "Dashboard", icon: <DashboardIcon /> },
+
+
   { link: "/listings", title: "Listings", icon: <RealEstateAgentIcon /> },
-  { link: "/chat", title: "Messages", icon: <ChatIcon /> },
-  { link: "/calender", title: "Calendar", icon: <EventNoteIcon /> },
+  // { link: "/calender", title: "Calendar", icon: <EventNoteIcon /> },
   { link: "/appointments", title: "Appointments", icon: <PendingActionsIcon /> },
-  { link: "/reviews", title: "Reviews", icon: <ReviewsIcon /> },
   { link: "/reels", title: "Reels", icon: <VideoLibraryIcon /> },
+  { link: "/chat", title: "Messages", icon: <ChatIcon /> },
+  { link: "/reviews", title: "Reviews", icon: <ReviewsIcon /> },
+
 ];
 
 /* ---------------- SIDE NAV ---------------- */

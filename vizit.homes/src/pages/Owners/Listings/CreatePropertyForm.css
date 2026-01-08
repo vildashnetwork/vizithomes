@@ -1,11 +1,11 @@
 .billion-dollar-container {
-    /* min-height: 80vh; */
-    height: 90vh;
+    min-height: 100vh;
+    /* height: 90vh; */
     background: linear-gradient(135deg, #0a2f1b 0%, #113e40 50%, #0a2f2a 100%);
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    /* padding: 20px; */
 }
 
 .split-layout {
@@ -13,11 +13,15 @@
     width: 100%;
     max-width: 1600px;
     height: 120vh;
-    padding: 12px;
-    background: linear-gradient(135deg, #0a2f29 0%, #114019 50%, #0a2f13 100%);
+    background: transparent;
     border-radius: 24px;
     overflow: hidden;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+@media (max-width: 600px) {
+    .preview-side {
+        display: none !important;
+    }
 }
 
 /* Preview Side */
@@ -170,84 +174,17 @@
 
 /* Form Side */
 .form-side {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 1000000000000000;
-    width: 100%;
-    height: 100vh;
-    background: linear-gradient(135deg, #086848 0%, #063f3a 50%, #0a2f13 100%);
+    flex: 1;
+    background: linear-gradient(135deg, #094239 0%, #11403e 50%, #0a2c2f 100%);
     padding: 40px;
     overflow-y: auto;
-    color: #fff;
+    padding-bottom: 40px;
+    color: #fff !important;
 }
-
-/* @media (max-width: 600px) { */
-@media (max-width: 600px) {
-    .form-side {
-        padding: 20px !important;
-        overflow-x: hidden;
-    }
-
-    .form-container {
-        max-width: 100%;
-    }
-
-    .form-header h2 {
-        font-size: 1.8rem;
-    }
-
-    .form-header p {
-        font-size: 1rem;
-    }
-
-    .progress-steps {
-        gap: 10px;
-    }
-
-    .step-label {
-        font-size: 0.75rem;
-    }
-
-    .form-group {
-        margin-bottom: 20px;
-    }
-
-    .property-type-grid,
-    .amenities-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .image-preview-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .image-dropzone {
-        padding: 40px 15px;
-    }
-
-    .form-navigation {
-        flex-direction: column;
-        gap: 12px;
-    }
-
-    .nav-btn {
-        width: 100%;
-    }
-
-    .next-btn {
-        margin-left: 0;
-    }
-}
-
-/* } */
 
 .form-container {
     max-width: 600px;
     margin: 0 auto;
-    margin-top: 40px !important;
 }
 
 .form-header {
@@ -655,7 +592,7 @@
 }
 
 .browse-btn {
-    background: linear-gradient(45deg, #1b6428, #0c6d25);
+    background: linear-gradient(45deg, #66ea8e, #196969);
     color: white;
     border: none;
     padding: 12px 30px;
@@ -719,7 +656,7 @@
     position: absolute;
     top: 8px;
     left: 8px;
-    background: linear-gradient(45deg, #1d5511, #175f1b);
+    background: linear-gradient(45deg, #667eea, #764ba2);
     color: white;
     padding: 4px 10px;
     border-radius: 20px;
@@ -730,6 +667,8 @@
 /* Review Section */
 .review-section {
     animation: fadeIn 0.5s ease;
+    display: flex;
+    flex-direction: column !important;
 }
 
 @keyframes fadeIn {
@@ -834,14 +773,16 @@
     transform: translateX(-2px);
 }
 
+
 .next-btn {
-    background: #0aaa68;
+    background: linear-gradient(45deg, #093f0c, #075c34);
     color: white;
     margin-left: auto;
 }
 
 .next-btn:hover {
     transform: translateX(2px);
+    box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
 }
 
 .submit-btn {
@@ -920,7 +861,6 @@
 
     .preview-side {
         padding: 30px 20px;
-        display: none !important;
     }
 
     .preview-title {
@@ -934,10 +874,13 @@
 
     .progress-steps {
         flex-direction: row !important;
-        overflow-x: auto !important;
-        flex-direction: row !important;
-        gap: -29px !important;
+        /* overflow-x: auto !important; */
+        /* flex-direction: row !important; */
+        /* gap: -29px !important; */
+        gap: -11px !important;
+        width: 120px !important;
         margin-bottom: 20px;
+        margin-left: -19px;
         position: relative;
 
     }

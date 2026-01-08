@@ -25,6 +25,7 @@ import AdminReelsApp from "./pages/Owners/Reel/App"
 import AdminChatApp from "./pages/Owners/Chats/App"
 import UserChatApp from "./pages/Chats/App"
 import UserReelsApp from "./pages/Reel/App"
+import CreateHouseForm from "./pages/Owners/Listings/CreateProperty";
 /* ================= PROTECTED ROUTES ================= */
 
 function ProtectedOwner({ children }) {
@@ -161,6 +162,14 @@ export default function App() {
         }
       />
 
+      <Route
+        path="/createproperty"
+        element={
+          <ProtectedOwner>
+            <CreateHouseForm />
+          </ProtectedOwner>
+        }
+      />
       <Route
         path="/reels"
         element={

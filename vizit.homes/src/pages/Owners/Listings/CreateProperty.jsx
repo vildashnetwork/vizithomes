@@ -1,9 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import "./CreatePropertyForm.css";
 
 const API_BASE = "https://vizit-backend-hubw.onrender.com/api/house";
 export default function CreateHouseForm({ onCreated }) {
+    const navigate = useNavigate()
     const [formData, setFormData] = useState({
         title: "",
         type: "Apartment",
@@ -187,7 +189,50 @@ export default function CreateHouseForm({ onCreated }) {
                     lng: longitude,
                 }));
 
-                console.log(`Latitude: ${latitude} | Longitude: ${longitude}`);
+                // console.log(`Latitude: ${latitude} | Longitude: ${longitude}`);
+
+                const getOSMAddress = async () => {
+                    try {
+                        const response = await axios.get(
+                            `https://api.geoapify.com/v1/geocode/reverse`,
+                            {
+                                params: {
+                                    lat: latitude,
+                                    lon: longitude,
+                                    apiKey: "28065c9b690540718c37d7f07710a51c"
+                                }
+                            }
+                        );
+
+                        const feature = response.data.features[0];
+
+                        if (!feature) {
+                            console.warn("No address found");
+                            return;
+                        }
+
+                        const address = feature.properties.city + ", " +
+                            feature.properties.country + "#" + feature.properties.city +
+                            "&" + feature.properties.town + "(" + feature.properties.country_code +
+                            "=" + feature.properties.municipality + "*" +
+                            feature.properties.iso3166_2 + "0" + feature.properties.street;
+
+                        console.log("Exact Address:", address);
+
+                        handleChange("address", address);
+
+                        // alert(formData.address)
+
+                    } catch (error) {
+                        console.error("Reverse geocoding failed:", error);
+                    }
+                };
+
+                getOSMAddress()
+                // const address = getOSMAddress(latitude, longitude);
+
+
+
             },
             (error) => {
                 console.error("Error getting location:", error);
@@ -205,21 +250,21 @@ export default function CreateHouseForm({ onCreated }) {
 
     }, [formData.lat, formData.lng])
 
-    //  const getOSMAddress = async (
+    // const getOSMAddress = async (
     //     lat: number,
     //     lon: number
-    //   ): Promise<string | null> => {
+    // ): Promise<string | null> => {
     //     try {
-    //       const response = await fetch(
-    //         `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lon}&apiKey=28065c9b690540718c37d7f07710a51c`
-    //       );
-    //       const data = await response.json();
-    //       return data.features[0]?.properties?.address_line2 ?? null;
+    // const response = await fetch(
+    //     `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lon}&apiKey=28065c9b690540718c37d7f07710a51c`
+    // );
+    // const data = await response.json();
+    // return data.features[0]?.properties?.address_line2 ?? null;
     //     } catch (error) {
-    //       console.error('Error fetching address:', error);
-    //       return null;
+    //         console.error('Error fetching address:', error);
+    //         return null;
     //     }
-    //   };
+    // };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -277,7 +322,7 @@ export default function CreateHouseForm({ onCreated }) {
             );
 
             alert("House created successfully");
-
+            navigate("/listings")
             onCreated?.(res.data.house ?? payload);
 
             // RESET FORM
@@ -332,6 +377,10 @@ export default function CreateHouseForm({ onCreated }) {
             media: fd.media.filter((_, i) => i !== index),
         }));
     };
+
+
+
+
     return (
         <div className="billion-dollar-container">
             <div className="split-layout">
@@ -498,10 +547,12 @@ export default function CreateHouseForm({ onCreated }) {
                                                     className="form-input"
                                                     placeholder="123 Luxury Street, Douala, Cameroon"
                                                     required
+                                                    disabled={true}
                                                 />
                                             </div>
                                         </label>
                                     </div>
+
                                 </div>
                             )}
 
@@ -713,10 +764,10 @@ export default function CreateHouseForm({ onCreated }) {
                             {/* Step 5: Review */}
                             {activeStep === 4 && (
                                 <div className="form-step">
-                                    <div className="review-section">
+                                    <div className="review-section" style={{ flexDirection: "column" }}>
                                         <h3 className="review-title">Review Your Listing</h3>
 
-                                        <div className="review-card">
+                                        <div className="review-card" style={{ flexDirection: "column" }}>
                                             <div className="review-item">
                                                 <span className="review-label">Property Title:</span>
                                                 <span className="review-value">{formData.title}</span>
