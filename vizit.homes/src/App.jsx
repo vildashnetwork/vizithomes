@@ -26,6 +26,8 @@ import AdminChatApp from "./pages/Owners/Chats/App"
 import UserChatApp from "./pages/Chats/App"
 import UserReelsApp from "./pages/Reel/App"
 import CreateHouseForm from "./pages/Owners/Listings/CreateProperty";
+
+import { Toaster } from "react-hot-toast";
 /* ================= PROTECTED ROUTES ================= */
 
 function ProtectedOwner({ children }) {
@@ -130,134 +132,137 @@ export default function App() {
   }
 
   return (
-    <Routes>
-      <Route path="/" element={<LandingPage onRoleSelect={setAppRole} />} />
+    <>
+      <Toaster position="bottom-left" reverseOrder={false} />
+      <Routes>
+        <Route path="/" element={<LandingPage onRoleSelect={setAppRole} />} />
 
-      <Route path="/search-property" element={
-        <SearchProperty />
-      } />
-      <Route path="/property/:propertyId" element={
-        <PropertyDetails />
-      } />
-
-
-
-
+        <Route path="/search-property" element={
+          <SearchProperty />
+        } />
+        <Route path="/property/:propertyId" element={
+          <PropertyDetails />
+        } />
 
 
-      {/* OWNER ROUTES */}
 
-      <Route path="/chat" element={
-        <ProtectedOwner>
-          <AdminChatApp />
-        </ProtectedOwner>
 
-      } />
-      <Route
-        path="/dashboard"
-        element={
+
+
+        {/* OWNER ROUTES */}
+
+        <Route path="/chat" element={
           <ProtectedOwner>
-            <Dashboard />
+            <AdminChatApp />
           </ProtectedOwner>
-        }
-      />
 
-      <Route
-        path="/createproperty"
-        element={
-          <ProtectedOwner>
-            <CreateHouseForm />
-          </ProtectedOwner>
-        }
-      />
-      <Route
-        path="/reels"
-        element={
+        } />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedOwner>
+              <Dashboard />
+            </ProtectedOwner>
+          }
+        />
 
-          <AdminReelsApp />
+        <Route
+          path="/createproperty"
+          element={
+            <ProtectedOwner>
+              <CreateHouseForm />
+            </ProtectedOwner>
+          }
+        />
+        <Route
+          path="/reels"
+          element={
 
-        }
-      />
-      <Route
-        path="/reviews"
-        element={
-          <ProtectedOwner>
-            <Reviews />
-          </ProtectedOwner>
-        }
-      />
-      <Route
-        path="/listings"
-        element={
-          <ProtectedOwner>
-            <Listings />
-          </ProtectedOwner>
-        }
-      />
-      <Route
-        path="/calender"
-        element={
-          <ProtectedOwner>
-            <Calender />
-          </ProtectedOwner>
-        }
-      />
-      <Route
-        path="/appointments"
-        element={
-          <ProtectedOwner>
-            <Appointments />
-          </ProtectedOwner>
-        }
-      />
+            <AdminReelsApp />
 
-      <Route
-        path="/owner/login"
-        element={<OwnerLoginLanding onLogin={() => setAppRole("owner")} />}
-      />
-      <Route
-        path="/owner/home"
-        element={
-          <ProtectedOwner>
-            <OwnerDashboard onLogout={() => setAppRole(null)} />
-          </ProtectedOwner>
-        }
-      />
+          }
+        />
+        <Route
+          path="/reviews"
+          element={
+            <ProtectedOwner>
+              <Reviews />
+            </ProtectedOwner>
+          }
+        />
+        <Route
+          path="/listings"
+          element={
+            <ProtectedOwner>
+              <Listings />
+            </ProtectedOwner>
+          }
+        />
+        <Route
+          path="/calender"
+          element={
+            <ProtectedOwner>
+              <Calender />
+            </ProtectedOwner>
+          }
+        />
+        <Route
+          path="/appointments"
+          element={
+            <ProtectedOwner>
+              <Appointments />
+            </ProtectedOwner>
+          }
+        />
 
-      {/* USER ROUTES */}
-      <Route
-        path="/user/login"
-        element={<UserAuthLanding onLogin={() => setAppRole("user")} />}
-      />
+        <Route
+          path="/owner/login"
+          element={<OwnerLoginLanding onLogin={() => setAppRole("owner")} />}
+        />
+        <Route
+          path="/owner/home"
+          element={
+            <ProtectedOwner>
+              <OwnerDashboard onLogout={() => setAppRole(null)} />
+            </ProtectedOwner>
+          }
+        />
+
+        {/* USER ROUTES */}
+        <Route
+          path="/user/login"
+          element={<UserAuthLanding onLogin={() => setAppRole("user")} />}
+        />
 
 
 
 
-      <Route path="/profile" element={
-        <ProtectedUser>
-          <SeekerProfile />
-        </ProtectedUser>
-      } />
-
-      <Route path="/user/chat" element={
-        <ProtectedUser>
-          <UserChatApp />
-        </ProtectedUser>
-      } />
-
-      <Route path="/user/reel" element={
-        <ProtectedUser>
-          <UserReelsApp />
-        </ProtectedUser>
-      } />
-      <Route
-        path="/user/home"
-        element={
+        <Route path="/profile" element={
           <ProtectedUser>
-            <ClientDashboard onLogout={() => setAppRole(null)} />
+            <SeekerProfile />
           </ProtectedUser>
-        }
-      />
-    </Routes>
+        } />
+
+        <Route path="/user/chat" element={
+          <ProtectedUser>
+            <UserChatApp />
+          </ProtectedUser>
+        } />
+
+        <Route path="/user/reel" element={
+          <ProtectedUser>
+            <UserReelsApp />
+          </ProtectedUser>
+        } />
+        <Route
+          path="/user/home"
+          element={
+            <ProtectedUser>
+              <ClientDashboard onLogout={() => setAppRole(null)} />
+            </ProtectedUser>
+          }
+        />
+      </Routes>
+    </>
   );
 }

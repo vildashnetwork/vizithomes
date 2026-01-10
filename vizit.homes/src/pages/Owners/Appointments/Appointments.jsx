@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../Components/Header/Header";
 import PageTitle from "../Components/PageTitle";
 import "./Appointments.css";
@@ -22,88 +22,82 @@ import ApartmentIcon from "@mui/icons-material/Apartment";
 import TodayIcon from "@mui/icons-material/Today";
 import ScheduleIcon from "@mui/icons-material/Schedule";
 import Modal from "../Components/Modal";
+import axios from "axios";
 
-  export const modalMain = {
-    display: "flex",
-    flexDirection: "column",
-    // border:"solid 2px red",
-    justifyContent: "flex-start",
-    padding: "10px",
-    backgroundColor: "#fff",
-    borderRadius: "5px",
-    // overflowY: "scroll"
-  };
-  export  const inputGroupContainerStyles = {
-    width: "100%",
-    display: "flex",
-    gap: "10px",
-    alignItems: "center",
-    padding: "10px 15px",
-    border: "solid 1px #afafafff",
-    borderRadius: "5px",
-  };
-  export  const inputInContainerStyles = {
-    border: "none",
-    outline: "none",
-    accentColor:"green"
-  };
-  export const labelStyles = {
-    display: "block",
-    width: "100%",
-    padding: "10px 0",
-  };
-const sampleAppointmentData = [
-  {
-    property: "Sunnyvale Loft - Unit 4B",
-    contact: "John Doe",
-    date: "Oct 24",
-    time: "2:00 PM",
-    status: "confirmed",
-  },
-  {
-    property: "Highland Manor Estate",
-    contact: "Sarah Williams",
-    date: "Oct 25",
-    time: "10:30 AM",
-    status: "cancelled",
-  },
-  {
-    property: "Downtown Studio",
-    contact: "Michael Chen",
-    date: "Oct 26",
-    time: "4:00 PM",
-    status: "void",
-  },
-  {
-    property: "Lakeside Cabin",
-    contact: "Emily Davis",
-    date: "Oct 22",
-    time: "1:00 PM",
-    status: "void",
-  },
-  {
-    property: "Highland Manor Estate",
-    contact: "Sarah Williams",
-    date: "Oct 25",
-    time: "10:30 AM",
-    status: "cancelled",
-  },
-  {
-    property: "Downtown Studio",
-    contact: "Michael Chen",
-    date: "Oct 26",
-    time: "4:00 PM",
-    status: "void",
-  },
-  {
-    property: "Lakeside Cabin",
-    contact: "Emily Davis",
-    date: "Oct 22",
-    time: "1:00 PM",
-    status: "void",
-  },
-];
+export const modalMain = {
+  display: "flex",
+  flexDirection: "column",
+  // border:"solid 2px red",
+  justifyContent: "flex-start",
+  padding: "10px",
+  backgroundColor: "#fff",
+  borderRadius: "5px",
+  // overflowY: "scroll"
+};
+export const inputGroupContainerStyles = {
+  width: "100%",
+  display: "flex",
+  gap: "10px",
+  alignItems: "center",
+  padding: "10px 15px",
+  border: "solid 1px #afafafff",
+  borderRadius: "5px",
+};
+export const inputInContainerStyles = {
+  border: "none",
+  outline: "none",
+  accentColor: "green"
+};
+export const labelStyles = {
+  display: "block",
+  width: "100%",
+  padding: "10px 0",
+};
+
+
+
+
+
 function Appointments() {
+  //   const sampleAppointmentData = [
+  // {
+  //   property: "Sunnyvale Loft - Unit 4B",
+  //   contact: "John Doe",
+  //   date: "Oct 24",
+  //   time: "2:00 PM",
+  //   status: "confirmed",
+  // },
+  // ];
+
+
+  const [sampleAppointmentData, setsampleAppointmentData] = useState([])
+
+  const [loadfetch, setloadfetch] = useState(false)
+  useEffect(() => {
+    const fetchapointment = async () => {
+      try {
+        setloadfetch(true)
+        const res = await axios.get("https://vizit-backend-hubw.onrender.com/api/apointment")
+
+        if (res.status == 200) {
+          setsampleAppointmentData(res.data);
+          console.log('====================================');
+          console.log(sampleAppointmentData);
+          console.log('====================================');
+        }
+        // apoitments
+      } catch (error) {
+        console.log('====================================');
+        console.log(error);
+        console.log('====================================');
+      } finally {
+        setloadfetch(false)
+      }
+    }
+    fetchapointment()
+  }, [])
+
+
   const [filter, setFilter] = useState([
     { title: "All Requests", active: true },
     { title: "Upcoming", active: false },
@@ -124,7 +118,7 @@ function Appointments() {
   const [appToDisplay, setAppToDisplay] = useState([]);
 
   for (let i = appToDisplay.length; i <= limit - 1; i++) {
-    if (i >= start && i < sampleAppointmentData.length) {
+    if (i >= start && i < sampleAppointmentData?.length) {
       appToDisplay.push(sampleAppointmentData[i]);
       if (i > 2) {
         setStart((prev) => prev + 1);
@@ -194,7 +188,7 @@ function Appointments() {
     }
   }
   function loadMore() {
-    if (limit <= sampleAppointmentData.length) {
+    if (limit <= sampleAppointmentData?.length) {
       setLimit((prev) => prev + 1);
     }
   }
@@ -215,6 +209,53 @@ function Appointments() {
     }
     return (
       <div className="apt-card">
+
+        {loadfetch && (
+          <div
+            style={{
+              position: "fixed",
+              top: 0,
+              left: 0,
+              width: "100vw",
+              height: "100vh",
+              backgroundColor: "rgba(0,0,0,0.5)", // semi-transparent overlay
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              zIndex: 9999, // make sure it's on top of everything
+              flexDirection: "column",
+            }}
+          >
+            {/* Spinner */}
+            <div
+              style={{
+                border: "6px solid #f3f3f3", // light gray
+                borderTop: "6px solid #014631", // your primary color
+                borderRadius: "50%",
+                width: "60px",
+                height: "60px",
+                animation: "spin 1s linear infinite",
+                marginBottom: "20px",
+              }}
+            ></div>
+            {/* Loading text */}
+            <p style={{ color: "white", fontSize: "18px", fontWeight: "bold" }}>
+              Loading...
+            </p>
+
+            {/* Keyframes animation */}
+            <style>
+              {`
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+      `}
+            </style>
+          </div>
+        )}
+
+
         <div className="apt-card-left">
           <div className="apt-card-img-cont">
             {/* //!! Change this to insert the id of the building */}
@@ -253,10 +294,13 @@ function Appointments() {
             </h5>
             <p className="apt-date-time">
               <EventNoteIcon />
-              {appointment.date} | {appointment.time}
+              {/* {new Date(appointment.date).toLocaleDateString()} | */}
+              {new Date(appointment.time).toLocaleString()}
             </p>
           </div>
         </div>
+
+
 
         <div className="apt-controls">
           {appointment.status == "void" && (
@@ -483,7 +527,7 @@ function Appointments() {
                     borderRadius: "8px",
                   }}
                   onClick={() => {
-                    alert( JSON.stringify({
+                    alert(JSON.stringify({
                       "property": nAproperty,
                       "contact": nAcontact,
                       "date": nADate,
@@ -492,7 +536,7 @@ function Appointments() {
                     }));
                     setNewAppointmentModal(false);
                     //update the state after ~_~
-                  
+
                   }}
                 >
                   Save

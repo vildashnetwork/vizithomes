@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import {
   BottomTabs,
@@ -37,7 +37,8 @@ import LocalDrinkOutlinedIcon from "@mui/icons-material/LocalDrinkOutlined";
 import PoolOutlinedIcon from "@mui/icons-material/PoolOutlined";
 import PetsIcon from '@mui/icons-material/Pets';
 import ParkIcon from '@mui/icons-material/Park';
-
+import toast from "react-hot-toast"
+import ReviewRatingSection from "./Review"
 //for the rating
 import StarOutlinedIcon from "@mui/icons-material/StarOutlined";
 import StarOutlineOutlinedIcon from "@mui/icons-material/StarOutlineOutlined";
@@ -48,6 +49,7 @@ import StarIcon from "@mui/icons-material/Star";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { useState } from "react";
+import axios from "axios";
 export function Ratings({ method, size, count }) {
   let ratings;
   const ar = [1, 2, 3, 4, 5];
@@ -168,6 +170,79 @@ function PropertyDetails() {
   //     let publicInterval = setInterval(increaseIndex,5000)
   // })
 
+  const [user, setUser] = useState({})
+  const token = localStorage.getItem("token");
+
+  const decodeToken = useCallback(async () => {
+    if (!token) return;
+    try {
+      const res = await axios.get(
+        "https://vizit-backend-hubw.onrender.com/api/user/decode/token/user",
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      setUser(res.data.user);
+    } catch (err) {
+      console.error(err);
+    }
+  }, [token]);
+
+  useEffect(() => {
+    decodeToken();
+  }, [decodeToken]);
+
+
+
+  const [loadbook, setloadbook] = useState(false)
+
+
+  const [isAdmin, setisAdmin] = useState(false)
+  const BookHome = async () => {
+    if (!user?._id) {
+      toast.error("Please login first");
+      return;
+    }
+
+    const newAppointment = {
+      listingId: propertyId,
+      contact: user.name,
+      status: "void",
+      ownerID: house?.owner?.id,
+      userID: user?._id,
+      date: Date.now(),
+      time: new Date().getTime()
+    };
+
+    try {
+      setloadbook(true);
+      const res = await axios.post(
+        "https://vizit-backend-hubw.onrender.com/api/apointment",
+        newAppointment
+      );
+      if (res.status == 201) {
+        toast.success("Booking done successfully");
+        setopen(false);
+
+      }
+    } catch (err) {
+      toast.error(err?.response?.data?.message || "Booking failed");
+    } finally {
+      setloadbook(false);
+    }
+  };
+
+
+  const [open, setopen] = useState(false)
+
+  const role = localStorage.getItem("role")
+
+  useEffect(() => {
+    if (role == "owner") {
+      setisAdmin(true)
+    } else {
+      setisAdmin(false)
+    }
+  }, [role])
+
   return (
     <div>
 
@@ -249,10 +324,97 @@ function PropertyDetails() {
                 <p>{dayjs(house.postedAt).format("DD/MM/YYYY HH:mm")}</p>
               </div>
             </div>
+
             <div className="description-card">
               <h4 className="details-sub-heading">Property Description</h4>
               {house.description}
             </div>
+
+
+
+            <div className="rem block">
+              <div class="facebook-panel">
+                <div class="fb-header"></div>
+
+                <div class="user-section">
+                  <div class="fb-avatar">
+                    <img src={house?.owner?.profile} alt="" />
+                    {/* <i class="fas fa-user"></i> */}
+                  </div>
+
+                  <div class="fb-user-info">
+                    <div class="fb-user-name">
+                      {house?.owner?.name}
+
+                      <span class="verified-text">
+                        <div class="fb-verified">
+                          <i class="fas fa-check"></i>
+                        </div>
+                      </span>
+                    </div>
+                    <div class="fb-user-subtitle">{house?.owner?.email}</div>
+                  </div>
+                </div>
+
+                <div class="fb-menu">
+                  <a onClick={() => setopen(true)} class="fb-menu-item active">
+                    <div class="fb-menu-icon">
+                      <i class="far fa-calendar-check"></i>
+                    </div>
+                    <div class="fb-menu-text">Book a Visit</div>
+                  </a>
+
+                  <a href="#" class="fb-menu-item">
+                    <div class="fb-menu-icon">
+                      <i class="fas fa-comment-dots"></i>
+                    </div>
+                    <div class="fb-menu-text">Chat with Owner</div>
+                  </a>
+                </div>
+
+                <button class="fb-button primary" onClick={() => setopen(true)}>Book a Visit</button>
+              </div>
+
+
+
+
+              {
+                open &&
+                <div className="auth-overlay" onClick={() => setopen(!open)}>
+                  <div
+                    className="auth-modal"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <button className="auth-close" onClick={() => setopen(!open)}>
+                      ×
+                    </button>
+
+                    <h2>Book For This House</h2>
+                    <p>If You Are Interest Please Click On The Book Button Bellow</p>
+
+                    <div className="auth-actions">
+                      <button
+                        type="button"
+                        className="auth-btn primary"
+                        style={{ border: "none", outline: "none" }}
+                        onClick={BookHome}
+                        disabled={loadbook}
+                      >
+                        {loadbook ? "Placing Your Booking..." : "Book This House Now"}
+
+                      </button>
+
+
+                      <a className="auth-btn secondary" style={{ cursor: "pointer" }}>
+                        Chat With Owner
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              }
+            </div>
+
+
 
             <div className="description-card">
               <h5 className="details-sub-heading">Amenities</h5>
@@ -308,52 +470,66 @@ function PropertyDetails() {
                 },
               ]}
             />
-            <div className="description-card">
-              <h4 className="details-sub-heading">Ratings &amp; Reviews</h4>
-              <div className="ratings-and-text-title">
-                <Ratings
-                  method="get"
-                  count={house.reviews.overallRating}
-                  size={window.innerWidth >= 425 ? "large" : "medium"}
-                />
-                <p className="rating-overall">
-                  {house.reviews.overallRating} out of 5 (
-                  {house.reviews.totalReviews} Reviews)
-                </p>
-              </div>
-              <div className="comments-container">
-                {house.reviews.entries.map((entry, index) => {
-                  return (
-                    <div className="comment-card" key={index}>
-                      <div className="comment-profile-info">
-                        <div
-                          className="comment-profile-img-container"
-                          style={{
-                            backgroundImage: `url(${!entry.profileImg
-                              ? defaultProfile
-                              : entry.profileImg
-                              })`,
-                          }}
-                        ></div>
-                        <div className="name-and-rating">
-                          <p>{entry.name}</p>
-                          <Ratings
-                            method="get"
-                            count={entry.rating}
-                            size="small"
-                          />
-                        </div>
-                      </div>
-                      <div className="comment-content">{entry.comment}</div>
-                    </div>
-                  );
-                })}
-              </div>
 
-              {/* {
-                Ratings("get","large",1)
-               } */}
-            </div>
+
+            {
+              !user ?
+
+                <div className="description-card">
+                  <h4 className="details-sub-heading">Ratings &amp; Reviews</h4>
+                  <div className="ratings-and-text-title">
+                    <Ratings
+                      method="get"
+                      count={house.reviews.overallRating}
+                      size={window.innerWidth >= 425 ? "large" : "medium"}
+                    />
+                    <p className="rating-overall">
+                      {house.reviews.overallRating} out of 5 (
+                      {house.reviews.totalReviews} Reviews)
+                    </p>
+                  </div>
+                  <div className="comments-container">
+                    {house.reviews.entries.map((entry, index) => {
+                      return (
+                        <div className="comment-card" key={index}>
+                          <div className="comment-profile-info">
+                            <div
+                              className="comment-profile-img-container"
+                              style={{
+                                backgroundImage: `url(${!entry.profileImg
+                                  ? defaultProfile
+                                  : entry.profileImg
+                                  })`,
+                              }}
+                            ></div>
+                            <div className="name-and-rating">
+                              <p>{entry.name}</p>
+                              <Ratings
+                                method="get"
+                                count={entry.rating}
+                                size="small"
+                              />
+                            </div>
+                          </div>
+                          <div className="comment-content">{entry.comment}</div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+                :
+
+                <div className="description-card">
+                  <ReviewRatingSection
+                    propertyId={propertyId}
+                    currentUser={user}
+                    isAdmin={isAdmin} />
+                </div>
+
+            }
+
+
+
           </div>
 
           <div className="rem">
@@ -381,7 +557,7 @@ function PropertyDetails() {
               </div>
 
               <div class="fb-menu">
-                <a href="#" class="fb-menu-item active">
+                <a onClick={() => setopen(true)} class="fb-menu-item active">
                   <div class="fb-menu-icon">
                     <i class="far fa-calendar-check"></i>
                   </div>
@@ -396,14 +572,49 @@ function PropertyDetails() {
                 </a>
               </div>
 
-              <button class="fb-button primary">Book a Visit</button>
+              <button class="fb-button primary" onClick={() => setopen(true)}>Book a Visit</button>
             </div>
+
+
+
+
+            {
+              open &&
+              <div className="auth-overlay" onClick={() => setopen(!open)}>
+                <div
+                  className="auth-modal"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <button className="auth-close" onClick={() => setopen(!open)}>
+                    ×
+                  </button>
+
+                  <h2>Book For This House</h2>
+                  <p>If You Are Interest Please Click On The Book Button Bellow</p>
+
+                  <div className="auth-actions">
+                    <button
+                      type="button"
+                      className="auth-btn primary"
+                      style={{ border: "none", outline: "none" }}
+                      onClick={BookHome}
+                      disabled={loadbook}
+                    >
+                      {loadbook ? "Placing Your Booking..." : "Book This House Now"}
+                    </button>
+                    <a className="auth-btn secondary" style={{ cursor: "pointer" }}>
+                      Chat With Owner
+                    </a>
+                  </div>
+                </div>
+              </div>
+            }
           </div>
 
 
 
         </div>
-        <button className="start-discussion-with-owner-button" style={{}}>
+        <button className="start-discussion-with-owner-button" onClick={() => setopen(true)} style={{}}>
           <div class="fb-menu-icon shine">
             <i class="fas fa-comment-dots"></i>
           </div>
