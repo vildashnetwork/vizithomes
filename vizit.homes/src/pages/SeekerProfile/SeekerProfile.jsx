@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   BottomTabs,
   Container,
@@ -10,15 +10,49 @@ import {
 import "./spStyles.css";
 import { data } from "../../data/listingdata";
 import { flex, width } from "@mui/system";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import dayjs from "dayjs";
 import { Ratings } from "../PropertyDetails/PropertyDetails";
+import axios from "axios";
+import toast from "react-hot-toast"
 //?JHGKEWHGKJWGHKJH
 //toDO
 //!EX
 Link;
 function SaveListingCard({ img, title, location, price, id }) {
+  const navigate = useNavigate();
+
+  const [lloadremove, setloadremove] = useState(false)
+  const deletesaved = async (propId) => {
+    const confirmed = window.confirm("Are you sure you want to remove this property from saved listings?");
+
+    if (!confirmed) return;
+
+    try {
+      setloadremove(true)
+      const UserId = localStorage.getItem("userId")
+      const res = await
+        axios.put(`https://vizit-backend-hubw.onrender.com/api/user/remove/saved/house/${UserId}`,
+          {
+            houseId: propId
+          }
+        )
+      if (res.status == 200) {
+        toast.success("House removed from saved")
+        navigate(`/property/${propId}`)
+      }
+
+    } catch (error) {
+      toast.error("Failed to remove house");
+      console.error(error);
+
+    } finally {
+      setloadremove(false)
+    }
+  }
+
+
   return (
     <div
       style={{
@@ -27,6 +61,8 @@ function SaveListingCard({ img, title, location, price, id }) {
       }}
       className="saved-listing-card"
     >
+
+
       <img
         src={img}
         alt={`image of  ${title}`}
@@ -64,13 +100,12 @@ function SaveListingCard({ img, title, location, price, id }) {
           </Link>
           <button
             className="remove-saved-listing"
-            to={`/property/${id}`}
             style={{ cursor: "pointer" }}
             onClick={() => {
-              alert("Listing Removed Successfully ");
+              deletesaved(id)
             }}
           >
-            Remove
+            {lloadremove ? "removing.." : "Remove"}
           </button>
         </div>
       </div>
@@ -118,6 +153,153 @@ function SeekerProfile() {
     false,
     false,
   ]);
+  const [user, setuser] = useState(null)
+  const [loading, setLoading] = useState(true)
+
+  const token = localStorage.getItem("token")
+
+  const decoding = async () => {
+    try {
+      if (!token) {
+        console.warn("No token found")
+        setLoading(false)
+        return
+      }
+
+      const res = await axios.get(
+        "https://vizit-backend-hubw.onrender.com/api/user/decode/token/user",
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      if (res.status === 200) {
+        setuser(res.data.user);
+      }
+    } catch (error) {
+      console.error("Failed to decode token:", error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const [sampleAppointmentData, setsampleAppointmentData] = useState([])
+
+  const [loadfetch, setloadfetch] = useState(false)
+  const fetchapointment = async () => {
+    try {
+      setloadfetch(true)
+
+      const userId = localStorage.getItem("userId")
+      const res = await axios.get(`https://vizit-backend-hubw.onrender.com/api/apointment/user/${userId}`)
+      console.log('====================================');
+      console.log("userId", userId);
+      console.log('====================================');
+      if (res.status == 200) {
+        setsampleAppointmentData(res.data);
+        console.log('====================================');
+        console.log("sampleAppointmentData", sampleAppointmentData);
+        console.log('====================================');
+      }
+      // apoitments
+    } catch (error) {
+      console.log('====================================');
+      console.log(error);
+      console.log('====================================');
+    } finally {
+      setloadfetch(false)
+    }
+  }
+  useEffect(() => {
+    decoding().then(() => {
+      fetchapointment()
+
+    })
+  }, [token])
+
+
+  //get saved houuses
+
+  const [HouseIds, setHouseIds] = useState([])
+
+  const savedhouses = async () => {
+    try {
+      const userId = localStorage.getItem("userId")
+      const res = await
+        axios.get(`https://vizit-backend-hubw.onrender.com/api/user/saved/houses/${userId}`);
+
+      if (res.status == 200) {
+        setHouseIds(res.data.savedHouses)
+      }
+
+    } catch (error) {
+      console.error(error);
+
+    }
+  }
+  useEffect(() => {
+    savedhouses().then(() => {
+      if (!HouseIds) return;
+    })
+  }, [token])
+
+  const [filteredHouse, setFilteredHouse] = useState([])
+  const filterdatabyHouseIds = async () => {
+    try {
+      if (HouseIds.length > 0) {
+        const filtered = data.filter((item) => HouseIds.includes(item.listingId));
+        setFilteredHouse(filtered);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    filterdatabyHouseIds();
+  }, [HouseIds]);
+  //filter listing of only this listingId 
+
+  const [onlyspecific, setOnlyspecific] = useState(null);
+
+  useEffect(() => {
+    if (sampleAppointmentData.length > 0) {
+      const filtered = data.find(
+        (item) => item.listingId === sampleAppointmentData[0]?.listingId
+      );
+      setOnlyspecific(filtered);
+    }
+  }, [sampleAppointmentData]);
+
+
+  const [loaddelete, setloaddelte] = useState(false)
+
+  const deleteapp = async (id) => {
+    try {
+      setloaddelte(true)
+      const res = await axios.delete(`https://vizit-backend-hubw.onrender.com/api/apointment/${id}`)
+
+      if (res.status == 200) {
+        toast.success(res?.data)
+      }
+
+    } catch (error) {
+      console.log('====================================');
+      console.log(error);
+      toast.error(error)
+      console.log('====================================');
+    } finally {
+      setloaddelte(false)
+    }
+  }
+
+
+  // const deletesaved = async ()=>{
+  //   try {
+  //     const res
+  //   } catch (error) {
+  //     console.error(error);
+
+  //   }
+  // }
 
   return (
     <>
@@ -137,7 +319,7 @@ function SeekerProfile() {
             buttonList={[
               { title: "Saved Listings", style: currentNavigation[0] },
               { title: "Appointments", style: currentNavigation[1] },
-              { title: "My Reviews & Ratings", style: currentNavigation[2] },
+              // { title: "My Reviews & Ratings", style: currentNavigation[2] },
             ]}
           />
         </div>
@@ -165,9 +347,10 @@ function SeekerProfile() {
             }}
           >
             {currentNavigation[0] ? (
-              data.map((listing, i) => {
+              filteredHouse.map((listing, i) => {
                 return (
                   <SaveListingCard
+                    key={i}
                     img={listing.image}
                     title={listing.title}
                     location={listing.location.address}
@@ -176,6 +359,7 @@ function SeekerProfile() {
                   />
                 );
               })
+
             ) : currentNavigation[1] ? (
               // <TabNavigator
               //   array={currentReviewSort}
@@ -197,7 +381,7 @@ function SeekerProfile() {
                     </tr>
                   </thead>
                   <tbody>
-                    {data.map((item) => {
+                    {sampleAppointmentData.map((item) => {
                       return (
                         <tr
                           className="table-row"
@@ -206,7 +390,7 @@ function SeekerProfile() {
                           }}
                         >
                           <td>
-                            <h4>{item.title}</h4>
+                            <h4>{onlyspecific?.title}</h4>
                             <p
                               style={{
                                 display: "flex",
@@ -216,16 +400,15 @@ function SeekerProfile() {
                             >
                               <span className="desktop-only">
                                 <LocationOnOutlinedIcon fontSize="small" />{" "}
-                                {item.location.address.replace("Cameroon", "")}
+                                {onlyspecific?.location?.address?.replace("Cameroon", "")}
                               </span>
                             </p>
                           </td>
                           <td>
-                            {dayjs(item.postedAt).format(
-                              "MMMM D, YYYY     hh:mm  A"
-                            )}
+                            {item?.date} | {" "} {" "}
+                            {item?.time}
                           </td>
-                          <td>Completed</td>
+                          <td>{item?.status}</td>
                           <td>
                             <div
                               style={{
@@ -238,20 +421,20 @@ function SeekerProfile() {
                               <button
                                 className="btn-actions btn-danger"
                                 onClick={() => {
-                                  alert("Appointment Has been cancelled");
+                                  deleteapp(item._id)
                                 }}
                               >
-                                Cancel Appointment
+                                {loaddelete ? "deleting.." : "Delete Appointment"}
                               </button>
-                              <button
+                              {/* <button
                                 className="btn-actions btn-neutral"
                                 onClick={() => {
                                   alert("Appointment Has been Rescheduled");
                                 }}
                               >
                                 Reschedule
-                              </button>
-                              <button
+                              </button> */}
+                              {/* <button
                                 className="btn-actions btn-success"
                                 onClick={() => {
                                   alert(
@@ -260,7 +443,7 @@ function SeekerProfile() {
                                 }}
                               >
                                 Mark as Completed{" "}
-                              </button>
+                              </button> */}
                             </div>
                           </td>
                         </tr>

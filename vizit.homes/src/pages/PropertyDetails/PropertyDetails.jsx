@@ -20,6 +20,9 @@ import HotelOutlinedIcon from "@mui/icons-material/HotelOutlined";
 import BathtubOutlinedIcon from "@mui/icons-material/BathtubOutlined";
 import HistoryToggleOffOutlinedIcon from "@mui/icons-material/HistoryToggleOffOutlined";
 
+
+import TodayIcon from "@mui/icons-material/Today";
+import ScheduleIcon from "@mui/icons-material/Schedule";
 import AcUnitOutlinedIcon from "@mui/icons-material/AcUnitOutlined";
 import CropOriginalIcon from "@mui/icons-material/CropOriginal";
 import WifiIcon from "@mui/icons-material/Wifi";
@@ -50,6 +53,28 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { useState } from "react";
 import axios from "axios";
+
+export const inputGroupContainerStyles = {
+  width: "100%",
+  display: "flex",
+  gap: "10px",
+  alignItems: "center",
+  padding: "10px 15px",
+  border: "solid 1px #afafafff",
+  borderRadius: "5px",
+  marginBottom: "20px"
+};
+export const inputInContainerStyles = {
+  border: "none",
+  outline: "none",
+  accentColor: "green",
+
+};
+export const labelStyles = {
+  display: "block",
+  width: "100%",
+  padding: "10px 0",
+};
 export function Ratings({ method, size, count }) {
   let ratings;
   const ar = [1, 2, 3, 4, 5];
@@ -149,7 +174,8 @@ MapComponent;
 function PropertyDetails() {
   const { propertyId } = useParams();
   const [imageIndex, setImageIndex] = useState(0);
-
+  const [nADate, setNADate] = useState(""); //
+  const [nATime, setNATime] = useState(""); //
   let property = data.filter((data) => data.listingId === propertyId);
   let house = property[0];
   let detailsImageContainer = {};
@@ -208,8 +234,8 @@ function PropertyDetails() {
       status: "void",
       ownerID: house?.owner?.id,
       userID: user?._id,
-      date: Date.now(),
-      time: new Date().getTime()
+      date: nADate,
+      time: nATime
     };
 
     try {
@@ -242,6 +268,43 @@ function PropertyDetails() {
       setisAdmin(false)
     }
   }, [role])
+  const [loadsave, setloadsave] = useState(false)
+
+  console.log('====================================');
+  console.log("fisrt", user?._id);
+  console.log('====================================');
+
+  console.log('====================================');
+  console.log("second", propertyId);
+  console.log('====================================');
+  const savehouse = async (e) => {
+    // e.preventDefault();
+
+    try {
+      setloadsave(true);
+
+      const res = await axios.put(
+        `https://vizit-backend-hubw.onrender.com/api/user/save/house/${user?._id}`,
+        {
+          houseId: propertyId,
+        }
+      );
+
+      if (res.status === 200) {
+        toast.success(res.data.message);
+      }
+    } catch (error) {
+      const message =
+        error?.response?.data?.message ||
+        error?.message ||
+        "Failed to save house";
+
+      toast.error(message);
+      console.error("Save house error:", error);
+    } finally {
+      setloadsave(false);
+    }
+  };
 
   return (
     <div>
@@ -357,11 +420,18 @@ function PropertyDetails() {
                 </div>
 
                 <div class="fb-menu">
-                  <a onClick={() => setopen(true)} class="fb-menu-item active">
+                  {/* <a onClick={() => setopen(true)} class="fb-menu-item active">
                     <div class="fb-menu-icon">
                       <i class="far fa-calendar-check"></i>
                     </div>
                     <div class="fb-menu-text">Book a Visit</div>
+                  </a> */}
+
+                  <a onClick={() => savehouse()} class="fb-menu-item active">
+                    <div class="fb-menu-icon">
+                      <i class="far fa-calendar-check"></i>
+                    </div>
+                    <div class="fb-menu-text">{loadsave ? "saving the list.." : "Save This Listing"}</div>
                   </a>
 
                   <a href="#" class="fb-menu-item">
@@ -392,6 +462,30 @@ function PropertyDetails() {
                     <h2>Book For This House</h2>
                     <p>If You Are Interest Please Click On The Book Button Bellow</p>
 
+                    <label htmlFor="" style={labelStyles}>
+                      Date of appointment
+                    </label>
+                    <div style={inputGroupContainerStyles}>
+                      <TodayIcon style={{ color: "#035e4aff" }} />
+                      <input
+                        type="date"
+                        style={inputInContainerStyles}
+                        value={nADate}
+                        onChange={(e) => setNADate(e.target.value)}
+                      />
+                    </div>
+                    <label htmlFor="" style={labelStyles}>
+                      Time of appointment
+                    </label>
+                    <div style={inputGroupContainerStyles}>
+                      <ScheduleIcon style={{ color: "#035e4aff" }} />
+                      <input
+                        type="time"
+                        style={inputInContainerStyles}
+                        value={nATime}
+                        onChange={(e) => setNATime(e.target.value)}
+                      />
+                    </div>
                     <div className="auth-actions">
                       <button
                         type="button"
@@ -557,11 +651,18 @@ function PropertyDetails() {
               </div>
 
               <div class="fb-menu">
-                <a onClick={() => setopen(true)} class="fb-menu-item active">
+                {/* <a onClick={() => setopen(true)} class="fb-menu-item active">
                   <div class="fb-menu-icon">
                     <i class="far fa-calendar-check"></i>
                   </div>
                   <div class="fb-menu-text">Book a Visit</div>
+                </a> */}
+
+                <a onClick={() => savehouse()} class="fb-menu-item active">
+                  <div class="fb-menu-icon">
+                    <i class="far fa-calendar-check"></i>
+                  </div>
+                  <div class="fb-menu-text">{loadsave ? "saving the list.." : "Save This Listing"}</div>
                 </a>
 
                 <a href="#" class="fb-menu-item">
@@ -592,6 +693,30 @@ function PropertyDetails() {
                   <h2>Book For This House</h2>
                   <p>If You Are Interest Please Click On The Book Button Bellow</p>
 
+                  <label htmlFor="" style={labelStyles}>
+                    Date of appointment
+                  </label>
+                  <div style={inputGroupContainerStyles}>
+                    <TodayIcon style={{ color: "#035e4aff" }} />
+                    <input
+                      type="date"
+                      style={inputInContainerStyles}
+                      value={nADate}
+                      onChange={(e) => setNADate(e.target.value)}
+                    />
+                  </div>
+                  <label htmlFor="" style={labelStyles}>
+                    Time of appointment
+                  </label>
+                  <div style={inputGroupContainerStyles}>
+                    <ScheduleIcon style={{ color: "#035e4aff" }} />
+                    <input
+                      type="time"
+                      style={inputInContainerStyles}
+                      value={nATime}
+                      onChange={(e) => setNATime(e.target.value)}
+                    />
+                  </div>
                   <div className="auth-actions">
                     <button
                       type="button"

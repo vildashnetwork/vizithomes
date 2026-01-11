@@ -3,6 +3,7 @@ import axios from "axios";
 const response = await axios.get("https://vizit-backend-hubw.onrender.com/api/house/houses");
 
 export const data = response.data.houses.map((house) => ({
+  id: house._id,
   type: house.type,
   image: house.image,
   title: house.title,
