@@ -360,9 +360,22 @@ const VideoCallPage = ({ remoteUserId, remoteUserName }) => {
                 </button>
             )}
 
+
+            {pcalling && !callActive && !incomingCall && (
+                <div className="incoming-call-overlay">
+                    <div className="incoming-call-modal">
+                        <p>Placing your call…</p>
+                        <p style={{ opacity: 0.7, fontSize: "0.9rem" }}>
+                            Waiting for {remoteUserName} to answer
+                        </p>
+                    </div>
+                </div>
+            )}
             {/* 
             {
-                pcalling && !callActive && (
+                pcalling 
+                
+                && !callActive && (
                     <div className="incoming-call-overlay">
                         <div className="incoming-call-modal">
                             <p>Placing Your Call</p>
