@@ -267,7 +267,21 @@ const VideoCallPage = ({ remoteUserId, remoteUserName }) => {
     /* -------------------- PEER CONNECTION -------------------- */
     const createPeerConnection = useCallback(async () => {
         const pc = new RTCPeerConnection({
-            iceServers: [{ urls: "stun:stun.l.google.com:19302" }]
+            iceServers: [
+                // STUN (always first)
+                { urls: "stun:stun.l.google.com:19302" },
+
+                // FREE TURN (Metered OpenRelay)
+                {
+                    urls: [
+                        "turn:openrelay.metered.ca:80",
+                        "turn:openrelay.metered.ca:443",
+                        "turns:openrelay.metered.ca:443"
+                    ],
+                    username: "openrelayproject",
+                    credential: "openrelayproject"
+                }
+            ]
         });
 
         const stream = await navigator.mediaDevices.getUserMedia({

@@ -1,12 +1,12 @@
 
 
 // ChatSidebar.jsx
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import ChatSidebarHeader from './ChatSidebarHeader';
 import ChatSearch from './ChatSearch';
 import ChatList from './ChatList';
 import ChatSidebarSkeleton from './ChatSidebarSkeleton';
-
+import axios from "axios"
 function ChatSidebar({
     chats = [],
     activeChatId,
@@ -20,7 +20,24 @@ function ChatSidebar({
 }) {
     const [searchQuery, setSearchQuery] = useState('');
 
-    // const [userchatids, setuserchatids]
+    const [userchatids, setuserchatids] = useState([])
+
+    const fetchchatids = async () => {
+        try {
+            const res = await axios.get(`https://vizit-backend-hubw.onrender.com/api/user/all/chats/id/${user?._id}`)
+            if (res.status == 200) {
+                setuserchatids(res.data.allchatsId)
+                console.log('====================================');
+                console.log(userchatids);
+                console.log('====================================');
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    useEffect(() => {
+        fetchchatids()
+    }, [user])
 
     // Filter chats based on search query (name or last message)
     const filteredChats = useMemo(() => {
