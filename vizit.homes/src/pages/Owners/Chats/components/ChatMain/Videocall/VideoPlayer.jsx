@@ -69,7 +69,7 @@ const VideoPlayer = ({ stream, name, isRemote = false, isVideoOff = false }) => 
                     <span className="user-name">{name}</span>
                     {!isRemote && (
                         <span className="video-status">
-                            {isVideoOff ? 'Camera off' : 'Camera on'}
+                            {/* {isVideoOff ? 'Camera off' : 'Camera on'} */}
                         </span>
                     )}
                 </div>

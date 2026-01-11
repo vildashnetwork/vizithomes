@@ -151,7 +151,10 @@ const peerService = new PeerService();
    ========================= */
 const VideoCallPage = ({ remoteUserId, remoteUserName }) => {
     const socketRef = useRef(null);
-    const [switchvid, setswictch ] = useState(false)
+    const [isSwapped, setIsSwapped] = useState(false);
+
+
+
 
     const [myStream, setMyStream] = useState(null);
     const [remoteStream, setRemoteStream] = useState(null);
@@ -262,7 +265,11 @@ const VideoCallPage = ({ remoteUserId, remoteUserName }) => {
         peerService.toggleVideo();
         setIsVideoOff(!myStream?.getVideoTracks()[0]?.enabled);
     };
+    const largeStream = isSwapped ? myStream : remoteStream;
+    const smallStream = isSwapped ? remoteStream : myStream;
 
+    const largeName = isSwapped ? "Me" : remoteUserName;
+    const smallName = isSwapped ? remoteUserName : "Me";
 
     return (
         <div className="video-call-container">
@@ -285,16 +292,32 @@ const VideoCallPage = ({ remoteUserId, remoteUserName }) => {
 
             {callActive && (
                 <div className="video-call-interface">
+                    {/* LARGE VIDEO */}
                     <div className="remote-video-container">
-                        {remoteStream && (
-                            <VideoPlayer stream={remoteStream} name={remoteUserName} />
+                        {largeStream && (
+                            <VideoPlayer
+                                stream={largeStream}
+                                name={largeName}
+                                muted={isSwapped}
+                            />
                         )}
                     </div>
 
-                    <div className="local-video-container">
-                        {myStream && <VideoPlayer stream={myStream} name={"Me"} isSmall muted />}
-                        
+                    {/* SMALL VIDEO (click to swap) */}
+                    <div
+                        className="local-video-container"
+                        onClick={() => setIsSwapped(prev => !prev)}
+                    >
+                        {smallStream && (
+                            <VideoPlayer
+                                stream={smallStream}
+                                name={smallName}
+                                isSmall
+                                muted={!isSwapped}
+                            />
+                        )}
                     </div>
+
 
                     <div className="call-controls">
                         <button
