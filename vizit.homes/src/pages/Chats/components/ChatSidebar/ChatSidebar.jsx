@@ -20,6 +20,8 @@ function ChatSidebar({
 }) {
     const [searchQuery, setSearchQuery] = useState('');
 
+    // const [userchatids, setuserchatids]
+
     // Filter chats based on search query (name or last message)
     const filteredChats = useMemo(() => {
         const query = searchQuery.trim().toLowerCase();

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   BottomTabs,
   Container,
@@ -178,6 +178,8 @@ function PropertyDetails() {
   const [nATime, setNATime] = useState(""); //
   let property = data.filter((data) => data.listingId === propertyId);
   let house = property[0];
+  const navigate = useNavigate()
+
   let detailsImageContainer = {};
 
   function increaseIndex() {
@@ -305,6 +307,34 @@ function PropertyDetails() {
       setloadsave(false);
     }
   };
+
+
+
+  //add user chat ids
+  const [loadadd, setloadadd] = useState(false)
+  const adduserchat = async (chatId) => {
+    try {
+      setloadadd(true)
+      const res = await
+        axios.put(`https://vizit-backend-hubw.onrender.com/api/user/add/chat/id/${user?._id}`,
+          {
+            chatId: chatId
+          }
+        )
+
+      if (res.status == 200) {
+        toast.success(res.data?.message)
+        navigate(`/user/chat?auth=${chatId}`)
+      }
+
+    } catch (error) {
+      toast.error(error)
+      console.error(error);
+
+    } finally {
+      setloadadd(false)
+    }
+  }
 
   return (
     <div>
@@ -434,11 +464,12 @@ function PropertyDetails() {
                     <div class="fb-menu-text">{loadsave ? "saving the list.." : "Save This Listing"}</div>
                   </a>
 
-                  <a href="#" class="fb-menu-item">
+                  <a onClick={() => adduserchat(house?.owner?.id)}
+                    class="fb-menu-item">
                     <div class="fb-menu-icon">
                       <i class="fas fa-comment-dots"></i>
                     </div>
-                    <div class="fb-menu-text">Chat with Owner</div>
+                    <div class="fb-menu-text">{loadadd ? "Openning Chat.." : "Chat with Owner"}</div>
                   </a>
                 </div>
 
@@ -499,8 +530,8 @@ function PropertyDetails() {
                       </button>
 
 
-                      <a className="auth-btn secondary" style={{ cursor: "pointer" }}>
-                        Chat With Owner
+                      <a onClick={() => adduserchat(house?.owner?.id)} className="auth-btn secondary" style={{ cursor: "pointer" }}>
+                        {loadadd ? "Opening Chat.." : "Chat With Owner"}
                       </a>
                     </div>
                   </div>
@@ -665,11 +696,11 @@ function PropertyDetails() {
                   <div class="fb-menu-text">{loadsave ? "saving the list.." : "Save This Listing"}</div>
                 </a>
 
-                <a href="#" class="fb-menu-item">
+                <a onClick={() => adduserchat(house?.owner?.id)} class="fb-menu-item">
                   <div class="fb-menu-icon">
                     <i class="fas fa-comment-dots"></i>
                   </div>
-                  <div class="fb-menu-text">Chat with Owner</div>
+                  <div class="fb-menu-text">{loadadd ? "Openning Chat.." : "Chat with Owner"}</div>
                 </a>
               </div>
 
@@ -727,8 +758,8 @@ function PropertyDetails() {
                     >
                       {loadbook ? "Placing Your Booking..." : "Book This House Now"}
                     </button>
-                    <a className="auth-btn secondary" style={{ cursor: "pointer" }}>
-                      Chat With Owner
+                    <a onClick={() => adduserchat(house?.owner?.id)} className="auth-btn secondary" style={{ cursor: "pointer" }}>
+                      {loadadd ? "Opening Chat.." : " Chat With Owner"}
                     </a>
                   </div>
                 </div>
