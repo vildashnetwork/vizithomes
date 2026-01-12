@@ -50,10 +50,10 @@ function AdminReelsApp({ setActiveTab }) {
     }, [storedRole]);
     return (
         <div className="tandoori-app">
-            <VideoCallPage
+            {/* <VideoCallPage
                 remoteUserId={usern?._id}
                 remoteUserName={usern?.name}
-            />
+            /> */}
             <header className="naan-header">
                 <h1 className="masala-title">Indian Food Reels</h1>
                 <p className="chai-description">Scroll vertically to watch cooking videos</p>

@@ -809,9 +809,9 @@
 
     .small-screen .local-video-container {
         width: 90px !important;
-        height: 100px !important;
+        height: 150px !important;
         margin-top: 30px !important;
-
+        z-index: 10000000000000 !important;
     }
 }
 
