@@ -434,12 +434,12 @@ function ChatLayout({
 
     return (
         <div className="usd-chat-layout">
-            {iscall && <VideoCallPage
+            {/* {iscall && <VideoCallPage
                 remoteUserId={remoteUserId}
                 remoteUserName={remoteUserName}
                 setiscall={setiscall}
             />
-            }
+            } */}
             <ChatSidebar
                 chats={chats}
                 activeChatId={activeChatId}

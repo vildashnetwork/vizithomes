@@ -60,6 +60,7 @@ const VideoPlayer = ({ stream, name, isRemote = false, isVideoOff = false }) => 
                         muted={!isRemote}
                         onError={handleVideoError}
                         className="video-element"
+                        style={{ pointerEvents: "none", }}
                     />
                 )}
             </div>

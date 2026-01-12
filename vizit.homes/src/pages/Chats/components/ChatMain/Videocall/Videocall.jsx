@@ -13,9 +13,7 @@ import PhoneDisabledIcon from "@mui/icons-material/PhoneDisabled";
 
 const SOCKET_SERVER_URL = "https://vizit-backend-hubw.onrender.com";
 
-/* =========================
-   PeerService (LOGIC FIXED)
-   ========================= */
+
 class PeerService {
     constructor() {
         this.peer = null;
@@ -154,7 +152,7 @@ const VideoCallPage = ({ remoteUserId, remoteUserName, setiscall }) => {
     const [isSwapped, setIsSwapped] = useState(false);
 
 
-
+    const [smallscreencall, setsmallscreencall] = useState(false)
 
     const [myStream, setMyStream] = useState(null);
     const [remoteStream, setRemoteStream] = useState(null);
@@ -271,15 +269,97 @@ const VideoCallPage = ({ remoteUserId, remoteUserName, setiscall }) => {
     const largeName = isSwapped ? "Me" : remoteUserName;
     const smallName = isSwapped ? remoteUserName : "Me";
 
-
+    const gotosmall = () => {
+        setsmallscreencall(!smallscreencall)
+    }
     useEffect(() => {
         if (typeof setiscall === "function") {
             setiscall(callActive);
         }
     }, [callActive]);
 
+
+
+
+
+
+
+
+
+    /* ===== DRAG SETUP ===== */
+    /* ===== DRAG SETUP ===== */
+    const containerRef = useRef(null);
+    const dragData = useRef({ dragging: false, offsetX: 0, offsetY: 0 });
+    const [position, setPosition] = useState({ x: 20, y: 80 });
+
+    const startDrag = (e) => {
+        if (!smallscreencall) return;
+
+        e.preventDefault();
+        e.stopPropagation(); // stop button click bubbling
+
+        const point = e.touches ? e.touches[0] : e;
+
+        dragData.current = {
+            dragging: true,
+            offsetX: point.clientX - position.x,
+            offsetY: point.clientY - position.y,
+        };
+    };
+
+    useEffect(() => {
+        const onMove = (e) => {
+            if (!dragData.current.dragging) return;
+
+            const point = e.touches ? e.touches[0] : e;
+
+            setPosition({
+                x: point.clientX - dragData.current.offsetX,
+                y: point.clientY - dragData.current.offsetY,
+            });
+        };
+
+        const onStop = () => {
+            dragData.current.dragging = false;
+        };
+
+        window.addEventListener("mousemove", onMove);
+        window.addEventListener("mouseup", onStop);
+        window.addEventListener("touchmove", onMove, { passive: false });
+        window.addEventListener("touchend", onStop);
+
+        return () => {
+            window.removeEventListener("mousemove", onMove);
+            window.removeEventListener("mouseup", onStop);
+            window.removeEventListener("touchmove", onMove);
+            window.removeEventListener("touchend", onStop);
+        };
+    }, []);
+
+
+
     return (
-        <div className="video-call-container">
+        <div
+            ref={containerRef}
+            className={!smallscreencall ? "video-call-container" : "small-screen"}
+            style={
+                smallscreencall
+                    ? {
+                        position: "fixed",
+                        left: position.x,
+                        top: position.y,
+                        zIndex: 9999,
+                        cursor: dragData.current.dragging ? "grabbing" : "default",
+                    }
+                    : undefined
+            }
+        >
+
+
+
+
+
+
             {incomingCall && (
                 <div className="incoming-call-overlay">
                     <div className="incoming-call-modal">
@@ -334,6 +414,17 @@ const VideoCallPage = ({ remoteUserId, remoteUserName, setiscall }) => {
                         >
                             {isMuted ? <MicOffIcon /> : <MicIcon />}
                         </button>
+                        <button
+                            className="end-call-btn"
+                            style={{ background: "#374151", cursor: "grab" }}
+                            onMouseDown={startDrag}
+                            onTouchStart={startDrag}
+                        >
+                            Move
+                        </button>
+
+
+
 
                         <button
                             className="end-call-btn"
@@ -342,7 +433,14 @@ const VideoCallPage = ({ remoteUserId, remoteUserName, setiscall }) => {
                         >
                             {isVideoOff ? <VideocamOffIcon /> : <VideocamIcon />}
                         </button>
-
+                        <button
+                            className="end-call-btn"
+                            style={{ background: "rgba(41, 107, 91, 1)", fontSize: 25 }}
+                            onClick={gotosmall}
+                        >
+                            {smallscreencall ? <ion-icon name="expand-outline"></ion-icon> :
+                                <ion-icon name="arrow-redo-circle-outline"></ion-icon>}
+                        </button>
                         <button className="end-call-btn" onClick={endCall}>
                             <CallEndIcon />
                         </button>

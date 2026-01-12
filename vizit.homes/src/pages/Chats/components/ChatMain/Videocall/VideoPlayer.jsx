@@ -43,6 +43,7 @@ const VideoPlayer = ({
                     </div>
                 ) : (
                     <video
+                        style={{ pointerEvents: "none", }}
                         ref={videoRef}
                         autoPlay
                         playsInline

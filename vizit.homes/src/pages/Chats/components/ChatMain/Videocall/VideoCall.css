@@ -117,8 +117,9 @@
     inset: 0;
     background: #000;
     display: flex;
+
     flex-direction: column;
-    z-index: 1000;
+    z-index: 2000000000000;
 }
 
 .local-video-container {
@@ -777,4 +778,96 @@
         width: 48px;
         height: 48px;
     }
+}
+
+
+
+/* toggle small screen video call */
+/* 
+.small-screen .video-call-interface {
+    position: fixed;
+    width: 300px;
+    height: 400px;
+    bottom: 20px;
+    right: 20px;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+} */
+
+
+.small-screen .video-call-interface {
+    position: fixed;
+    width: 300px;
+    height: 400px;
+    /* Remove bottom/right fixed positioning */
+    /* bottom: 20px;
+    right: 20px; */
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+
+/* reduce the size of everything to adjust to 500px height at the bottom right of the screen */
+.small-screen .remote-video-container {
+    height: 100%;
+}
+
+.small-screen .call-controls {
+    bottom: 10px;
+    gap: 8px;
+    padding: 10px;
+    margin-bottom: 0;
+}
+
+.small-screen .control-btn {
+    width: 40px;
+    height: 40px;
+}
+
+.small-screen .control-btn svg {
+    font-size: 18px;
+}
+
+.small-screen .end-call-btn {
+    width: 44px;
+    height: 44px;
+}
+
+.small-screen .end-call-btn svg {
+    font-size: 20px;
+}
+
+.small-screen .video-overlay {
+    padding: 8px;
+    margin-bottom: 0;
+}
+
+.small-screen .user-name {
+    font-size: 12px;
+    margin-bottom: 5px !important;
+}
+
+.small-screen .video-status {
+    font-size: 10px;
+    padding: 2px 6px;
+}
+
+.small-screen .call-status-bar {
+    top: 10px;
+}
+
+.small-screen .ringing-status,
+.small-screen .call-duration {
+    font-size: 12px;
+    padding: 8px 12px;
+}
+
+.small-screen .local-video-container {
+    width: 100px;
+    height: 133px;
+    bottom: 80px;
+    right: 10px;
+    margin-bottom: 60px !important;
 }
