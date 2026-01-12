@@ -242,11 +242,11 @@
 .user-name {
     font-size: 14px;
     font-weight: 500;
-    color: #0b6112;
+    color: #45ec53;
 }
 
 .user-name {
-    margin-bottom: 100px !important;
+    margin-bottom: 10px !important;
 }
 
 .video-status {
@@ -334,7 +334,7 @@
 
 
     .user-name {
-        margin-bottom: 100px !important;
+        margin-bottom: 10px !important;
     }
 
     .control-btn {
@@ -362,7 +362,7 @@
     }
 
     .user-name {
-        margin-bottom: 100px !important;
+        margin-bottom: 10px !important;
     }
 
 
@@ -765,7 +765,7 @@
     }
 
     .user-name {
-        margin-bottom: 100px !important;
+        margin-bottom: 10px !important;
     }
 
     .control-btn {
