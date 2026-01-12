@@ -149,7 +149,7 @@ const peerService = new PeerService();
 /* =========================
    React Component
    ========================= */
-const VideoCallPage = ({ remoteUserId, remoteUserName }) => {
+const VideoCallPage = ({ remoteUserId, remoteUserName, setiscall }) => {
     const socketRef = useRef(null);
     const [isSwapped, setIsSwapped] = useState(false);
 
@@ -281,6 +281,10 @@ const VideoCallPage = ({ remoteUserId, remoteUserName }) => {
 
     const largeName = isSwapped ? "Me" : remoteUserName;
     const smallName = isSwapped ? remoteUserName : "Me";
+
+    useEffect(() => {
+        setiscall(callActive)
+    }, [callActive])
 
     return (
         <div className="video-call-container">

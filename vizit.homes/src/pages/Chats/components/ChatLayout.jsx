@@ -425,12 +425,20 @@ function ChatLayout({
 
         decodeTokenAndConnect();
     }, [storedRole]);
+
+
+    const [iscall, setiscall] = useState(false)
+
+
+
     return (
         <div className="usd-chat-layout">
-            <VideoCallPage
+            {iscall && <VideoCallPage
                 remoteUserId={usern?._id}
                 remoteUserName={usern?.name}
+                setiscall={setiscall}
             />
+            }
             <ChatSidebar
                 chats={chats}
                 activeChatId={activeChatId}
