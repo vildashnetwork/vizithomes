@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import VideoCall from "../../../Chats/components/ChatMain/Videocall"
+import VideoCall from "../../../../Chats/components/ChatMain/Videocall/Videocall"
 
 function ChatHeader({ chat, isMobileView, onBack, onlineUsers }) {
     // user
