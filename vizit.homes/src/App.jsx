@@ -51,6 +51,8 @@ function ProtectedUser({ children }) {
 export default function App() {
   const [role, setRole] = useState(() => localStorage.getItem("role"));
   const [loading, setLoading] = useState(true);
+  const [iscall, setiscall] = useState(false)
+
   const [user, setuser] = useState([])
   useEffect(() => {
     const storedRole = localStorage.getItem("role");
@@ -136,16 +138,26 @@ export default function App() {
       </div>
     );
   }
-  const remoteUserId = localStorage.getItem("remoteUserId")
-  const remoteUserName = localStorage.getItem("remoteUserName")
+
+  let remoteUserId = localStorage.getItem("remoteUserId")
+  let remoteUserName = localStorage.getItem("remoteUserName")
+
+
+  if (iscall) {
+    return <VideoCallPage
+      remoteUserId={remoteUserId}
+      remoteUserName={remoteUserName}
+      setiscall={setiscall}
+    />
+  }
   return (
     <>
       <Toaster position="bottom-left" reverseOrder={false} />
 
-      <VideoCallPage
+      {/* <VideoCallPage
         remoteUserId={user?._id}
         remoteUserName={user?.name}
-      />
+      /> */}
       <Routes>
         <Route path="/" element={<LandingPage onRoleSelect={setAppRole} />} />
 

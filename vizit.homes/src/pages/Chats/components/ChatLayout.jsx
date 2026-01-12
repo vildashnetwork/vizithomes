@@ -429,13 +429,14 @@ function ChatLayout({
 
     const [iscall, setiscall] = useState(false)
 
-
+    let remoteUserId = localStorage.getItem("remoteUserId")
+    let remoteUserName = localStorage.getItem("remoteUserName")
 
     return (
         <div className="usd-chat-layout">
             {iscall && <VideoCallPage
-                remoteUserId={usern?._id}
-                remoteUserName={usern?.name}
+                remoteUserId={remoteUserId}
+                remoteUserName={remoteUserName}
                 setiscall={setiscall}
             />
             }
