@@ -801,6 +801,19 @@
     overflow: hidden;
 }
 
+@media (max-width: 600px) {
+    .small-screen .video-call-interface {
+        width: 170px !important;
+        height: 200px !important;
+    }
+
+    .small-screen .local-video-container {
+        width: 90px !important;
+        height: 100px !important;
+        margin-top: 30px !important;
+
+    }
+}
 
 
 
