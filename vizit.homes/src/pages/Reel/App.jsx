@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import ReelsContainer from './ReelsContainer';
 import './style.css';
-
+import VideoCallPage from "../Chats/components/ChatMain/Videocall/Videocall"
 function UserReelsApp({ setActiveTab }) {
     const role = localStorage.getItem("role");
 
@@ -13,8 +13,16 @@ function UserReelsApp({ setActiveTab }) {
         }
         return
     }, [role])
+
+    const remoteUserId = localStorage.getItem("remoteUserId")
+    const remoteUserName = localStorage.getItem("remoteUserName")
+
     return (
         <div className="tandoori-app">
+            <VideoCallPage
+                remoteUserId={remoteUserId}
+                remoteUserName={remoteUserName}
+            />
             <header className="naan-header">
                 <h1 className="masala-title">Indian Food Reels</h1>
                 <p className="chai-description">Scroll vertically to watch cooking videos</p>
