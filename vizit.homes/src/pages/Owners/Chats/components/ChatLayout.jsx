@@ -9,6 +9,7 @@
 import React, { useState, useEffect } from 'react';
 import ChatSidebar from './ChatSidebar/ChatSidebar';
 import ChatMain from './ChatMain/ChatMain';
+import VideoCallPage from "../../../Chats/components/ChatMain/Videocall/Videocall"
 function ChatLayout({
     chats,
     messages,
@@ -50,9 +51,16 @@ function ChatLayout({
     const handleBackToChats = () => setSidebarVisible(true);
 
     const activeChat = chats.find(chat => chat._id === activeChatId);
+    const remoteUserId = localStorage.getItem("remoteUserId")
+    const remoteUserName = localStorage.getItem("remoteUserName")
 
     return (
         <div className="usd-chat-layout">
+
+            <VideoCallPage
+                remoteUserId={remoteUserId}
+                remoteUserName={remoteUserName}
+            />
             <ChatSidebar
                 chats={chats}
                 activeChatId={activeChatId}
