@@ -782,31 +782,26 @@
 
 
 
+
+
+
 /* toggle small screen video call */
-/* 
+
+
+
 .small-screen .video-call-interface {
     position: fixed;
     width: 300px;
     height: 400px;
     bottom: 20px;
+    margin-top: 250px;
     right: 20px;
     border-radius: 16px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     overflow: hidden;
-} */
-
-
-.small-screen .video-call-interface {
-    position: fixed;
-    width: 300px;
-    height: 400px;
-    /* Remove bottom/right fixed positioning */
-    /* bottom: 20px;
-    right: 20px; */
-    border-radius: 16px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    overflow: hidden;
 }
+
+
 
 
 /* reduce the size of everything to adjust to 500px height at the bottom right of the screen */

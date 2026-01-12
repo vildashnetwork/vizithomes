@@ -414,14 +414,14 @@ const VideoCallPage = ({ remoteUserId, remoteUserName, setiscall }) => {
                         >
                             {isMuted ? <MicOffIcon /> : <MicIcon />}
                         </button>
-                        <button
+                        {/* <button
                             className="end-call-btn"
                             style={{ background: "#374151", cursor: "grab" }}
                             onMouseDown={startDrag}
                             onTouchStart={startDrag}
                         >
                             Move
-                        </button>
+                        </button> */}
 
 
 
