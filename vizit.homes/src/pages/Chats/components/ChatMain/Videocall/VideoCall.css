@@ -332,6 +332,7 @@
         bottom: 20px;
     }
 
+
     .user-name {
         margin-bottom: 100px !important;
     }
@@ -353,6 +354,11 @@
         padding: 10px;
         margin-bottom: 60px !important;
         bottom: 15px;
+    }
+
+    .video-overlay {
+        margin-bottom: 100px !important;
+
     }
 
     .user-name {
@@ -751,6 +757,11 @@
         bottom: 15px;
         margin-bottom: 60px !important;
         gap: 10px;
+    }
+
+    .video-overlay {
+        margin-bottom: 100px !important;
+
     }
 
     .user-name {
