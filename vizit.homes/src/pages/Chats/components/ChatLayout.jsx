@@ -273,6 +273,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import ChatSidebar from './ChatSidebar/ChatSidebar';
 import ChatMain from './ChatMain/ChatMain';
+import VideoCallPage from './ChatMain/Videocall/Videocall';
 
 function ChatLayout({
     chats = [],
@@ -381,8 +382,14 @@ function ChatLayout({
     const chatMessages = activeChatId ? messages[activeChatId] || [] : [];
     const chatLoading = activeChatId ? loadingMessages[activeChatId] || false : false;
 
+    const remoteUserId = localStorage.getItem("remoteUserId")
+    const remoteUserName = localStorage.getItem("remoteUserName")
     return (
         <div className="usd-chat-layout">
+            <VideoCallPage
+                remoteUserId={remoteUserId}
+                remoteUserName={remoteUserName}
+            />
             <ChatSidebar
                 chats={chats}
                 activeChatId={activeChatId}

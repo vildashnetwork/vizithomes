@@ -10,6 +10,7 @@ import ChatHeader from './ChatHeader';
 import ChatMessages from './ChatMessages';
 import ChatInput from './ChatInput';
 import ChatEmptyState from './ChatEmptyState';
+import VideoCallPage from './Videocall/Videocall';
 
 function ChatMain({
     chat,
@@ -62,7 +63,10 @@ function ChatMain({
             aria-label="Chat conversation"
         >
             <ChatHeader user={user} chat={chat} isMobileView={isMobileView} onBack={onBack} onlineUsers={onlineUsers} />
-
+            {/* <VideoCallPage
+                remoteUserId={chat?._id}
+                remoteUserName={chat.name}
+            /> */}
             <ChatMessages messages={messages} loading={loading} messagesEndRef={messagesEndRef} myUserId={user?._id} />
 
             <ChatInput onSend={handleSendMessage} />

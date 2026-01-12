@@ -10,6 +10,10 @@ function ChatHeader({ chat, isMobileView, onBack, onlineUsers }) {
     useEffect(() => {
         setOnline(onlineUsers.includes(chat._id));
     }, [chat._id, onlineUsers]);
+ 
+
+    localStorage.setItem("remoteUserId", chat?._id)
+    localStorage.setItem("remoteUserName", chat.name)
 
     return (
         <div className="gbp-chat-header">

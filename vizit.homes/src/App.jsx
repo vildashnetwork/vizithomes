@@ -26,7 +26,7 @@ import AdminChatApp from "./pages/Owners/Chats/App"
 import UserChatApp from "./pages/Chats/App"
 import UserReelsApp from "./pages/Reel/App"
 import CreateHouseForm from "./pages/Owners/Listings/CreateProperty";
-
+import VideoCallPage from "./pages/Chats/components/ChatMain/Videocall/Videocall"
 import { Toaster } from "react-hot-toast";
 /* ================= PROTECTED ROUTES ================= */
 
@@ -130,10 +130,16 @@ export default function App() {
       </div>
     );
   }
-
+  const remoteUserId = localStorage.getItem("remoteUserId")
+  const remoteUserName = localStorage.getItem("remoteUserName")
   return (
     <>
       <Toaster position="bottom-left" reverseOrder={false} />
+
+      <VideoCallPage
+        remoteUserId={remoteUserId}
+        remoteUserName={remoteUserName}
+      />
       <Routes>
         <Route path="/" element={<LandingPage onRoleSelect={setAppRole} />} />
 
