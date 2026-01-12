@@ -240,9 +240,13 @@
 }
 
 .user-name {
-    font-size: 19px;
+    font-size: 14px;
     font-weight: 500;
-    color: #afdfb3;
+    color: #0b6112;
+}
+
+.user-name {
+    margin-bottom: 100px !important;
 }
 
 .video-status {
@@ -328,6 +332,10 @@
         bottom: 20px;
     }
 
+    .user-name {
+        margin-bottom: 100px !important;
+    }
+
     .control-btn {
         width: 48px;
         height: 48px;
@@ -346,6 +354,11 @@
         margin-bottom: 60px !important;
         bottom: 15px;
     }
+
+    .user-name {
+        margin-bottom: 100px !important;
+    }
+
 
     .control-btn {
         width: 44px;
@@ -738,6 +751,10 @@
         bottom: 15px;
         margin-bottom: 60px !important;
         gap: 10px;
+    }
+
+    .user-name {
+        margin-bottom: 100px !important;
     }
 
     .control-btn {

@@ -143,17 +143,21 @@ export default function App() {
   let remoteUserName = localStorage.getItem("remoteUserName")
 
 
-  if (iscall) {
-    return <VideoCallPage
-      remoteUserId={remoteUserId}
-      remoteUserName={remoteUserName}
-      setiscall={setiscall}
-    />
-  }
+  // if (iscall) {
+  //   return <VideoCallPage
+  //     remoteUserId={remoteUserId}
+  //     remoteUserName={remoteUserName}
+  //     setiscall={setiscall}
+  //   />
+  // }
   return (
     <>
       <Toaster position="bottom-left" reverseOrder={false} />
-
+      <VideoCallPage
+        remoteUserId={remoteUserId}
+        remoteUserName={remoteUserName}
+        setiscall={setiscall}
+      />
       {/* <VideoCallPage
         remoteUserId={user?._id}
         remoteUserName={user?.name}
