@@ -120,8 +120,9 @@
     flex-direction: column;
     z-index: 1000;
 }
+
 .local-video-container {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 /* Remote Video Container */
@@ -155,6 +156,7 @@
     .local-video-container {
         width: 120px;
         height: 160px;
+        margin-bottom: 200px !important;
         bottom: 100px;
         right: 10px;
     }
@@ -164,6 +166,7 @@
     .local-video-container {
         width: 100px;
         height: 133px;
+        margin-bottom: 200px !important;
         bottom: 90px;
         right: 10px;
     }
@@ -321,6 +324,7 @@
     .call-controls {
         gap: 12px;
         padding: 15px;
+        margin-bottom: 200px !important;
         bottom: 20px;
     }
 
@@ -339,6 +343,7 @@
     .call-controls {
         gap: 8px;
         padding: 10px;
+        margin-bottom: 200px !important;
         bottom: 15px;
     }
 
@@ -724,11 +729,14 @@
         width: 120px;
         height: 90px;
         bottom: 80px;
+        margin-bottom: 200px !important;
+
         right: 10px;
     }
 
     .call-controls {
         bottom: 15px;
+        margin-bottom: 200px !important;
         gap: 10px;
     }
 
