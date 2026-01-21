@@ -1032,7 +1032,7 @@ function Dashboard() {
             </div>
           </div>
         </div>
-        <OnwnerSetting userhere={user} />
+        <OnwnerSetting userhere={name} />
 
       </Container>
       <Footer />

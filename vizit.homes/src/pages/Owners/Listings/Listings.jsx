@@ -19,6 +19,7 @@ import { cleanString } from "../../../utils/cleanString";
 import Modal from "../Components/Modal";
 import CreateHouseForm from "./CreateProperty";
 import { useNavigate } from "react-router-dom";
+import ReelsPage from "./OwnerAddreels";
 
 function Listings() {
   const navigate = useNavigate()
@@ -203,7 +204,7 @@ function Listings() {
           title="My Listings"
           subTitle="Manage and track your property portfolio"
         />
-
+        <ReelsPage />
 
         <div className="search-filter">
           <div>
@@ -315,6 +316,8 @@ function Listings() {
 
 
       </Container>
+
+
       <Footer />
 
 
