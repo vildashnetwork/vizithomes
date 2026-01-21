@@ -354,6 +354,7 @@ function Dashboard() {
   }, [])
 
   const [properties, setpropertype] = useState(null)
+  const [loadfetch, setloadfetch] = useState(false);
 
 
   useEffect(() => {
@@ -361,6 +362,7 @@ function Dashboard() {
     //fetch property per user
     const fetchHouses = async () => {
       try {
+
         const res = await axios.get(
           `https://vizit-backend-hubw.onrender.com/api/house/houses/getting/${user._id}`
         );
@@ -398,14 +400,290 @@ function Dashboard() {
 
 
 
+  const [listingsdate1, setlistingsdate1] = useState(0);
+  const [sampleAppointmentData, setsampleAppointmentData] = useState([]);
+
+  const fetchapointment = async () => {
+    try {
+      setloadfetch(true);
+
+      const userId = localStorage.getItem("userId");
+      if (!userId) {
+        console.warn("No userId found in localStorage");
+        return;
+      }
+
+      const res = await axios.get(
+        `https://vizit-backend-hubw.onrender.com/api/apointment/owner/${userId}`
+      );
+
+      if (res.status === 200 && Array.isArray(res.data)) {
+        // Store all appointments
+        setsampleAppointmentData(res.data);
+
+        // Date filtering (current month)
+        const now = new Date();
+        const firstDayOfMonth = new Date(
+          now.getFullYear(),
+          now.getMonth(),
+          1
+        );
+
+        const filteredByDate = res.data.filter(
+          (item) =>
+            item.createdAt &&
+            new Date(item.createdAt) >= firstDayOfMonth
+        );
+
+        setlistingsdate1(filteredByDate.length);
+      }
+    } catch (error) {
+      console.error("Failed to fetch appointments:", error);
+    } finally {
+      setloadfetch(false);
+
+    }
+  };
+
+  useEffect(() => {
+    fetchapointment();
+  }, []);
 
 
 
 
-  let data = [];
-  for (let i = 0; i <= actListLim - 1; i++) {
-    data.push(sampleActivities[i]);
+
+
+
+
+
+
+
+  //data 
+  const [data, setData] = useState([]);
+  const [currentUser, setCurrentUser] = useState(null);
+
+  /* ============================
+     DECODE OWNER
+  ============================ */
+  useEffect(() => {
+    const decodeUser = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) return;
+
+        const res = await axios.get(
+          "https://vizit-backend-hubw.onrender.com/api/owner/decode/token/owner",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+
+        if (res.status === 200) {
+          setCurrentUser(res.data.res);
+        }
+      } catch (err) {
+        console.error("Decode failed", err);
+      }
+    };
+
+    decodeUser();
+  }, []);
+
+  /* ============================
+     FETCH & BUILD ACTIVITIES
+  ============================ */
+  useEffect(() => {
+    if (!currentUser?._id) return;
+
+    const loadActivities = async () => {
+      try {
+        setLoading(true);
+
+        /* ----------------------------
+           FETCH HOUSES
+        ---------------------------- */
+        const housesRes = await axios.get(
+          "https://vizit-backend-hubw.onrender.com/api/house/houses"
+        );
+
+        const ownedHouses =
+          housesRes.data?.houses?.filter(
+            (h) => h.owner?.id === currentUser._id
+          ) || [];
+
+        /* ----------------------------
+           PROPERTY ACTIVITIES
+        ---------------------------- */
+        const propertyActivities = ownedHouses.map((house) => ({
+          iconName: "home",
+          title: "New Property Listed",
+          message: `You listed "${house.title}"`,
+          time: house.createdAt,
+        }));
+
+        /* ----------------------------
+           REVIEW ACTIVITIES
+        ---------------------------- */
+        const reviewActivities = ownedHouses.flatMap((house) =>
+          (house.reviews?.entries || []).map((rev) => ({
+            iconName: "star",
+            title: "New Review",
+            message: `${rev.name} rated "${house.title}" ${rev.rating}★`,
+            time: rev.createdAt,
+          }))
+        );
+
+        /* ----------------------------
+           REPLY ACTIVITIES
+        ---------------------------- */
+        const replyActivities = ownedHouses.flatMap((house) =>
+          (house.reviews?.entries || [])
+            .filter((r) => r.replies?.length)
+            .map((r) => ({
+              iconName: "reply",
+              title: "Replied to Review",
+              message: `You replied to a review on "${house.title}"`,
+              time: r.replies[0].createdAt || r.updatedAt,
+            }))
+        );
+
+        /* ----------------------------
+           FETCH APPOINTMENTS
+        ---------------------------- */
+        const userId = localStorage.getItem("userId");
+
+        let appointmentActivities = [];
+        if (userId) {
+          const appointmentRes = await axios.get(
+            `https://vizit-backend-hubw.onrender.com/api/apointment/owner/${userId}`
+          );
+
+          appointmentActivities = (appointmentRes.data || []).map((a) => ({
+            iconName: "calendar",
+            title: "New Appointment",
+            message: `${a.name || "Someone"} booked an appointment`,
+            time: a.createdAt,
+          }));
+        }
+
+        /* ----------------------------
+           MERGE & SORT
+        ---------------------------- */
+        const merged = [
+          ...propertyActivities,
+          ...reviewActivities,
+          ...replyActivities,
+          ...appointmentActivities,
+        ].sort((a, b) => new Date(b.time) - new Date(a.time));
+
+        setData(merged);
+      } catch (err) {
+        console.error("Failed to load activities", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadActivities();
+  }, [currentUser]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  const overlayStyle = {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: "rgba(0, 0, 0, 0.45)",
+    zIndex: 9999,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  };
+
+  const boxStyle = {
+    backgroundColor: "#ffffff",
+    padding: "28px 36px",
+    borderRadius: "10px",
+    textAlign: "center",
+    minWidth: "220px",
+    boxShadow: "0 10px 35px rgba(0,0,0,0.2)",
+  };
+
+  const spinnerStyle = {
+    width: "42px",
+    height: "42px",
+    border: "4px solid #e0e0e0",
+    borderTop: "4px solid #111",
+    borderRadius: "50%",
+    animation: "spin 0.9s linear infinite",
+    margin: "0 auto",
+  };
+
+  const textStyle = {
+    marginTop: "14px",
+    fontSize: "14px",
+    fontWeight: 500,
+    color: "#333",
+  };
+  if (loadfetch) {
+    return (
+      <>
+        {/* Inline keyframes */}
+        <style>
+          {`
+          @keyframes spin {
+            to {
+              transform: rotate(360deg);
+            }
+          }
+        `}
+        </style>
+
+        <div style={overlayStyle}>
+          <div style={boxStyle}>
+            <div style={spinnerStyle} />
+            <p style={textStyle}>{"Loading..."}</p>
+          </div>
+        </div>
+      </>
+    );
   }
+
+
+
+
+
+
+
+
+
+
+
+  // let data = [];
+  // for (let i = 0; i <= actListLim - 1; i++) {
+  //   data.push(sampleActivities[i]);
+  // }
 
   function determineColor(category) {
     switch (category) {
@@ -471,10 +749,11 @@ function Dashboard() {
                 <PendingActionsIcon className="dc-icon" />
               </div>
             </div>
-            <div className="count">{pendingApt}</div>
+            <div className="count">{sampleAppointmentData?.length}</div>
             <div className="trend">
               <p className="good">
-                <TrendingUpIcon /> <span className="count-value"> +2 </span> new
+                <TrendingUpIcon /> <span className="count-value"
+                  style={{ color: !listingsdate1 < 1 ? "green" : "red" }}> +{listingsdate1}</span> new
                 appointments
               </p>
             </div>
@@ -496,7 +775,7 @@ function Dashboard() {
           </div>
           <div className="dc">
             <div className="dc-top">
-              <p>This Month's Profit</p>
+              <p>Total Pro Balance</p>
               <div className="dc-icon-cont">
                 <AttachMoneyIcon className="dc-icon" />
               </div>
@@ -507,7 +786,7 @@ function Dashboard() {
                 fontSize: monthsProfit.toString().length > 9 ? "1.2em" : "2em",
               }}
             >
-              XFA {monthsProfit.toLocaleString()}
+              XFA {"0.00"}
             </div>
             <div className="trend">
               <p className="bad">
@@ -576,17 +855,28 @@ function Dashboard() {
                 // border:"solid 2px green"
               }}
             >
-              {data.map((item) => {
-                return (
+
+              {loading && <p>Loading recent activities...</p>}
+
+              {!loading && data.length === 0 && (
+                <p>No recent activity available.</p>
+              )}
+
+              {!loading &&
+                data.map((item, index) => (
                   <ActivityCard
+                    key={index}
                     color={determineColor(item.iconName)}
                     iconName={item.iconName}
                     title={item.title}
                     message={item.message}
-                    time={item.time}
+                    time={new Date(item.time).toLocaleString()}
                   />
-                );
-              })}
+                ))}
+
+
+
+
             </div>
           </div>
         </div>
