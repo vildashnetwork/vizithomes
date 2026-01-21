@@ -254,7 +254,7 @@
 import React, { useEffect, useState } from "react";
 import "../../../LandingPage/lpStyles.css";
 import logo from "../../../../assets/images/logo.png";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 
 import SearchIcon from "@mui/icons-material/Search";
 import PersonIcon from "@mui/icons-material/Person";
@@ -267,6 +267,7 @@ import PendingActionsIcon from "@mui/icons-material/PendingActions";
 import ReviewsIcon from "@mui/icons-material/Reviews";
 import VideoLibraryIcon from "@mui/icons-material/VideoLibrary";
 import axios from "axios";
+
 
 /* ---------------- LINKS CONFIG ---------------- */
 
@@ -329,9 +330,24 @@ export function BottomTabs() {
 /* ---------------- TOP NAV ---------------- */
 
 export function TopNav({ search }) {
+
+  const { hash } = useLocation();
+  useEffect(() => {
+    if (!hash) return;
+
+    const targetId = hash.replace("#", "");
+    const element = document.getElementById(targetId);
+
+    if (element) {
+      element.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  }, [hash]);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-
+  const navigate = useNavigate()
   useEffect(() => {
     const decoding = async () => {
       try {
@@ -361,10 +377,11 @@ export function TopNav({ search }) {
       width={50}
       height={50}
       className="img-container"
-    />
+      style={{ cursor: "pointer" }} onClick={() => navigate("/dashboard#profile")} />
   ) : (
     <PersonIcon style={{ fontSize: 40 }} />
   );
+
 
   return (
     <div className="lpHead">

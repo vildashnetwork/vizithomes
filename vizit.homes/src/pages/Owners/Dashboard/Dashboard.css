@@ -1,6 +1,7 @@
-button{
-    cursor: pointer ;
+button {
+    cursor: pointer;
 }
+
 .welcome {
     button {
         cursor: pointer;
@@ -236,7 +237,8 @@ button{
             font-size: 1.5em;
             text-shadow: 0px 0px 2px rgb(1, 14, 73);
         }
-        p{
+
+        p {
             font-size: 14px;
         }
 
@@ -268,4 +270,8 @@ button{
 
     }
 
+}
+
+.is-on {
+    background: green !important;
 }

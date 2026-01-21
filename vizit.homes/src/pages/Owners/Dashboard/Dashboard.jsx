@@ -17,7 +17,7 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import PaymentsIcon from "@mui/icons-material/Payments";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import OnwnerSetting from "./OwnersSettings";
 //!! TODO :: MAKE THIS FUNCTIONS FETCH ACTUAL DATA FROM BACKEND
 const businessStreams = [
   {
@@ -605,6 +605,156 @@ function Dashboard() {
 
 
 
+  //chat
+
+
+
+
+
+  const MONTHS = [
+    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",]
+  function ReviewsAppointmentsChart() {
+    const [chartStats, setChartStats] = useState(null);
+    const [currentUser, setCurrentUser] = useState(null);
+    const [loading, setLoading] = useState(false);
+
+    /* ============================
+       DECODE OWNER
+    ============================ */
+    useEffect(() => {
+      const decodeOwner = async () => {
+        try {
+          const token = localStorage.getItem("token");
+          if (!token) return;
+
+          const res = await axios.get(
+            "https://vizit-backend-hubw.onrender.com/api/owner/decode/token/owner",
+            {
+              headers: { Authorization: `Bearer ${token}` },
+            }
+          );
+
+          if (res.status === 200) {
+            setCurrentUser(res.data.res);
+          }
+        } catch (err) {
+          console.error("Failed to decode owner", err);
+        }
+      };
+
+      decodeOwner();
+    }, []);
+
+    /* ============================
+       FETCH & BUILD STATS
+    ============================ */
+    useEffect(() => {
+      if (!currentUser?._id) return;
+
+      const buildStats = async () => {
+        try {
+          setLoading(true);
+
+          const reviewCounts = Array(12).fill(0);
+          const appointmentCounts = Array(12).fill(0);
+
+          /* ----------------------------
+             FETCH HOUSES + REVIEWS
+          ---------------------------- */
+          const housesRes = await axios.get(
+            "https://vizit-backend-hubw.onrender.com/api/house/houses"
+          );
+
+          const ownedHouses =
+            housesRes.data?.houses?.filter(
+              (h) => h.owner?.id === currentUser._id
+            ) || [];
+
+          ownedHouses.forEach((house) => {
+            (house.reviews?.entries || []).forEach((review) => {
+              const date = new Date(review.createdAt);
+              const month = date.getMonth();
+              reviewCounts[month] += 1;
+            });
+          });
+
+          /* ----------------------------
+             FETCH APPOINTMENTS
+          ---------------------------- */
+          const userId = localStorage.getItem("userId");
+          if (userId) {
+            const appointmentRes = await axios.get(
+              `https://vizit-backend-hubw.onrender.com/api/apointment/owner/${userId}`
+            );
+
+            (appointmentRes.data || []).forEach((appt) => {
+              const date = new Date(appt.createdAt);
+              const month = date.getMonth();
+              appointmentCounts[month] += 1;
+            });
+          }
+
+          /* ----------------------------
+             FINAL CHART OBJECT
+          ---------------------------- */
+          setChartStats({
+            labels: MONTHS,
+            datasets: [
+              {
+                label: "Reviews",
+                data: reviewCounts,
+                backgroundColor: "#244531",
+                borderRadius: 10,
+              },
+              {
+                label: "Appointments",
+                data: appointmentCounts,
+                backgroundColor: "#36e37b",
+                borderRadius: 10,
+              },
+            ],
+          });
+        } catch (err) {
+          console.error("Failed to build chart stats", err);
+        } finally {
+          setLoading(false);
+        }
+      };
+
+      buildStats();
+    }, [currentUser]);
+
+    if (loading) return <p>Loading chart data...</p>;
+    if (!chartStats) return null;
+    return (
+      <Bar
+        data={chartStats}
+        options={{
+          responsive: true,
+          plugins: {
+            title: {
+              display: true,
+              text: "Monthly Reviews & Appointments",
+            },
+            legend: {
+              position: "top",
+            },
+          },
+        }}
+      />
+    );
+  }
+  //end cht 
+
+
+
+
+
+
+
+
+
 
 
 
@@ -799,7 +949,7 @@ function Dashboard() {
         <div className="chart-activity">
           <div className="chart-container">
             {/* <div className="chart-main"> */}
-            <Bar
+            {/* <Bar
               data={{
                 labels: businessStreams.map((item) => item.label),
                 datasets: [
@@ -824,8 +974,10 @@ function Dashboard() {
                   },
                 },
               }}
-            />
+            /> */}
             {/* </div> */}
+
+            <ReviewsAppointmentsChart />
           </div>
 
           <div className="activity-history">
@@ -880,6 +1032,8 @@ function Dashboard() {
             </div>
           </div>
         </div>
+        <OnwnerSetting userhere={user} />
+
       </Container>
       <Footer />
     </div>
