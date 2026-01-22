@@ -1,8 +1,9 @@
 
 
-import React from 'react';
+import React, { useEffect } from 'react';
 
-function MessageBubble({ message, type }) {
+function MessageBubble({ message, type, isRead }) {
+
     return (
         <div className={`ngn-message-bubble ngn-message-bubble--${type}`}>
             <div className="ngn-message-bubble__text">
@@ -39,6 +40,7 @@ function MessageBubble({ message, type }) {
                 </div>
             )}
 
+
             <div className="ngn-message-bubble__meta">
                 <span className="ngn-message-bubble__time">
                     {new Date(message.createdAt).toLocaleTimeString([], {
@@ -46,7 +48,22 @@ function MessageBubble({ message, type }) {
                         minute: '2-digit',
                     })}
                 </span>
+
+                {type === 'sent' && (
+                    <span className={`ngn-message-bubble__tick ${isRead ? 'read' : ''}`}>
+                        {isRead ? '✔✔' : '✔'}
+                    </span>
+                )}
             </div>
+
+            {/* <div className="ngn-message-bubble__meta">
+                <span className="ngn-message-bubble__time">
+                    {new Date(message.createdAt).toLocaleTimeString([], {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                    })}
+                </span>
+            </div> */}
         </div>
     );
 }

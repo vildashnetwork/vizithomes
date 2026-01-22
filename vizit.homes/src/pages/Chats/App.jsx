@@ -15,6 +15,8 @@ function UserChatApp({ setActiveTab }) {
     const [filteredUsers, setFilteredUsers] = useState([]);
     const [filteredOwners, setFilteredOwners] = useState([]);
     const [onlineUsers, setOnlineUsers] = useState([]);
+    const [activeChatId, setActiveChatId] = useState(null);
+
 
     const isOnline = (userId) => onlineUsers.includes(userId);
 
@@ -63,30 +65,100 @@ function UserChatApp({ setActiveTab }) {
         }
     }, []);
 
+
+    //mark read
+
+
+
+    const emitMarkAsRead = useCallback(
+        (chatUserId) => {
+            if (!user?._id || !chatUserId) return;
+
+            // Emit socket event
+            if (window.socket) {
+                window.socket.emit("markMessagesRead", {
+                    chatUserId,
+                    readerId: user._id,
+                });
+            }
+        },
+        [user?._id]
+    );
+
+
     /* =======================
        LOAD MESSAGES
     ======================= */
+    // const loadMessages = async (chatId) => {
+    //     if (!chatId || !user?._id) return;
+
+    //     setLoadingMessages((prev) => ({ ...prev, [chatId]: true }));
+
+    //     try {
+    //         const res = await axios.get(
+    //             `https://vizit-backend-hubw.onrender.com/api/messages/${chatId}`,
+    //             { params: { myId: user._id } }
+    //         );
+
+    //         setMessages((prev) => ({
+    //             ...prev,
+    //             [chatId]: res.data
+    //         }));
+    //     } catch (error) {
+    //         console.error("Failed to load messages:", error);
+    //     } finally {
+    //         setLoadingMessages((prev) => ({ ...prev, [chatId]: false }));
+    //     }
+    // };
+
+
     const loadMessages = async (chatId) => {
         if (!chatId || !user?._id) return;
 
-        setLoadingMessages((prev) => ({ ...prev, [chatId]: true }));
+        setLoadingMessages(prev => ({ ...prev, [chatId]: true }));
 
         try {
+            // 1️⃣ Load messages
             const res = await axios.get(
                 `https://vizit-backend-hubw.onrender.com/api/messages/${chatId}`,
                 { params: { myId: user._id } }
             );
 
-            setMessages((prev) => ({
+            setMessages(prev => ({
                 ...prev,
                 [chatId]: res.data
             }));
-        } catch (error) {
-            console.error("Failed to load messages:", error);
+
+            // 2️⃣ Mark messages as read via API
+            await axios.put(
+                `https://vizit-backend-hubw.onrender.com/api/messages/read/${chatId}`,
+                { readerId: user._id }
+            );
+
+            // 3️⃣ Emit socket event for real-time blue ticks
+            emitMarkAsRead(chatId);
+
+            // 4️⃣ Reload messages to reflect updated read status
+            const updated = await axios.get(
+                `https://vizit-backend-hubw.onrender.com/api/messages/${chatId}`,
+                { params: { myId: user._id } }
+            );
+
+            setMessages(prev => ({
+                ...prev,
+                [chatId]: updated.data
+            }));
+
+        } catch (err) {
+            console.error("Load messages failed:", err);
         } finally {
-            setLoadingMessages((prev) => ({ ...prev, [chatId]: false }));
+            setLoadingMessages(prev => ({ ...prev, [chatId]: false }));
         }
     };
+
+
+
+
 
     /* =======================
        SEND MESSAGE
@@ -190,20 +262,80 @@ function UserChatApp({ setActiveTab }) {
             });
         });
 
+        socket.on("messagesRead", ({ byUserId }) => {
+            setMessages(prev => {
+                const updated = { ...prev };
+
+                // Iterate all chats
+                Object.keys(updated).forEach(chatId => {
+                    updated[chatId] = updated[chatId].map(msg => {
+                        // Only mark messages as read that are sent by me to the user who read them
+                        if (msg.senderId === user._id && msg.receiverId === byUserId) {
+                            return { ...msg, readistrue: true };
+                        }
+                        return msg;
+                    });
+                });
+
+                return updated;
+            });
+        });
+
 
         // Listen for online users
         socket.on("getOnlineUsers", (users) => {
             setOnlineUsers(users);
         });
 
+
+
         return () => disconnectSocket();
     }, [user?._id]);
 
+
+    useEffect(() => {
+        if (!activeChatId || !messages[activeChatId] || !user?._id) return;
+
+        const unreadMessages = messages[activeChatId].filter(
+            msg => msg.receiverId === user._id && !msg.readistrue
+        );
+
+        if (unreadMessages.length === 0) return;
+
+        // 1️⃣ Optimistic update in local state
+        setMessages(prev => ({
+            ...prev,
+            [activeChatId]: prev[activeChatId].map(msg =>
+                msg.receiverId === user._id ? { ...msg, readistrue: true } : msg
+            )
+        }));
+
+        // 2️⃣ Emit socket event to notify sender
+        if (window.socket) {
+            unreadMessages.forEach(msg => {
+                window.socket.emit("markMessagesRead", {
+                    chatUserId: msg.senderId, // sender
+                    readerId: user._id        // current user
+                });
+            });
+        }
+
+        // 3️⃣ Optional: update backend API
+        axios.put(
+            `https://vizit-backend-hubw.onrender.com/api/messages/read/${activeChatId}`,
+            { readerId: user._id }
+        ).catch(err => console.error("Failed to mark messages read:", err));
+
+    }, [activeChatId, messages, user?._id]);
+
+
     /* =======================
        INITIAL FLOW
+
     ======================= */
     useEffect(() => { decodeToken(); }, [decodeToken]);
     useEffect(() => { if (user?._id) fetchUsers(user._id); }, [user, fetchUsers]);
+
 
     /* =======================
        RENDER
@@ -221,6 +353,8 @@ function UserChatApp({ setActiveTab }) {
                 isOnline={isOnline}
                 user={user}
                 onlineUsers={onlineUsers}
+                reload={loadMessages}
+                onActiveChatChange={(chatId) => setActiveChatId(chatId)}
             />
         </div>
     );

@@ -648,3 +648,18 @@
 ::-webkit-scrollbar-thumb:hover {
     background: #8696a0;
 }
+
+
+
+
+.ngn-message-bubble__tick {
+    margin-left: 6px;
+    font-size: 12px;
+    color: gray;
+    /* default = unread */
+}
+
+.ngn-message-bubble__tick.read {
+    color: #4fc3f7;
+    /* blue tick for read */
+}

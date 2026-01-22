@@ -21,7 +21,8 @@ function ChatMain({
     onBack,
     onSendMessage,
     onlineUsers,
-    user
+    user,
+    reload
 }) {
     const messagesEndRef = useRef(null);
 
@@ -67,7 +68,7 @@ function ChatMain({
                 remoteUserId={chat?._id}
                 remoteUserName={chat.name}
             /> */}
-            <ChatMessages messages={messages} loading={loading} messagesEndRef={messagesEndRef} myUserId={user?._id} />
+            <ChatMessages reload={reload} messages={messages} loading={loading} messagesEndRef={messagesEndRef} myUserId={user?._id} />
 
             <ChatInput onSend={handleSendMessage} />
         </div>

@@ -79,7 +79,6 @@
 //         <div className="chf-chat-list" role="listbox" aria-label="Chat list">
 //             {
 //                 chats
-//                     .filter((chat) => user.allchatsId.include(chat._id))
 //                     .map(chat => {
 
 //                         const chatId = chat._id || chat.id;
