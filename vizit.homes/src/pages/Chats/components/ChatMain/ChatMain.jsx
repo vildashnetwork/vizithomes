@@ -41,16 +41,19 @@ function ChatMain({
             </div>
         );
     }
-    const handleTyping = (text) => {
-        if (!window.socket || !chat?.id) return;
+    // ChatInput.jsx
 
-        const isTyping = text.trim().length > 0;
+
+    const handleTyping = (text) => {
+        if (!window.socket || !chat?._id) return;
 
         window.socket.emit("typing", {
-            chatUserId: chat._id || chat.id, // the recipient
-            isTyping
+            chatUserId: chat?._id,
+            isTyping: text.length > 0, // true if typing
         });
     };
+
+
 
     // const handleSendMessage = (text, imageFile) => {
     //     if (!text.trim() && !imageFile) return;

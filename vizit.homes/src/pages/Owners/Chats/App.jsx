@@ -20,22 +20,8 @@ function UserChatApp({ setActiveTab }) {
 
 
     const [typingUsers, setTypingUsers] = useState({});
-    
-    
-        useEffect(() => {
-            if (!window.socket) return;
-    
-            window.socket.on("typingStatus", ({ byUserId, isTyping }) => {
-                setTypingUsers(prev => ({
-                    ...prev,
-                    [byUserId]: isTyping
-                }));
-            });
-    
-            return () => {
-                window.socket.off("typingStatus");
-            };
-        }, []);
+
+
 
     const isOnline = (userId) => onlineUsers.includes(userId);
 
@@ -83,6 +69,58 @@ function UserChatApp({ setActiveTab }) {
             setLoadingChats(false);
         }
     }, []);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    useEffect(() => {
+        if (!user?._id) return;
+
+        const socket = connectSocket(user._id, setOnlineUsers);
+        window.socket = socket; // ensure global reference
+
+        socket.on("typingStatus", ({ byUserId, isTyping }) => {
+            setTypingUsers(prev => ({
+                ...prev,
+                [byUserId]: isTyping
+            }));
+        });
+
+        return () => {
+            socket.off("typingStatus");
+            disconnectSocket();
+        };
+    }, [user?._id]);
+    useEffect(() => {
+        if (!user?._id || !window.socket) return;
+
+        // Register user for rooms
+        window.socket.emit("registerUser", user._id);
+    }, [user?._id]);
+
+
+
 
 
     //mark read

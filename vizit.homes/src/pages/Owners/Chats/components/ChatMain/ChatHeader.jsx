@@ -149,14 +149,19 @@ function ChatHeader({ chat, isMobileView, onBack, onlineUsers, typingUsers }) {
                 </div>
                 <div className="gbp-chat-header__details">
                     <h2 className="gbp-chat-header__name">{chat.name}</h2>
-                    {online ? <span className="nok-chat-list-item__time" style={{ color: "#0a6114" }}>online</span> :
-                        <span className="nok-chat-list-item__time" style={{ color: "#fd0d55" }}>offline</span>}
+                    {
+                        !typingUsers[chat?._id || chat?.id] ?
+                            (
+                                online ? <span className="nok-chat-list-item__time" style={{ color: "#0a6114" }}>online</span> :
+                                    <span className="nok-chat-list-item__time" style={{ color: "#fd0d55" }}>offline</span>
+                            ) :
+                            (
+                                <div className="typing-indicator">
+                                    {chat?.name || "User"} is typing...
+                                </div>
+                            )
 
-                    {typingUsers[chat?._id || chat?.id] && (
-                        <div className="typing-indicator">
-                            {chat?.name || "User"} is typing...
-                        </div>
-                    )}
+                    }
                 </div>
             </div>
 
