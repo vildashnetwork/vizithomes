@@ -67,6 +67,8 @@ function ChatMain({
 
         // Pass all data to the parent handler
         onSendMessage({ text, imageFile, videoFile });
+
+
     };
 
 

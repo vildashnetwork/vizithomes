@@ -25,6 +25,12 @@ function ChatInput({ onSend, handleTyping }) {
 
         // Send everything together
         onSend({ text: message.trim(), imageFile, videoFile });
+        // if (window.socket && chat) {
+        //     window.socket.emit("typing", {
+        //         chatUserId: activeChatId,
+        //         isTyping: false
+        //     });
+        // }
 
         // Reset inputs
         setMessage("");

@@ -141,9 +141,18 @@ function ChatLayout({
                 isMobileView={isMobileView}
                 isVisible={!sidebarVisible || !isMobileView}
                 onBack={handleBackToChats}
-                onSendMessage={({ text, imageFile, videoFile }) =>
-                    onSendMessage(activeChatId, { text, imageFile, videoFile })
-                }
+                onSendMessage={({ text, imageFile, videoFile }) => {
+                    // Send message via parent handler
+                    onSendMessage(activeChatId, { text, imageFile, videoFile });
+
+                    // Immediately stop typing after sending
+                    if (window.socket && activeChatId) {
+                        window.socket.emit("typing", {
+                            chatUserId: activeChatId,
+                            isTyping: false
+                        });
+                    }
+                }}
                 onlineUsers={onlineUsers}
                 currentUserId={user?._id}
                 user={user}

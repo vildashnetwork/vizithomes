@@ -213,6 +213,7 @@ function ChatInput({ onSend, handleTyping }) {
         // Send everything together
         onSend({ text: message.trim(), imageFile, videoFile });
 
+
         // Reset inputs
         setMessage("");
         setImageFile(null);
@@ -273,8 +274,10 @@ function ChatInput({ onSend, handleTyping }) {
                     placeholder="Type a message"
                     value={message}
                     onChange={(e) => {
+
+                        handleTyping(e.target.value)
                         setMessage(e.target.value)
-                        handleTyping(e.target.value);
+
                     }
                     }
                     onKeyPress={handleKeyPress}
