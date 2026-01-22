@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 
-function ChatInput({ onSend }) {
+function ChatInput({ onSend, handleTyping }) {
     const [message, setMessage] = useState("");
     const [imageFile, setImageFile] = useState(null);
     const [videoFile, setVideoFile] = useState(null);
@@ -85,7 +85,10 @@ function ChatInput({ onSend }) {
                     className="jpy-chat-input__field"
                     placeholder="Type a message"
                     value={message}
-                    onChange={(e) => setMessage(e.target.value)}
+                    onChange={(e) => {
+                        setMessage(e.target.value)
+                        handleTyping(e.target.value);
+                    }}
                     onKeyPress={handleKeyPress}
                     rows={1}
                     aria-label="Message text"

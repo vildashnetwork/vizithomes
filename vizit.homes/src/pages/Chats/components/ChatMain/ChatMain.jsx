@@ -22,7 +22,8 @@ function ChatMain({
     onSendMessage,
     onlineUsers,
     user,
-    reload
+    reload,
+    typingUsers
 }) {
     const messagesEndRef = useRef(null);
 
@@ -40,6 +41,16 @@ function ChatMain({
             </div>
         );
     }
+    const handleTyping = (text) => {
+        if (!window.socket || !chat?.id) return;
+
+        const isTyping = text.trim().length > 0;
+
+        window.socket.emit("typing", {
+            chatUserId: chat._id || chat.id, // the recipient
+            isTyping
+        });
+    };
 
     // const handleSendMessage = (text, imageFile) => {
     //     if (!text.trim() && !imageFile) return;
@@ -63,14 +74,17 @@ function ChatMain({
             role="main"
             aria-label="Chat conversation"
         >
-            <ChatHeader user={user} chat={chat} isMobileView={isMobileView} onBack={onBack} onlineUsers={onlineUsers} />
+
+
+
+            <ChatHeader typingUsers={typingUsers} user={user} chat={chat} isMobileView={isMobileView} onBack={onBack} onlineUsers={onlineUsers} />
             {/* <VideoCallPage
                 remoteUserId={chat?._id}
                 remoteUserName={chat.name}
             /> */}
             <ChatMessages reload={reload} messages={messages} loading={loading} messagesEndRef={messagesEndRef} myUserId={user?._id} />
 
-            <ChatInput onSend={handleSendMessage} />
+            <ChatInput handleTyping={handleTyping} onSend={handleSendMessage} />
         </div>
     );
 }

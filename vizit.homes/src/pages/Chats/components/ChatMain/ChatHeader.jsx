@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import VideoCall from "./Videocall/Videocall"
 // import VideoCall from "./Videocall/Videocall"
 
-function ChatHeader({ chat, isMobileView, onBack, onlineUsers }) {
+function ChatHeader({ typingUsers, chat, isMobileView, onBack, onlineUsers }) {
     // user
 
     const [online, setOnline] = useState(false);
@@ -55,6 +55,11 @@ function ChatHeader({ chat, isMobileView, onBack, onlineUsers }) {
                     <h2 className="gbp-chat-header__name">{chat.name}</h2>
                     {online ? <span className="nok-chat-list-item__time" style={{ color: "#0a6114" }}>online</span> :
                         <span className="nok-chat-list-item__time" style={{ color: "#fd0d55" }}>offline</span>}
+                    {typingUsers[chat?._id || chat?.id] && (
+                        <div className="typing-indicator">
+                            {chat?.name || "User"} is typing...
+                        </div>
+                    )}
                 </div>
             </div>
 

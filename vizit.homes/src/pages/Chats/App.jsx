@@ -16,7 +16,23 @@ function UserChatApp({ setActiveTab }) {
     const [filteredOwners, setFilteredOwners] = useState([]);
     const [onlineUsers, setOnlineUsers] = useState([]);
     const [activeChatId, setActiveChatId] = useState(null);
+    const [typingUsers, setTypingUsers] = useState({});
 
+
+    useEffect(() => {
+        if (!window.socket) return;
+
+        window.socket.on("typingStatus", ({ byUserId, isTyping }) => {
+            setTypingUsers(prev => ({
+                ...prev,
+                [byUserId]: isTyping
+            }));
+        });
+
+        return () => {
+            window.socket.off("typingStatus");
+        };
+    }, []);
 
     const isOnline = (userId) => onlineUsers.includes(userId);
 
@@ -355,6 +371,7 @@ function UserChatApp({ setActiveTab }) {
                 onlineUsers={onlineUsers}
                 reload={loadMessages}
                 onActiveChatChange={(chatId) => setActiveChatId(chatId)}
+                typingUsers={typingUsers}
             />
         </div>
     );

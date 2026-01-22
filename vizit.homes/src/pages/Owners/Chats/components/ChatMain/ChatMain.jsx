@@ -20,7 +20,8 @@ function ChatMain({
     onBack,
     onSendMessage,
     onlineUsers,
-    user
+    user,
+    typingUsers
 }) {
     const messagesEndRef = useRef(null);
 
@@ -44,6 +45,16 @@ function ChatMain({
     //     onSendMessage(text, imageFile); // pass both
     // };
 
+    const handleTyping = (text) => {
+        if (!window.socket || !chat?.id) return;
+
+        const isTyping = text.trim().length > 0;
+
+        window.socket.emit("typing", {
+            chatUserId: chat._id || chat.id, // the recipient
+            isTyping
+        });
+    };
 
     const handleSendMessage = ({ text = '', imageFile = null, videoFile = null }) => {
         // Require at least one type of content
@@ -61,11 +72,11 @@ function ChatMain({
             role="main"
             aria-label="Chat conversation"
         >
-            <ChatHeader user={user} chat={chat} isMobileView={isMobileView} onBack={onBack} onlineUsers={onlineUsers} />
+            <ChatHeader typingUsers={typingUsers} user={user} chat={chat} isMobileView={isMobileView} onBack={onBack} onlineUsers={onlineUsers} />
 
             <ChatMessages messages={messages} loading={loading} messagesEndRef={messagesEndRef} myUserId={user?._id} />
 
-            <ChatInput onSend={handleSendMessage} />
+            <ChatInput handleTyping={handleTyping} onSend={handleSendMessage} />
         </div>
     );
 }
