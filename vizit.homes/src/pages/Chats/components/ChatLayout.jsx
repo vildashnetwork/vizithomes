@@ -142,7 +142,9 @@ function ChatLayout({
                 setActiveTab={setActiveTab}
                 user={user}
                 isOnline={isOnline}
+                 typingUsers={typingUsers}
                 onlineUsers={onlineUsers}
+                messages={messages}
             />
 
             <ChatMain

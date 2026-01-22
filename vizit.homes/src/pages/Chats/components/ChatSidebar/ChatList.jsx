@@ -120,7 +120,9 @@ function ChatList({
     activeChatId,
     user,
     onChatSelect,
-    onlineUsers = []
+    onlineUsers = [],
+    typingUsers,
+    messages
 }) {
     // Ensure safe, deduplicated chat ID list
     const userChatIds = Array.isArray(user?.allchatsId)
@@ -154,6 +156,8 @@ function ChatList({
                             isActive={chatId === String(activeChatId)}
                             onSelect={onChatSelect}
                             onlineUsers={onlineUsers}
+                            typingUsers={typingUsers}
+                            messages={messages}
                         />
                     );
                 })}

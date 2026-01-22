@@ -16,7 +16,8 @@ function ChatSidebar({
     setActiveTab,
     user,
     isOnline,
-    onlineUsers
+    onlineUsers,
+    typingUsers
 }) {
     const [searchQuery, setSearchQuery] = useState('');
 
@@ -54,6 +55,7 @@ function ChatSidebar({
                     isOnline={isOnline}
                     user={user}
                     onlineUsers={onlineUsers}
+                    typingUsers={typingUsers}
                 />
             )}
         </aside>

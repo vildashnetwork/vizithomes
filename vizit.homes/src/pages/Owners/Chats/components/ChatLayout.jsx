@@ -21,7 +21,9 @@ function ChatLayout({
     onlineUsers = [],
     reload,
     onActiveChatChange = () => { },
-    typingUsers
+    typingUsers,
+    sortedChats
+
 }) {
     const [activeChatId, setActiveChatId] = useState(null);
     const [isMobileView, setIsMobileView] = useState(false);
@@ -123,11 +125,13 @@ function ChatLayout({
     return (
         <div className="usd-chat-layout">
             <ChatSidebar
+                typingUsers={typingUsers}
                 chats={chats}
                 activeChatId={activeChatId}
                 loading={loadingChats}
                 isVisible={sidebarVisible}
                 onChatSelect={handleChatSelect}
+                sortedChats={sortedChats}
                 setActiveTab={setActiveTab}
                 user={user}
                 isOnline={isOnline}
@@ -135,6 +139,7 @@ function ChatLayout({
             />
 
             <ChatMain
+
                 chat={activeChat}
                 messages={chatMessages}
                 loading={chatLoading}

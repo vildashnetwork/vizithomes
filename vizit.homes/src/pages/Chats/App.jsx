@@ -401,6 +401,9 @@ function UserChatApp({ setActiveTab }) {
     /* =======================
        RENDER
     ======================= */
+
+
+
     return (
         <div className="App">
             <ChatLayout

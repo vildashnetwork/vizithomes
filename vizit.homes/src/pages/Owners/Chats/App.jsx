@@ -1,6 +1,5 @@
 
 
-
 import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import ChatLayout from "./components/ChatLayout";
@@ -17,9 +16,9 @@ function UserChatApp({ setActiveTab }) {
     const [filteredOwners, setFilteredOwners] = useState([]);
     const [onlineUsers, setOnlineUsers] = useState([]);
     const [activeChatId, setActiveChatId] = useState(null);
-
-
     const [typingUsers, setTypingUsers] = useState({});
+
+
 
 
 
@@ -45,6 +44,13 @@ function UserChatApp({ setActiveTab }) {
             console.error("Token decode failed:", error);
         }
     }, []);
+
+
+
+
+
+
+
 
     /* =======================
        FETCH CHAT USERS
@@ -78,22 +84,6 @@ function UserChatApp({ setActiveTab }) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     useEffect(() => {
         if (!user?._id) return;
 
@@ -118,6 +108,20 @@ function UserChatApp({ setActiveTab }) {
         // Register user for rooms
         window.socket.emit("registerUser", user._id);
     }, [user?._id]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
