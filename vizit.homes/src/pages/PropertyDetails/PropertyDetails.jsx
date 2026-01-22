@@ -313,10 +313,13 @@ function PropertyDetails() {
   //add user chat ids
   const [loadadd, setloadadd] = useState(false)
   const adduserchat = async (chatId) => {
+    console.log("chatId", chatId)
     try {
+      const userId = localStorage.getItem("userId")
       setloadadd(true)
       const res = await
-        axios.put(`https://vizit-backend-hubw.onrender.com/api/user/add/chat/id/${user?._id}`,
+        // axios.put(`https://vizit-backend-hubw.onrender.com/api/user/add/chat/id/${user?._id}`,
+        axios.put(`https://vizit-backend-hubw.onrender.com/api/user/add/chat/id/${userId}`,
           {
             chatId: chatId
           }
@@ -325,6 +328,7 @@ function PropertyDetails() {
       if (res.status == 200) {
         toast.success(res.data?.message)
         navigate(`/user/chat?auth=${chatId}`)
+
       }
 
     } catch (error) {

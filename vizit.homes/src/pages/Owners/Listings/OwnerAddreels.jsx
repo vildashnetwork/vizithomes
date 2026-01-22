@@ -13,13 +13,37 @@ import './ReelsApp.css';
 const API_BASE = "https://vizit-backend-hubw.onrender.com/api/reels"; // backend endpoint
 
 // Main ReelsPage Component
-const ReelsPage = ({ userhere }) => {
+const ReelsPage = () => {
     const [reels, setReels] = useState([]);
     const [showUpload, setShowUpload] = useState(false);
     const [currentReelIndex, setCurrentReelIndex] = useState(0);
     const [loading, setLoading] = useState(true);
     const reelsContainerRef = useRef(null);
 
+    const [userhere, setuser] = useState([])
+    useEffect(() => {
+        const decoding = async () => {
+            try {
+                const token = localStorage.getItem("token");
+                if (!token) return;
+
+                const res = await axios.get(
+                    "https://vizit-backend-hubw.onrender.com/api/owner/decode/token/owner",
+                    { headers: { Authorization: `Bearer ${token}` } }
+                );
+
+                if (res.status === 200) {
+                    setuser(res.data.res);
+
+                }
+            } catch (error) {
+                console.error("Failed to decode token:", error);
+            } finally {
+                setLoading(false);
+            }
+        }
+        decoding()
+    }, []);
     // Fetch reels from backend
     const fetchReels = async () => {
         setLoading(true);
