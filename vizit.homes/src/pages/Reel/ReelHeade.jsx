@@ -43,34 +43,44 @@ const ReelHeader = ({ username, caption, avatar, timestamp, reelId }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [token]);
 
+    const [loadadd, setloadadd] = useState(false)
     /* ---------------- open chat ---------------- */
-    const addUserChat = async (chatId) => {
-        if (!chatId) {
-            toast.error("User not found");
-            return;
-        }
+    const adduserchat = async (chatId) => {
+        if (!chatId) return;
 
         const userId = localStorage.getItem("userId");
         if (!userId) {
-            toast.error("Please login again");
+            toast.error("User not authenticated");
             return;
         }
 
         try {
             setChatLoading(true);
 
-            const res = await axios.put(
+            // 1️⃣ Add chat to logged-in user
+            const resUser = await axios.put(
                 `https://vizit-backend-hubw.onrender.com/api/user/add/chat/id/${userId}`,
                 { chatId }
             );
 
-            if (res.status === 200) {
-                toast.success(res.data?.message || "Chat opened");
+            // 2️⃣ Add chat to owner / second user
+            const resOwner = await axios.put(
+                `https://vizit-backend-hubw.onrender.com/api/owner/add/chat/id/${chatId}`,
+                { chatId: userId }
+            );
+
+            // 3️⃣ Success handling
+            if (resUser.status === 200 && resOwner.status === 200) {
+                toast.success("Chat opened successfully");
                 navigate(`/user/chat?auth=${chatId}`);
             }
+
         } catch (error) {
-            console.error(error);
-            toast.error("Failed to open chat");
+            console.error("Add chat error:", error);
+
+            toast.error(
+                error?.response?.data?.message || "Failed to open chat"
+            );
         } finally {
             setChatLoading(false);
         }
@@ -101,7 +111,7 @@ const ReelHeader = ({ username, caption, avatar, timestamp, reelId }) => {
             {console.log(reelId)}
             <button
                 className="papri-follow-btn"
-                onClick={() => addUserChat(reelId)}
+                onClick={() => adduserchat(reelId)}
                 disabled={chatLoading || decoding}
             >
                 {chatLoading

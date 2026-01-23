@@ -313,32 +313,46 @@ function PropertyDetails() {
   //add user chat ids
   const [loadadd, setloadadd] = useState(false)
   const adduserchat = async (chatId) => {
-    console.log("chatId", chatId)
+    if (!chatId) return;
+
+    const userId = localStorage.getItem("userId");
+    if (!userId) {
+      toast.error("User not authenticated");
+      return;
+    }
+
     try {
-      const userId = localStorage.getItem("userId")
-      setloadadd(true)
-      const res = await
-        // axios.put(`https://vizit-backend-hubw.onrender.com/api/user/add/chat/id/${user?._id}`,
-        axios.put(`https://vizit-backend-hubw.onrender.com/api/user/add/chat/id/${userId}`,
-          {
-            chatId: chatId
-          }
-        )
+      setloadadd(true);
 
-      if (res.status == 200) {
-        toast.success(res.data?.message)
-        navigate(`/user/chat?auth=${chatId}`)
+      // 1️⃣ Add chat to logged-in user
+      const resUser = await axios.put(
+        `https://vizit-backend-hubw.onrender.com/api/user/add/chat/id/${userId}`,
+        { chatId }
+      );
 
+      // 2️⃣ Add chat to owner / second user
+      const resOwner = await axios.put(
+        `https://vizit-backend-hubw.onrender.com/api/owner/add/chat/id/${chatId}`,
+        { chatId: userId }
+      );
+
+      // 3️⃣ Success handling
+      if (resUser.status === 200 && resOwner.status === 200) {
+        toast.success("Chat opened successfully");
+        navigate(`/user/chat?auth=${chatId}`);
       }
 
     } catch (error) {
-      toast.error(error)
-      console.error(error);
+      console.error("Add chat error:", error);
 
+      toast.error(
+        error?.response?.data?.message || "Failed to open chat"
+      );
     } finally {
-      setloadadd(false)
+      setloadadd(false);
     }
-  }
+  };
+
 
   return (
     <div>
