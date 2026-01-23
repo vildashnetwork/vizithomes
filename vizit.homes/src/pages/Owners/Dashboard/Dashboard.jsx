@@ -456,50 +456,37 @@ function Dashboard() {
 
 
 
-  const [count, setCount] = useState(0);
+  const [allmsg, setAllMsg] = useState([]);
   const [unreadMsg1, setUnreadMsg1] = useState(0);
+  const userId = localStorage.getItem("userId");
 
   useEffect(() => {
+    if (!userId) return;
 
-    const userId = localStorage.getItem("userId");
-    if (!userId) return; // ⛔ wait until user exists
-
-    const fetchAll = async () => {
+    const fetchAllMessages = async () => {
       try {
         const res = await axios.get(
           `https://vizit-backend-hubw.onrender.com/api/messages/user/${userId}`
         );
 
-        if (!Array.isArray(res.data)) return;
+        // Set state
+        const conversations = res.data.conversations || [];
+        setAllMsg(conversations);
 
-        /* ----------------------------
-           UNREAD COUNT (SAFE)
-        ---------------------------- */
-        const unread = res.data.filter((m) => {
-          const receiverId =
-            typeof m.receiverId === "object"
-              ? m.receiverId._id
-              : m.receiverId;
+        // Count unread messages
+        const unreadCount = conversations.filter(c => !c.read).length;
+        setUnreadMsg1(unreadCount);
 
-          return (
-            String(receiverId) === String(currentUser._id) &&
-            m.readistrue === false
-          );
-        }).length;
-
-        setUnreadMsg1(unread);
-
-        /* ----------------------------
-           TOTAL MESSAGE COUNT
-        ---------------------------- */
-        setCount(res.data.length);
+        // For debugging: log the data
+        console.log("Fetched conversations:", conversations);
+        console.log("Unread messages:", unreadCount);
       } catch (error) {
         console.error("Failed to fetch messages:", error);
       }
     };
 
-    fetchAll();
-  }, []);
+    fetchAllMessages();
+  }, [userId]);
 
 
 
@@ -962,7 +949,7 @@ function Dashboard() {
           </div>
           <div className="dc">
             <div className="dc-top">
-              <p>Unread Messages</p>
+              <p>Last Unread  Message</p>
               <div className="dc-icon-cont">
                 <EmailIcon className="dc-icon" />
               </div>
@@ -970,8 +957,34 @@ function Dashboard() {
             <div className="count">{unreadMsg1}</div>
             <div className="trend">
               <p className="good">
-                <TrendingUpIcon /> <span className="count-value"> +{unreadMsg1} </span> new
-                unread
+                <TrendingUpIcon /> <span className="count-value">
+                  {allmsg?.map((itm, idx) => (
+                    !itm.read ?
+                      <div key={idx} style={{ display: "flex", flexDirection: "row" }} className="message-item">
+                        <div style={{ display: "flex", flexDirection: "column" }}>
+                          <p>{itm?.lastMessage}</p>
+                          <p>{new Date(itm?.timestamp).toLocaleString()}</p>
+                        </div>
+                        <>
+                          <button
+
+                            style={{
+                              padding: "10px",
+                              margin: "5px",
+                              background: "green",
+                              color: "#fff",
+                              border: "none",
+                              outline: "none",
+                              borderRadius: "5px"
+                            }}
+                            onClick={() => navigate(`/chat?auth=${itm.userId}`)}>Open chat</button>
+                        </>
+                      </div> :
+                      <div>no message here</div>
+
+                  ))}
+
+                </span>
               </p>
             </div>
           </div>
