@@ -180,6 +180,7 @@
     overflow-y: auto;
     padding-bottom: 40px;
     color: #fff !important;
+    overflow-x: none;
 }
 
 .form-container {

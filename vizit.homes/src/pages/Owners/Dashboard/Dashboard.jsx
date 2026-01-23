@@ -456,12 +456,57 @@ function Dashboard() {
 
 
 
+  const [count, setCount] = useState(0);
+  const [unreadMsg1, setUnreadMsg1] = useState(0);
+
+  useEffect(() => {
+
+    const userId = localStorage.getItem("userId");
+    if (!userId) return; // ⛔ wait until user exists
+
+    const fetchAll = async () => {
+      try {
+        const res = await axios.get(
+          `https://vizit-backend-hubw.onrender.com/api/messages/user/${userId}`
+        );
+
+        if (!Array.isArray(res.data)) return;
+
+        /* ----------------------------
+           UNREAD COUNT (SAFE)
+        ---------------------------- */
+        const unread = res.data.filter((m) => {
+          const receiverId =
+            typeof m.receiverId === "object"
+              ? m.receiverId._id
+              : m.receiverId;
+
+          return (
+            String(receiverId) === String(currentUser._id) &&
+            m.readistrue === false
+          );
+        }).length;
+
+        setUnreadMsg1(unread);
+
+        /* ----------------------------
+           TOTAL MESSAGE COUNT
+        ---------------------------- */
+        setCount(res.data.length);
+      } catch (error) {
+        console.error("Failed to fetch messages:", error);
+      }
+    };
+
+    fetchAll();
+  }, []);
 
 
 
-  //data 
+  //data
   const [data, setData] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
+
 
   /* ============================
      DECODE OWNER
@@ -490,6 +535,7 @@ function Dashboard() {
     decodeUser();
   }, []);
 
+
   /* ============================
      FETCH & BUILD ACTIVITIES
   ============================ */
@@ -499,6 +545,12 @@ function Dashboard() {
     const loadActivities = async () => {
       try {
         setLoading(true);
+
+
+
+
+
+
 
         /* ----------------------------
            FETCH HOUSES
@@ -745,7 +797,7 @@ function Dashboard() {
       />
     );
   }
-  //end cht 
+  //end cht
 
 
 
@@ -915,10 +967,10 @@ function Dashboard() {
                 <EmailIcon className="dc-icon" />
               </div>
             </div>
-            <div className="count">{unreadMsg}</div>
+            <div className="count">{unreadMsg1}</div>
             <div className="trend">
               <p className="good">
-                <TrendingUpIcon /> <span className="count-value"> +7 </span> new
+                <TrendingUpIcon /> <span className="count-value"> +{unreadMsg1} </span> new
                 unread
               </p>
             </div>
@@ -1041,3 +1093,82 @@ function Dashboard() {
 }
 
 export default Dashboard;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

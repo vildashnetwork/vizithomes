@@ -7,7 +7,7 @@ import axios from 'axios';
 import { getSocket } from "../../realTimeConnect/socketconnect";
 
 
-const ReelItem = ({ reel, onLike, user, onReelDeleted }) => {
+const ReelItem = ({ reel, onLike, user, onReelDeleted, reels }) => {
     const videoRef = useRef(null);
     const socket = getSocket();
 
@@ -145,6 +145,7 @@ const ReelItem = ({ reel, onLike, user, onReelDeleted }) => {
                     caption={reel.caption}
                     avatar={reel.avatar}
                     timestamp={formatTime(reel.createdAt)}
+                    reelId={reel.postownerId}
                 />
 
                 <ReelActions

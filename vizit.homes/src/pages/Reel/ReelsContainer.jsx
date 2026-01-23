@@ -176,6 +176,7 @@ const ReelsContainer = ({ setActiveTab }) => {
                         reel={reel}
                         onLike={handleLike}
                         user={user}
+                        reels={reels}
                     />
                 ))
             )}

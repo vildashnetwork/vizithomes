@@ -7,6 +7,7 @@ import {
   SectionHeader,
   SideNav,
 } from "../LandingPage/LandingPage";
+import ReelsPage from "./OwnerAddreels"
 import "./spStyles.css";
 import { data } from "../../data/listingdata";
 import { flex, width } from "@mui/system";
@@ -16,6 +17,7 @@ import dayjs from "dayjs";
 import { Ratings } from "../PropertyDetails/PropertyDetails";
 import axios from "axios";
 import toast from "react-hot-toast"
+import ProfilePanel from "./Profile"
 //?JHGKEWHGKJWGHKJH
 //toDO
 //!EX
@@ -312,6 +314,7 @@ function SeekerProfile() {
             "Manage Your saved properties, track your reviewing appointments  and Manage Your feedback."
           }
         />
+        <ReelsPage />
         <div className="skp-flex-row">
           <TabNavigator
             array={currentNavigation}
@@ -516,6 +519,7 @@ function SeekerProfile() {
           </main>
         </div>
       </Container>
+      <ProfilePanel userhere={user} />
       <Footer />
       <BottomTabs />
     </>
