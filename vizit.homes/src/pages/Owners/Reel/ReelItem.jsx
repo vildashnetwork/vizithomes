@@ -144,6 +144,7 @@ const ReelItem = ({ reel, onLike, user, onReelDeleted }) => {
                     caption={reel.caption}
                     avatar={reel.avatar}
                     timestamp={formatTime(reel.createdAt)}
+                    reelId={reel.postownerId}
                 />
 
                 <ReelActions

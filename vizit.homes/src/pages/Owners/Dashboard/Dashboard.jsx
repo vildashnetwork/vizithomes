@@ -962,7 +962,7 @@ function Dashboard() {
                     !itm.read ?
                       <div key={idx} style={{ display: "flex", flexDirection: "row" }} className="message-item">
                         <div style={{ display: "flex", flexDirection: "column" }}>
-                          <p>{itm?.lastMessage}</p>
+                          <p>{itm?.lastMessage?.slice(0, 30)}</p>
                           <p>{new Date(itm?.timestamp).toLocaleString()}</p>
                         </div>
                         <>
