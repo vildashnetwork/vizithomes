@@ -65,7 +65,8 @@ import MessageBubble from './MessageBubble';
 import MessageSkeleton from './MessageSkeleton';
 
 
-function ChatMessages({ reload, messages, loading, messagesEndRef, myUserId }) {
+function ChatMessages({ reload, messages, loading, messagesEndRef, myUserId, chat,
+    user }) {
 
 
 
@@ -108,6 +109,8 @@ function ChatMessages({ reload, messages, loading, messagesEndRef, myUserId }) {
 
                 return (
                     <MessageBubble
+                        chat={chat}
+                        user={user}
                         key={message._id}
                         message={message}
                         type={isMine ? 'sent' : 'received'}

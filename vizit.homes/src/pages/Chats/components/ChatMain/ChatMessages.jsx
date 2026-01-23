@@ -1,12 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import MessageBubble from './MessageBubble';
 import MessageSkeleton from './MessageSkeleton';
 
 
-function ChatMessages({ reload, messages, loading, messagesEndRef, myUserId }) {
+function ChatMessages({ reload, messages, loading, messagesEndRef, myUserId, chat, user }) {
 
 
 
+  
 
     const renderDateSeparator = (date) => (
         <div className="ngn-chat-messages__date">
@@ -51,6 +52,8 @@ function ChatMessages({ reload, messages, loading, messagesEndRef, myUserId }) {
                         type={isMine ? 'sent' : 'received'}
                         isRead={isRead}
                         reload={reload}
+                         chat={chat}
+user={user}
                     />
                 );
             })}

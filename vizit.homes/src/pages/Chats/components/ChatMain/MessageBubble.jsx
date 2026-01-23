@@ -1,8 +1,11 @@
 
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import ChatImageGallery from "./ChatImageGallery"
 
-function MessageBubble({ message, type, isRead }) {
+function MessageBubble({ message, type, isRead, chat, user }) {
+    const [showGallery, setShowGallery] = useState(false);
+
 
     return (
         <div className={`ngn-message-bubble ngn-message-bubble--${type}`}>
@@ -22,6 +25,9 @@ function MessageBubble({ message, type, isRead }) {
                         display: 'block',
                         marginTop: '4px',
                     }}
+
+                    onClick={() => setShowGallery(true)}
+
                 />
             )}
 
@@ -63,7 +69,17 @@ function MessageBubble({ message, type, isRead }) {
                         minute: '2-digit',
                     })}
                 </span>
-            </div> */}
+            </div> ChatImageGallery */}
+
+
+            {showGallery && (
+                <ChatImageGallery
+                    chatId={chat._id}
+                    userId={user._id}
+                    onClose={() => setShowGallery(false)}
+                />
+            )}
+
         </div>
     );
 }

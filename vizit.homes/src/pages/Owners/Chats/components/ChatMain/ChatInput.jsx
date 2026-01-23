@@ -240,9 +240,9 @@ function ChatInput({ onSend, handleTyping }) {
             <div className="jpy-chat-input__container">
                 <div className="jpy-chat-input__actions">
                     {/* Emoji button */}
-                    <button type="button" className="jpy-chat-input__action" aria-label="Emoji picker">
+                    {/* <button type="button" className="jpy-chat-input__action" aria-label="Emoji picker">
                         <ion-icon name="happy-outline"></ion-icon>
-                    </button>
+                    </button> */}
 
                     {/* File attach button */}
                     <button

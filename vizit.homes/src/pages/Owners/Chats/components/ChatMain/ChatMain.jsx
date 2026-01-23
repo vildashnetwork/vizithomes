@@ -183,7 +183,10 @@ function ChatMain({
                 remoteUserId={chat?._id}
                 remoteUserName={chat.name}
             /> */}
-            <ChatMessages reload={reload} messages={messages} loading={loading} messagesEndRef={messagesEndRef} myUserId={user?._id} />
+            <ChatMessages
+              chat={chat}
+                user={user}
+            reload={reload} messages={messages} loading={loading} messagesEndRef={messagesEndRef} myUserId={user?._id} />
 
             <ChatInput handleTyping={handleTyping} onSend={handleSendMessage} />
         </div>
