@@ -114,10 +114,11 @@ export default function OwnerAuthLanding() {
 
 
             localStorage.setItem("token", res.data.token);
+            localStorage.setItem("role", "owner");
             if (res.status === 201) {
 
                 alert(res.data.message);
-                localStorage.setItem("role", "owner");
+
                 setMessage({ type: "success", text: "Account created — role saved." });
                 navigate("/dashboard")
 
@@ -222,8 +223,8 @@ export default function OwnerAuthLanding() {
                     <form className="landing__form" onSubmit={handleLogin} noValidate>
                         <div className="form-row">
                             <label htmlFor="login-email" className="form-label">Email</label>
-                            <div className="input-wrap">
-                                <ion-icon name="mail-outline" class="input-icon" />
+                            <div className="input-wrap1">
+                                {/* <ion-icon name="mail-outline" class="input-icon" /> */}
                                 <input
                                     ref={firstInputRef}
                                     id="login-email"
@@ -239,8 +240,8 @@ export default function OwnerAuthLanding() {
 
                         <div className="form-row">
                             <label htmlFor="login-password" className="form-label">Password</label>
-                            <div className="input-wrap">
-                                <ion-icon name="lock-closed-outline" class="input-icon" />
+                            <div className="input-wrap1">
+                                {/* <ion-icon name="lock-closed-outline" class="input-icon" /> */}
                                 <input
                                     id="login-password"
                                     type={view ? "password" : "text"}
@@ -284,8 +285,8 @@ export default function OwnerAuthLanding() {
                     <form className="landing__form" onSubmit={handleRegister} noValidate>
                         <div className="form-row">
                             <label htmlFor="reg-name" className="form-label">Full name</label>
-                            <div className="input-wrap">
-                                <ion-icon name="person-outline" class="input-icon" />
+                            <div className="input-wrap1">
+                                {/* <ion-icon name="person-outline" class="input-icon" /> */}
                                 <input
                                     ref={firstInputRef}
                                     id="reg-name"
@@ -301,8 +302,8 @@ export default function OwnerAuthLanding() {
 
                         <div className="form-row">
                             <label htmlFor="reg-name" className="form-label">Company's Name</label>
-                            <div className="input-wrap">
-                                <ion-icon name="person-outline" class="input-icon" />
+                            <div className="input-wrap1">
+                                {/* <ion-icon name="person-outline" class="input-icon1" /> */}
                                 <input
                                     ref={firstInputRef}
                                     id="reg-name"
@@ -317,7 +318,7 @@ export default function OwnerAuthLanding() {
                         </div>
                         <div className="form-row">
                             <label htmlFor="reg-name" className="form-label">Company's BIO</label>
-                            <div className="input-wrap">
+                            <div className="input-wrap1">
                                 {/* <ion-icon name="albums-outline" ></ion-icon> */}
                                 <textarea
                                     rows={5}
@@ -335,8 +336,8 @@ export default function OwnerAuthLanding() {
 
                         <div className="form-row">
                             <label htmlFor="reg-phone" className="form-label">Phone</label>
-                            <div className="input-wrap">
-                                <ion-icon name="call-outline" class="input-icon" />
+                            <div className="input-wrap1">
+                                {/* <ion-icon name="call-outline" class="input-icon" /> */}
                                 <input
                                     id="reg-phone"
                                     type="tel"
@@ -351,8 +352,8 @@ export default function OwnerAuthLanding() {
 
                         <div className="form-row">
                             <label htmlFor="reg-email" className="form-label">Email</label>
-                            <div className="input-wrap">
-                                <ion-icon name="mail-outline" class="input-icon" />
+                            <div className="input-wrap1">
+                                {/* <ion-icon name="mail-outline" class="input-icon" /> */}
                                 <input
                                     id="reg-email"
                                     type="email"
@@ -377,7 +378,7 @@ export default function OwnerAuthLanding() {
 
                         <div className="form-row">
                             <label htmlFor="reg-name" className="form-label">Company's Location</label>
-                            <div className="input-wrap">
+                            <div className="input-wrap1">
                                 <ion-icon name="location-outline"></ion-icon>
                                 <input
                                     ref={firstInputRef}
@@ -395,7 +396,7 @@ export default function OwnerAuthLanding() {
 
                         <div className="form-row">
                             <label htmlFor="reg-name" className="form-label">ID Card Number</label>
-                            <div className="input-wrap">
+                            <div className="input-wrap1">
                                 <ion-icon name="document-lock-outline"></ion-icon>
                                 <input
                                     ref={firstInputRef}
@@ -411,8 +412,8 @@ export default function OwnerAuthLanding() {
                         </div>
                         <div className="form-row">
                             <label htmlFor="reg-password" className="form-label">Password</label>
-                            <div className="input-wrap">
-                                <ion-icon name="lock-closed-outline" class="input-icon" />
+                            <div className="input-wrap1">
+                                {/* <ion-icon name="lock-closed-outline" class="input-icon" /> */}
                                 <input
                                     id="reg-password"
                                     type={view ? "password" : "text"}
@@ -437,8 +438,8 @@ export default function OwnerAuthLanding() {
 
                         <div className="form-row">
                             <label htmlFor="reg-confirm" className="form-label">Confirm password</label>
-                            <div className="input-wrap">
-                                <ion-icon name="lock-closed-outline" class="input-icon" />
+                            <div className="input-wrap1">
+                                {/* <ion-icon name="lock-closed-outline" class="input-icon" /> */}
                                 <input
                                     id="reg-confirm"
                                     type={view ? "password" : "text"}
