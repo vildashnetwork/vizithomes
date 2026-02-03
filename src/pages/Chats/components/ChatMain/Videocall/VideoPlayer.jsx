@@ -83,53 +83,69 @@
 
 
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from 'react';
 
-const VideoPlayer = ({ stream, name, isRemote = false, isVideoOff = false, isSmall = false }) => {
+const VideoPlayer = ({ stream, name, isRemote = false, isVideoOff = false, muted = false }) => {
     const videoRef = useRef(null);
 
     useEffect(() => {
-        if (!stream || !videoRef.current) return;
-
-        const videoEl = videoRef.current;
-
-        // mute local video, unmute remote
-        videoEl.muted = !isRemote;
-
-        // attach the stream
-        videoEl.srcObject = stream;
-
-        // play audio/video (browser may block if autoplay is not allowed)
-        const playPromise = videoEl.play();
-        if (playPromise !== undefined) {
-            playPromise.catch(err => {
-                console.warn("Autoplay blocked. User must interact first.", err);
-            });
+        if (videoRef.current && stream) {
+            videoRef.current.srcObject = stream;
         }
-    }, [stream, isRemote]);
+    }, [stream]);
+
+    const handleVideoError = (e) => {
+        console.error("Video playback error:", e);
+    };
 
     return (
-        <div className={`video-player ${isRemote ? "remote" : "local"} ${isSmall ? "small" : ""}`}>
-            <div className="video-wrapper">
-                {isVideoOff ? (
-                    <div className="video-off-placeholder">
+        <div className={`video-player ${isRemote ? 'remote' : 'local'}`}>
+            <div className="video-wrapper" style={{ position: 'relative', width: '100%', height: '100%' }}>
+
+                {/* CRITICAL FIX: The video element must ALWAYS remain in the DOM.
+                    If it is unmounted, the audio tracks stop playing.
+                */}
+                <video
+                    ref={videoRef}
+                    autoPlay
+                    playsInline
+                    // Local stream must be muted to prevent echo; remote must be unmuted to hear them.
+                    muted={muted}
+                    onError={handleVideoError}
+                    className="video-element"
+                    style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        display: isVideoOff ? 'none' : 'block', // Hide visually, but keep logic active
+                        pointerEvents: 'none',
+                    }}
+                />
+
+                {/* Show placeholder ONLY when video is toggled off */}
+                {isVideoOff && (
+                    <div className="video-off-placeholder" style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        width: '100%',
+                        height: '100%',
+                        background: '#2c2c2c',
+                        color: 'white'
+                    }}>
                         <div className="placeholder-avatar">
-                            {name?.charAt(0)?.toUpperCase() || "U"}
+                            {name?.charAt(0).toUpperCase() || 'U'}
                         </div>
-                        <p>Camera Off</p>
+                        <p className="placeholder-text">Camera is off</p>
                     </div>
-                ) : (
-                    <video
-                        ref={videoRef}
-                        autoPlay
-                        playsInline
-                        className="video-element"
-                        style={{ pointerEvents: "none" }}
-                    />
                 )}
             </div>
+
             <div className="video-overlay">
-                <span className="user-name">{name}</span>
+                <div className="user-info">
+                    <span className="user-name">{name}</span>
+                </div>
             </div>
         </div>
     );
