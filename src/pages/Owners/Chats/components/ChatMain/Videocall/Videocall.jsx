@@ -203,14 +203,38 @@ const VideoCallPage = ({ remoteUserId, remoteUserName, setiscall }) => {
         });
     }, [remoteUserId, callerInfo]);
 
+    // const prepare = async () => {
+    //     peerService.createPeer();
+    //     const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
+    //     await peerService.addLocalStream(stream);
+    //     setMyStream(stream);
+    //     setRemoteStream(peerService.remoteStream);
+    // };
+
+
     const prepare = async () => {
         peerService.createPeer();
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
-        await peerService.addLocalStream(stream);
-        setMyStream(stream);
-        setRemoteStream(peerService.remoteStream);
-    };
 
+        // Add these specific audio constraints
+        const constraints = {
+            audio: {
+                echoCancellation: true,      // Removes echo from speakers
+                noiseSuppression: true,      // Filters out background hums/fans
+                autoGainControl: true,       // Stabilizes volume levels
+                typingNoiseDetection: true,  // Specifically for keyboard clicks
+            },
+            video: true
+        };
+
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia(constraints);
+            await peerService.addLocalStream(stream);
+            setMyStream(stream);
+            setRemoteStream(peerService.remoteStream);
+        } catch (err) {
+            console.error("Error accessing media devices:", err);
+        }
+    };
     useEffect(() => {
         const s = socketRef.current;
 
@@ -324,8 +348,8 @@ const VideoCallPage = ({ remoteUserId, remoteUserName, setiscall }) => {
 
             {callActive && (
                 <div className="video-call-interface">
-                    {/* LARGE VIDEO */}
-                    <div className="remote-video-container">
+
+                    {/* <div className="remote-video-container">
                         {largeStream && (
                             <VideoPlayer
                                 stream={largeStream}
@@ -335,7 +359,7 @@ const VideoCallPage = ({ remoteUserId, remoteUserName, setiscall }) => {
                         )}
                     </div>
 
-                    {/* SMALL VIDEO (click to swap) */}
+                    
                     <div
                         className="local-video-container"
                         onClick={() => setIsSwapped(prev => !prev)}
@@ -348,8 +372,34 @@ const VideoCallPage = ({ remoteUserId, remoteUserName, setiscall }) => {
                                 muted={!isSwapped}
                             />
                         )}
+                    </div> */}
+
+                    {/* LARGE VIDEO */}
+                    <div className="remote-video-container">
+                        {largeStream && (
+                            <VideoPlayer
+                                stream={largeStream}
+                                name={largeName}
+                                // Logic: Mute if the stream belongs to "Me"
+                                muted={largeStream === myStream}
+                                isVideoOff={largeStream === myStream ? isVideoOff : false}
+                            />
+                        )}
                     </div>
 
+                    {/* SMALL VIDEO */}
+                    <div className="local-video-container" onClick={() => setIsSwapped(prev => !prev)}>
+                        {smallStream && (
+                            <VideoPlayer
+                                stream={smallStream}
+                                name={smallName}
+                                isSmall
+                                // Logic: Mute if the stream belongs to "Me"
+                                muted={smallStream === myStream}
+                                isVideoOff={smallStream === myStream ? isVideoOff : false}
+                            />
+                        )}
+                    </div>
 
                     <div className="call-controls">
                         <button

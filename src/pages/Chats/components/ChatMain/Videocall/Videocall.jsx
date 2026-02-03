@@ -203,12 +203,37 @@ const VideoCallPage = ({ remoteUserId, remoteUserName, setiscall }) => {
         });
     }, [remoteUserId, callerInfo]);
 
+    // const prepare = async () => {
+    //     peerService.createPeer();
+    //     const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
+    //     await peerService.addLocalStream(stream);
+    //     setMyStream(stream);
+    //     setRemoteStream(peerService.remoteStream);
+    // };
+
+
     const prepare = async () => {
         peerService.createPeer();
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
-        await peerService.addLocalStream(stream);
-        setMyStream(stream);
-        setRemoteStream(peerService.remoteStream);
+
+        // Add these specific audio constraints
+        const constraints = {
+            audio: {
+                echoCancellation: true,      // Removes echo from speakers
+                noiseSuppression: true,      // Filters out background hums/fans
+                autoGainControl: true,       // Stabilizes volume levels
+                typingNoiseDetection: true,  // Specifically for keyboard clicks
+            },
+            video: true
+        };
+
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia(constraints);
+            await peerService.addLocalStream(stream);
+            setMyStream(stream);
+            setRemoteStream(peerService.remoteStream);
+        } catch (err) {
+            console.error("Error accessing media devices:", err);
+        }
     };
 
     useEffect(() => {
