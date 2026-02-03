@@ -47,7 +47,7 @@ const VideoPlayer = ({
                         ref={videoRef}
                         autoPlay
                         playsInline
-                        muted={!isRemote}
+                        muted={isRemote ? false : true}
                         className="video-element"
                     />
                 )}

@@ -57,7 +57,7 @@ const VideoPlayer = ({ stream, name, isRemote = false, isVideoOff = false }) => 
                         ref={videoRef}
                         autoPlay
                         playsInline
-                        muted={!isRemote}
+                        muted={isRemote ? false : true}
                         onError={handleVideoError}
                         className="video-element"
                         style={{ pointerEvents: "none", }}
