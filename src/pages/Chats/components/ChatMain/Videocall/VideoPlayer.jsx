@@ -76,24 +76,34 @@
 
 
 
+
+
+
+
+
+
+
 import React, { useEffect, useRef } from "react";
 
 const VideoPlayer = ({ stream, name, isRemote = false, isVideoOff = false, isSmall = false }) => {
     const videoRef = useRef(null);
 
     useEffect(() => {
-        if (videoRef.current && stream) {
-            videoRef.current.srcObject = stream;
+        if (!stream || !videoRef.current) return;
 
-            // Only play remote audio
-            if (isRemote) {
-                videoRef.current.muted = false;
-            } else {
-                videoRef.current.muted = true; // mute self
-            }
+        const videoEl = videoRef.current;
 
-            videoRef.current.play().catch(err => {
-                console.warn("Video play error:", err);
+        // mute local video, unmute remote
+        videoEl.muted = !isRemote;
+
+        // attach the stream
+        videoEl.srcObject = stream;
+
+        // play audio/video (browser may block if autoplay is not allowed)
+        const playPromise = videoEl.play();
+        if (playPromise !== undefined) {
+            playPromise.catch(err => {
+                console.warn("Autoplay blocked. User must interact first.", err);
             });
         }
     }, [stream, isRemote]);
