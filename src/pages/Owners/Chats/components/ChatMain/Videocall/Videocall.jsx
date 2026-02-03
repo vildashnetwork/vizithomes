@@ -503,7 +503,6 @@
 
 
 
-
 import React, { useState, useRef, useEffect } from "react";
 import { io } from "socket.io-client";
 import VideoPlayer from "./VideoPlayer";
@@ -520,7 +519,7 @@ import PhoneDisabledIcon from "@mui/icons-material/PhoneDisabled";
 const SOCKET_SERVER_URL = "https://vizit-backend-hubw.onrender.com";
 
 /* =========================
-   PeerService
+    PeerService
    ========================= */
 class PeerService {
     constructor() {
@@ -572,6 +571,11 @@ class PeerService {
         };
     }
 
+    // PRODUCTION FIX: Force mono audio and limit bitrate to reduce hiss
+    optimizeAudioSDP(sdp) {
+        return sdp.replace("useinbandfec=1", "useinbandfec=1; stereo=0; sprop-maxcapturerate=16000");
+    }
+
     setIceCandidateHandler(fn) { this.iceHandler = fn; }
     setTrackHandler(fn) { this.trackHandler = fn; }
     setIceStateHandler(fn) { this.stateHandler = fn; }
@@ -587,6 +591,7 @@ class PeerService {
 
     async getOffer() {
         const offer = await this.peer.createOffer();
+        offer.sdp = this.optimizeAudioSDP(offer.sdp); // Apply optimization
         await this.peer.setLocalDescription(offer);
         return offer;
     }
@@ -594,6 +599,7 @@ class PeerService {
     async getAnswer(offer) {
         if (offer) await this.peer.setRemoteDescription(new RTCSessionDescription(offer));
         const answer = await this.peer.createAnswer();
+        answer.sdp = this.optimizeAudioSDP(answer.sdp); // Apply optimization
         await this.peer.setLocalDescription(answer);
         await this.flushCandidates();
         return answer;
@@ -635,7 +641,7 @@ class PeerService {
 const peerService = new PeerService();
 
 /* =========================
-   React Component
+    React Component
    ========================= */
 const VideoCallPage = ({ remoteUserId, remoteUserName, setiscall }) => {
     const socketRef = useRef(null);
@@ -650,7 +656,6 @@ const VideoCallPage = ({ remoteUserId, remoteUserName, setiscall }) => {
     const [isMuted, setIsMuted] = useState(false);
     const [isVideoOff, setIsVideoOff] = useState(false);
 
-    // Position for draggable small screen
     const [position, setPosition] = useState({ x: 20, y: 80 });
     const dragData = useRef({ dragging: false, offsetX: 0, offsetY: 0 });
 
@@ -668,23 +673,22 @@ const VideoCallPage = ({ remoteUserId, remoteUserName, setiscall }) => {
                 candidate,
             });
         });
-
         peerService.setTrackHandler(setRemoteStream);
-
         peerService.setIceStateHandler((state) => {
             if (state === "connected" || state === "completed") setCallActive(true);
         });
     }, [remoteUserId, callerInfo]);
 
-    // CORRECTED: Added Audio constraints to fix noise and echo
     const prepare = async () => {
         peerService.createPeer();
         try {
+            // PRODUCTION FIX: Turn off AutoGainControl to stop the "hiss" magnification
             const stream = await navigator.mediaDevices.getUserMedia({
                 audio: {
                     echoCancellation: true,
                     noiseSuppression: true,
-                    autoGainControl: true
+                    autoGainControl: false, // Prevents mic from boosting background noise
+                    channelCount: 1         // Forces Mono (clearer for speech)
                 },
                 video: true
             });
@@ -773,7 +777,6 @@ const VideoCallPage = ({ remoteUserId, remoteUserName, setiscall }) => {
         if (typeof setiscall === "function") setiscall(callActive);
     }, [callActive, setiscall]);
 
-    /* DRAG LOGIC */
     const startDrag = (e) => {
         if (!smallscreencall) return;
         const point = e.touches ? e.touches[0] : e;
@@ -836,7 +839,6 @@ const VideoCallPage = ({ remoteUserId, remoteUserName, setiscall }) => {
                             <VideoPlayer
                                 stream={largeStream}
                                 name={largeName}
-                                // CORRECTED: Local stream should always be muted for the player
                                 muted={largeStream === myStream}
                                 isVideoOff={largeStream === myStream ? isVideoOff : false}
                             />
@@ -848,7 +850,6 @@ const VideoCallPage = ({ remoteUserId, remoteUserName, setiscall }) => {
                             <VideoPlayer
                                 stream={smallStream}
                                 name={smallName}
-                                // CORRECTED: Local stream should always be muted for the player
                                 muted={smallStream === myStream}
                                 isVideoOff={smallStream === myStream ? isVideoOff : false}
                             />
