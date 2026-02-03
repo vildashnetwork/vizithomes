@@ -423,8 +423,8 @@ const VideoCallPage = ({ remoteUserId, remoteUserName, setiscall }) => {
 
             {callActive && (
                 <div className="video-call-interface">
-                    {/* LARGE VIDEO */}
-                    <div className="remote-video-container">
+
+                    {/* <div className="remote-video-container">
                         {largeStream && (
                             <VideoPlayer
                                 stream={largeStream}
@@ -434,7 +434,7 @@ const VideoCallPage = ({ remoteUserId, remoteUserName, setiscall }) => {
                         )}
                     </div>
 
-                    {/* SMALL VIDEO (click to swap) */}
+                   
                     <div
                         className="local-video-container"
                         onClick={() => setIsSwapped(prev => !prev)}
@@ -447,8 +447,35 @@ const VideoCallPage = ({ remoteUserId, remoteUserName, setiscall }) => {
                                 muted={!isSwapped}
                             />
                         )}
+                    </div> */}
+
+
+                    {/* LARGE VIDEO */}
+                    <div className="remote-video-container">
+                        {largeStream && (
+                            <VideoPlayer
+                                stream={largeStream}
+                                name={largeName}
+                                // Logic: Mute if the stream belongs to "Me"
+                                muted={largeStream === myStream}
+                                isVideoOff={largeStream === myStream ? isVideoOff : false}
+                            />
+                        )}
                     </div>
 
+                    {/* SMALL VIDEO */}
+                    <div className="local-video-container" onClick={() => setIsSwapped(prev => !prev)}>
+                        {smallStream && (
+                            <VideoPlayer
+                                stream={smallStream}
+                                name={smallName}
+                                isSmall
+                                // Logic: Mute if the stream belongs to "Me"
+                                muted={smallStream === myStream}
+                                isVideoOff={smallStream === myStream ? isVideoOff : false}
+                            />
+                        )}
+                    </div>
 
                     <div className="call-controls">
                         <button
