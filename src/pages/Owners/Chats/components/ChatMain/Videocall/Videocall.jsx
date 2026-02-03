@@ -32,17 +32,34 @@ class PeerService {
 
         this.remoteStream = new MediaStream();
 
+        // this.peer = new RTCPeerConnection({
+        //     iceServers: [
+        //         { urls: "stun:stun.l.google.com:19302" },
+        //         {
+        //             urls: [
+        //                 "turn:openrelay.metered.ca:80?transport=udp",
+        //                 "turn:openrelay.metered.ca:443?transport=tcp",
+        //                 "turns:openrelay.metered.ca:443",
+        //             ],
+        //             username: "openrelayproject",
+        //             credential: "openrelayproject",
+        //         },
+        //     ],
+        // });
+
         this.peer = new RTCPeerConnection({
             iceServers: [
                 { urls: "stun:stun.l.google.com:19302" },
                 {
                     urls: [
-                        "turn:openrelay.metered.ca:80?transport=udp",
-                        "turn:openrelay.metered.ca:443?transport=tcp",
-                        "turns:openrelay.metered.ca:443",
+                        "stun:stun.relay.metered.ca:80",
+                        "turn:global.relay.metered.ca:80",
+                        "turn:global.relay.metered.ca:80?transport=tcp",
+                        "turn:global.relay.metered.ca:443",
+                        "turns:global.relay.metered.ca:443?transport=tcp"
                     ],
-                    username: "openrelayproject",
-                    credential: "openrelayproject",
+                    username: "23dd2c881c792610daaef11f",
+                    credential: "J2wwbRWdLWsRYv5T",
                 },
             ],
         });
