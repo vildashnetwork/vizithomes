@@ -440,7 +440,9 @@ function PropertyDetails() {
                 </div>
               </div>
             </div>
+            <br />
             <h2 className="details-sub-heading">{house.title}</h2>
+            <br />
             <h4 className="details-location">
               <LocationOnIcon />
               {
@@ -486,10 +488,12 @@ function PropertyDetails() {
 
             <div className="description-card">
               <h4 className="details-sub-heading">Property Description</h4>
-              {house.description}
+
+              <p> {house.description}</p>
             </div>
 
-
+            <br />
+            <br />
 
             <div className="rem block">
               <div class="facebook-panel">
@@ -543,6 +547,8 @@ function PropertyDetails() {
               </div>
 
 
+              <br />
+              <br />
 
 
               {
@@ -643,6 +649,8 @@ function PropertyDetails() {
               </button>
             </div>
 
+            <br />
+            <br />
             <MapComponent
               center={[
                 house.location.coordinates.lat,
