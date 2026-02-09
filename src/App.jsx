@@ -27,7 +27,9 @@ import UserChatApp from "./pages/Chats/App"
 import UserReelsApp from "./pages/Reel/App"
 import CreateHouseForm from "./pages/Owners/Listings/CreateProperty";
 import VideoCallPage from "./pages/Chats/components/ChatMain/Videocall/Videocall"
+import CallWindow from "./webrtc/CallWindow";
 import { Toaster } from "react-hot-toast";
+import VideoCallManager from "./webrtc/VideoCallManager";
 
 /* ================= PROTECTED ROUTES ================= */
 
@@ -155,11 +157,7 @@ export default function App() {
     <>
       <Toaster position="bottom-left" reverseOrder={false} />
 
-      <VideoCallPage
-        remoteUserId={remoteUserId}
-        remoteUserName={remoteUserName}
-        setiscall={setiscall}
-      />
+      <VideoCallManager />
       {/* <VideoCallPage
         remoteUserId={user?._id}
         remoteUserName={user?.name}
@@ -176,6 +174,7 @@ export default function App() {
         <Route path="/video-call" element={
           <VideoCallPage />
         } />
+        <Route path="/call/:remoteId" element={<CallWindow />} />
 
 
 

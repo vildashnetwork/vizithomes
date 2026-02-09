@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import VideoCall from "./Videocall/Videocall"
 // import VideoCall from "./Videocall/Videocall"
+import ChatHeaderTrigger from "./ChatHeader.Trigger";
 
 function ChatHeader({ typingUsers, chat, isMobileView, onBack, onlineUsers }) {
     // user
@@ -71,10 +71,7 @@ function ChatHeader({ typingUsers, chat, isMobileView, onBack, onlineUsers }) {
             </div>
 
             <div className="gbp-chat-header__actions">
-                <VideoCall
-                    remoteUserId={chat?._id}
-                    remoteUserName={chat.name}
-                />
+                <ChatHeaderTrigger remoteUserId={chat?._id} remoteUserName={chat.name} />
                 <button
                     className="gbp-chat-sidebar-header__icon"
                     aria-label="Menu"
