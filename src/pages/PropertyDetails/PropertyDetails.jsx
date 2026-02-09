@@ -402,14 +402,16 @@ function PropertyDetails() {
 
 
 
-          <div style={{ flex: "85%" }}>
+
+          <div style={{ flex: "85%", }}>
             <div
               className="property-details-image-container"
               style={{
-                // padding:"20px",
+                padding: "20px",
                 borderRadius: "20px",
                 backgroundImage: `url(${imageIndex === 0 ? house.image : house.images[imageIndex]
                   })`,
+                margin: "50px"
               }}
             >
               <div className="nav-btns-container">
@@ -443,7 +445,15 @@ function PropertyDetails() {
             <br />
             <h2 className="details-sub-heading">{house.title}</h2>
             <br />
-            <h4 className="details-location">
+            <h4 className="details-location" style={{
+              display: "flex",
+              textWrap: "wrap",
+              flexWrap: "wrap",
+              overflow: "hidden",
+              wordBreak: "break-word",
+              maxWidth: "100%",
+              width: "350px"
+            }}>
               <LocationOnIcon />
               {
                 (() => {
@@ -730,6 +740,7 @@ function PropertyDetails() {
 
 
           </div>
+
 
           <div className="rem">
             <div class="facebook-panel">
