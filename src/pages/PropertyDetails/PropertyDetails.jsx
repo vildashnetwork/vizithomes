@@ -392,7 +392,7 @@ function PropertyDetails() {
 
   //stop
   return (
-    <div>
+    <div style={{ overflow: "hidden" }}>
 
 
       <Head />

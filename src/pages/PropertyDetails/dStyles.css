@@ -20,6 +20,16 @@
         display: none;
     }
 
+    .description-card {
+        padding: 4vw !important;
+        font-size: 1em !important;
+        margin: 0 !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        overflow-x: hidden !important;
+    }
+
     .block {
         display: block !important;
         width: 100% !important;

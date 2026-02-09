@@ -28,6 +28,7 @@ import UserReelsApp from "./pages/Reel/App"
 import CreateHouseForm from "./pages/Owners/Listings/CreateProperty";
 import VideoCallPage from "./pages/Chats/components/ChatMain/Videocall/Videocall"
 import { Toaster } from "react-hot-toast";
+
 /* ================= PROTECTED ROUTES ================= */
 
 function ProtectedOwner({ children }) {
@@ -171,6 +172,9 @@ export default function App() {
         } />
         <Route path="/property/:propertyId" element={
           <PropertyDetails />
+        } />
+        <Route path="/video-call" element={
+          <VideoCallPage />
         } />
 
 
