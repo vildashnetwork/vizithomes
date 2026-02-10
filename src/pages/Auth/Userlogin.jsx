@@ -108,7 +108,7 @@ export default function UserAuthLanding() {
             if (res.status === 201) {
                 setMessage({ type: "success", text: res.data.message });
                 localStorage.setItem("token", res.data.token);
-                localStorage.setItem("role", "owner");
+                localStorage.setItem("role", "user")
                 window.location.href = "/"
             } else {
                 setMessage({ type: "error", text: res.data.message });

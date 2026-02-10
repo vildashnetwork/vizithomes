@@ -251,7 +251,7 @@ export default function OwnerAuthLanding() {
                                     onChange={(e) => setPassword(e.target.value)}
                                     autoComplete="current-password"
                                 />
-
+                                {/* 
                                 {view ?
                                     <a onClick={() => notview(!view)} style={{ cursor: "pointer" }}>
                                         <ion-icon name="eye-off-outline"></ion-icon>
@@ -260,7 +260,7 @@ export default function OwnerAuthLanding() {
                                     <a onClick={() => notview(!view)} style={{ cursor: "pointer" }}>
                                         <ion-icon name="eye-outline"></ion-icon>
                                     </a>
-                                }
+                                } */}
                             </div>
                             <label htmlFor="login-password" className="form-label" style={{
                                 display: "flex",
@@ -379,7 +379,7 @@ export default function OwnerAuthLanding() {
                         <div className="form-row">
                             <label htmlFor="reg-name" className="form-label">Company's Location</label>
                             <div className="input-wrap1">
-                                <ion-icon name="location-outline"></ion-icon>
+                                {/* <ion-icon name="location-outline"></ion-icon> */}
                                 <input
                                     ref={firstInputRef}
                                     id="reg-name"
@@ -397,7 +397,7 @@ export default function OwnerAuthLanding() {
                         <div className="form-row">
                             <label htmlFor="reg-name" className="form-label">ID Card Number</label>
                             <div className="input-wrap1">
-                                <ion-icon name="document-lock-outline"></ion-icon>
+                                {/* <ion-icon name="document-lock-outline"></ion-icon> */}
                                 <input
                                     ref={firstInputRef}
                                     id="reg-name"
@@ -423,7 +423,7 @@ export default function OwnerAuthLanding() {
                                     onChange={(e) => setRegPassword(e.target.value)}
                                     autoComplete="new-password"
                                 />
-                                {view ?
+                                {/* {view ?
                                     <a onClick={() => notview(!view)} style={{ cursor: "pointer" }}>
                                         <ion-icon name="eye-off-outline"></ion-icon>
                                     </a> :
@@ -431,7 +431,7 @@ export default function OwnerAuthLanding() {
                                     <a onClick={() => notview(!view)} style={{ cursor: "pointer" }}>
                                         <ion-icon name="eye-outline"></ion-icon>
                                     </a>
-                                }
+                                } */}
 
                             </div>
                         </div>
@@ -449,7 +449,7 @@ export default function OwnerAuthLanding() {
                                     onChange={(e) => setConfirmPassword(e.target.value)}
                                     autoComplete="new-password"
                                 />
-                                {view ?
+                                {/* {view ?
                                     <a onClick={() => notview(!view)} style={{ cursor: "pointer" }}>
                                         <ion-icon name="eye-off-outline"></ion-icon>
                                     </a> :
@@ -457,7 +457,7 @@ export default function OwnerAuthLanding() {
                                     <a onClick={() => notview(!view)} style={{ cursor: "pointer" }}>
                                         <ion-icon name="eye-outline"></ion-icon>
                                     </a>
-                                }
+                                } */}
 
                             </div>
                         </div>

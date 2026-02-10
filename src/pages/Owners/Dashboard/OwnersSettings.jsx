@@ -29,6 +29,9 @@ export default function OnwnerSetting({
     onUpgrade = () => { },
 }) {
 
+    const [phoneNumber, setPhoneNumber] = useState("");
+    const [amount, setAmount] = useState(50);
+    const [error, setError] = useState("");
     const [userhere, setuser] = useState(null);
     const [profile, setProfile] = useState(null);
     const [editing, setEditing] = useState(false);
@@ -48,6 +51,7 @@ export default function OnwnerSetting({
         IDno: "",
         paymentmethod: "",
     });
+
 
     const [notifications, setNotifications] = useState(true);
     const [privacy, setPrivacy] = useState(false);
@@ -155,6 +159,64 @@ export default function OnwnerSetting({
         }
     };
 
+    const increment = () => setAmount(prev => prev + 500);
+    const decrement = () => setAmount(prev => (prev > 500 ? prev - 500 : 500));
+    const [paying, setPaying] = useState(false)
+
+
+    const handleSubmit1 = async (e) => {
+        // prevent default only if this is triggered from a form
+        if (e && e.preventDefault) e.preventDefault();
+        setError("");
+
+
+
+        // Validate Cameroon phone number
+        if (!/^2376\d{8}$/.test(phoneNumber)) {
+            return setError("Enter a valid Cameroon number (2376XXXXXXXX)");
+        }
+
+        // Validate minimum amount
+        if (amount < 50) {
+            return setError("Minimum payment is 50 FCFA");
+        }
+
+        // Prevent multiple clicks
+        if (paying) return;
+
+        try {
+            setPaying(true);
+
+            // Make sure we send the correct user ID to backend
+            const res = await axios.post(
+                "https://vizit-backend-hubw.onrender.com/api/pay",
+                {
+                    phoneNumber: phoneNumber,
+                    amount: Number(amount),
+                    description: "Add tokens to my Vizit site",
+                    id: userhere?._id,      // <-- Use user ID here
+                    role: userhere?.role    // <-- Owner or user role
+                }
+            );
+
+            if (res.status === 201) {
+                alert("Dial *126# to confirm the payment if you don’t receive the popup");
+            } else {
+                setError("Payment could not be processed.");
+            }
+
+        } catch (err) {
+            console.error("Payment error:", err.response?.data || err.message);
+            setError(
+                err.response?.data?.message ||
+                "Payment failed. Please try again."
+            );
+        } finally {
+            setPaying(false);
+        }
+    };
+
+
     /* ---------------- ui handlers ---------------- */
     const startEdit = () => setEditing(true);
 
@@ -204,6 +266,135 @@ export default function OnwnerSetting({
                 : "Free";
 
     if (loading) return null;
+
+    const styles = {
+        /* full-screen modal wrapper */
+        page: {
+            minHeight: "100vh",
+            width: "100vw",
+            background: "rgba(0,0,0,0.45)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "16px",
+            fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
+            boxSizing: "border-box"
+        },
+
+        /* payment card */
+        card: {
+            width: "100%",
+            maxWidth: "420px",
+            minWidth: "280px",
+            background: "#fff",
+            borderRadius: "16px",
+            padding: "clamp(16px, 4vw, 24px)",
+            boxShadow: "0 10px 30px rgba(0,0,0,0.15)",
+            boxSizing: "border-box"
+        },
+
+        title: {
+            textAlign: "center",
+            fontSize: "clamp(18px, 4.5vw, 22px)",
+            fontWeight: "600",
+            marginBottom: "18px",
+            color: "#111827"
+        },
+
+        field: {
+            marginBottom: "16px"
+        },
+
+        label: {
+            display: "block",
+            fontSize: "clamp(13px, 3.5vw, 14px)",
+            fontWeight: "500",
+            marginBottom: "6px",
+            color: "#374151"
+        },
+
+        input: {
+            width: "100%",
+            padding: "12px",
+            borderRadius: "8px",
+            border: "1px solid #d1d5db",
+            fontSize: "15px",
+            boxSizing: "border-box"
+        },
+
+        /* amount counter row */
+        counter: {
+            display: "flex",
+            alignItems: "center",
+            gap: "10px",
+            width: "100%"
+        },
+
+        minus: {
+            minWidth: "40px",
+            height: "40px",
+            borderRadius: "50%",
+            border: "none",
+            background: "#e5e7eb",
+            fontSize: "20px",
+            cursor: "pointer",
+            flexShrink: 0
+        },
+
+        plus: {
+            minWidth: "40px",
+            height: "40px",
+            borderRadius: "50%",
+            border: "none",
+            background: "#0d6e4e",
+            color: "#fff",
+            fontSize: "20px",
+            cursor: "pointer",
+            flexShrink: 0
+        },
+
+        amountInput: {
+            flex: 1,
+            textAlign: "center",
+            padding: "10px",
+            borderRadius: "8px",
+            border: "1px solid #d1d5db",
+            fontSize: "clamp(15px, 4vw, 16px)",
+            fontWeight: "600",
+            minWidth: "80px"
+        },
+
+        helper: {
+            fontSize: "12px",
+            textAlign: "center",
+            marginTop: "6px",
+            color: "#6b7280"
+        },
+
+        submit: {
+            width: "100%",
+            padding: "14px",
+            background: "#084d02",
+            color: "#fff",
+            border: "none",
+            borderRadius: "12px",
+            fontSize: "clamp(14px, 4vw, 16px)",
+            fontWeight: "600",
+            cursor: "pointer",
+            marginTop: "10px"
+        },
+
+        error: {
+            background: "#fee2e2",
+            color: "#b91c1c",
+            padding: "10px",
+            borderRadius: "8px",
+            marginBottom: "15px",
+            fontSize: "14px",
+            textAlign: "center"
+        }
+    };
+
 
     /* ---------------- render ---------------- */
     return (
@@ -474,66 +665,109 @@ export default function OnwnerSetting({
                     </button>
                 </div>
             </div>
-
             {showUpgrade && (
                 <div
                     className="cd-modal"
                     role="dialog"
                     aria-modal="true"
+                    style={styles.page}
                 >
                     <div className="cd-modal__panel cd-modal__panel--small">
+                        {/* Modal header */}
                         <div className="cd-modal__head">
-                            <h3>Upgrade to Pro</h3>
+                            <h3>Upgrade To Have Unlimited Access</h3>
                             <button
                                 className="cd-dismiss"
+                                type="button"
                                 onClick={() => setShowUpgrade(false)}
                             >
                                 ✕
                             </button>
                         </div>
 
-                        <div className="cd-upgrade-plans">
-                            <div
-                                className={`cd-plan ${selectedPlan === "pro"
-                                    ? "is-selected"
-                                    : ""
-                                    }`}
-                                onClick={() => setSelectedPlan("pro")}
-                            >
-                                <div className="cd-plan__title">Pro</div>
-                                <div className="cd-plan__price">
-                                    $6 / month
-                                </div>
+                        {/* PAYMENT CARD (NO FORM) */}
+                        <div style={styles.card}>
+                            <h2 style={styles.title}>
+                                Dial <strong>*126#</strong> to confirm the payment
+                                if you don’t receive the popup
+                            </h2>
+
+                            {error && <div style={styles.error}>{error}</div>}
+
+                            {/* Phone Number */}
+                            <div style={styles.field}>
+                                <label style={styles.label}>Mobile Number</label>
+                                <input
+                                    type="tel"
+                                    placeholder="2376XXXXXXXX"
+                                    value={phoneNumber}
+                                    onChange={(e) => setPhoneNumber(e.target.value)}
+                                    style={styles.input}
+                                />
                             </div>
 
-                            <div
-                                className={`cd-plan ${selectedPlan === "business"
-                                    ? "is-selected"
-                                    : ""
-                                    }`}
-                                onClick={() => setSelectedPlan("business")}
-                            >
-                                <div className="cd-plan__title">
-                                    Business
+                            {/* Amount Counter */}
+                            <div style={styles.field}>
+                                <label style={styles.label}>Amount (FCFA)</label>
+
+                                <div style={styles.counter}>
+                                    <button
+                                        type="button"
+                                        onClick={decrement}
+                                        style={styles.minus}
+                                    >
+                                        −
+                                    </button>
+
+                                    <input
+                                        type="number"
+                                        value={amount}
+                                        onChange={(e) => setAmount(Number(e.target.value))}
+                                        style={styles.amountInput}
+                                    />
+
+                                    <button
+                                        type="button"
+                                        onClick={increment}
+                                        style={styles.plus}
+                                    >
+                                        +
+                                    </button>
                                 </div>
-                                <div className="cd-plan__price">
-                                    $20 / month
-                                </div>
+
+                                <p style={styles.helper}>
+                                    Step: 500 FCFA · Minimum: 100 FCFA
+                                </p>
                             </div>
+
+                            {/* PAY BUTTON */}
+                            <button
+                                type="button"
+                                onClick={handleSubmit1}
+                                disabled={paying}
+                                style={styles.submit}
+                            >
+                                {paying
+                                    ? "Processing..."
+                                    : `Pay ${amount.toLocaleString()} FCFA`}
+                            </button>
                         </div>
 
+                        {/* Modal footer */}
                         <div className="cd-modal__footer">
                             <button
                                 className="cd-btn cd-btn--primary"
+                                type="button"
                                 onClick={confirmUpgrade}
                                 disabled={saving}
+                                style={{ background: "green" }}
                             >
-                                {saving
-                                    ? "Upgrading..."
-                                    : "Confirm Upgrade"}
+                                {saving ? "Upgrading..." : "Confirm Upgrade"}
                             </button>
+
                             <button
                                 className="cd-btn cd-btn--ghost"
+                                type="button"
                                 onClick={() => setShowUpgrade(false)}
                             >
                                 Cancel
@@ -542,6 +776,9 @@ export default function OnwnerSetting({
                     </div>
                 </div>
             )}
+
+
+
         </section>
     );
 }
