@@ -92,58 +92,36 @@ export default function CallWindow() {
 
   // Callee: accept incoming (canonical payload)
   const acceptIncoming = useCallback(async () => {
-    if (accepting) return;
+    if (accepting || !incomingOffer) return;
     setAccepting(true);
     try {
-      // Case A: we already have an offer from caller → answer
-      if (incomingOffer) {
-        const offerObj = typeof incomingOffer === 'string' ? JSON.parse(incomingOffer) : incomingOffer;
-        await peer.applyRemoteDescription(offerObj);
-        const answer = await peer.createAnswer();
-        let s = getSocket();
-        if (!s && userId) s = connectSocket(userId);
-        const payload = {
-          toUserId: pendingFromId || remoteId,
-          to: pendingFromId || remoteId,
-          answer: JSON.stringify(answer),
-          sdp: JSON.stringify(answer),
-          fromUserId: userId,
-          from: userId,
-        };
-        if (s) {
-          if (s.connected) s.emit('call:accepted', payload);
-          else s.once('connect', () => s.emit('call:accepted', payload));
-        }
-        setIncomingOffer(null);
-        setCallActive(true);
-        setIsRinging(false);
-        setHasIncoming(false);
-      } else {
-        // Case B: no offer present → proactively request/restart by sending an offer to caller
-        await preparePeer();
-        const offer = await peer.createOffer();
-        let s = getSocket();
-        if (!s && userId) s = connectSocket(userId);
-        const targetId = pendingFromId || remoteId;
-        const payloadStd = { toUserId: targetId, offer: JSON.stringify(offer), fromUserId: userId, fromName: selfName };
-        const payloadLegacy = { toUserId: targetId, offer: JSON.stringify(offer), callerName: selfName };
-        const doEmit = () => {
-          s.emit('outgoing:call', payloadStd);
-          s.emit('user:call', payloadLegacy);
-        };
-        if (s) {
-          if (s.connected) doEmit(); else s.once('connect', doEmit);
-        }
-        // Move UI to connecting state
-        setHasIncoming(false);
-        setIsRinging(true);
+      const offerObj = typeof incomingOffer === 'string' ? JSON.parse(incomingOffer) : incomingOffer;
+      await peer.applyRemoteDescription(offerObj);
+      const answer = await peer.createAnswer();
+      let s = getSocket();
+      if (!s && userId) s = connectSocket(userId);
+      const payload = {
+        toUserId: pendingFromId || remoteId,
+        to: pendingFromId || remoteId,
+        answer: JSON.stringify(answer),
+        sdp: JSON.stringify(answer),
+        fromUserId: userId,
+        from: userId,
+      };
+      if (s) {
+        if (s.connected) s.emit('call:accepted', payload);
+        else s.once('connect', () => s.emit('call:accepted', payload));
       }
+      setIncomingOffer(null);
+      setCallActive(true);
+      setIsRinging(false);
+      setHasIncoming(false);
     } catch (e) {
       console.error('Accept call failed', e);
     } finally {
       setAccepting(false);
     }
-  }, [incomingOffer, accepting, peer, remoteId, pendingFromId, userId, selfName]);
+  }, [incomingOffer, accepting, peer, remoteId, pendingFromId, userId]);
 
   const endCall = useCallback(() => {
     try { peer.dispose(); } catch (_) { }
