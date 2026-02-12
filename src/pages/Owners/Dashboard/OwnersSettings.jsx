@@ -1,6 +1,8 @@
 // ProfilePanel.jsx
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import VerifyModal from "./Verify";
+import VerificationBadge from "./Badge"
 
 const STORAGE_KEY = "vizit_user_profile";
 
@@ -44,6 +46,7 @@ export default function OnwnerSetting({
     const [saving, setSaving] = useState(false);
     const [imageFile, setImageFile] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [open, setOpen] = useState(false);
 
     const [form, setForm] = useState({
         name: "",
@@ -471,7 +474,23 @@ export default function OnwnerSetting({
                 </div>
 
                 <div className="cd-profile__meta">
-                    <div className="cd-profile__name" style={{ color: "#333" }}>{userhere?.name}</div>
+                    <div className="cd-profile__name" style={{
+                        color: "#333",
+                        display: "flex",
+                        gap: "12px"
+                    }}>{userhere?.name}
+
+                        {!profile.verified ?
+                            <button
+                                className="cd-btn cd-btn--upgrade"
+                                style={{ background: "green" }}
+                                onClick={() => setOpen(!open)}
+                            >
+                                Get Verified
+                            </button> :
+                            <VerificationBadge />
+                        }
+                    </div>
                     <div className="cd-profile__email" style={{ color: "#333" }}>{userhere?.email}</div>
 
                     <div className="cd-profile__plan" style={{ color: "#333" }}>
@@ -820,7 +839,9 @@ export default function OnwnerSetting({
                 </div>
             )}
 
-
+            {open &&
+                <VerifyModal open={open} setOpen={setOpen} email={form?.email} />
+            }
 
         </section>
     );
