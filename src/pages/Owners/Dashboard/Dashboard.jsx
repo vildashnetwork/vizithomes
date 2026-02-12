@@ -305,16 +305,30 @@ function Dashboard() {
 
 
   const [transactions, setTransactions] = useState([]);
+  const [mybalance, setmybalance] = useState([])
+  const [loadme, setloadme] = useState(false)
+  const [showme, setshowme] = useState(
+    localStorage.getItem("showme") === "true"
+  );
+
+  useEffect(() => {
+    localStorage.setItem("showme", showme);
+  }, [showme]);
+
+
 
   useEffect(() => {
     if (!user?.email) return;
 
     const fetchLatestTransaction = async () => {
       try {
+        setloadme(true)
         const res = await axios.get(
           `https://vizit-backend-hubw.onrender.com/api/user/me/${user.email}`
         );
         console.log("res?.data?.user", res?.data?.user)
+
+        setmybalance(res?.data?.user)
         const paymentArray = res?.data?.user?.paymentprscribtion || [];
 
         if (paymentArray.length > 0) {
@@ -331,6 +345,8 @@ function Dashboard() {
       } catch (error) {
         console.error("Error fetching latest transaction:", error);
         setTransactions([]);
+      } finally {
+        setloadme(false)
       }
     };
 
@@ -463,6 +479,68 @@ function Dashboard() {
     decodeUser();
   }, []);
 
+  const [refresh, setrefresh] = useState(false);
+
+  const handleRefresh = async () => {
+    if (refresh) return; // prevent double click
+
+    setrefresh(true);
+
+    let attempts = 0;
+    const maxAttempts = 20; // 20 seconds
+    const intervalTime = 1000;
+
+    const interval = setInterval(async () => {
+      attempts++;
+
+      try {
+        // 1️⃣ Reconcile
+        await axios.get(
+          "https://vizit-backend-hubw.onrender.com/api/reconcile-payments"
+        );
+
+        // 2️⃣ Credit
+        await axios.post(
+          `https://vizit-backend-hubw.onrender.com/api/credit-user/${user?.email}`
+        );
+
+        // 3️⃣ Get updated user
+        const updatedUser = await axios.get(
+          `https://vizit-backend-hubw.onrender.com/api/user/me/${user?.email}`
+        );
+
+        const payments =
+          updatedUser.data?.user?.paymentprscribtion || [];
+
+        const latest = payments.at(-1);
+
+        if (!latest) return;
+
+        if (latest.status === "success") {
+          clearInterval(interval);
+          setrefresh(false);
+          alert("Payment successful ✅ Balance updated.");
+          window.location.reload();
+        }
+
+        if (latest.status === "failed") {
+          clearInterval(interval);
+          setrefresh(false);
+          alert("Payment failed ❌");
+        }
+
+        if (attempts >= maxAttempts) {
+          clearInterval(interval);
+          setrefresh(false);
+          alert("Timeout. Please try again.");
+        }
+
+      } catch (err) {
+        console.log("Polling error:", err.message);
+      }
+
+    }, intervalTime);
+  };
 
   /* ============================
      FETCH & BUILD ACTIVITIES
@@ -987,8 +1065,12 @@ function Dashboard() {
           <div className="dc">
             <div className="dc-top">
               <p>Total Pro Balance</p>
-              <div className="dc-icon-cont">
-                <AttachMoneyIcon className="dc-icon" />
+              <div className="dc-icon-cont"
+                style={{
+                  cursor: "pointer"
+                }}
+                onClick={handleRefresh}>
+                {refresh ? "refreshing.." : <ion-icon name="refresh-outline"></ion-icon>}
               </div>
             </div>
             <div
@@ -997,8 +1079,25 @@ function Dashboard() {
                 fontSize: monthsProfit.toString().length > 9 ? "1.2em" : "2em",
               }}
             >
-              {/* user?.paymentprscribtion[0].amount */}
-              XAF {transactions[0]?.amount || "00"}
+
+              XAF {
+                showme
+                  ? (loadme ? "loading.." : mybalance?.totalBalance)
+                  : "****"
+              }
+
+              <span
+                onClick={() => setshowme(prev => !prev)}
+                style={{ marginLeft: "12px", cursor: "pointer" }}
+              >
+                {showme
+                  ? <ion-icon name="eye-outline"></ion-icon>
+                  : <ion-icon name="eye-off-outline"></ion-icon>
+                }
+              </span>
+
+
+
 
             </div>
             <div className="trend">
@@ -1092,7 +1191,7 @@ function Dashboard() {
             </div>
           </div>
         </div>
-        <OnwnerSetting userhere={name} />
+        <OnwnerSetting userhere={name} mybalance={mybalance} />
 
       </Container>
       <Footer />

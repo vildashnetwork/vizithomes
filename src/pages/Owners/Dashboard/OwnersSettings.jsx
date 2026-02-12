@@ -25,8 +25,12 @@ function saveToStorage(obj) {
 
 /* ---------------- component ---------------- */
 export default function OnwnerSetting({
-    onLogout = () => { },
+    onLogout = () => {
+        localStorage.clear();
+        window.location.reload()
+    },
     onUpgrade = () => { },
+    mybalance
 }) {
 
     const [phoneNumber, setPhoneNumber] = useState("");
@@ -162,48 +166,98 @@ export default function OnwnerSetting({
     const increment = () => setAmount(prev => prev + 500);
     const decrement = () => setAmount(prev => (prev > 500 ? prev - 500 : 500));
     const [paying, setPaying] = useState(false)
-
-
     const handleSubmit1 = async (e) => {
-        // prevent default only if this is triggered from a form
-        if (e && e.preventDefault) e.preventDefault();
+        if (e?.preventDefault) e.preventDefault();
+
         setError("");
 
+        if (!userhere?._id || !userhere?.role) {
+            return setError("User session expired. Please login again.");
+        }
 
-
-        // Validate Cameroon phone number
         if (!/^2376\d{8}$/.test(phoneNumber)) {
             return setError("Enter a valid Cameroon number (2376XXXXXXXX)");
         }
 
-        // Validate minimum amount
-        if (amount < 50) {
+        if (!amount || Number(amount) < 50) {
             return setError("Minimum payment is 50 FCFA");
         }
 
-        // Prevent multiple clicks
         if (paying) return;
 
         try {
             setPaying(true);
 
-            // Make sure we send the correct user ID to backend
             const res = await axios.post(
                 "https://vizit-backend-hubw.onrender.com/api/pay",
                 {
-                    phoneNumber: phoneNumber,
+                    phoneNumber: phoneNumber.trim(),
                     amount: Number(amount),
                     description: "Add tokens to my Vizit site",
-                    id: userhere?._id,      // <-- Use user ID here
-                    role: userhere?.role    // <-- Owner or user role
+                    id: userhere._id,
+                    role: userhere.role
                 }
             );
 
-            if (res.status === 201) {
-                alert("Dial *126# to confirm the payment if you don’t receive the popup");
-            } else {
+            if (res.status !== 201) {
                 setError("Payment could not be processed.");
+                setPaying(false);
+                return;
             }
+
+            alert("Payment initiated. Waiting for confirmation this might take one minute do not refresh your browser...");
+
+            //  START POLLING
+            let attempts = 0;
+            const maxAttempts = 15; // 15 × 4s = 60 seconds
+
+            const interval = setInterval(async () => {
+                attempts++;
+
+                try {
+                    // 1 Reconcile with NKWA
+                    await axios.get(
+                        "https://vizit-backend-hubw.onrender.com/api/reconcile-payments"
+                    );
+
+                    // 2 Credit user (adds only if success + notadded)
+                    await axios.post(
+                        `https://vizit-backend-hubw.onrender.com/api/credit-user/${userhere.email}`
+                    );
+
+                    // 3 Fetch updated user
+                    const updatedUser = await axios.get(
+                        `https://vizit-backend-hubw.onrender.com/api/user/me/${userhere.email}`
+                    );
+
+                    const latestPayments =
+                        updatedUser.data?.user?.paymentprscribtion || [];
+
+                    const latestTransaction = latestPayments.at(-1);
+
+                    if (!latestTransaction) return;
+
+                    if (latestTransaction.status === "success") {
+                        clearInterval(interval);
+                        alert("Payment successful ✅ Balance updated.");
+                        window.location.reload();
+                    }
+
+                    if (latestTransaction.status === "failed") {
+                        clearInterval(interval);
+                        alert("Payment failed ❌");
+                    }
+
+                    if (attempts >= maxAttempts) {
+                        clearInterval(interval);
+                        alert("Payment confirmation timeout. Please refresh.");
+                    }
+
+                } catch (pollError) {
+                    console.log("Polling error:", pollError.message);
+                }
+
+            }, 4000);
 
         } catch (err) {
             console.error("Payment error:", err.response?.data || err.message);
@@ -215,6 +269,9 @@ export default function OnwnerSetting({
             setPaying(false);
         }
     };
+
+
+
 
 
     /* ---------------- ui handlers ---------------- */
@@ -419,14 +476,17 @@ export default function OnwnerSetting({
 
                     <div className="cd-profile__plan" style={{ color: "#333" }}>
                         <span
-                            className={`cd-badge ${profile.plan === "pro"
+                            className={`cd-badge ${mybalance?.totalBalance > 0
                                 ? "cd-badge--pro"
-                                : profile.plan === "business"
-                                    ? "cd-badge--business"
-                                    : ""
+                                :
+                                "cd-badge--business"
+
                                 }`}
+                            style={{
+                                background: mybalance?.totalBalance > 0 ? "gold" : "red",
+                            }}
                         >
-                            {upgradeLabel}
+                            {mybalance?.totalBalance > 0 ? "pro" : "free"}
                         </span>
 
                         {profile.plan !== "pro" && (
@@ -435,7 +495,7 @@ export default function OnwnerSetting({
                                 style={{ background: "green" }}
                                 onClick={() => setShowUpgrade(true)}
                             >
-                                Upgrade to Pro
+                                Top Up Account
                             </button>
                         )}
                     </div>
@@ -675,7 +735,7 @@ export default function OnwnerSetting({
                     <div className="cd-modal__panel cd-modal__panel--small">
                         {/* Modal header */}
                         <div className="cd-modal__head">
-                            <h3>Upgrade To Have Unlimited Access</h3>
+                            <h3 style={{ color: "gold" }}>Upgrade To Have Unlimited Access</h3>
                             <button
                                 className="cd-dismiss"
                                 type="button"
@@ -688,8 +748,10 @@ export default function OnwnerSetting({
                         {/* PAYMENT CARD (NO FORM) */}
                         <div style={styles.card}>
                             <h2 style={styles.title}>
-                                Dial <strong>*126#</strong> to confirm the payment
-                                if you don’t receive the popup
+                                Dial <strong style={{ color: "gold" }}>*126#</strong> to confirm the payment
+                                if you don’t receive the popup please this process will take one minute
+                                <br />
+                                <strong style={{ color: "gold" }}>please be patient</strong>
                             </h2>
 
                             {error && <div style={styles.error}>{error}</div>}
@@ -753,26 +815,7 @@ export default function OnwnerSetting({
                             </button>
                         </div>
 
-                        {/* Modal footer */}
-                        <div className="cd-modal__footer">
-                            <button
-                                className="cd-btn cd-btn--primary"
-                                type="button"
-                                onClick={confirmUpgrade}
-                                disabled={saving}
-                                style={{ background: "green" }}
-                            >
-                                {saving ? "Upgrading..." : "Confirm Upgrade"}
-                            </button>
 
-                            <button
-                                className="cd-btn cd-btn--ghost"
-                                type="button"
-                                onClick={() => setShowUpgrade(false)}
-                            >
-                                Cancel
-                            </button>
-                        </div>
                     </div>
                 </div>
             )}
