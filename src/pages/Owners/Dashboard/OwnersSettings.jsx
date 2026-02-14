@@ -79,6 +79,8 @@ export default function OnwnerSetting({
                     setuser(res.data.res);
                     setProfile(res.data.res);
                     saveToStorage(res.data.res);
+
+                    console.log("profile", res.data.res)
                 }
             } catch (error) {
                 console.error("Failed to decode token:", error);
@@ -165,6 +167,41 @@ export default function OnwnerSetting({
             setSaving(false);
         }
     };
+
+
+
+
+
+
+
+
+
+
+
+    const [me, setme] = useState([])
+    const [loadme, setloadme] = useState(false)
+    useEffect(() => {
+        if (!profile?.email) return;
+        const fetchLatestTransaction = async () => {
+            try {
+                setloadme(true)
+                const res = await axios.get(
+                    `https://vizit-backend-hubw.onrender.com/api/user/me/${profile.email}`
+                );
+                if (res.data) {
+
+                    setme(res.data.user)
+                }
+            } catch (error) {
+                console.error("Error fetching latest transaction:", error);
+
+            } finally {
+                setloadme(false)
+            }
+        };
+        fetchLatestTransaction()
+    }, [profile?.email]);
+
 
     const increment = () => setAmount(prev => prev + 500);
     const decrement = () => setAmount(prev => (prev > 500 ? prev - 500 : 500));
@@ -456,6 +493,9 @@ export default function OnwnerSetting({
     };
 
 
+
+
+
     /* ---------------- render ---------------- */
     return (
         <section id="profile" className="cd-profile" aria-label="Profile panel" style={{
@@ -480,7 +520,7 @@ export default function OnwnerSetting({
                         gap: "12px"
                     }}>{userhere?.name}
 
-                        {!profile.verified ?
+                        {!me.verified ?
                             <button
                                 className="cd-btn cd-btn--upgrade"
                                 style={{ background: "green" }}
@@ -490,6 +530,8 @@ export default function OnwnerSetting({
                             </button> :
                             <VerificationBadge />
                         }
+
+
                     </div>
                     <div className="cd-profile__email" style={{ color: "#333" }}>{userhere?.email}</div>
 
