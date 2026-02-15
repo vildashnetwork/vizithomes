@@ -4,7 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 //material ui
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
-
+import VerificationBadge from "../Owners/Dashboard/Badge"
+import RedVerificationBadge from "./Badge"
 function valuetext(value) {
   return `${value}°C`;
 }
@@ -381,7 +382,9 @@ export function Header({ carryOutSearch, changeRegion, user }) {
     </>
   );
 }
-export function ListingsCard({ image, title, location, rent, id, how, user }) {
+export function ListingsCard({ image, title, location, rent, id, how, user, ownerEmail }) {
+
+
   const [openit, setopen] = useState(false)
   const [checkuser, setcheckuser] = useState(false)
   const splted = location.split(/[0#&\(=*]/);
@@ -395,9 +398,47 @@ export function ListingsCard({ image, title, location, rent, id, how, user }) {
   }, [user])
   const result = splted[0] + "  " + (splted[5] ? "Around  " + splted[5] + " " + splted[6] : "");
 
+
+
+  const [loadme, setloadme] = useState(false)
+
+  const [me, setme] = useState([])
+  useEffect(() => {
+    const fetchLatestTransaction = async () => {
+
+      try {
+        setloadme(true)
+        const res = await axios.get(
+          `https://vizit-backend-hubw.onrender.com/api/user/me/${ownerEmail}`
+        );
+        if (res.data) {
+
+          setme(res.data.user);
+          console.log("me", me)
+        }
+      } catch (error) {
+        console.error("Error fetching latest transaction:", error);
+
+      } finally {
+        setloadme(false)
+      }
+    };
+    fetchLatestTransaction()
+  }, []);
+
   return (
     <div className="listings-card">
       <div className="listing-card-img-container">
+        {me.verified ?
+          <div class="badge-top-right">
+            <VerificationBadge />
+            <p>Vizit Verified</p>
+          </div> :
+          <div class="badge-top-right" style={{ background: "rgba(136, 82, 82, 0.85)" }}>
+            <RedVerificationBadge />
+            <p> Not Vizit Verified</p>
+          </div>
+        }
         <img
           src={image}
           onClick={() => checkuser ? (window.location = `/property/${id}`) : setopen(!openit)}
@@ -660,7 +701,6 @@ function LandingPage() {
 
 
 
-
   return (
     <>
       <Header
@@ -674,7 +714,7 @@ function LandingPage() {
         description="Explore Vizit's top verified listings around Cameroon "
         user={user}
       />
-
+      {/* item.owner.email */}
       <div className="listings-card-container">
         {listingsData.listings.map((item, index) => {
           return (
@@ -682,6 +722,7 @@ function LandingPage() {
               key={index}
               id={item.listingId}
               image={item.image}
+              ownerEmail={item.owner.email}
               title={item.title}
               location={item.location.address}
               rent={item.rent}

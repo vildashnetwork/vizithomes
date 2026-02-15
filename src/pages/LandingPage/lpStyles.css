@@ -422,20 +422,71 @@ a {
 
 }
 
-.listing-card-img-container {
+/* .listing-card-img-container {
      width: 100%;
 
-     height: 60%;
+     height: 400px;
 }
 
 .listing-card-img-container img {
      width: 100%;
      height: 100%;
      object-fit: cover;
-     /* Ensures the image fits nicely */
+    
      display: block;
      border-top-left-radius: 10px;
      border-top-right-radius: 10px;
+} */
+/* Ensure the parent is the reference point */
+.listing-card-img-container {
+     width: 100%;
+     height: 400px;
+     position: relative;
+     /* CRITICAL: Allows absolute positioning inside */
+     overflow: hidden;
+     /* Keeps the border radius clean */
+     border-radius: 10px;
+}
+
+.badge-top-right {
+     position: absolute;
+     top: 15px;
+     /* Distance from top */
+     right: 15px;
+     /* Distance from right */
+     display: flex;
+     align-items: center;
+     gap: 6px;
+
+     /* Styling */
+     background: rgba(255, 255, 255, 0.85);
+     /* Semi-white background */
+     backdrop-filter: blur(5px);
+     /* Modern blur effect */
+     padding: 5px 12px;
+     border-radius: 50px;
+     /* Pill shape */
+     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+     z-index: 10;
+     /* Ensures it stays above the image */
+     pointer-events: none;
+     /* Lets clicks pass through to the image */
+}
+
+.badge-top-right p {
+     margin: 0;
+     font-size: 12px;
+     font-weight: 700;
+     color: #1a1a1a;
+     text-transform: uppercase;
+     letter-spacing: 0.5px;
+}
+
+.listing-card-img-container img {
+     width: 100%;
+     height: 100%;
+     object-fit: cover;
+     display: block;
 }
 
 .listings-description {
