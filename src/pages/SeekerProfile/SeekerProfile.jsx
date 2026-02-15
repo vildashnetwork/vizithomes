@@ -305,7 +305,7 @@ function SeekerProfile() {
 
   return (
     <>
-      <Head />
+      <Head  user = {user}/>
       <SideNav />
       <Container>
         <SectionHeader

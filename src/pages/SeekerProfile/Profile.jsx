@@ -1,4 +1,3 @@
-// ProfilePanel.jsx
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import "./house-search.css";
@@ -29,21 +28,23 @@ function saveToStorage(obj) {
 /* ---------------- component ---------------- */
 export default function ProfilePanel({
     userhere,
-    onLogout = () => { },
+    onLogout = () => { 
+        localStorage.clear()
+        window.location.reload()
+    },
     onUpgrade = () => { },
 }) {
-    const [profile, setProfile] = useState(() =>
-        loadFromStorage(userhere)
-    );
+    // Fixed: Initialize profile as the object, not an array [userhere]
+    const [profile, setProfile] = useState(() => loadFromStorage(userhere));
 
     const [editing, setEditing] = useState(false);
     const [form, setForm] = useState({
-        name: userhere?.name || "",
-        email: userhere?.email || "",
+        name: profile?.name || "",
+        email: profile?.email || "",
     });
 
     const [notifications, setNotifications] = useState(
-        userhere?.Notifications ?? true
+        profile?.Notifications ?? true
     );
 
     const [showUpgrade, setShowUpgrade] = useState(false);
@@ -66,7 +67,7 @@ export default function ProfilePanel({
 
     /* ---------------- backend submit ---------------- */
     const handleSubmit = async (e) => {
-        e.preventDefault();
+        if (e) e.preventDefault();
         if (!userhere?._id) return;
 
         setLoading(true);
@@ -141,6 +142,7 @@ export default function ProfilePanel({
 
     const confirmUpgrade = async () => {
         setSaving(true);
+        // Simulate API call
         await new Promise((r) => setTimeout(r, 450));
 
         const updated = { ...profile, plan: selectedPlan };
@@ -165,7 +167,7 @@ export default function ProfilePanel({
             <header className="cd-profile__head">
                 <div className="cd-profile__avatar">
                     <img
-                        src={profile?.profile}
+                        src={profile?.profile || "https://res.cloudinary.com/dgigs6v72/image/upload/v1700000000/avatar-placeholder.png"}
                         alt={profile?.name}
                         width={70}
                         height={70}
@@ -189,13 +191,13 @@ export default function ProfilePanel({
                             {upgradeLabel}
                         </span>
 
-                        {profile?.plan !== "pro" && (
+                        {(profile?.plan !== "pro" && profile?.plan !== "business") && (
                             <button
                                 className="cd-btn cd-btn--upgrade"
                                 onClick={() => setShowUpgrade(true)}
-                                style={{ background: "green" }}
+                                style={{ background: "green", marginLeft: "10px" }}
                             >
-                                Upgrade to Pro
+                                Upgrade Plan
                             </button>
                         )}
                     </div>
@@ -238,6 +240,7 @@ export default function ProfilePanel({
                 className="cd-profile__form"
                 onSubmit={handleSubmit}
                 aria-hidden={!editing}
+                style={{ display: editing ? "block" : "none" }}
             >
                 <label className="cd-form-row">
                     <span className="cd-form-label">Full name</span>
@@ -259,6 +262,7 @@ export default function ProfilePanel({
                         onChange={(e) =>
                             setForm({ ...form, email: e.target.value })
                         }
+                        disabled
                     />
                 </label>
 
@@ -269,11 +273,11 @@ export default function ProfilePanel({
 
                     <div
                         className="cd-image-upload"
-                        style={{ cursor: "pointer" }}
+                        style={{ cursor: "pointer", marginTop: "10px" }}
                         onClick={() => fileInputRef.current.click()}
                     >
                         <img
-                            style={{ height: "90px", width: "110px" }}
+                            style={{ height: "90px", width: "110px", objectFit: "cover", borderRadius: "8px" }}
                             src={
                                 imageFile
                                     ? URL.createObjectURL(imageFile)
@@ -295,15 +299,15 @@ export default function ProfilePanel({
                         />
                     </div>
                 </label>
-
-                {!editing && (
-                    <div className="cd-profile__notes">
-                        <small>
-                            Tip: Click Edit to change your name and email.
-                        </small>
-                    </div>
-                )}
             </form>
+
+            {!editing && (
+                <div className="cd-profile__notes" style={{ marginTop: "10px" }}>
+                    <small>
+                        Tip: Click Edit to change your name, email, or profile photo.
+                    </small>
+                </div>
+            )}
 
             <div className="cd-profile__settings">
                 <h4 className="cd-profile__section-title">Settings</h4>
@@ -333,7 +337,7 @@ export default function ProfilePanel({
                 <div className="cd-modal" role="dialog" aria-modal="true">
                     <div className="cd-modal__panel cd-modal__panel--small">
                         <div className="cd-modal__head">
-                            <h3>Upgrade to Pro</h3>
+                            <h3>Upgrade Account</h3>
                             <button
                                 className="cd-dismiss"
                                 onClick={() => setShowUpgrade(false)}
