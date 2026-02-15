@@ -1062,6 +1062,8 @@ function Dashboard() {
               </p>
             </div>
           </div>
+
+
           <div className="dc">
             <div className="dc-top">
               <p>Total Pro Balance</p>
@@ -1100,15 +1102,28 @@ function Dashboard() {
 
 
             </div>
+
             <div className="trend">
               <TransactionComparison />
             </div>
+         
+         
+         
+         
+         
           </div>
+       
+       
         </div>
+
+
+
         <div className="chart-activity">
           <div className="chart-container">
             {/* <div className="chart-main"> */}
-            {/* <Bar
+            {/* <
+            
+            Bar
               data={{
                 labels: businessStreams.map((item) => item.label),
                 datasets: [

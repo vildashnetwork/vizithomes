@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import TrendingUpIcon from "@mui/icons-material/TrendingUp";
+import TrendingDownIcon from "@mui/icons-material/TrendingDown";
 import {
   BottomTabs,
   Container,
@@ -158,6 +160,24 @@ function SeekerProfile() {
   const [user, setuser] = useState(null)
   const [loading, setLoading] = useState(true)
 
+
+  // 
+
+  const [transactions, setTransactions] = useState([]);
+  const [mybalance, setmybalance] = useState([])
+  const [loadme, setloadme] = useState(false)
+  const [showme, setshowme] = useState(
+    localStorage.getItem("showme") === "true"
+  );
+
+  useEffect(() => {
+    localStorage.setItem("showme", showme);
+  }, [showme]);
+
+
+  // 
+
+
   const token = localStorage.getItem("token")
 
   const decoding = async () => {
@@ -294,20 +314,205 @@ function SeekerProfile() {
   }
 
 
-  // const deletesaved = async ()=>{
-  //   try {
-  //     const res
-  //   } catch (error) {
-  //     console.error(error);
+   const [refresh, setrefresh] = useState(false);
 
-  //   }
-  // }
+  const handleRefresh = async () => {
+    if (refresh) return; // prevent double click
+
+    setrefresh(true);
+
+    let attempts = 0;
+    const maxAttempts = 20; // 20 seconds
+    const intervalTime = 1000;
+
+    const interval = setInterval(async () => {
+      attempts++;
+
+      try {
+        // 1️⃣ Reconcile
+        await axios.get(
+          "https://vizit-backend-hubw.onrender.com/api/reconcile-payments"
+        );
+
+        // 2️⃣ Credit
+        await axios.post(
+          `https://vizit-backend-hubw.onrender.com/api/credit-user/${user?.email}`
+        );
+
+        // 3️⃣ Get updated user
+        const updatedUser = await axios.get(
+          `https://vizit-backend-hubw.onrender.com/api/user/me/${user?.email}`
+        );
+
+        const payments =
+          updatedUser.data?.user?.paymentprscribtion || [];
+
+        const latest = payments.at(-1);
+
+        if (!latest) return;
+
+        if (latest.status === "success") {
+          clearInterval(interval);
+          setrefresh(false);
+          alert("Payment successful ✅ Balance updated.");
+          window.location.reload();
+        }
+
+        if (latest.status === "failed") {
+          clearInterval(interval);
+          setrefresh(false);
+          alert("Payment failed ❌");
+        }
+
+        if (attempts >= maxAttempts) {
+          clearInterval(interval);
+          setrefresh(false);
+          alert("Timeout. Please try again.");
+        }
+
+      } catch (err) {
+        console.log("Polling error:", err.message);
+      }
+
+    }, intervalTime);
+  };
+
+   const TransactionComparison = () => {
+    const [latest, setLatest] = useState(null);
+    const [previous, setPrevious] = useState(null);
+    const [percentChange, setPercentChange] = useState(null);
+
+    useEffect(() => {
+      const fetchTransactions = async () => {
+        try {
+          const res = await axios.get(
+            `https://vizit-backend-hubw.onrender.com/api/user/me/${user?.email}`
+          );
+
+          const payments = res.data.user.paymentprscribtion || [];
+
+          // Sort by createdAt descending
+          const sorted = payments.sort(
+            (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+          );
+
+          // Latest transaction
+          const latestTx = sorted[0] || null;
+          setLatest(latestTx);
+
+          // Previous transaction (if exists)
+          const prevTx = sorted[1] || null;
+          setPrevious(prevTx);
+
+          // Calculate percent change
+          if (latestTx && prevTx) {
+            const change = ((latestTx.amount - prevTx.amount) / prevTx.amount) * 100;
+            setPercentChange(change.toFixed(0)); // rounded integer
+          }
+        } catch (err) {
+          console.error(err);
+        }
+      };
+
+      fetchTransactions();
+    }, [user?.email]);
+
+   
+
+
+
+
+
+
+
+
+
+
+    if (!latest || percentChange === null) return null;
+
+    return (
+      <p className={percentChange < 0 ? "bad" : "good"}>
+        {percentChange < 0 ? <TrendingDownIcon /> : <TrendingUpIcon />}{" "}
+        <span className="count-value">
+          {percentChange > 0 ? "+" : ""}{percentChange}%
+        </span>{" "}
+        vs last transaction
+      </p>
+    );
+  };
+
+
+
+
+
+
+
+
+
+
+
+
+
+   useEffect(() => {
+  const initializeData = async () => {
+    try {
+      setLoading(true);
+      setloadme(true);
+      
+      if (!token) {
+        setLoading(false);
+        setloadme(false);
+        return;
+      }
+
+      // 1. Decode token to get user basic info
+      const decodeRes = await axios.get(
+        "https://vizit-backend-hubw.onrender.com/api/user/decode/token/user",
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      if (decodeRes.status === 200) {
+        const userData = decodeRes.data.user;
+        setuser(userData);
+
+        // 2. Immediately fetch full profile/balance using the email from decoded token
+        const profileRes = await axios.get(
+          `https://vizit-backend-hubw.onrender.com/api/user/me/${userData.email}`
+        );
+        
+        if (profileRes.status === 200) {
+          setmybalance(profileRes.data.user);
+          
+          // Handle transactions logic here as well
+          const paymentArray = profileRes.data.user?.paymentprscribtion || [];
+          if (paymentArray.length > 0) {
+            const latestTransaction = [...paymentArray].sort(
+              (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+            )[0];
+            setTransactions([latestTransaction]);
+          }
+        }
+      }
+    } catch (error) {
+      console.error("Initialization error:", error);
+    } finally {
+      setLoading(false);
+      setloadme(false);
+    }
+  };
+
+  initializeData();
+  fetchapointment(); // Call your appointments separately
+  savedhouses();     // Call saved houses separately
+}, [token]);
+
 
   return (
     <>
       <Head  user = {user}/>
       <SideNav />
       <Container>
+
         <SectionHeader
           title={"Seeker Profile Dashboard"}
           description={
@@ -315,6 +520,70 @@ function SeekerProfile() {
           }
         />
         <ReelsPage />
+
+
+
+
+{/*  */}
+    <div className="dash-card-container">
+<div className="dc">
+            <div className="dc-top">
+              <p>Total Pro Balance</p>
+              <div className="dc-icon-cont"
+                style={{
+                  cursor: "pointer"
+                }}
+                onClick={handleRefresh}>
+                {refresh ? "refreshing.." : <ion-icon name="refresh-outline"></ion-icon>}
+              </div>
+            </div>
+            <div
+              className="count"
+              style={{
+                fontSize: "2em",
+              }}
+            >
+
+              XAF {
+                showme
+                  ? (loadme ? "loading.." : mybalance?.totalBalance)
+                  : "****"
+              }
+
+              <span
+                onClick={() => setshowme(prev => !prev)}
+                style={{ marginLeft: "12px", cursor: "pointer" }}
+              >
+                {showme
+                  ? <ion-icon name="eye-outline"></ion-icon>
+                  : <ion-icon name="eye-off-outline"></ion-icon>
+                }
+              </span>
+
+
+
+
+            </div>
+
+            <div className="trend">
+              <TransactionComparison />
+            </div>
+         
+         
+         
+         
+         
+          </div>
+
+</div>
+{/*  */}
+
+
+
+
+
+
+
         <div className="skp-flex-row">
           <TabNavigator
             array={currentNavigation}
