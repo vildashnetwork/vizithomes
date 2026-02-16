@@ -421,7 +421,7 @@
 //       fetchTransactions();
 //     }, [user?.email]);
 
-   
+
 
 
 
@@ -462,7 +462,7 @@
 //     try {
 //       setLoading(true);
 //       setloadme(true);
-      
+
 //       if (!token) {
 //         setLoading(false);
 //         setloadme(false);
@@ -483,10 +483,10 @@
 //         const profileRes = await axios.get(
 //           `https://vizit-backend-hubw.onrender.com/api/user/me/${userData.email}`
 //         );
-        
+
 //         if (profileRes.status === 200) {
 //           setmybalance(profileRes.data.user);
-          
+
 //           // Handle transactions logic here as well
 //           const paymentArray = profileRes.data.user?.paymentprscribtion || [];
 //           if (paymentArray.length > 0) {
@@ -572,11 +572,11 @@
 //             <div className="trend">
 //               <TransactionComparison />
 //             </div>
-         
-         
-         
-         
-         
+
+
+
+
+
 //           </div>
 
 // </div>
@@ -874,7 +874,7 @@ function SaveListingCard({ img, title, location, price, id }) {
       if (res.status === 200) {
         toast.success("House removed from saved");
         // Navigation here might be optional if you want to stay on profile
-        window.location.reload(); 
+        window.location.reload();
       }
     } catch (error) {
       toast.error("Failed to remove house");
@@ -1012,6 +1012,7 @@ function SeekerProfile() {
         if (decodeRes.status === 200) {
           const userData = decodeRes.data.user;
           setuser(userData);
+          console.log("user", userData)
 
           // B. Fetch Full Profile & Balance
           const profileRes = await axios.get(`https://vizit-backend-hubw.onrender.com/api/user/me/${userData.email}`);
@@ -1139,7 +1140,7 @@ function SeekerProfile() {
             gridTemplateColumns: "repeat(auto-fit, minmax(270px, 1fr))",
             gap: "30px", margin: "10px 0px", overflowX: currentNavigation[1] ? "scroll" : ""
           }}>
-            
+
             {loadsave && <div className="loading-overlay">Loading Saved Houses...</div>}
 
             {/* TAB 1: SAVED LISTINGS */}
@@ -1176,7 +1177,7 @@ function SeekerProfile() {
                         <td>
                           <h4>{onlyspecific?.title || "Property"}</h4>
                           <span className="desktop-only">
-                            <LocationOnOutlinedIcon fontSize="small" /> 
+                            <LocationOnOutlinedIcon fontSize="small" />
                             {onlyspecific?.location?.address?.replace("Cameroon", "")}
                           </span>
                         </td>
@@ -1196,7 +1197,7 @@ function SeekerProfile() {
 
             {/* TAB 3: REVIEWS (STATIC EXAMPLE) */}
             {currentNavigation[2] && (
-               <p>Your reviews and ratings will appear here.</p>
+              <p>Your reviews and ratings will appear here.</p>
             )}
           </main>
         </div>

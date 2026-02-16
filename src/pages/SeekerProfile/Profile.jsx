@@ -9,133 +9,133 @@ const CLOUDINARY_URL =
 const CLOUDINARY_PRESET = "vizit-image";
 
 
- const styles = {
-        /* full-screen modal wrapper */
-        page: {
-            minHeight: "100vh",
-            width: "100vw",
-            background: "rgba(0,0,0,0.45)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            padding: "16px",
-            fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
-            boxSizing: "border-box"
-        },
+const styles = {
+    /* full-screen modal wrapper */
+    page: {
+        minHeight: "100vh",
+        width: "100vw",
+        background: "rgba(0,0,0,0.45)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "16px",
+        fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
+        boxSizing: "border-box"
+    },
 
-        /* payment card */
-        card: {
-            width: "100%",
-            maxWidth: "420px",
-            minWidth: "280px",
-            background: "#fff",
-            borderRadius: "16px",
-            padding: "clamp(16px, 4vw, 24px)",
-            boxShadow: "0 10px 30px rgba(0,0,0,0.15)",
-            boxSizing: "border-box"
-        },
+    /* payment card */
+    card: {
+        width: "100%",
+        maxWidth: "420px",
+        minWidth: "280px",
+        background: "#fff",
+        borderRadius: "16px",
+        padding: "clamp(16px, 4vw, 24px)",
+        boxShadow: "0 10px 30px rgba(0,0,0,0.15)",
+        boxSizing: "border-box"
+    },
 
-        title: {
-            textAlign: "center",
-            fontSize: "clamp(18px, 4.5vw, 22px)",
-            fontWeight: "600",
-            marginBottom: "18px",
-            color: "#111827"
-        },
+    title: {
+        textAlign: "center",
+        fontSize: "clamp(18px, 4.5vw, 22px)",
+        fontWeight: "600",
+        marginBottom: "18px",
+        color: "#111827"
+    },
 
-        field: {
-            marginBottom: "16px"
-        },
+    field: {
+        marginBottom: "16px"
+    },
 
-        label: {
-            display: "block",
-            fontSize: "clamp(13px, 3.5vw, 14px)",
-            fontWeight: "500",
-            marginBottom: "6px",
-            color: "#374151"
-        },
+    label: {
+        display: "block",
+        fontSize: "clamp(13px, 3.5vw, 14px)",
+        fontWeight: "500",
+        marginBottom: "6px",
+        color: "#374151"
+    },
 
-        input: {
-            width: "100%",
-            padding: "12px",
-            borderRadius: "8px",
-            border: "1px solid #d1d5db",
-            fontSize: "15px",
-            boxSizing: "border-box"
-        },
+    input: {
+        width: "100%",
+        padding: "12px",
+        borderRadius: "8px",
+        border: "1px solid #d1d5db",
+        fontSize: "15px",
+        boxSizing: "border-box"
+    },
 
-        /* amount counter row */
-        counter: {
-            display: "flex",
-            alignItems: "center",
-            gap: "10px",
-            width: "100%"
-        },
+    /* amount counter row */
+    counter: {
+        display: "flex",
+        alignItems: "center",
+        gap: "10px",
+        width: "100%"
+    },
 
-        minus: {
-            minWidth: "40px",
-            height: "40px",
-            borderRadius: "50%",
-            border: "none",
-            background: "#e5e7eb",
-            fontSize: "20px",
-            cursor: "pointer",
-            flexShrink: 0
-        },
+    minus: {
+        minWidth: "40px",
+        height: "40px",
+        borderRadius: "50%",
+        border: "none",
+        background: "#e5e7eb",
+        fontSize: "20px",
+        cursor: "pointer",
+        flexShrink: 0
+    },
 
-        plus: {
-            minWidth: "40px",
-            height: "40px",
-            borderRadius: "50%",
-            border: "none",
-            background: "#0d6e4e",
-            color: "#fff",
-            fontSize: "20px",
-            cursor: "pointer",
-            flexShrink: 0
-        },
+    plus: {
+        minWidth: "40px",
+        height: "40px",
+        borderRadius: "50%",
+        border: "none",
+        background: "#0d6e4e",
+        color: "#fff",
+        fontSize: "20px",
+        cursor: "pointer",
+        flexShrink: 0
+    },
 
-        amountInput: {
-            flex: 1,
-            textAlign: "center",
-            padding: "10px",
-            borderRadius: "8px",
-            border: "1px solid #d1d5db",
-            fontSize: "clamp(15px, 4vw, 16px)",
-            fontWeight: "600",
-            minWidth: "80px"
-        },
+    amountInput: {
+        flex: 1,
+        textAlign: "center",
+        padding: "10px",
+        borderRadius: "8px",
+        border: "1px solid #d1d5db",
+        fontSize: "clamp(15px, 4vw, 16px)",
+        fontWeight: "600",
+        minWidth: "80px"
+    },
 
-        helper: {
-            fontSize: "12px",
-            textAlign: "center",
-            marginTop: "6px",
-            color: "#6b7280"
-        },
+    helper: {
+        fontSize: "12px",
+        textAlign: "center",
+        marginTop: "6px",
+        color: "#6b7280"
+    },
 
-        submit: {
-            width: "100%",
-            padding: "14px",
-            background: "#084d02",
-            color: "#fff",
-            border: "none",
-            borderRadius: "12px",
-            fontSize: "clamp(14px, 4vw, 16px)",
-            fontWeight: "600",
-            cursor: "pointer",
-            marginTop: "10px"
-        },
+    submit: {
+        width: "100%",
+        padding: "14px",
+        background: "#084d02",
+        color: "#fff",
+        border: "none",
+        borderRadius: "12px",
+        fontSize: "clamp(14px, 4vw, 16px)",
+        fontWeight: "600",
+        cursor: "pointer",
+        marginTop: "10px"
+    },
 
-        error: {
-            background: "#fee2e2",
-            color: "#b91c1c",
-            padding: "10px",
-            borderRadius: "8px",
-            marginBottom: "15px",
-            fontSize: "14px",
-            textAlign: "center"
-        }
-    };
+    error: {
+        background: "#fee2e2",
+        color: "#b91c1c",
+        padding: "10px",
+        borderRadius: "8px",
+        marginBottom: "15px",
+        fontSize: "14px",
+        textAlign: "center"
+    }
+};
 /* ---------------- storage helpers ---------------- */
 function loadFromStorage(defaultUser) {
     try {
@@ -156,16 +156,17 @@ function saveToStorage(obj) {
 /* ---------------- component ---------------- */
 export default function ProfilePanel({
     userhere,
-    onLogout = () => { 
+    onLogout = () => {
         localStorage.clear()
         window.location.reload()
     },
     onUpgrade = () => { },
 }) {
 
-        const [error, setError] = useState("");
+    console.log("userhere", userhere)
+    const [error, setError] = useState("");
     // Fixed: Initialize profile as the object, not an array [userhere]
-    const [profile, setProfile] = useState(() => loadFromStorage(userhere));
+    const [profile, setProfile] = useState(userhere);
 
     const [editing, setEditing] = useState(false);
     const [form, setForm] = useState({
@@ -303,11 +304,11 @@ export default function ProfilePanel({
 
 
 
-                //start
-const increment = () => setAmount(prev => prev + 500);
+    //start
+    const increment = () => setAmount(prev => prev + 500);
     const decrement = () => setAmount(prev => (prev > 500 ? prev - 500 : 500));
     const [paying, setPaying] = useState(false)
-    
+
     const [phoneNumber, setPhoneNumber] = useState("");
     const [amount, setAmount] = useState(50);
     const handleSubmit1 = async (e) => {
@@ -351,7 +352,7 @@ const increment = () => setAmount(prev => prev + 500);
 
             alert("Payment initiated. Waiting for confirmation this might take one minute do not refresh your browser...");
 
-     
+
             let attempts = 0;
             const maxAttempts = 15; // 15 × 4s = 60 seconds
 
@@ -415,15 +416,16 @@ const increment = () => setAmount(prev => prev + 500);
     };
 
 
-                //end
+    //end
     /* ---------------- render ---------------- */
     return (
         <section className="cd-profile" aria-label="Profile panel" style={{ marginBottom: "100px" }}>
             <header className="cd-profile__head">
                 <div className="cd-profile__avatar">
+
                     <img
-                        src={profile?.profile || "https://res.cloudinary.com/dgigs6v72/image/upload/v1700000000/avatar-placeholder.png"}
-                        alt={profile?.name}
+                        src={userhere?.profile || "https://res.cloudinary.com/dgigs6v72/image/upload/v1700000000/avatar-placeholder.png"}
+                        alt={userhere?.name}
                         width={70}
                         height={70}
                         className="img-container"
@@ -436,23 +438,23 @@ const increment = () => setAmount(prev => prev + 500);
 
                     <div className="cd-profile__plan">
                         <span
-                            className={`cd-badge ${profile?.plan === "pro"
-                                ? "cd-badge--pro"
-                                : profile?.plan === "business"
-                                    ? "cd-badge--business"
-                                    : ""
+                            className={`cd-badge ${!userhere?.totalBalance > 0
+                                ? "cd-badge--pro" :
+                                "cd-badge--business"
+
                                 }`}
+                            style={{ background: !userhere?.totalBalance > 0 ? "green" : "gold" }}
                         >
-                            {upgradeLabel}
+                            {userhere?.totalBalance > 0 ? "pro" : "free"}
                         </span>
 
-                        {(profile?.plan !== "pro" && profile?.plan !== "business") && (
+                        {(userhere?.totalBalance > 0) && (
                             <button
                                 className="cd-btn cd-btn--upgrade"
                                 onClick={() => setShowUpgrade(true)}
                                 style={{ background: "green", marginLeft: "10px" }}
                             >
-                                  Top Up Account
+                                Top Up Account
                             </button>
                         )}
                     </div>
@@ -588,7 +590,7 @@ const increment = () => setAmount(prev => prev + 500);
                 </div>
             </div>
 
-          {showUpgrade && (
+            {showUpgrade && (
                 <div
                     className="cd-modal"
                     role="dialog"
