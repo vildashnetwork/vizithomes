@@ -117,6 +117,7 @@ const ReelItem = ({ reel, onLike, user, onReelDeleted }) => {
 
     const [usern, setusern] = useState("")
     const [myprofile, setmyprofile] = useState("")
+    const [me, setme] = useState([])
     // get users by thier email
     useEffect(() => {
         if (!reel?.email) return;
@@ -129,6 +130,7 @@ const ReelItem = ({ reel, onLike, user, onReelDeleted }) => {
                 // alert(res.data?.user?.profile)
                 setmyprofile(res.data.user?.profile || "");
                 setusern(res.data?.user?.name || "");
+                setme(res.data?.user)
             } catch (error) {
                 console.error(error);
                 toast.error("Failed to fetch user");
@@ -172,6 +174,7 @@ const ReelItem = ({ reel, onLike, user, onReelDeleted }) => {
                     avatar={myprofile}
                     timestamp={formatTime(reel.createdAt)}
                     reelId={reel.postownerId}
+                    verified={me?.verified}
                 />
 
                 <ReelActions

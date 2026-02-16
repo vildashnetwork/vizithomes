@@ -250,7 +250,9 @@ export default function UserAuthLanding() {
                                 textAlign: "left",
                                 justifyContent: "end",
                                 float: "left", color: "#333", cursor: "pointer"
-                            }}>Reset Password</label>
+                            }}
+                                onClick={() => window.location.href = "/reset-password"}
+                            >Reset Password</label>
                         </div>
 
                         {message.text && (

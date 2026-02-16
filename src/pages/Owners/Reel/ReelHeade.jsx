@@ -52,8 +52,9 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import RedVerificationBadge from "./Badge.jsx";
 
-const ReelHeader = ({ username, caption, avatar, timestamp, reelId }) => {
+const ReelHeader = ({ username, caption, avatar, timestamp, reelId, verified }) => {
     const [user, setUser] = useState(null);
     const [decoding, setDecoding] = useState(false);
     const [chatLoading, setChatLoading] = useState(false);
@@ -142,7 +143,9 @@ const ReelHeader = ({ username, caption, avatar, timestamp, reelId }) => {
             </div>
 
             <div className="raita-user-info">
-                <h3 className="tikka-username">@{username}</h3>
+                <h3 className="tikka-username">@{username}{" "}
+                       {verified && <RedVerificationBadge />}
+                </h3>
                 {caption && <p className="masala-caption">{caption}</p>}
                 {timestamp && <span className="chutney-timestamp">{timestamp}</span>}
             </div>

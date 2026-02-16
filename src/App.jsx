@@ -4,6 +4,8 @@
 import React, { useEffect, useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import axios from "axios";
+import ResetPassword from "./pages/SeekerProfile/Resetpass.jsx";
+
 
 import MainPage from "./MainPage";
 import OwnerLoginLanding from "./pages/Auth/Ownerlogin";
@@ -176,6 +178,8 @@ export default function App() {
         <Route path="/video-call" element={
           <VideoCallPage />
         } />
+
+        <Route path="/reset-password" element={<ResetPassword />} />
 
 
 

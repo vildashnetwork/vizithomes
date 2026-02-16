@@ -262,12 +262,16 @@ export default function OwnerAuthLanding() {
                                     </a>
                                 } */}
                             </div>
-                            <label htmlFor="login-password" className="form-label" style={{
-                                display: "flex",
-                                textAlign: "left",
-                                justifyContent: "end",
-                                float: "left", color: "#333", cursor: "pointer"
-                            }}>Reset Password</label>
+                            <label htmlFor="login-password"
+                                className="form-label" style={{
+                                    display: "flex",
+                                    textAlign: "left",
+                                    justifyContent: "end",
+                                    float: "left", color: "#333", cursor: "pointer"
+
+                                }}
+                                onClick={() => window.location.href = "/reset-password"}
+                            >Reset Password</label>
 
                         </div>
 
