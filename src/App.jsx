@@ -132,7 +132,13 @@ export default function App() {
     if (token) {
       // Save token securely
       localStorage.setItem("token", token);
-      localStorage.setItem("role", role);
+      if (role == "seeker") {
+        localStorage.setItem("role", "user");
+      } else {
+        localStorage.setItem("role", "owner");
+      }
+
+
 
       // Decode token to get email (optional)
       const payload = JSON.parse(atob(token.split(".")[1]));
