@@ -2,7 +2,7 @@
 
 
 import React, { useEffect, useState } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useSearchParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import ResetPassword from "./pages/SeekerProfile/Resetpass.jsx";
 
@@ -122,6 +122,38 @@ export default function App() {
     }
     setRole(newRole);
   };
+
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  useEffect(() => {
+    const token = searchParams.get("token");
+    const role = searchParams.get("role");
+
+    if (token) {
+      // Save token securely
+      localStorage.setItem("token", token);
+      localStorage.setItem("role", role);
+
+      // Decode token to get email (optional)
+      const payload = JSON.parse(atob(token.split(".")[1]));
+      const email = payload.email;
+
+      console.log("Token:", token);
+      console.log("Email:", email);
+      console.log("Role:", role);
+
+      // Redirect based on role
+      if (role === "owner") {
+        navigate("/owner/dashboard");
+      } else {
+        navigate("/seeker/dashboard");
+      }
+    }
+  }, [searchParams, navigate]);
+
+
+
+
 
   if (loading) {
     return (
