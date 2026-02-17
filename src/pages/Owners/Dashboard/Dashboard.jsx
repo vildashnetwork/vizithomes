@@ -446,6 +446,13 @@ function Dashboard() {
   }, [userId]);
 
 
+  useEffect(() => {
+    if (user?.status == "pending") {
+      window.location.href = "/kyc"
+    }
+  }, [user?.status])
+
+
 
   //data
   const [data, setData] = useState([]);
@@ -1106,14 +1113,14 @@ function Dashboard() {
             <div className="trend">
               <TransactionComparison />
             </div>
-         
-         
-         
-         
-         
+
+
+
+
+
           </div>
-       
-       
+
+
         </div>
 
 

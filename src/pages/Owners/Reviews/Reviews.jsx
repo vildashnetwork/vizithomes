@@ -110,6 +110,7 @@ export default function Reviews() {
     };
   }, []);
 
+
   /* ---------------------------
      Load houses -> filter by owner -> flatten reviews
   --------------------------- */
@@ -150,7 +151,11 @@ export default function Reviews() {
   useEffect(() => {
     loadOwnerReviews();
   }, [currentUser, loadOwnerReviews]);
-
+  useEffect(() => {
+    if (currentUser?.status == "pending") {
+      window.location.href = "/kyc"
+    }
+  }, [currentUser?.status])
   /* ---------------------------
      Stats helper
   --------------------------- */
