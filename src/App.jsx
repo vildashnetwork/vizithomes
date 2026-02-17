@@ -218,6 +218,7 @@ export default function App() {
         } />
 
         <Route path="/reset-password" element={<ResetPassword />} />
+
         <Route path="/kyc" element={<KYCForm />} />
 
 
