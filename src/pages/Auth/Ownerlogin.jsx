@@ -102,7 +102,7 @@ export default function OwnerAuthLanding() {
                 companyname: companyname,
                 phone: phone,
                 interest: role,
-                IDno: idno,
+                IDno: "",
                 bio: bio
             }
             const res = await axios.post("https://vizit-backend-hubw.onrender.com/api/owner/register",
@@ -398,10 +398,9 @@ export default function OwnerAuthLanding() {
                         </div>
 
 
-                        <div className="form-row">
+                        {/* <div className="form-row">
                             <label htmlFor="reg-name" className="form-label">ID Card Number</label>
                             <div className="input-wrap1">
-                                {/* <ion-icon name="document-lock-outline"></ion-icon> */}
                                 <input
                                     ref={firstInputRef}
                                     id="reg-name"
@@ -413,7 +412,7 @@ export default function OwnerAuthLanding() {
                                     autoComplete="name"
                                 />
                             </div>
-                        </div>
+                        </div> */}
                         <div className="form-row">
                             <label htmlFor="reg-password" className="form-label">Password</label>
                             <div className="input-wrap1">
