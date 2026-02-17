@@ -6,7 +6,7 @@ import { Routes, Route, Navigate, useSearchParams, useNavigate } from "react-rou
 import axios from "axios";
 import ResetPassword from "./pages/SeekerProfile/Resetpass.jsx";
 
-
+import KYCForm from "./KYCForm.jsx";
 import MainPage from "./MainPage";
 import OwnerLoginLanding from "./pages/Auth/Ownerlogin";
 import UserAuthLanding from "./pages/Auth/Userlogin";
@@ -150,7 +150,7 @@ export default function App() {
 
       // Redirect based on role
       if (role === "owner") {
-        navigate("/");
+        navigate("/kyc");
       } else {
         navigate("/");
       }
@@ -218,6 +218,7 @@ export default function App() {
         } />
 
         <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/kyc" element={<KYCForm />} />
 
 
 
