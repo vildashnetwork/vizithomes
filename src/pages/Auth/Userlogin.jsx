@@ -146,6 +146,9 @@ export default function UserAuthLanding() {
     ];
     const [role, setRole] = useState("");
 
+
+
+
     return (
         <div className="landing">
             <div className="left-background" aria-hidden={false}>
@@ -392,7 +395,8 @@ export default function UserAuthLanding() {
                 )}
                 <br />
 
-                <GoogleLoginButton />
+                <GoogleLoginButton role="seeker" />
+
                 <div className="landing__footer">
                     <p> Vizit.Homes Cameroon</p>
                 </div>

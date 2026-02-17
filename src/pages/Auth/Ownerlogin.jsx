@@ -479,7 +479,7 @@ export default function OwnerAuthLanding() {
                 )}
                 <br />
 
-                <GoogleLoginButton />
+                <GoogleLoginButton role={"owner"} />
                 <div className="landing__footer">
                     <p> Vizit.Homes Cameroon</p>
                 </div>

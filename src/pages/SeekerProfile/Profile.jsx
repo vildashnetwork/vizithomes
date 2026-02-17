@@ -163,20 +163,26 @@ export default function ProfilePanel({
     onUpgrade = () => { },
 }) {
 
-    console.log("userhere", userhere)
+    // console.log("userhere", userhere)
     const [error, setError] = useState("");
     // Fixed: Initialize profile as the object, not an array [userhere]
-    const [profile, setProfile] = useState(userhere);
+    const [profile, setProfile] = useState(null);
+    const [notifications, setNotifications] = useState(false);
+
+    useEffect(() => {
+        const setme = () => {
+            setProfile(userhere)
+            setNotifications(userhere?.Notifications)
+        }
+        setme();
+    }, [userhere])
 
     const [editing, setEditing] = useState(false);
     const [form, setForm] = useState({
-        name: profile?.name || "",
-        email: profile?.email || "",
+        name: userhere?.name || "",
+        email: userhere?.email || "",
     });
 
-    const [notifications, setNotifications] = useState(
-        profile?.Notifications ?? true
-    );
 
     const [showUpgrade, setShowUpgrade] = useState(false);
     const [selectedPlan, setSelectedPlan] = useState("pro");
