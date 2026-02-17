@@ -144,9 +144,9 @@ export default function App() {
 
       // Redirect based on role
       if (role === "owner") {
-        navigate("/owner/dashboard");
+        navigate("/");
       } else {
-        navigate("/seeker/dashboard");
+        navigate("/");
       }
     }
   }, [searchParams, navigate]);
