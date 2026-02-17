@@ -148,7 +148,6 @@ export default function KYCForm() {
 
     return (
         <div style={styles.wrapper}>
-            {alert(userEmail)}
             <div style={styles.card}>
                 <h2 style={styles.title}>Business Verification (KYC)</h2>
 
