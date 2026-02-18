@@ -7,6 +7,8 @@ import {
   Head,
   SideNav,
 } from "../LandingPage/LandingPage";
+import VerificationBadge from "../Owners/Dashboard/Badge"
+import RedVerificationBadge from "./Badge"
 import { data } from "../../data/listingdata";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import dayjs from "dayjs";
@@ -354,11 +356,50 @@ function PropertyDetails() {
   };
 
 
+
+
+  //start
+
+  const [usern, setusern] = useState("")
+  const [myprofile, setmyprofile] = useState("")
+  const [me, setme] = useState([])
+  // get users by thier email
+  useEffect(() => {
+    if (!house?.owner?.email) return;
+    let isMounted = true;
+
+    const fetchusers = async () => {
+      try {
+
+
+        const res = await axios.get(
+          `https://vizit-backend-hubw.onrender.com/api/user/me/${house?.owner?.email}`
+        );
+
+        if (!isMounted) return;
+
+        setusern(res.data?.user?.name || "");
+        setme(res.data?.user)
+        setmyprofile(res.data?.user?.profile || "");
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchusers();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [house?.owner?.email]);
+
+
+  //stop
   return (
     <div>
 
 
-      <Head />
+      <Head user = {user} />
       <SideNav />
       <Container>
         <div className="details-main" style={{ display: "flex" }}>
@@ -406,7 +447,18 @@ function PropertyDetails() {
             <h2 className="details-sub-heading">{house.title}</h2>
             <h4 className="details-location">
               <LocationOnIcon />
-              {house.location.address}
+              {
+                (() => {
+                  const parts = house.location.address?.split(/[0#&\(=*]/) || [];
+
+                  const firstPart = parts[0]?.replace(/^0+/, ""); // remove leading zeros if any
+                  const aroundPart = parts[5] ? "  Around " + parts[5] : "";
+                  const extraPart = parts[6] ? " " + parts[6] : "";
+
+                  return firstPart + aroundPart + extraPart;
+                })()
+              }
+
             </h4>
             <br />
             <div className=" card-container">
@@ -448,21 +500,88 @@ function PropertyDetails() {
                 <div class="fb-header"></div>
 
                 <div class="user-section">
-                  <div class="fb-avatar">
-                    <img src={house?.owner?.profile} alt="" />
-                    {/* <i class="fas fa-user"></i> */}
-                  </div>
+                          <div className="fb-avatar">
+  <img 
+    src={myprofile} 
+    alt="Profile" 
+    style={{
+      width: '100%',
+      height: '100%',
+      objectFit: 'cover', // This is the secret ingredient
+      display: 'block'
+    }} 
+  />
+</div>
 
                   <div class="fb-user-info">
-                    <div class="fb-user-name">
-                      {house?.owner?.name}
+                    <div 
+  className="fb-user-name" 
+  style={{ 
+    display: 'flex', 
+    flexDirection: 'column', 
+    alignItems: 'flex-start', // Strictly aligns items to the left
+    justifyContent: 'flex-start', 
+    textAlign: 'left', // Ensures text inside p tags aligns left
+    gap: '6px',
+    width: '100%' // Ensures the container takes up space to allow alignment
+  }}
+>
+  {/* User Name */}
+  <span style={{ 
+    fontWeight: '700', 
+    fontSize: '1.2rem', 
+    color: '#1a1a1aff',
+    margin: 0 
+  }}>
+    {usern}
+  </span>
 
-                      <span class="verified-text">
-                        <div class="fb-verified">
-                          <i class="fas fa-check"></i>
-                        </div>
-                      </span>
-                    </div>
+  {me.verified ? (
+    /* VERIFIED STATE */
+    <div style={{ 
+      display: 'flex', 
+      alignItems: 'center', 
+      gap: '6px', 
+      backgroundColor: '#0db39715', 
+      padding: '4px 12px', 
+      borderRadius: '30px', 
+      border: '1px solid #0db39730'
+    }}>
+      <VerificationBadge style={{ fontSize: '14px' }} />
+      <p style={{ 
+        margin: 0, 
+        fontSize: '11px', 
+        fontWeight: '800', 
+        color: '#026151ff', 
+        textTransform: 'uppercase'
+      }}>
+        Vizit Verified
+      </p>
+    </div>
+  ) : (
+    /* NOT VERIFIED STATE */
+    <div style={{ 
+      display: 'flex', 
+      alignItems: 'center', 
+      gap: '6px', 
+      backgroundColor: 'rgba(136, 82, 82, 0.1)', 
+      padding: '4px 12px', 
+      borderRadius: '30px', 
+      border: '1px solid rgba(136, 82, 82, 0.3)'
+    }}>
+      <RedVerificationBadge style={{ fontSize: '14px' }} />
+      <p style={{ 
+        margin: 0, 
+        fontSize: '11px', 
+        fontWeight: '600', 
+        color: 'rgb(136, 82, 82)'
+      }}>
+        Not Vizit Verified
+      </p>
+    </div>
+  )}
+</div>
+
                     <div class="fb-user-subtitle">{house?.owner?.email}</div>
                   </div>
                 </div>
@@ -491,7 +610,7 @@ function PropertyDetails() {
                   </a>
                 </div>
 
-                <button class="fb-button primary" onClick={() => setopen(true)}>Book a Visit</button>
+                <button class="fb-button primary" onClick={() => setopen(true)}>Book This Vizit</button>
               </div>
 
 
@@ -680,21 +799,105 @@ function PropertyDetails() {
               <div class="fb-header"></div>
 
               <div class="user-section">
-                <div class="fb-avatar">
-                  <img src={house?.owner?.profile} alt="" />
-                  {/* <i class="fas fa-user"></i> */}
-                </div>
+                <div className="fb-avatar">
+  <img 
+    src={myprofile} 
+    alt="Profile" 
+    style={{
+      width: '100%',
+      height: '100%',
+      objectFit: 'cover', // This is the secret ingredient
+      display: 'block'
+    }} 
+  />
+</div>
 
                 <div class="fb-user-info">
-                  <div class="fb-user-name">
-                    {house?.owner?.name}
+                  {/* <div class="fb-user-name">
+                    {usern}
 
-                    <span class="verified-text">
-                      <div class="fb-verified">
-                        <i class="fas fa-check"></i>
-                      </div>
-                    </span>
-                  </div>
+                   {me.verified ? (
+          <div className="">
+            <VerificationBadge />
+            <p>Vizit Verified</p>
+          </div>
+        ) : (
+          <div className="" style={{ background: "rgba(136, 82, 82, 0.85)" }}>
+            <RedVerificationBadge />
+            <p> Not Vizit Verified</p>
+          </div>
+        )}
+                  </div> */}
+
+<div 
+  className="fb-user-name" 
+  style={{ 
+    display: 'flex', 
+    flexDirection: 'column', 
+    alignItems: 'flex-start', // Strictly aligns items to the left
+    justifyContent: 'flex-start', 
+    textAlign: 'left', // Ensures text inside p tags aligns left
+    gap: '6px',
+    width: '100%' // Ensures the container takes up space to allow alignment
+  }}
+>
+  {/* User Name */}
+  <span style={{ 
+    fontWeight: '700', 
+    fontSize: '1.2rem', 
+    color: '#1a1a1aff',
+    margin: 0 
+  }}>
+    {usern}
+  </span>
+
+  {me.verified ? (
+    /* VERIFIED STATE */
+    <div style={{ 
+      display: 'flex', 
+      alignItems: 'center', 
+      gap: '6px', 
+      backgroundColor: '#0db39715', 
+      padding: '4px 12px', 
+      borderRadius: '30px', 
+      border: '1px solid #0db39730'
+    }}>
+      <VerificationBadge style={{ fontSize: '14px' }} />
+      <p style={{ 
+        margin: 0, 
+        fontSize: '11px', 
+        fontWeight: '800', 
+        color: '#026151ff', 
+        textTransform: 'uppercase'
+      }}>
+        Vizit Verified
+      </p>
+    </div>
+  ) : (
+    /* NOT VERIFIED STATE */
+    <div style={{ 
+      display: 'flex', 
+      alignItems: 'center', 
+      gap: '6px', 
+      backgroundColor: 'rgba(136, 82, 82, 0.1)', 
+      padding: '4px 12px', 
+      borderRadius: '30px', 
+      border: '1px solid rgba(136, 82, 82, 0.3)'
+    }}>
+      <RedVerificationBadge style={{ fontSize: '14px' }} />
+      <p style={{ 
+        margin: 0, 
+        fontSize: '11px', 
+        fontWeight: '600', 
+        color: 'rgb(136, 82, 82)'
+      }}>
+        Not Vizit Verified
+      </p>
+    </div>
+  )}
+</div>
+
+                  
                   <div class="fb-user-subtitle">{house?.owner?.email}</div>
                 </div>
               </div>
@@ -722,7 +925,7 @@ function PropertyDetails() {
                 </a>
               </div>
 
-              <button class="fb-button primary" onClick={() => setopen(true)}>Book a Visit</button>
+              <button class="fb-button primary" onClick={() => setopen(true)}>Book This Vizit</button>
             </div>
 
 
@@ -788,6 +991,7 @@ function PropertyDetails() {
 
 
         </div>
+
         <button className="start-discussion-with-owner-button" onClick={() => setopen(true)} style={{}}>
           <div class="fb-menu-icon shine">
             <i class="fas fa-comment-dots"></i>

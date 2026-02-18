@@ -66,7 +66,7 @@
 }
 
 .mozart-review-section h4::after {
-    content: '♪';
+    /* content: '♪'; */
     position: absolute;
     right: 0;
     bottom: -12px;
@@ -129,6 +129,7 @@
     align-items: center;
     justify-content: space-between;
     margin-bottom: 50px;
+
     position: relative;
     overflow: hidden;
     z-index: 1;
@@ -781,12 +782,15 @@
 ======================= */
 @media (max-width: 1024px) {
     .mozart-review-section {
-        padding: 40px;
-        /* margin: 40px 20px; */
-        margin-top: 40px !important;
-        /* margin: 0 !important; */
-        /* padding: 0 !important; */
+        padding: 0;
+        margin-top: auto 40px !important;
+        overflow-x: hidden !important;
         width: 100% !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        flex-direction: column !important;
+
     }
 
     .mozart-review-section h4 {
@@ -804,10 +808,17 @@
 
 @media (max-width: 768px) {
     .mozart-review-section {
-        padding: 32px 24px;
+        padding: 0px !important;
         margin: 30px 16px;
         border-radius: 20px;
         width: 100% !important;
+        overflow-x: hidden !important;
+
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        flex-direction: column !important;
+
     }
 
     .mozart-review-section h4 {
@@ -900,6 +911,15 @@
 @media (max-width: 480px) {
     .mozart-review-section h4 {
         font-size: 1.8rem;
+    }
+
+    .mozart-review-section {
+        overflow-x: hidden !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        flex-direction: column !important;
+
     }
 
     .vivaldi-review-form {

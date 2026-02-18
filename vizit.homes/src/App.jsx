@@ -2,9 +2,11 @@
 
 
 import React, { useEffect, useState } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useSearchParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import ResetPassword from "./pages/SeekerProfile/Resetpass.jsx";
 
+import KYCForm from "./KYCForm.jsx";
 import MainPage from "./MainPage";
 import OwnerLoginLanding from "./pages/Auth/Ownerlogin";
 import UserAuthLanding from "./pages/Auth/Userlogin";
@@ -28,6 +30,7 @@ import UserReelsApp from "./pages/Reel/App"
 import CreateHouseForm from "./pages/Owners/Listings/CreateProperty";
 import VideoCallPage from "./pages/Chats/components/ChatMain/Videocall/Videocall"
 import { Toaster } from "react-hot-toast";
+
 /* ================= PROTECTED ROUTES ================= */
 
 function ProtectedOwner({ children }) {
@@ -120,6 +123,44 @@ export default function App() {
     setRole(newRole);
   };
 
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  useEffect(() => {
+    const token = searchParams.get("token");
+    const role = searchParams.get("role");
+
+    if (token) {
+      // Save token securely
+      localStorage.setItem("token", token);
+      if (role == "seeker") {
+        localStorage.setItem("role", "user");
+      } else {
+        localStorage.setItem("role", "owner");
+      }
+
+
+
+      // Decode token to get email (optional)
+      const payload = JSON.parse(atob(token.split(".")[1]));
+      const email = payload.email;
+
+      console.log("Token:", token);
+      console.log("Email:", email);
+      console.log("Role:", role);
+
+      // Redirect based on role
+      if (role === "owner") {
+        navigate("/kyc");
+      } else {
+        navigate("/");
+      }
+    }
+  }, [searchParams, navigate]);
+
+
+
+
+
   if (loading) {
     return (
       <div
@@ -172,6 +213,13 @@ export default function App() {
         <Route path="/property/:propertyId" element={
           <PropertyDetails />
         } />
+        <Route path="/video-call" element={
+          <VideoCallPage />
+        } />
+
+        <Route path="/reset-password" element={<ResetPassword />} />
+
+        <Route path="/kyc" element={<KYCForm />} />
 
 
 

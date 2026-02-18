@@ -52,8 +52,9 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import RedVerificationBadge from "./Badge.jsx";
 
-const ReelHeader = ({ username, caption, avatar, timestamp, reelId }) => {
+const ReelHeader = ({ username, caption, avatar, timestamp, reelId, verified }) => {
     const [user, setUser] = useState(null);
     const [decoding, setDecoding] = useState(false);
     const [chatLoading, setChatLoading] = useState(false);
@@ -102,20 +103,22 @@ const ReelHeader = ({ username, caption, avatar, timestamp, reelId }) => {
             setChatLoading(true);
 
             // 1️⃣ Add target user to logged-in user's chat list
-            await axios.put(
+            const res1 = await axios.put(
                 `https://vizit-backend-hubw.onrender.com/api/owner/add/chat/idnow/${loggedInUserId}`,
                 { chatId: targetUserId },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
 
             // 2️⃣ Add logged-in user to target user's chat list
-            await axios.put(
+            const res12 = await axios.put(
                 `https://vizit-backend-hubw.onrender.com/api/owner/add/chat/id/${targetUserId}`,
                 { chatId: loggedInUserId },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
-
-            toast.success("Chat Added successfully");
+            if (res1.status == 200 && res12.status == 200) {
+                toast.success("Chat Added successfully, get to your messages to text ths person");
+                // navigate(`/user/chat?auth=${targetUserId}`);
+            }
             // window.location.href = `/user/chat?auth=${targetUserId}`
             // navigate(`/user/chat?auth=${targetUserId}`);
         } catch (error) {
@@ -140,7 +143,9 @@ const ReelHeader = ({ username, caption, avatar, timestamp, reelId }) => {
             </div>
 
             <div className="raita-user-info">
-                <h3 className="tikka-username">@{username}</h3>
+                <h3 className="tikka-username">@{username}{" "}
+                       {verified && <RedVerificationBadge />}
+                </h3>
                 {caption && <p className="masala-caption">{caption}</p>}
                 {timestamp && <span className="chutney-timestamp">{timestamp}</span>}
             </div>

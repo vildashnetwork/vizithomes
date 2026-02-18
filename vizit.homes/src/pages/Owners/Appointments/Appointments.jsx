@@ -134,7 +134,11 @@ function Appointments() {
     })
   }, [])
 
-
+  useEffect(() => {
+    if (user?.status == "pending") {
+      window.location.href = "/kyc"
+    }
+  }, [user?.status])
   const [filter, setFilter] = useState([
     { title: "All Requests", active: true },
     { title: "Upcoming", active: false },
@@ -230,6 +234,7 @@ function Appointments() {
     }
   }
   function AppointmentCard({ appointment }) {
+
     const [showRescheduleModal, setShowRescheduleModal] = useState(false);
     const [showDetailsModal, setDetailsModal] = useState(false);
     const [loadconfirm, setloadconfirm] = useState(false)
@@ -262,6 +267,41 @@ function Appointments() {
       }
     }
 
+    const [usern, setusern] = useState("")
+    const [myprofile, setmyprofile] = useState("")
+    // get users by thier email
+    useEffect(() => {
+      if (!appointment?.userID) return;
+      let isMounted = true;
+
+      const fetchusers = async () => {
+        try {
+          const getuser = await axios.get(
+            `https://vizit-backend-hubw.onrender.com/api/user/onlyme/${appointment?.userID}`
+          );
+          // alert(getuser?.data?.getuser?.email)
+          if (!getuser?.data?.getuser?.email) return;
+
+          const res = await axios.get(
+            `https://vizit-backend-hubw.onrender.com/api/user/me/${getuser?.data?.getuser?.email}`
+          );
+
+          if (!isMounted) return;
+
+          setusern(res.data?.user?.name || "");
+          setmyprofile(res.data?.user?.profile || "");
+        } catch (error) {
+          console.error(error);
+        }
+      };
+
+      fetchusers();
+
+      return () => {
+        isMounted = false;
+      };
+    }, [appointment?.userID]);
+
     async function handleConfirmAppointment(id) {
       try {
         setloadconfirm(true)
@@ -291,7 +331,6 @@ function Appointments() {
     function handleAppointmentReschedule() {
       setShowRescheduleModal(!showRescheduleModal);
     }
-
 
 
     if (loadfetch) {
@@ -342,6 +381,7 @@ function Appointments() {
     }
 
 
+
     return (
       <div className="apt-card">
 
@@ -351,7 +391,7 @@ function Appointments() {
         <div className="apt-card-left">
           <div className="apt-card-img-cont">
             {/* //!! Change this to insert the id of the building */}
-            <img src={data[0].image} alt="image :)" />
+            <img src={myprofile} alt="image :)" />
 
             {appointment.status == "void" && (
               <>
@@ -382,7 +422,7 @@ function Appointments() {
             <h3 className="apt-house-title">{appointment.property}</h3>
             <h5 className="apt-seeker">
               {" "}
-              <PersonIcon /> {appointment.contact}
+              <PersonIcon /> {usern}
             </h5>
             <p className="apt-date-time">
               <EventNoteIcon />

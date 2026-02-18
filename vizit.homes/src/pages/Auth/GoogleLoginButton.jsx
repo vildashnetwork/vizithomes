@@ -1,9 +1,14 @@
 import React from "react";
 import "./style/osner.css";
 
-const GoogleLoginButton = ({ onClick }) => {
+const GoogleLoginButton = ({ role }) => {
+
+    const handleGoogleLogin = () => {
+        // Direct link to your backend endpoint
+        window.location.href = `https://vizit-backend-hubw.onrender.com/auth/google?role=${role}`;
+    };
     return (
-        <button className="google-btn" onClick={onClick}>
+        <button className="google-btn" onClick={handleGoogleLogin}>
             <div className="google-btn__icon">
                 <img
                     src="https://www.svgrepo.com/show/355037/google.svg"

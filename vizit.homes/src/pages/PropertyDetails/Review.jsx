@@ -8,6 +8,8 @@ import ReplyIcon from "@mui/icons-material/Reply";
 import SendIcon from "@mui/icons-material/Send";
 import defaultProfile from "../../assets/images/default-profile.png";
 import "./ReviewRatingSection.css";
+import toast from "react-hot-toast"
+
 
 /* =======================
    STAR COMPONENTS
@@ -176,6 +178,21 @@ export default function ReviewSection({
         return () => { mounted = false; };
     }, [propertyId, currentUser]);
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     /* ---------- submit (create or update) ---------- */
     async function submitReview() {
         if (!rating || !comment.trim()) {
@@ -340,6 +357,12 @@ export default function ReviewSection({
         );
     }
 
+
+
+
+
+
+
     return (
         <div className="mozart-review-section">
             <h4>Ratings & Reviews</h4>
@@ -412,25 +435,28 @@ export default function ReviewSection({
                         <p>Be the first to share your experience!</p>
                     </div>
                 ) : (
-                    reviews.map((entry) => (
-                        <ReviewCard
-                            key={entry._id || entry.id || JSON.stringify(entry)}
-                            entry={entry}
-                            currentUser={currentUser}
-                            isAdmin={isAdmin}
-                            isrightuser={isrightuser}
-                            checkadminid={checkadminid}
-                            allowalladmins={allowalladmins}
-                            onEdit={() => {
-                                // prepare form for editing the selected review
-                                setEditingId(entry._id || entry.id);
-                                setRating(Number(entry.rating) || 0);
-                                setComment(entry.comment || "");
-                            }}
-                            onDelete={() => deleteReview(entry._id || entry.id)}
-                            onReply={submitReply}
-                        />
-                    ))
+                    reviews
+                        .slice() // prevents mutating original array (important in React)
+                        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+                        .map((entry) => (
+                            <ReviewCard
+                                key={entry._id || entry.id || JSON.stringify(entry)}
+                                entry={entry}
+                                currentUser={currentUser}
+                                isAdmin={isAdmin}
+                                isrightuser={isrightuser}
+                                checkadminid={checkadminid}
+                                allowalladmins={allowalladmins}
+                                onEdit={() => {
+                                    // prepare form for editing the selected review
+                                    setEditingId(entry._id || entry.id);
+                                    setRating(Number(entry.rating) || 0);
+                                    setComment(entry.comment || "");
+                                }}
+                                onDelete={() => deleteReview(entry._id || entry.id)}
+                                onReply={submitReply}
+                            />
+                        ))
                 )}
             </div>
         </div>
@@ -444,6 +470,52 @@ export default function ReviewSection({
 function ReviewCard({ entry, isAdmin, currentUser, onEdit, onDelete, onReply, isrightuser, checkadminid, allowalladmins }) {
     const [replyText, setReplyText] = useState("");
     const [showReplyBox, setShowReplyBox] = useState(false);
+
+
+
+
+
+
+
+    //start
+
+    const [usern, setusern] = useState("")
+    const [myprofile, setmyprofile] = useState("")
+    // get users by thier email
+    useEffect(() => {
+        if (!entry?.id) return;
+        let isMounted = true;
+
+        const fetchusers = async () => {
+            try {
+                const getuser = await axios.get(
+                    `https://vizit-backend-hubw.onrender.com/api/user/onlyme/${entry.id}`
+                );
+                // alert(getuser?.data?.getuser?.email)
+                if (!getuser?.data?.getuser?.email) return;
+
+                const res = await axios.get(
+                    `https://vizit-backend-hubw.onrender.com/api/user/me/${getuser?.data?.getuser?.email}`
+                );
+
+                if (!isMounted) return;
+
+                setusern(res.data?.user?.name || "");
+                setmyprofile(res.data?.user?.profile || "");
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        fetchusers();
+
+        return () => {
+            isMounted = false;
+        };
+    }, [entry?.id]);
+
+
+    //stop
 
     // entry.id = author user id (per your schema), entry._id = review id (mongoose)
     const entryAuthorId = entry.id ? entry.id.toString() : (entry.userId ? entry.userId.toString() : null);
@@ -470,13 +542,14 @@ function ReviewCard({ entry, isAdmin, currentUser, onEdit, onDelete, onReply, is
             {/* Header */}
             <div className="bach-review-header">
                 <img
-                    src={entry.profileImg || defaultProfile}
+                    src={myprofile}
                     alt={entry.name || "Reviewer"}
                     className="profile-image"
                 />
+
                 <div className="header-content">
                     <div className="name-date">
-                        <h5>{entry.name || "Anonymous"}</h5>
+                        <h5>{usern}</h5>
                         <span className="review-date">{formattedDate}</span>
                     </div>
                     <StarDisplay value={Number(entry.rating) || 0} />

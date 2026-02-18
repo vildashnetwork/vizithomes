@@ -138,6 +138,7 @@ const ReelUpload = ({ onPost, onClose, userhere }) => {
     const [loading, setloading] = useState(false)
     const handlePost = async () => {
         if (!videoFile) return;
+        // alert(userhere?.email)
 
         const formData = new FormData();
         formData.append('file', videoFile);
@@ -154,6 +155,7 @@ const ReelUpload = ({ onPost, onClose, userhere }) => {
             const videoUrl = uploadRes.data.secure_url;
             console.log({
                 username: userhere?.name,
+                email: userhere?.email,
                 postownerId: userhere?._id,
                 caption,
                 videoUrl,
@@ -163,6 +165,7 @@ const ReelUpload = ({ onPost, onClose, userhere }) => {
             const reelRes = await axios.post(`${API_BASE}/post/reel`, {
                 username: userhere?.name,
                 postownerId: userhere?._id,
+                  email: userhere?.email,
                 caption,
                 videoUrl,
                 avatar: userhere?.profile

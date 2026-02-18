@@ -5,6 +5,7 @@ import ReelComments from './ReelComments';
 import { formatTime } from './formatTime';
 import axios from 'axios';
 import { getSocket } from "../../realTimeConnect/socketconnect";
+import toast from 'react-hot-toast';
 
 
 const ReelItem = ({ reel, onLike, user, onReelDeleted, reels }) => {
@@ -80,7 +81,7 @@ const ReelItem = ({ reel, onLike, user, onReelDeleted, reels }) => {
             socket.off("reel:commentAdded", handleCommentAdded);
             socket.off("reel:deleted", handleSocketReelDeleted);
         };
-    }, [socket, reel._id, user?._id, onReelDeleted]);
+    }, [socket, reel._id, user?._id, onReelDeleted])
 
     /* =========================
        UI HANDLERS
@@ -110,6 +111,34 @@ const ReelItem = ({ reel, onLike, user, onReelDeleted, reels }) => {
     const handleCommentClick = () => {
         setShowComments(prev => !prev);
     };
+
+    const [usern, setusern] = useState("")
+    const [me, setme] = useState([])
+    const [myprofile, setmyprofile] = useState("")
+    // get users by thier email
+    useEffect(() => {
+        if (!reel?.email) return;
+
+        const fetchusers = async () => {
+            try {
+                const res = await axios.get(
+                    `https://vizit-backend-hubw.onrender.com/api/user/me/${reel.email}`
+                );
+                // alert(res.data?.user?.profile)
+                setmyprofile(res.data.user?.profile || "");
+                setusern(res.data?.user?.name || "");
+                setme(res.data?.user)
+            } catch (error) {
+                console.error(error);
+                toast.error("Failed to fetch user");
+            }
+        };
+
+        fetchusers();
+    }, [reel?.email]);
+
+
+
 
     /* =========================
        RENDER
@@ -141,11 +170,12 @@ const ReelItem = ({ reel, onLike, user, onReelDeleted, reels }) => {
 
             <div className="paneer-content">
                 <ReelHeader
-                    username={reel.username}
+                    username={usern.replace("@", "")}
                     caption={reel.caption}
-                    avatar={reel.avatar}
+                    avatar={myprofile}
                     timestamp={formatTime(reel.createdAt)}
                     reelId={reel.postownerId}
+                    verified={me?.verified}
                 />
 
                 <ReelActions

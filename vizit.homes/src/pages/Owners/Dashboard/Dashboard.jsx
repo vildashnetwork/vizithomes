@@ -18,107 +18,7 @@ import PaymentsIcon from "@mui/icons-material/Payments";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import OnwnerSetting from "./OwnersSettings";
-//!! TODO :: MAKE THIS FUNCTIONS FETCH ACTUAL DATA FROM BACKEND
-const businessStreams = [
-  {
-    label: "Jan",
-    value: 42,
-  },
-  {
-    label: "Feb",
-    value: 37,
-  },
-  {
-    label: "Mac",
-    value: 20,
-  },
-  {
-    label: "Apr",
-    value: 24,
-  },
-  {
-    label: "May",
-    value: 37,
-  },
-  {
-    label: "Jun",
-    value: 25,
-  },
-  {
-    label: "Jul",
-    value: 42,
-  },
-  {
-    label: "Aug",
-    value: 39,
-  },
-  {
-    label: "Sep",
-    value: 29,
-  },
-  {
-    label: "Oct",
-    value: 45,
-  },
-  {
-    label: "Nov",
-    value: 38,
-  },
-  {
-    label: "Dec",
-    value: 21,
-  },
-];
-const businessStreams1 = [
-  {
-    label: "Digital Products",
-    value: 42,
-  },
-  {
-    label: "Client Services",
-    value: 37,
-  },
-  {
-    label: "Partnerships",
-    value: 20,
-  },
-  {
-    label: "Digital Products",
-    value: 29,
-  },
-  {
-    label: "Client Services",
-    value: 27,
-  },
-  {
-    label: "Partnerships",
-    value: 17,
-  },
-  {
-    label: "Digital Products",
-    value: 48,
-  },
-  {
-    label: "Client Services",
-    value: 39,
-  },
-  {
-    label: "Partnerships",
-    value: 29,
-  },
-  {
-    label: "Digital Products",
-    value: 40,
-  },
-  {
-    label: "Client Services",
-    value: 15,
-  },
-  {
-    label: "Partnerships",
-    value: 3,
-  },
-];
+
 const sampleActivities = [
   {
     color: "blue",
@@ -341,7 +241,7 @@ function Dashboard() {
         )
         if (data.status === 200) {
           setuser(data.data.res)
-          console.log(loading ? "loading..." : user);
+          console.log(loading ? "loading..." : data.data.res);
 
         }
       } catch (error) {
@@ -397,6 +297,63 @@ function Dashboard() {
 
     fetchHouses();
   }, [user?._id]);
+
+
+
+
+
+
+
+  const [transactions, setTransactions] = useState([]);
+  const [mybalance, setmybalance] = useState([])
+  const [loadme, setloadme] = useState(false)
+  const [showme, setshowme] = useState(
+    localStorage.getItem("showme") === "true"
+  );
+
+  useEffect(() => {
+    localStorage.setItem("showme", showme);
+  }, [showme]);
+
+
+
+  useEffect(() => {
+    if (!user?.email) return;
+
+    const fetchLatestTransaction = async () => {
+      try {
+        setloadme(true)
+        const res = await axios.get(
+          `https://vizit-backend-hubw.onrender.com/api/user/me/${user.email}`
+        );
+        console.log("res?.data?.user", res?.data?.user)
+
+        setmybalance(res?.data?.user)
+        const paymentArray = res?.data?.user?.paymentprscribtion || [];
+
+        if (paymentArray.length > 0) {
+
+          const latestTransaction = paymentArray
+            .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))[0];
+
+          setTransactions([latestTransaction]);
+          console.log("Latest transaction:", latestTransaction);
+        } else {
+          setTransactions([]);
+          console.log("No transactions found.");
+        }
+      } catch (error) {
+        console.error("Error fetching latest transaction:", error);
+        setTransactions([]);
+      } finally {
+        setloadme(false)
+      }
+    };
+
+    fetchLatestTransaction();
+  }, [user?.email]);
+
+
 
 
 
@@ -489,6 +446,13 @@ function Dashboard() {
   }, [userId]);
 
 
+  useEffect(() => {
+    if (user?.status == "pending") {
+      window.location.href = "/kyc"
+    }
+  }, [user?.status])
+
+
 
   //data
   const [data, setData] = useState([]);
@@ -522,6 +486,68 @@ function Dashboard() {
     decodeUser();
   }, []);
 
+  const [refresh, setrefresh] = useState(false);
+
+  const handleRefresh = async () => {
+    if (refresh) return; // prevent double click
+
+    setrefresh(true);
+
+    let attempts = 0;
+    const maxAttempts = 20; // 20 seconds
+    const intervalTime = 1000;
+
+    const interval = setInterval(async () => {
+      attempts++;
+
+      try {
+        // 1️⃣ Reconcile
+        await axios.get(
+          "https://vizit-backend-hubw.onrender.com/api/reconcile-payments"
+        );
+
+        // 2️⃣ Credit
+        await axios.post(
+          `https://vizit-backend-hubw.onrender.com/api/credit-user/${user?.email}`
+        );
+
+        // 3️⃣ Get updated user
+        const updatedUser = await axios.get(
+          `https://vizit-backend-hubw.onrender.com/api/user/me/${user?.email}`
+        );
+
+        const payments =
+          updatedUser.data?.user?.paymentprscribtion || [];
+
+        const latest = payments.at(-1);
+
+        if (!latest) return;
+
+        if (latest.status === "success") {
+          clearInterval(interval);
+          setrefresh(false);
+          alert("Payment successful ✅ Balance updated.");
+          window.location.reload();
+        }
+
+        if (latest.status === "failed") {
+          clearInterval(interval);
+          setrefresh(false);
+          alert("Payment failed ❌");
+        }
+
+        if (attempts >= maxAttempts) {
+          clearInterval(interval);
+          setrefresh(false);
+          alert("Timeout. Please try again.");
+        }
+
+      } catch (err) {
+        console.log("Polling error:", err.message);
+      }
+
+    }, intervalTime);
+  };
 
   /* ============================
      FETCH & BUILD ACTIVITIES
@@ -862,6 +888,58 @@ function Dashboard() {
 
 
 
+  const TransactionComparison = () => {
+    const [latest, setLatest] = useState(null);
+    const [previous, setPrevious] = useState(null);
+    const [percentChange, setPercentChange] = useState(null);
+
+    useEffect(() => {
+      const fetchTransactions = async () => {
+        try {
+          const res = await axios.get(
+            `https://vizit-backend-hubw.onrender.com/api/user/me/${user?.email}`
+          );
+
+          const payments = res.data.user.paymentprscribtion || [];
+
+          // Sort by createdAt descending
+          const sorted = payments.sort(
+            (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+          );
+
+          // Latest transaction
+          const latestTx = sorted[0] || null;
+          setLatest(latestTx);
+
+          // Previous transaction (if exists)
+          const prevTx = sorted[1] || null;
+          setPrevious(prevTx);
+
+          // Calculate percent change
+          if (latestTx && prevTx) {
+            const change = ((latestTx.amount - prevTx.amount) / prevTx.amount) * 100;
+            setPercentChange(change.toFixed(0)); // rounded integer
+          }
+        } catch (err) {
+          console.error(err);
+        }
+      };
+
+      fetchTransactions();
+    }, [user?.email]);
+
+    if (!latest || percentChange === null) return null;
+
+    return (
+      <p className={percentChange < 0 ? "bad" : "good"}>
+        {percentChange < 0 ? <TrendingDownIcon /> : <TrendingUpIcon />}{" "}
+        <span className="count-value">
+          {percentChange > 0 ? "+" : ""}{percentChange}%
+        </span>{" "}
+        vs last transaction
+      </p>
+    );
+  };
 
 
 
@@ -893,6 +971,9 @@ function Dashboard() {
   console.log(data);
   console.log("Length", monthsProfit.toString().length);
 
+
+
+
   return (
     <div>
       <Header />
@@ -922,12 +1003,12 @@ function Dashboard() {
                 <RealEstateAgentIcon className="dc-icon" />
               </div>
             </div>
-            <div className="count">{activeListings}</div>
+            <div className="count">{activeListings || 0}</div>
             <div className="trend">
               <p className="good">
                 <TrendingUpIcon /> <span className="count-value"
                   style={{ color: !listingsdate < 1 ? "green" : "red" }}>
-                  +{listingsdate}</span> this month
+                  +{listingsdate || 0}</span> this month
               </p>
             </div>
           </div>
@@ -988,11 +1069,17 @@ function Dashboard() {
               </p>
             </div>
           </div>
+
+
           <div className="dc">
             <div className="dc-top">
               <p>Total Pro Balance</p>
-              <div className="dc-icon-cont">
-                <AttachMoneyIcon className="dc-icon" />
+              <div className="dc-icon-cont"
+                style={{
+                  cursor: "pointer"
+                }}
+                onClick={handleRefresh}>
+                {refresh ? "refreshing.." : <ion-icon name="refresh-outline"></ion-icon>}
               </div>
             </div>
             <div
@@ -1001,20 +1088,49 @@ function Dashboard() {
                 fontSize: monthsProfit.toString().length > 9 ? "1.2em" : "2em",
               }}
             >
-              XFA {"0.00"}
+
+              XAF {
+                showme
+                  ? (loadme ? "loading.." : mybalance?.totalBalance)
+                  : "****"
+              }
+
+              <span
+                onClick={() => setshowme(prev => !prev)}
+                style={{ marginLeft: "12px", cursor: "pointer" }}
+              >
+                {showme
+                  ? <ion-icon name="eye-outline"></ion-icon>
+                  : <ion-icon name="eye-off-outline"></ion-icon>
+                }
+              </span>
+
+
+
+
             </div>
+
             <div className="trend">
-              <p className="bad">
-                <TrendingDownIcon /> <span className="count-value"> -12% </span>{" "}
-                vs last month
-              </p>
+              <TransactionComparison />
             </div>
+
+
+
+
+
           </div>
+
+
         </div>
+
+
+
         <div className="chart-activity">
           <div className="chart-container">
             {/* <div className="chart-main"> */}
-            {/* <Bar
+            {/* <
+            
+            Bar
               data={{
                 labels: businessStreams.map((item) => item.label),
                 datasets: [
@@ -1097,7 +1213,7 @@ function Dashboard() {
             </div>
           </div>
         </div>
-        <OnwnerSetting userhere={name} />
+        <OnwnerSetting userhere={name} mybalance={mybalance} />
 
       </Container>
       <Footer />
