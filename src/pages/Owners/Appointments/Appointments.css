@@ -1,0 +1,246 @@
+button {
+    cursor: pointer;
+}
+
+.appointments {
+    padding: 20px;
+
+    button {
+        padding: 10px 15px;
+        border-radius: 20px;
+        border: none;
+        outline: none;
+        color: white;
+        cursor: pointer;
+    }
+
+    .filters {
+        display: flex;
+        gap: 10px;
+        padding: 20px 0;
+        flex-wrap: wrap;
+
+        .filter-btn {
+            background-color: rgba(219, 168, 2, 0.945);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+
+            &:hover {
+                background-color: lightgreen;
+                transition: all linear 1s;
+            }
+        }
+
+        .active {
+            /* background-color: rgb(2, 85, 34); */
+            animation: smothcolor linear 10s infinite;
+        }
+
+
+    }
+
+    .apt-card-container {
+        padding: 0px;
+        display: flex;
+        flex-direction: column;
+        /* justify-content: center; */
+        /* align-items: center; */
+        gap: 20px;
+
+        background-color: rgb(255, 255, 255);
+
+        .apt-card {
+            display: flex;
+            box-shadow: 0 0 4px 1px black;
+            padding: 10px 20px;
+            gap: 20px;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 15px;
+            flex-wrap: wrap;
+
+            .batch {
+                display: flex;
+                font-size: small;
+                gap: 4px;
+                padding: 5px;
+                border-radius: 20px;
+                backdrop-filter: blur(3px);
+                border: solid rgb(255, 255, 255);
+                align-items: center;
+
+                & * {
+                    font-size: small;
+                }
+
+                &.confirmed {
+                    background-color: rgb(0, 128, 75);
+                }
+
+                &.cancelled {
+                    background-color: rgb(128, 0, 0);
+                }
+
+                &.void {
+                    background-color: rgb(128, 98, 0);
+                }
+            }
+
+            .apt-card-left,
+            .apt-controls {
+                display: flex;
+                gap: 10px;
+                align-items: center;
+            }
+
+
+
+            .apt-card-img-cont {
+                /* padding-inline: 10px; */
+                position: relative;
+
+                .batch {
+                    position: absolute;
+                    bottom: 2px;
+                    right: 4px;
+                    font-weight: 600;
+                }
+
+
+                img {
+                    width: 100px;
+                    height: 100px;
+                    object-fit: cover;
+                    border-radius: 50%;
+                }
+            }
+
+            .apt-details {
+                display: flex;
+                flex-direction: column;
+                gap: 7px;
+
+                & * {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                }
+
+                h3 {
+                    text-shadow: 0 0 3px rgb(44, 44, 44);
+
+                }
+
+                h5 {
+                    color: #444;
+                    font-size: 17px;
+                    font-weight: 700;
+
+                }
+
+
+                .apt-date-time {
+                    color: green;
+                    text-shadow: 0 0 2px lime;
+                    font-weight: 700;
+                }
+
+            }
+
+            .apt-controls {
+                .cancelled {
+                    font-style: italic;
+                    color: #555;
+                    text-shadow: 0 0 2px rgb(85, 105, 85);
+                }
+
+                & * {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                }
+            }
+
+            button {
+
+                /* color: red; */
+                &.confirm-btn {
+                    animation: smothcolor linear 10s infinite;
+                }
+
+                &.reschedule-btn {
+                    /* background-color: ; */
+                    color: rgb(153, 119, 5);
+                    box-shadow: 0 0 2px 1px rgb(153, 119, 5);
+                }
+
+                &.view-details {
+                    background-color: lightgreen;
+                    color: #444;
+
+                }
+            }
+        }
+
+
+    }
+
+    .btn-load-cont {
+        display: flex;
+        justify-content: center;
+        padding: 10px;
+
+
+        .btn-load {
+            /* width: 300px; */
+            /* display: block; */
+            color: black;
+            font-weight: 600;
+            background-color: transparent;
+            display: flex;
+            align-items: center;
+
+            &:hover {
+                color: lightgreen;
+            }
+
+
+        }
+    }
+
+    .nothing-found {
+        height: 100px;
+    }
+}
+
+@media screen and (max-width:470px) {
+    .appointments {
+        .apt-card-container {
+
+            .apt-card {
+
+                .apt-card-img-cont {
+                    .batch {
+                    bottom: -2px;
+                    right: -10px;
+                    font-weight: 400;
+                }
+                    img {
+                        width: 80px;
+                        height: 80px;
+                    }
+                }
+                .apt-details{
+                 .apt-date-time {
+                    font-weight: 600;
+                    font-size: 14px;
+                }
+                }
+                
+
+            }
+        }
+    }
+
+}
