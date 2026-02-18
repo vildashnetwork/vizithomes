@@ -77,8 +77,6 @@ export default function OnwnerSetting({
 
                 if (res.status === 200) {
                     setuser(res.data.res);
-                    setProfile(res.data.res);
-                    saveToStorage(res.data.res);
 
                     console.log("profile", res.data.res)
                 }
@@ -101,26 +99,26 @@ export default function OnwnerSetting({
 
     /* ---------------- sync form ---------------- */
     useEffect(() => {
-        if (!profile) return;
+        if (!userhere) return;
 
         setForm({
-            name: profile.name || "",
-            email: profile.email || "",
-            location: profile.location || "",
-            companyname: profile.companyname || "",
-            bio: profile.bio || "",
-            phone: profile.phone || "",
-            IDno: profile.IDno || "",
-            paymentmethod: profile.paymentmethod || "",
+            name: userhere.name || "",
+            email: userhere.email || "",
+            location: userhere.location || "",
+            companyname: userhere.companyname || "",
+            bio: userhere.bio || "",
+            phone: userhere.phone || "",
+            IDno: userhere.IDno || "",
+            paymentmethod: userhere.paymentmethod || "",
         });
 
-        setNotifications(profile.Notifications ?? true);
-        setPrivacy(profile.enabletwofactor ?? false);
-    }, [profile]);
+        setNotifications(userhere.Notifications ?? true);
+        setPrivacy(userhere.enabletwofactor ?? false);
+    }, [userhere]);
 
     /* ---------------- cloudinary ---------------- */
     const uploadImageToCloudinary = async () => {
-        if (!imageFile) return profile?.profile;
+        if (!imageFile) return userhere?.profile;
 
         const formData = new FormData();
         formData.append("file", imageFile);
@@ -186,7 +184,7 @@ export default function OnwnerSetting({
             try {
                 setloadme(true)
                 const res = await axios.get(
-                    `https://vizit-backend-hubw.onrender.com/api/user/me/${profile.email}`
+                    `https://vizit-backend-hubw.onrender.com/api/user/me/${userhere.email}`
                 );
                 if (res.data) {
 
@@ -321,14 +319,14 @@ export default function OnwnerSetting({
         setEditing(false);
         setImageFile(null);
         setForm({
-            name: profile?.name || "",
-            email: profile?.email || "",
-            location: profile?.location || "",
-            companyname: profile?.companyname || "",
-            bio: profile?.bio || "",
-            phone: profile?.phone || "",
-            IDno: profile?.IDno || "",
-            paymentmethod: profile?.paymentmethod || "",
+            name: userhere?.name || "",
+            email: userhere?.email || "",
+            location: userhere?.location || "",
+            companyname: userhere?.companyname || "",
+            bio: userhere?.bio || "",
+            phone: userhere?.phone || "",
+            IDno: userhere?.IDno || "",
+            paymentmethod: userhere?.paymentmethod || "",
         });
     };
 
