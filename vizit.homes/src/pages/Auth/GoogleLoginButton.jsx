@@ -5,7 +5,7 @@ const GoogleLoginButton = ({ role }) => {
 
     const handleGoogleLogin = () => {
         // Direct link to your backend endpoint
-        window.location.href = `https://vizit-backend-hubw.onrender.com/auth/google?role=${role}`;
+        window.location.href = `https://auth.vizit.homes/auth/google?role=${role}`;
     };
     return (
         <button className="google-btn" onClick={handleGoogleLogin}>
