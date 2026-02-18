@@ -454,15 +454,17 @@ export default function ProfilePanel({
                             {userhere?.totalBalance > 0 ? "pro" : "free"}
                         </span>
 
-                        {(userhere?.totalBalance > 0) && (
-                            <button
-                                className="cd-btn cd-btn--upgrade"
-                                onClick={() => setShowUpgrade(true)}
-                                style={{ background: "green", marginLeft: "10px" }}
-                            >
-                                Top Up Account
-                            </button>
-                        )}
+
+                        <button
+                            className="cd-btn cd-btn--upgrade"
+                            onClick={() => setShowUpgrade(true)}
+                            style={{ background: "green", marginLeft: "10px" }}
+                        >
+                            Top Up Account
+                        </button>
+
+
+
                     </div>
                 </div>
 
