@@ -1018,6 +1018,7 @@ function SeekerProfile() {
           const profileRes = await axios.get(`https://vizit-backend-hubw.onrender.com/api/user/me/${userData.email}`);
           if (profileRes.status === 200) {
             setmybalance(profileRes.data.user);
+
           }
 
           // C. Trigger dependent data fetches
