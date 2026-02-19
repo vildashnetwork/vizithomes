@@ -333,9 +333,9 @@ export default function App() {
         <Route 
   path="/dashboard" 
   element={
-    <ProtectedDashboard user={user}>
+    <ProtectedOwner user={user}>
       <Dashboard />
-    </ProtectedDashboard>
+    </ProtectedOwner>
   } 
 />
 
