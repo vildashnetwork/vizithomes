@@ -29,6 +29,7 @@ import UserChatApp from "./pages/Chats/App"
 import UserReelsApp from "./pages/Reel/App"
 import CreateHouseForm from "./pages/Owners/Listings/CreateProperty";
 import VideoCallPage from "./pages/Chats/components/ChatMain/Videocall/Videocall"
+import AccountBlocked from "./Suspend.jsx";
 import { Toaster } from "react-hot-toast";
 
 /* ================= PROTECTED ROUTES ================= */
@@ -92,6 +93,11 @@ export default function App() {
               : response.data?.user?._id;
 
           connectSocket(userId);
+
+
+          if (user?.accountstatus == "suspended" || user?.accountstatus == "deactivated") {
+            navigate("/banned")
+          }
 
         }
       } catch (err) {
@@ -222,6 +228,9 @@ export default function App() {
         <Route path="/kyc" element={<KYCForm />} />
 
         <Route path="/login-failed" element={<RoleConflictPage />} />
+        <Route path="/banned" element={<AccountBlocked />} />
+
+
 
 
 
