@@ -28,22 +28,31 @@ function UserChatApp({ setActiveTab }) {
        DECODE TOKEN / SET USER
     ======================= */
     const decodeToken = useCallback(async () => {
-        try {
-            const token = localStorage.getItem("token");
-            if (!token) return;
+    try {
+        const token = localStorage.getItem("token");
+        if (!token) return;
 
-            const res = await axios.get(
-                "https://vizit-backend-hubw.onrender.com/api/owner/decode/token/owner",
-                { headers: { Authorization: `Bearer ${token}` } }
-            );
+        const res = await axios.get(
+            "https://vizit-backend-hubw.onrender.com/api/owner/decode/token/owner",
+            { headers: { Authorization: `Bearer ${token}` } }
+        );
 
-            if (res.status === 200) {
-                setUser(res.data.res);
+        // console.log("Full Backend Response:", res.data); // <--- Add this!
+
+        if (res.status === 200) {
+            // Check if the ID exists in res.data.res or just res.data
+            const userData = res.data.res || res.data; 
+            setUser(userData);
+            
+            // Critical: Ensure userId is in localStorage for other parts of the app
+            if (userData._id) {
+                localStorage.setItem('userId', userData._id);
             }
-        } catch (error) {
-            console.error("Token decode failed:", error);
         }
-    }, []);
+    } catch (error) {
+        console.error("Token decode failed:", error);
+    }
+}, []);
 
 
 
@@ -55,27 +64,56 @@ function UserChatApp({ setActiveTab }) {
     /* =======================
        FETCH CHAT USERS
     ======================= */
-    const fetchUsers = useCallback(async (userId) => {
-        try {
-            setLoadingChats(true);
-            const res = await axios.get(
-                `https://vizit-backend-hubw.onrender.com/api/messages/users/${userId}`
-            );
+    // const fetchUsers = useCallback(async (userId) => {
+    //     try {
+    //         setLoadingChats(true);
+    //         const res = await axios.get(
+    //             `https://vizit-backend-hubw.onrender.com/api/messages/users/${userId}`
+    //         );
 
-            if (res.status === 200) {
-                const { filteredUsers, filteredOwners } = res.data;
-                setFilteredUsers(filteredUsers);
-                setFilteredOwners(filteredOwners);
-                setChats([...filteredOwners, ...filteredUsers]);
-                localStorage.setItem('userId', userId);
-            }
-        } catch (error) {
-            console.error("Failed to fetch users:", error);
-        } finally {
-            setLoadingChats(false);
+    //         if (res.status === 200) {
+    //             const { filteredUsers, filteredOwners } = res.data;
+    //             setFilteredUsers(filteredUsers);
+    //             setFilteredOwners(filteredOwners);
+    //             setChats([...filteredOwners, ...filteredUsers]);
+    //             localStorage.setItem('userId', userId);
+    //             console.log("chats", chats);
+                
+    //         }
+    //     } catch (error) {
+    //         console.error("Failed to fetch users:", error);
+    //     } finally {
+    //         setLoadingChats(false);
+    //     }
+    // }, []);
+const fetchUsers = useCallback(async (userId) => {
+    if (!userId) return;
+    try {
+        setLoadingChats(true);
+        const res = await axios.get(
+            `https://vizit-backend-hubw.onrender.com/api/messages/users/${userId}`
+        );
+
+        if (res.status === 200) {
+            const { filteredUsers, filteredOwners } = res.data;
+            const allFetchedChats = [...filteredOwners, ...filteredUsers];
+            
+            // Update all related states
+            setFilteredUsers(filteredUsers);
+            setFilteredOwners(filteredOwners);
+            setChats(allFetchedChats); // Update this state
+            
+            // Save to localStorage
+            localStorage.setItem('userId', userId);
+            
+            // console.log("Successfully fetched chats:", allFetchedChats);
         }
-    }, []);
-
+    } catch (error) {
+        console.error("Failed to fetch users:", error);
+    } finally {
+        setLoadingChats(false);
+    }
+}, []); // Remove chats from dependency to prevent infinite loops
 
 
 

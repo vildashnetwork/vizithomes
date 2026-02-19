@@ -43,7 +43,7 @@ function ChatSidebar({
 
             {/* Search input */}
             <ChatSearch value={searchQuery} onChange={setSearchQuery} />
-
+{/* {console.log("filteredChats", filteredChats)} */}
             {/* Chat list or skeleton loader */}
             {loading ? (
                 <ChatSidebarSkeleton count={5} />
