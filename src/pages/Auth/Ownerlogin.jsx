@@ -18,7 +18,7 @@ export default function OwnerAuthLanding() {
     // login fields
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [idno, setidno] = useState("")
+    const [idno, setidno] = useState("kjopkk")
     // register fields
     const [fullName, setFullName] = useState("");
     const [phone, setPhone] = useState("");
@@ -99,12 +99,14 @@ export default function OwnerAuthLanding() {
                 email: regEmail,
                 location: location,
                 password: regPassword,
-                companyname: companyname,
+                // companyname: companyname,
                 phone: phone,
                 interest: role,
-                IDno: "",
+                IDno: idno,
                 bio: bio
             }
+            // name, email, password, location,
+            // companyname, bio, phone, interest, IDno, profile
             const res = await axios.post("https://vizit-backend-hubw.onrender.com/api/owner/register",
 
                 playload
@@ -304,10 +306,9 @@ export default function OwnerAuthLanding() {
                             </div>
                         </div>
 
-                        <div className="form-row">
+                        {/* <div className="form-row">
                             <label htmlFor="reg-name" className="form-label">Company's Name</label>
                             <div className="input-wrap1">
-                                {/* <ion-icon name="person-outline" class="input-icon1" /> */}
                                 <input
                                     ref={firstInputRef}
                                     id="reg-name"
@@ -319,7 +320,9 @@ export default function OwnerAuthLanding() {
                                     autoComplete="name"
                                 />
                             </div>
-                        </div>
+                        </div> */}
+
+
                         <div className="form-row">
                             <label htmlFor="reg-name" className="form-label">Company's BIO</label>
                             <div className="input-wrap1">
