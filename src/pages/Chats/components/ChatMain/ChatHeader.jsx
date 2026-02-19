@@ -68,7 +68,9 @@ function ChatHeader({ typingUsers, chat, isMobileView, onBack, onlineUsers }) {
                             ) :
                             (
                                 <div className="typing-indicator">
-                                    {chat?.name || "User"} is typing...
+                                    {/* {chat?.name || "User"} */}
+                                     {/* is  */}
+                                     typing...
                                 </div>
                             )
 
