@@ -314,8 +314,67 @@ function PropertyDetails() {
 
   //add user chat ids
   const [loadadd, setloadadd] = useState(false)
-  const adduserchat = async (chatId) => {
-    if (!chatId) return;
+  // const adduserchat = async (chatId) => {
+  //   if (!chatId) return;
+
+  //   const userId = localStorage.getItem("userId");
+  //   if (!userId) {
+  //     toast.error("User not authenticated");
+  //     return;
+  //   }
+
+  //   try {
+  //     setloadadd(true);
+
+  //     // 1️⃣ Add chat to logged-in user
+  //     const resUser = await axios.put(
+  //       `https://vizit-backend-hubw.onrender.com/api/user/add/chat/id/${userId}`,
+  //       { chatId }
+  //     );
+
+  //     // 2️⃣ Add chat to owner / second user
+  //     const resOwner = await axios.put(
+  //       `https://vizit-backend-hubw.onrender.com/api/owner/add/chat/id/${chatId}`,
+  //       { chatId: userId }
+  //     );
+
+  //     // 3️⃣ Success handling
+  //     if (resUser.status === 200 && resOwner.status === 200) {
+  //       toast.success("Chat opened successfully");
+  //       navigate(`/user/chat?auth=${chatId}`);
+  //     }
+
+  //   } catch (error) {
+  //     console.error("Add chat error:", error);
+
+  //     toast.error(
+  //       error?.response?.data?.message || "Failed to open chat"
+  //     );
+  //   } finally {
+  //     setloadadd(false);
+  //   }
+  // };
+
+
+
+
+  //start
+
+
+
+
+
+
+
+
+
+
+  // Add recipientId to the arguments
+  const adduserchat = async (chatId, recipientId) => {
+    if (!chatId || !recipientId) {
+      console.error("Missing IDs:", { chatId, recipientId });
+      return;
+    }
 
     const userId = localStorage.getItem("userId");
     if (!userId) {
@@ -326,16 +385,18 @@ function PropertyDetails() {
     try {
       setloadadd(true);
 
-      // 1️⃣ Add chat to logged-in user
+      // 1️⃣ Add chat to YOUR list (Logged-in User)
+      // URL uses YOUR ID, Body contains the CHAT ID
       const resUser = await axios.put(
         `https://vizit-backend-hubw.onrender.com/api/user/add/chat/id/${userId}`,
         { chatId }
       );
 
-      // 2️⃣ Add chat to owner / second user
+      // 2️⃣ Add chat to the OWNER'S list
+      // URL uses OWNER'S ID, Body contains the CHAT ID
       const resOwner = await axios.put(
-        `https://vizit-backend-hubw.onrender.com/api/owner/add/chat/id/${chatId}`,
-        { chatId: userId }
+        `https://vizit-backend-hubw.onrender.com/api/owner/add/chat/id/${recipientId}`,
+        { chatId }
       );
 
       // 3️⃣ Success handling
@@ -345,8 +406,7 @@ function PropertyDetails() {
       }
 
     } catch (error) {
-      console.error("Add chat error:", error);
-
+      console.error("Add chat error details:", error.response?.data);
       toast.error(
         error?.response?.data?.message || "Failed to open chat"
       );
@@ -354,12 +414,6 @@ function PropertyDetails() {
       setloadadd(false);
     }
   };
-
-
-
-
-  //start
-
   const [usern, setusern] = useState("")
   const [myprofile, setmyprofile] = useState("")
   const [me, setme] = useState([])
@@ -399,7 +453,7 @@ function PropertyDetails() {
     <div>
 
 
-      <Head user = {user} />
+      <Head user={user} />
       <SideNav />
       <Container>
         <div className="details-main" style={{ display: "flex" }}>
@@ -500,87 +554,87 @@ function PropertyDetails() {
                 <div class="fb-header"></div>
 
                 <div class="user-section">
-                          <div className="fb-avatar">
-  <img 
-    src={myprofile} 
-    alt="Profile" 
-    style={{
-      width: '100%',
-      height: '100%',
-      objectFit: 'cover', // This is the secret ingredient
-      display: 'block'
-    }} 
-  />
-</div>
+                  <div className="fb-avatar">
+                    <img
+                      src={myprofile}
+                      alt="Profile"
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover', // This is the secret ingredient
+                        display: 'block'
+                      }}
+                    />
+                  </div>
 
                   <div class="fb-user-info">
-                    <div 
-  className="fb-user-name" 
-  style={{ 
-    display: 'flex', 
-    flexDirection: 'column', 
-    alignItems: 'flex-start', // Strictly aligns items to the left
-    justifyContent: 'flex-start', 
-    textAlign: 'left', // Ensures text inside p tags aligns left
-    gap: '6px',
-    width: '100%' // Ensures the container takes up space to allow alignment
-  }}
->
-  {/* User Name */}
-  <span style={{ 
-    fontWeight: '700', 
-    fontSize: '1.2rem', 
-    color: '#1a1a1aff',
-    margin: 0 
-  }}>
-    {usern}
-  </span>
+                    <div
+                      className="fb-user-name"
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'flex-start', // Strictly aligns items to the left
+                        justifyContent: 'flex-start',
+                        textAlign: 'left', // Ensures text inside p tags aligns left
+                        gap: '6px',
+                        width: '100%' // Ensures the container takes up space to allow alignment
+                      }}
+                    >
+                      {/* User Name */}
+                      <span style={{
+                        fontWeight: '700',
+                        fontSize: '1.2rem',
+                        color: '#1a1a1aff',
+                        margin: 0
+                      }}>
+                        {usern}
+                      </span>
 
-  {me.verified ? (
-    /* VERIFIED STATE */
-    <div style={{ 
-      display: 'flex', 
-      alignItems: 'center', 
-      gap: '6px', 
-      backgroundColor: '#0db39715', 
-      padding: '4px 12px', 
-      borderRadius: '30px', 
-      border: '1px solid #0db39730'
-    }}>
-      <VerificationBadge style={{ fontSize: '14px' }} />
-      <p style={{ 
-        margin: 0, 
-        fontSize: '11px', 
-        fontWeight: '800', 
-        color: '#026151ff', 
-        textTransform: 'uppercase'
-      }}>
-        Vizit Verified
-      </p>
-    </div>
-  ) : (
-    /* NOT VERIFIED STATE */
-    <div style={{ 
-      display: 'flex', 
-      alignItems: 'center', 
-      gap: '6px', 
-      backgroundColor: 'rgba(136, 82, 82, 0.1)', 
-      padding: '4px 12px', 
-      borderRadius: '30px', 
-      border: '1px solid rgba(136, 82, 82, 0.3)'
-    }}>
-      <RedVerificationBadge style={{ fontSize: '14px' }} />
-      <p style={{ 
-        margin: 0, 
-        fontSize: '11px', 
-        fontWeight: '600', 
-        color: 'rgb(136, 82, 82)'
-      }}>
-        Not Vizit Verified
-      </p>
-    </div>
-  )}
-</div>
+                      {me.verified ? (
+                        /* VERIFIED STATE */
+                        <div style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '6px',
+                          backgroundColor: '#0db39715',
+                          padding: '4px 12px',
+                          borderRadius: '30px',
+                          border: '1px solid #0db39730'
+                        }}>
+                          <VerificationBadge style={{ fontSize: '14px' }} />
+                          <p style={{
+                            margin: 0,
+                            fontSize: '11px',
+                            fontWeight: '800',
+                            color: '#026151ff',
+                            textTransform: 'uppercase'
+                          }}>
+                            Vizit Verified
+                          </p>
+                        </div>
+                      ) : (
+                        /* NOT VERIFIED STATE */
+                        <div style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '6px',
+                          backgroundColor: 'rgba(136, 82, 82, 0.1)',
+                          padding: '4px 12px',
+                          borderRadius: '30px',
+                          border: '1px solid rgba(136, 82, 82, 0.3)'
+                        }}>
+                          <RedVerificationBadge style={{ fontSize: '14px' }} />
+                          <p style={{
+                            margin: 0,
+                            fontSize: '11px',
+                            fontWeight: '600',
+                            color: 'rgb(136, 82, 82)'
+                          }}>
+                            Not Vizit Verified
+                          </p>
+                        </div>
+                      )}
+                    </div>
 
                     <div class="fb-user-subtitle">{house?.owner?.email}</div>
                   </div>
@@ -800,17 +854,17 @@ function PropertyDetails() {
 
               <div class="user-section">
                 <div className="fb-avatar">
-  <img 
-    src={myprofile} 
-    alt="Profile" 
-    style={{
-      width: '100%',
-      height: '100%',
-      objectFit: 'cover', // This is the secret ingredient
-      display: 'block'
-    }} 
-  />
-</div>
+                  <img
+                    src={myprofile}
+                    alt="Profile"
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover', // This is the secret ingredient
+                      display: 'block'
+                    }}
+                  />
+                </div>
 
                 <div class="fb-user-info">
                   {/* <div class="fb-user-name">
@@ -829,75 +883,75 @@ function PropertyDetails() {
         )}
                   </div> */}
 
-<div 
-  className="fb-user-name" 
-  style={{ 
-    display: 'flex', 
-    flexDirection: 'column', 
-    alignItems: 'flex-start', // Strictly aligns items to the left
-    justifyContent: 'flex-start', 
-    textAlign: 'left', // Ensures text inside p tags aligns left
-    gap: '6px',
-    width: '100%' // Ensures the container takes up space to allow alignment
-  }}
->
-  {/* User Name */}
-  <span style={{ 
-    fontWeight: '700', 
-    fontSize: '1.2rem', 
-    color: '#1a1a1aff',
-    margin: 0 
-  }}>
-    {usern}
-  </span>
+                  <div
+                    className="fb-user-name"
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'flex-start', // Strictly aligns items to the left
+                      justifyContent: 'flex-start',
+                      textAlign: 'left', // Ensures text inside p tags aligns left
+                      gap: '6px',
+                      width: '100%' // Ensures the container takes up space to allow alignment
+                    }}
+                  >
+                    {/* User Name */}
+                    <span style={{
+                      fontWeight: '700',
+                      fontSize: '1.2rem',
+                      color: '#1a1a1aff',
+                      margin: 0
+                    }}>
+                      {usern}
+                    </span>
 
-  {me.verified ? (
-    /* VERIFIED STATE */
-    <div style={{ 
-      display: 'flex', 
-      alignItems: 'center', 
-      gap: '6px', 
-      backgroundColor: '#0db39715', 
-      padding: '4px 12px', 
-      borderRadius: '30px', 
-      border: '1px solid #0db39730'
-    }}>
-      <VerificationBadge style={{ fontSize: '14px' }} />
-      <p style={{ 
-        margin: 0, 
-        fontSize: '11px', 
-        fontWeight: '800', 
-        color: '#026151ff', 
-        textTransform: 'uppercase'
-      }}>
-        Vizit Verified
-      </p>
-    </div>
-  ) : (
-    /* NOT VERIFIED STATE */
-    <div style={{ 
-      display: 'flex', 
-      alignItems: 'center', 
-      gap: '6px', 
-      backgroundColor: 'rgba(136, 82, 82, 0.1)', 
-      padding: '4px 12px', 
-      borderRadius: '30px', 
-      border: '1px solid rgba(136, 82, 82, 0.3)'
-    }}>
-      <RedVerificationBadge style={{ fontSize: '14px' }} />
-      <p style={{ 
-        margin: 0, 
-        fontSize: '11px', 
-        fontWeight: '600', 
-        color: 'rgb(136, 82, 82)'
-      }}>
-        Not Vizit Verified
-      </p>
-    </div>
-  )}
-</div>
+                    {me.verified ? (
+                      /* VERIFIED STATE */
+                      <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                        backgroundColor: '#0db39715',
+                        padding: '4px 12px',
+                        borderRadius: '30px',
+                        border: '1px solid #0db39730'
+                      }}>
+                        <VerificationBadge style={{ fontSize: '14px' }} />
+                        <p style={{
+                          margin: 0,
+                          fontSize: '11px',
+                          fontWeight: '800',
+                          color: '#026151ff',
+                          textTransform: 'uppercase'
+                        }}>
+                          Vizit Verified
+                        </p>
+                      </div>
+                    ) : (
+                      /* NOT VERIFIED STATE */
+                      <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                        backgroundColor: 'rgba(136, 82, 82, 0.1)',
+                        padding: '4px 12px',
+                        borderRadius: '30px',
+                        border: '1px solid rgba(136, 82, 82, 0.3)'
+                      }}>
+                        <RedVerificationBadge style={{ fontSize: '14px' }} />
+                        <p style={{
+                          margin: 0,
+                          fontSize: '11px',
+                          fontWeight: '600',
+                          color: 'rgb(136, 82, 82)'
+                        }}>
+                          Not Vizit Verified
+                        </p>
+                      </div>
+                    )}
+                  </div>
 
-                  
+
                   <div class="fb-user-subtitle">{house?.owner?.email}</div>
                 </div>
               </div>
