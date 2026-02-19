@@ -370,6 +370,8 @@ function PropertyDetails() {
 
 
   // Add recipientId to the arguments
+
+
   const adduserchat = async (chatId, recipientId) => {
     if (!chatId || !recipientId) {
       console.error("Missing IDs:", { chatId, recipientId });
@@ -721,7 +723,7 @@ function PropertyDetails() {
                       </button>
 
 
-                      <a onClick={() => adduserchat(house?.owner?.id)} className="auth-btn secondary" style={{ cursor: "pointer" }}>
+                      <a onClick={() => adduserchat(user?._id, house?.owner?.id)} className="auth-btn secondary" style={{ cursor: "pointer" }}>
                         {loadadd ? "Opening Chat.." : "Chat With Owner"}
                       </a>
                     </div>
@@ -971,7 +973,7 @@ function PropertyDetails() {
                   <div class="fb-menu-text">{loadsave ? "saving the list.." : "Save This Listing"}</div>
                 </a>
 
-                <a onClick={() => adduserchat(house?.owner?.id)} class="fb-menu-item">
+                <a onClick={() => adduserchat(user?._id, house?.owner?.id)} class="fb-menu-item">
                   <div class="fb-menu-icon">
                     <i class="fas fa-comment-dots"></i>
                   </div>
@@ -1033,7 +1035,7 @@ function PropertyDetails() {
                     >
                       {loadbook ? "Placing Your Booking..." : "Book This House Now"}
                     </button>
-                    <a onClick={() => adduserchat(house?.owner?.id)} className="auth-btn secondary" style={{ cursor: "pointer" }}>
+                    <a onClick={() => adduserchat(user?._id, house?.owner?.id)} className="auth-btn secondary" style={{ cursor: "pointer" }}>
                       {loadadd ? "Opening Chat.." : " Chat With Owner"}
                     </a>
                   </div>
