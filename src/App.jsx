@@ -253,7 +253,7 @@ useEffect(() => {
         {/* OWNER ROUTES */}
 
         <Route path="/chat" element={
-          <ProtectedOwner>
+          <ProtectedOwner  user={user}>
             <AdminChatApp />
           </ProtectedOwner>
 
