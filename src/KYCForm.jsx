@@ -18,42 +18,35 @@ export default function KYCForm() {
     useEffect(() => {
         const decodeOwner = async () => {
             try {
-                const token = localStorage.getItem("token");
+                const token = localStorage.getItem("token")?.trim();
+                if (!token) return;
 
-                // 1. If no token, don't even bother the server
-                if (!token) {
-                    console.warn("No token found in localStorage");
-                    return;
-                }
+                // Force a clean URL with no hidden characters
+                const url = "https://vizit-backend-hubw.onrender.com/api/owner/decode/token/owner".trim();
 
-                // 2. Clean the URL and ensure the path is EXACTLY what Postman used
-                // If Postman works, copy that exact string here.
-                const API_URL = "https://vizit-backend-hubw.onrender.com/api/owner/decode/token/owner";
-
-                const res = await axios.get(API_URL, {
+                const res = await axios.get(url, {
                     headers: {
-                        Authorization: `Bearer ${token.trim()}`, // Trim to avoid header corruption
-                        "Content-Type": "application/json"
+                        Authorization: `Bearer ${token}`,
+                        "Cache-Control": "no-cache" // Prevent browser from serving a stale 404
                     },
                 });
 
-                if (res.status === 200 && res.data.success) {
-                    // Ensure you are accessing the correct property (res.data.res or res.data.user)
+                // Backend returns { res: owner }, so we check for res.data.res
+                if (res.data && res.data.res) {
                     setCurrentUser(res.data.res);
                 }
             } catch (err) {
-                // 3. Precise Debugging: Log if it's a 404 specifically
+                console.error("Full URL attempted:", err.config?.url);
+                console.error("Response Data:", err.response?.data);
+
+                // If it's a 404, it's either the URL or the ID not existing in the DB
                 if (err.response?.status === 404) {
-                    console.error("404 Error: The decode route was not found. Check if the backend is deployed with /owner prefix.");
-                } else {
-                    console.error("Decode error:", err.message);
+                    console.warn("The route exists but the Owner ID in the token wasn't found in the DB.");
                 }
             }
         };
-
         decodeOwner();
-    }, []); // Empty dependency array ensures it only runs once on mount
-
+    }, []);
     const userEmail = currentUser?.email;
 
     const [formData, setFormData] = useState({
