@@ -94,19 +94,15 @@ export default function OwnerAuthLanding() {
 
         try {
             setLoading(true);
-            const playload = {
-                name: fullName,
-                email: regEmail,
-                location: location,
-                password: regPassword,
-                // companyname: companyname,
-                // phone: phone,
-                interest: role,
-                IDno: idno,
-                bio: bio
-            }
-            // name, email, password, location,
-            // companyname, bio, phone, interest, IDno, profile
+          const playload = {
+    name: fullName,
+    email: regEmail,
+    location: location || "Not Provided", // Ensure no undefined
+    password: regPassword,
+    interest: role || "owner",
+    IDno: idno || "0000",
+    bio: bio || ""
+};
             const res = await axios.post("https://vizit-backend-hubw.onrender.com/api/owner/register",
 
                 playload
