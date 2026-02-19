@@ -158,12 +158,15 @@ export default function KYCForm() {
     };
 
 
-    useEffect(() => {
-        if (formData?.status != "pending") {
 
-            window.location.href = "/dashboard"
-        }
-    }, [formData?.status])
+
+    
+ useEffect(() => {
+    if (formData?.status == "approved") {
+      window.location.href = "/dashboard"
+    }
+  }, [formData?.status])
+  
     return (
         <div style={styles.wrapper}>
             <div style={styles.card}>
