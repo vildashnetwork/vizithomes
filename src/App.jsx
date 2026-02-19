@@ -172,7 +172,7 @@ export default function App() {
             // 2. CRITICAL: Security Check
             // We check the status directly from the response data to prevent delay
             const status = userData?.accountstatus?.toLowerCase();
-            if (status === "suspended" || status === "deactivated" || status === "blocked") {
+            if (status === "suspended" || status !== "active" || status === "deactivated" || status === "blocked") {
               // We use navigate() because we are in an async function
               navigate("/banned", { replace: true });
               return;
