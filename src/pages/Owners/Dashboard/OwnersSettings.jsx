@@ -517,8 +517,8 @@ export default function OnwnerSetting({
                         display: "flex",
                         gap: "12px"
                     }}>{userhere?.name}
-
-                        {!me.verified ?
+{/* {alert(userhere?.verified)} */}
+                        {!userhere.verified ?
                             <button
                                 className="cd-btn cd-btn--upgrade"
                                 style={{ background: "green" }}
