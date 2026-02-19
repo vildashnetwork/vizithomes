@@ -166,7 +166,7 @@ export default function KYCForm() {
       window.location.href = "/dashboard"
     }
   }, [formData?.status])
-  
+
     return (
         <div style={styles.wrapper}>
             <div style={styles.card}>
@@ -273,7 +273,8 @@ const ReviewSection = ({ formData, onEdit }) => (
     <div style={styles.reviewContainer}>
         <div style={styles.statusCard}>
             <h4>Status: {formData.status?.toUpperCase()}</h4>
-            <p>Please be patient while we review your documents.</p>
+            <p>{formData.status == "rejected"?  " Your Document You Submited To VIZIT has been REJECTED  This may be due to the fact that the submited document are not correct" :
+             "Please be patient while we review your documents."}</p>
         </div>
 
         <div style={styles.detailsGrid}>
