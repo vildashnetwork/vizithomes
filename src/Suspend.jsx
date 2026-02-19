@@ -1,7 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Lock, AlertOctagon, Mail, ShieldAlert, Gavel } from 'lucide-react';
 
-const AccountBlocked = () => {
+const AccountBlocked = ({ reason, nav }) => {
+
+
+
+
+    useEffect(() => {
+        if (nav === "suspended" || nav === "deactivated" || nav === "blocked") {
+
+            navigate("/", { replace: true });
+            return;
+        }
+
+    }, [nav])
+
     const styles = {
         page: {
             margin: 0,
@@ -20,7 +33,7 @@ const AccountBlocked = () => {
             top: 0,
             left: 0,
             zIndex: 99999,
-            overflow: 'hidden'
+            overflow: 'auto'
         },
         overlay: {
             position: 'absolute',
@@ -28,7 +41,8 @@ const AccountBlocked = () => {
             height: '100%',
             opacity: 0.05,
             backgroundImage: 'url("https://www.transparenttextures.com/patterns/carbon-fibre.png")',
-            pointerEvents: 'none'
+            pointerEvents: 'none',
+
         },
         content: {
             position: 'relative',
@@ -36,7 +50,9 @@ const AccountBlocked = () => {
             textAlign: 'center',
             maxWidth: '800px',
             width: '90%',
-            padding: '40px'
+            padding: '40px',
+            marginTop: "130px"
+
         },
         glitchHeader: {
             fontSize: 'clamp(40px, 8vw, 72px)',
@@ -112,10 +128,7 @@ const AccountBlocked = () => {
                         Reason for Suspension:
                     </div>
                     <ul style={styles.list}>
-                        <li>Suspicious activity detected from multiple IP addresses.</li>
-                        <li>Violation of Vizit Network's professional service agreement.</li>
-                        <li>Multiple reports of unauthorized property listings.</li>
-                        <li>Failure to comply with the mandatory KYC verification process.</li>
+                        <li>{reason}</li>
                     </ul>
                 </div>
 
@@ -141,7 +154,7 @@ const AccountBlocked = () => {
             </div>
 
             <div style={{ position: 'absolute', bottom: '40px', color: '#333', fontSize: '12px', letterSpacing: '1px' }}>
-                VIZIT NETWORK SECURE CORE v2.0.4
+                VIZIT HOMES SECURE CORE v2.0.4
             </div>
         </div>
     );

@@ -58,6 +58,89 @@ export default function App() {
   const [iscall, setiscall] = useState(false)
 
   const [user, setuser] = useState([])
+  // useEffect(() => {
+  //   const storedRole = localStorage.getItem("role");
+
+  //   async function decodeTokenAndConnect() {
+  //     try {
+  //       const token = localStorage.getItem("token");
+  //       if (!token || !storedRole) {
+  //         setLoading(false);
+  //         return;
+  //       }
+
+  //       const endpoint =
+  //         storedRole === "owner"
+  //           ? "https://vizit-backend-hubw.onrender.com/api/owner/decode/token/owner"
+  //           : "https://vizit-backend-hubw.onrender.com/api/user/decode/token/user";
+
+  //       const response = await axios.get(endpoint, {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       });
+
+  //       if (response.status === 200) {
+  //         const userna =
+  //           storedRole === "owner"
+  //             ? response.data?.res
+  //             : response?.data?.user;
+  //         setuser(userna)
+
+  //         const userId =
+  //           storedRole === "owner"
+  //             ? response.data?.res?._id
+  //             : response.data?.user?._id;
+
+  //         connectSocket(userId);
+
+
+  //         if (user?.accountstatus == "suspended" || user?.accountstatus == "deactivated") {
+  //           // navigate("/");
+  //           return <Navigate to="/banned" replace />;
+  //         }
+
+  //       }
+  //     } catch (err) {
+  //       console.error("Token decode failed:", err);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   }
+
+  //   decodeTokenAndConnect();
+
+  //   const onStorageChange = (e) => {
+  //     if (e.key === "role") {
+  //       setRole(e.newValue);
+  //     }
+  //   };
+
+  //   window.addEventListener("storage", onStorageChange);
+  //   return () => window.removeEventListener("storage", onStorageChange);
+  // }, [role]);
+
+
+
+
+
+
+
+  const setAppRole = (newRole) => {
+    if (newRole) {
+      localStorage.setItem("role", newRole);
+    } else {
+      localStorage.removeItem("role");
+      localStorage.removeItem("token");
+    }
+    setRole(newRole);
+  };
+
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+
+
+
   useEffect(() => {
     const storedRole = localStorage.getItem("role");
 
@@ -75,34 +158,32 @@ export default function App() {
             : "https://vizit-backend-hubw.onrender.com/api/user/decode/token/user";
 
         const response = await axios.get(endpoint, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers: { Authorization: `Bearer ${token}` },
         });
 
         if (response.status === 200) {
-          const userna =
-            storedRole === "owner"
-              ? response.data?.res
-              : response.data?.user;
-          setuser(userna)
+          // 1. Extract the user object correctly based on role
+          const userData = storedRole === "owner" ? response.data?.res : response.data?.user;
 
-          const userId =
-            storedRole === "owner"
-              ? response.data?.res?._id
-              : response.data?.user?._id;
+          if (userData) {
+            setuser(userData);
+            connectSocket(userData._id);
 
-          connectSocket(userId);
-
-
-          if (user?.accountstatus == "suspended" || user?.accountstatus == "deactivated") {
-            // navigate("/");
-            return <Navigate to="/banned" replace />;
+            // 2. CRITICAL: Security Check
+            // We check the status directly from the response data to prevent delay
+            const status = userData?.accountstatus?.toLowerCase();
+            if (status === "suspended" || status === "deactivated" || status === "blocked") {
+              // We use navigate() because we are in an async function
+              navigate("/banned", { replace: true });
+              return;
+            }
           }
-
         }
       } catch (err) {
         console.error("Token decode failed:", err);
+        // If token is invalid/expired, optional: clear storage and redirect
+        // localStorage.clear();
+        // navigate("/user/login");
       } finally {
         setLoading(false);
       }
@@ -110,28 +191,21 @@ export default function App() {
 
     decodeTokenAndConnect();
 
+    // Storage listener remains the same...
     const onStorageChange = (e) => {
-      if (e.key === "role") {
-        setRole(e.newValue);
-      }
+      if (e.key === "role") setRole(e.newValue);
     };
-
     window.addEventListener("storage", onStorageChange);
     return () => window.removeEventListener("storage", onStorageChange);
-  }, [role]);
+  }, [role, navigate]); // Added navigate to dependency array
 
-  const setAppRole = (newRole) => {
-    if (newRole) {
-      localStorage.setItem("role", newRole);
-    } else {
-      localStorage.removeItem("role");
-      localStorage.removeItem("token");
-    }
-    setRole(newRole);
-  };
 
-  const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
+
+
+
+
+
+
   useEffect(() => {
     const token = searchParams.get("token");
     const role = searchParams.get("role");
@@ -200,6 +274,8 @@ export default function App() {
   // }
   return (
     <>
+
+
       <Toaster position="bottom-left" reverseOrder={false} />
 
       <VideoCallPage
@@ -229,7 +305,7 @@ export default function App() {
         <Route path="/kyc" element={<KYCForm />} />
 
         <Route path="/login-failed" element={<RoleConflictPage />} />
-        <Route path="/banned" element={<AccountBlocked />} />
+        <Route path="/banned" element={<AccountBlocked reason={user?.reason} nav={user?.accountstatus} />} />
 
 
 
