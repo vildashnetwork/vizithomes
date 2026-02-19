@@ -96,7 +96,8 @@ export default function App() {
 
 
           if (user?.accountstatus == "suspended" || user?.accountstatus == "deactivated") {
-            navigate("/banned")
+            // navigate("/");
+            return <Navigate to="/banned" replace />;
           }
 
         }
