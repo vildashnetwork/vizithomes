@@ -18,7 +18,15 @@ function ChatSidebarHeader({ setActiveTab, user }) {
                 >
 
                 </div>
-                <span className="gbp-chat-sidebar-header__name">{user?.name}</span>
+                <span className="gbp-chat-sidebar-header__name">
+                    {/* {user?.name} */}
+                    {user.name}
+                       {
+  user?.role === "owner" && user?.verified && (
+    <RedVerificationBadge />
+  )
+}
+                    </span>
             </div>
             <div className="gbp-chat-sidebar-header__actions">
                 <button
