@@ -1,6 +1,6 @@
 import axios from "axios";
-import { useState, useEffect, useRef, useNavigate } from "react";
-
+import { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 const BASE_URL = "https://vizit-backend-hubw.onrender.com/api/kyc";
 const CLOUD_NAME = "dgigs6v72";
 const UPLOAD_PRESET = "vizit-image";
@@ -11,6 +11,7 @@ export default function KYCForm() {
     const [loading, setLoading] = useState(false);
     const [uploading, setUploading] = useState(false);
     const [currentUser, setCurrentUser] = useState(null);
+    const navigate = useNavigate();
 
     /* =========================
        DECODE OWNER
@@ -160,7 +161,6 @@ export default function KYCForm() {
 
 
 
-    const navigate = useNavigate();
  useEffect(() => {
   // Use a strict check. Only navigate if the status is explicitly "approved"
   if (formData?.status === "approved") {
