@@ -23,7 +23,7 @@ function ChatSidebarHeader({ setActiveTab, user }) {
                 <span className="gbp-chat-sidebar-header__name">
                     {/* {user?.name} */}
                {/* 1. Safe slice: prevent error if user or name is undefined */}
-{user?.name ? (user.name.length > 6 ? user.name.slice(0, 6) + "..." : user.name) : "Guest"}
+{user?.name ? (user.name.length > 6 ? user.name.slice(0, 12) + ".." : user.name) : "Guest"}
 
 {/* 2. Verification check */}
 {
