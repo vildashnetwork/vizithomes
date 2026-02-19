@@ -34,11 +34,18 @@ import { Toaster } from "react-hot-toast";
 
 /* ================= PROTECTED ROUTES ================= */
 
-function ProtectedOwner({ children }) {
-  const role = localStorage.getItem("role");
-  if (role !== "owner") {
-    return <Navigate to="/" replace />;
-  }
+// function ProtectedOwner({ children }) {
+//   const role = localStorage.getItem("role");
+//   if (role !== "owner") {
+//     return <Navigate to="/" replace />;
+//   }
+//   return children;
+// }
+
+
+const ProtectedOwner = ({ user, children }) => {
+  if (!user) return <Navigate to="/login" />;
+  if (user.status !== "approved") return <Navigate to="/kyc" />;
   return children;
 }
 
@@ -323,19 +330,19 @@ export default function App() {
           </ProtectedOwner>
 
         } />
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedOwner>
-              <Dashboard />
-            </ProtectedOwner>
-          }
-        />
+        <Route 
+  path="/dashboard" 
+  element={
+    <ProtectedDashboard user={user}>
+      <Dashboard />
+    </ProtectedDashboard>
+  } 
+/>
 
         <Route
           path="/createproperty"
           element={
-            <ProtectedOwner>
+            <ProtectedOwner  user={user}>
               <CreateHouseForm />
             </ProtectedOwner>
           }
@@ -351,7 +358,7 @@ export default function App() {
         <Route
           path="/reviews"
           element={
-            <ProtectedOwner>
+            <ProtectedOwner   user={user}>
               <Reviews />
             </ProtectedOwner>
           }
@@ -359,7 +366,7 @@ export default function App() {
         <Route
           path="/listings"
           element={
-            <ProtectedOwner>
+            <ProtectedOwner   user={user}>
               <Listings />
             </ProtectedOwner>
           }
@@ -367,7 +374,7 @@ export default function App() {
         <Route
           path="/calender"
           element={
-            <ProtectedOwner>
+            <ProtectedOwner  user={user}>
               <Calender />
             </ProtectedOwner>
           }
@@ -375,7 +382,7 @@ export default function App() {
         <Route
           path="/appointments"
           element={
-            <ProtectedOwner>
+            <ProtectedOwner  user={user}>
               <Appointments />
             </ProtectedOwner>
           }
@@ -388,7 +395,7 @@ export default function App() {
         <Route
           path="/owner/home"
           element={
-            <ProtectedOwner>
+            <ProtectedOwner  user={user}>
               <OwnerDashboard onLogout={() => setAppRole(null)} />
             </ProtectedOwner>
           }

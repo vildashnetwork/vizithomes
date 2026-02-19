@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useNavigate } from "react";
 
 const BASE_URL = "https://vizit-backend-hubw.onrender.com/api/kyc";
 const CLOUD_NAME = "dgigs6v72";
@@ -160,12 +160,14 @@ export default function KYCForm() {
 
 
 
-    
+    const navigate = useNavigate();
  useEffect(() => {
-    if (formData?.status == "approved") {
-      window.location.href = "/dashboard"
-    }
-  }, [formData?.status])
+  // Use a strict check. Only navigate if the status is explicitly "approved"
+  if (formData?.status === "approved") {
+    // 'replace: true' prevents the user from clicking 'back' into the loop
+    navigate("/dashboard", { replace: true });
+  }
+}, [formData?.status, navigate]);
 
     return (
         <div style={styles.wrapper}>
