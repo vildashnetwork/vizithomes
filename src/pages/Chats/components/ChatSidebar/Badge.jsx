@@ -1,6 +1,6 @@
 import React from "react";
 
-const RedVerificationBadge = ({ size = 20, color = "#a8130e", tooltip = "Verified" }) => {
+const RedVerificationBadge = ({ size = 20, color = "#0b8b50", tooltip = "Verified" }) => {
     return (
         <div
             style={{

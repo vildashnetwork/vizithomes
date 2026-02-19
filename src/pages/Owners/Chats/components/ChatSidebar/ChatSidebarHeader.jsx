@@ -1,6 +1,8 @@
 import React from 'react';
+import RedVerificationBadge from "./Badge"
 
 function ChatSidebarHeader({ setActiveTab, user }) {
+
 
     return (
         <div className="gbp-chat-sidebar-header">
@@ -18,7 +20,18 @@ function ChatSidebarHeader({ setActiveTab, user }) {
                 >
 
                 </div>
-                <span className="gbp-chat-sidebar-header__name">{user?.name}</span>
+                <span className="gbp-chat-sidebar-header__name">
+                    {/* {user?.name} */}
+               {/* 1. Safe slice: prevent error if user or name is undefined */}
+{user?.name ? (user.name.length > 6 ? user.name.slice(0, 6) + "..." : user.name) : "Guest"}
+
+{/* 2. Verification check */}
+{
+  user?.role === "owner" && user?.verified && (
+    <RedVerificationBadge />
+  )
+}
+                    </span>
             </div>
             <div className="gbp-chat-sidebar-header__actions">
                 <button
