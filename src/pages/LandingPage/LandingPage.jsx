@@ -215,7 +215,7 @@ export function Header({ carryOutSearch, changeRegion, user }) {
               <Select title="Building Type" data={biuldingTypes} />
               <Select title="Duration Of Stay" data={posibleDuration} />
             </div>
-            <button className="search-button">
+            <button className="search-button" onClick={()=> window.location.href = "/search-property"}>
               <SearchIcon />
               <p>Find My vizits</p>
             </button>
