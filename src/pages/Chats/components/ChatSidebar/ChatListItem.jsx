@@ -123,6 +123,7 @@
 // ChatListItem.jsx
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import RedVerificationBadge from "./Badge"
 
 function ChatListItem({ chat, isActive, onSelect, onlineUsers = [], typingUsers = {} }) {
     const [online, setOnline] = useState(false);
@@ -209,7 +210,16 @@ function ChatListItem({ chat, isActive, onSelect, onlineUsers = [], typingUsers 
 
             <div className="nok-chat-list-item__content">
                 <div className="nok-chat-list-item__header">
-                    <span className="nok-chat-list-item__name">{chat.name}</span>
+                    <span className="nok-chat-list-item__name">{chat.name}
+                        {
+                            chat?.role == "owner" (
+                        chat?.verified &&
+                        <RedVerificationBadge/>
+
+
+                            )
+                        }
+                    </span>
 
                     {!typingUsers[chat._id] ? (
                         online ? (
