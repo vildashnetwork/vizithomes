@@ -19,25 +19,40 @@ export default function KYCForm() {
         const decodeOwner = async () => {
             try {
                 const token = localStorage.getItem("token");
-                if (!token) return;
 
-                const res = await axios.get(
-                    "https://vizit-backend-hubw.onrender.com/api/owner/decode/token/owner",
-                    {
-                        headers: { Authorization: `Bearer ${token}` },
-                    }
-                );
+                // 1. If no token, don't even bother the server
+                if (!token) {
+                    console.warn("No token found in localStorage");
+                    return;
+                }
 
-                if (res.status === 200) {
+                // 2. Clean the URL and ensure the path is EXACTLY what Postman used
+                // If Postman works, copy that exact string here.
+                const API_URL = "https://vizit-backend-hubw.onrender.com/api/owner/decode/token/owner";
+
+                const res = await axios.get(API_URL, {
+                    headers: {
+                        Authorization: `Bearer ${token.trim()}`, // Trim to avoid header corruption
+                        "Content-Type": "application/json"
+                    },
+                });
+
+                if (res.status === 200 && res.data.success) {
+                    // Ensure you are accessing the correct property (res.data.res or res.data.user)
                     setCurrentUser(res.data.res);
                 }
             } catch (err) {
-                console.error("Decode error", err);
+                // 3. Precise Debugging: Log if it's a 404 specifically
+                if (err.response?.status === 404) {
+                    console.error("404 Error: The decode route was not found. Check if the backend is deployed with /owner prefix.");
+                } else {
+                    console.error("Decode error:", err.message);
+                }
             }
         };
 
         decodeOwner();
-    }, []);
+    }, []); // Empty dependency array ensures it only runs once on mount
 
     const userEmail = currentUser?.email;
 
