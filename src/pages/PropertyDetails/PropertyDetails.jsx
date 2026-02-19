@@ -372,50 +372,55 @@ function PropertyDetails() {
   // Add recipientId to the arguments
 
 
-  const adduserchat = async (chatId, recipientId) => {
-    if (!chatId || !recipientId) {
-      console.error("Missing IDs:", { chatId, recipientId });
-      return;
+
+  // 1. Updated adduserchat function
+const adduserchat = async (recipientId) => {
+  if (!recipientId) {
+    toast.error("Owner ID missing");
+    return;
+  }
+
+  const userId = localStorage.getItem("userId");
+  if (!userId) {
+    toast.error("Please login first");
+    return;
+  }
+
+  try {
+    setloadadd(true);
+
+    // Update the Seeker (Logged-in User)
+    // We send the Owner's ID in the body to be stored in the array
+    const resUser = await axios.put(
+      `https://vizit-backend-hubw.onrender.com/api/user/add/chat/id/${userId}`,
+      { chatId: recipientId } 
+    );
+
+    // Update the Owner
+    // We send the Seeker's ID in the body to be stored in the array
+    const resOwner = await axios.put(
+      `https://vizit-backend-hubw.onrender.com/api/owner/add/chat/id/${recipientId}`,
+      { chatId: userId }
+    );
+
+    if (resUser.status === 200 && resOwner.status === 200) {
+      toast.success("Chat opened successfully");
+      navigate(`/user/chat?auth=${recipientId}`);
     }
 
-    const userId = localStorage.getItem("userId");
-    if (!userId) {
-      toast.error("User not authenticated");
-      return;
-    }
+  } catch (error) {
+    console.error("Add chat error:", error.response?.data || error.message);
+    toast.error("Failed to open chat. Check console for details.");
+  } finally {
+    setloadadd(false);
+  }
+};
 
-    try {
-      setloadadd(true);
+// 2. Updated JSX Click Handler (Inside your return)
+// Look for your "Chat with Owner" button/link and change it to this:
 
-      // 1️⃣ Add chat to YOUR list (Logged-in User)
-      // URL uses YOUR ID, Body contains the CHAT ID
-      const resUser = await axios.put(
-        `https://vizit-backend-hubw.onrender.com/api/user/add/chat/id/${userId}`,
-        { chatId }
-      );
 
-      // 2️⃣ Add chat to the OWNER'S list
-      // URL uses OWNER'S ID, Body contains the CHAT ID
-      const resOwner = await axios.put(
-        `https://vizit-backend-hubw.onrender.com/api/owner/add/chat/id/${recipientId}`,
-        { chatId }
-      );
 
-      // 3️⃣ Success handling
-      if (resUser.status === 200 && resOwner.status === 200) {
-        toast.success("Chat opened successfully");
-        navigate(`/user/chat?auth=${chatId}`);
-      }
-
-    } catch (error) {
-      console.error("Add chat error details:", error.response?.data);
-      toast.error(
-        error?.response?.data?.message || "Failed to open chat"
-      );
-    } finally {
-      setloadadd(false);
-    }
-  };
   const [usern, setusern] = useState("")
   const [myprofile, setmyprofile] = useState("")
   const [me, setme] = useState([])
@@ -657,13 +662,18 @@ function PropertyDetails() {
                     <div class="fb-menu-text">{loadsave ? "saving the list.." : "Save This Listing"}</div>
                   </a>
 
-                  <a onClick={() => adduserchat(house?.owner?.id)}
-                    class="fb-menu-item">
-                    <div class="fb-menu-icon">
-                      <i class="fas fa-comment-dots"></i>
-                    </div>
-                    <div class="fb-menu-text">{loadadd ? "Openning Chat.." : "Chat with Owner"}</div>
-                  </a>
+                 <a 
+  onClick={() => adduserchat(house?.owner?.id)} 
+  className="fb-menu-item"
+  style={{ cursor: "pointer" }}
+>
+  <div className="fb-menu-icon">
+    <i className="fas fa-comment-dots"></i>
+  </div>
+  <div className="fb-menu-text">
+    {loadadd ? "Opening Chat.." : "Chat with Owner"}
+  </div>
+</a>
                 </div>
 
                 <button class="fb-button primary" onClick={() => setopen(true)}>Book This Vizit</button>
@@ -723,9 +733,18 @@ function PropertyDetails() {
                       </button>
 
 
-                      <a onClick={() => adduserchat(user?._id, house?.owner?.id)} className="auth-btn secondary" style={{ cursor: "pointer" }}>
-                        {loadadd ? "Opening Chat.." : "Chat With Owner"}
-                      </a>
+                 <a 
+  onClick={() => adduserchat(house?.owner?.id)} 
+  className="fb-menu-item"
+  style={{ cursor: "pointer" }}
+>
+  <div className="fb-menu-icon">
+    <i className="fas fa-comment-dots"></i>
+  </div>
+  <div className="fb-menu-text">
+    {loadadd ? "Opening Chat.." : "Chat with Owner"}
+  </div>
+</a>
                     </div>
                   </div>
                 </div>
@@ -973,12 +992,18 @@ function PropertyDetails() {
                   <div class="fb-menu-text">{loadsave ? "saving the list.." : "Save This Listing"}</div>
                 </a>
 
-                <a onClick={() => adduserchat(user?._id, house?.owner?.id)} class="fb-menu-item">
-                  <div class="fb-menu-icon">
-                    <i class="fas fa-comment-dots"></i>
-                  </div>
-                  <div class="fb-menu-text">{loadadd ? "Openning Chat.." : "Chat with Owner"}</div>
-                </a>
+          <a 
+  onClick={() => adduserchat(house?.owner?.id)} 
+  className="fb-menu-item"
+  style={{ cursor: "pointer" }}
+>
+  <div className="fb-menu-icon">
+    <i className="fas fa-comment-dots"></i>
+  </div>
+  <div className="fb-menu-text">
+    {loadadd ? "Opening Chat.." : "Chat with Owner"}
+  </div>
+</a>
               </div>
 
               <button class="fb-button primary" onClick={() => setopen(true)}>Book This Vizit</button>
@@ -1035,9 +1060,18 @@ function PropertyDetails() {
                     >
                       {loadbook ? "Placing Your Booking..." : "Book This House Now"}
                     </button>
-                    <a onClick={() => adduserchat(user?._id, house?.owner?.id)} className="auth-btn secondary" style={{ cursor: "pointer" }}>
-                      {loadadd ? "Opening Chat.." : " Chat With Owner"}
-                    </a>
+               <a 
+  onClick={() => adduserchat(house?.owner?.id)} 
+  className="fb-menu-item"
+  style={{ cursor: "pointer" }}
+>
+  <div className="fb-menu-icon">
+    <i className="fas fa-comment-dots"></i>
+  </div>
+  <div className="fb-menu-text">
+    {loadadd ? "Opening Chat.." : "Chat with Owner"}
+  </div>
+</a>
                   </div>
                 </div>
               </div>
