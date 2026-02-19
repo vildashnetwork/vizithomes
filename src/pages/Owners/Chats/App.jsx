@@ -121,7 +121,7 @@ const fetchUsers = useCallback(async (userId) => {
 
 
      useEffect(() => {
-    if (user?.status != "approved") {
+    if (user?.status != "approved" || user?.status == "pending") {
       window.location.href = "/kyc"
     }
   }, [user?.status])
