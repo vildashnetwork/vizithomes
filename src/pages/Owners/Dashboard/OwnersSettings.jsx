@@ -342,23 +342,23 @@ export default function OnwnerSetting({
         setProfile(p => ({ ...p, enabletwofactor: next }));
     };
 
-    const confirmUpgrade = async () => {
-        setSaving(true);
-        await new Promise(r => setTimeout(r, 450));
-        const updated = { ...profile, plan: selectedPlan };
-        setProfile(updated);
-        saveToStorage(updated);
-        setSaving(false);
-        setShowUpgrade(false);
-        onUpgrade(selectedPlan);
-    };
+    // const confirmUpgrade = async () => {
+    //     setSaving(true);
+    //     await new Promise(r => setTimeout(r, 450));
+    //     const updated = { ...profile, plan: selectedPlan };
+    //     setProfile(updated);
+    //     saveToStorage(updated);
+    //     setSaving(false);
+    //     setShowUpgrade(false);
+    //     onUpgrade(selectedPlan);
+    // };
 
-    const upgradeLabel =
-        profile?.plan === "pro"
-            ? "Pro (active)"
-            : profile?.plan === "business"
-                ? "Business (active)"
-                : "Free";
+    // const upgradeLabel =
+    //     profile?.plan === "pro"
+    //         ? "Pro (active)"
+    //         : profile?.plan === "business"
+    //             ? "Business (active)"
+    //             : "Free";
 
     if (loading) return null;
 
@@ -548,15 +548,15 @@ export default function OnwnerSetting({
                             {mybalance?.totalBalance > 0 ? "pro" : "free"}
                         </span>
 
-                        {profile.plan !== "pro" && (
-                            <button
-                                className="cd-btn cd-btn--upgrade"
-                                style={{ background: "green" }}
-                                onClick={() => setShowUpgrade(true)}
-                            >
-                                Top Up Account
-                            </button>
-                        )}
+
+                        <button
+                            className="cd-btn cd-btn--upgrade"
+                            style={{ background: "green" }}
+                            onClick={() => setShowUpgrade(true)}
+                        >
+                            Top Up Account
+                        </button>
+
                     </div>
                 </div>
 
