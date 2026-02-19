@@ -42,10 +42,17 @@ import { Toaster } from "react-hot-toast";
 //   return children;
 // }
 
-
 const ProtectedOwner = ({ user, children }) => {
-  if (!user) return <Navigate to="/login" />;
-  if (user.status !== "approved") return <Navigate to="/kyc" />;
+  // If we are still loading, don't redirect anywhere yet
+  if (!user || Object.keys(user).length === 0) {
+     return null; // Or a small spinner
+  }
+  
+  // If the user isn't approved, send to KYC
+  if (user.status !== "approved") {
+    return <Navigate to="/kyc" replace />;
+  }
+  
   return children;
 }
 
@@ -65,69 +72,7 @@ export default function App() {
   const [iscall, setiscall] = useState(false)
 
   const [user, setuser] = useState([])
-  // useEffect(() => {
-  //   const storedRole = localStorage.getItem("role");
-
-  //   async function decodeTokenAndConnect() {
-  //     try {
-  //       const token = localStorage.getItem("token");
-  //       if (!token || !storedRole) {
-  //         setLoading(false);
-  //         return;
-  //       }
-
-  //       const endpoint =
-  //         storedRole === "owner"
-  //           ? "https://vizit-backend-hubw.onrender.com/api/owner/decode/token/owner"
-  //           : "https://vizit-backend-hubw.onrender.com/api/user/decode/token/user";
-
-  //       const response = await axios.get(endpoint, {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       });
-
-  //       if (response.status === 200) {
-  //         const userna =
-  //           storedRole === "owner"
-  //             ? response.data?.res
-  //             : response?.data?.user;
-  //         setuser(userna)
-
-  //         const userId =
-  //           storedRole === "owner"
-  //             ? response.data?.res?._id
-  //             : response.data?.user?._id;
-
-  //         connectSocket(userId);
-
-
-  //         if (user?.accountstatus == "suspended" || user?.accountstatus == "deactivated") {
-  //           // navigate("/");
-  //           return <Navigate to="/banned" replace />;
-  //         }
-
-  //       }
-  //     } catch (err) {
-  //       console.error("Token decode failed:", err);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   }
-
-  //   decodeTokenAndConnect();
-
-  //   const onStorageChange = (e) => {
-  //     if (e.key === "role") {
-  //       setRole(e.newValue);
-  //     }
-  //   };
-
-  //   window.addEventListener("storage", onStorageChange);
-  //   return () => window.removeEventListener("storage", onStorageChange);
-  // }, [role]);
-
-
+ 
 
 
 
@@ -148,66 +93,49 @@ export default function App() {
 
 
 
-  useEffect(() => {
-    const storedRole = localStorage.getItem("role");
+useEffect(() => {
+  const storedRole = localStorage.getItem("role");
+  const token = localStorage.getItem("token");
 
-    async function decodeTokenAndConnect() {
-      try {
-        const token = localStorage.getItem("token");
-        if (!token || !storedRole) {
-          setLoading(false);
-          return;
-        }
-
-        const endpoint =
-          storedRole === "owner"
-            ? "https://vizit-backend-hubw.onrender.com/api/owner/decode/token/owner"
-            : "https://vizit-backend-hubw.onrender.com/api/user/decode/token/user";
-
-        const response = await axios.get(endpoint, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-
-        if (response.status === 200) {
-          // 1. Extract the user object correctly based on role
-          const userData = storedRole === "owner" ? response.data?.res : response.data?.user;
-
-          if (userData) {
-            setuser(userData);
-            connectSocket(userData._id);
-
-            // 2. CRITICAL: Security Check
-            // We check the status directly from the response data to prevent delay
-            const status = userData?.accountstatus?.toLowerCase();
-            if (status === "suspended" || status !== "active" || status === "deactivated" || status === "blocked") {
-              // We use navigate() because we are in an async function
-              navigate("/banned", { replace: true });
-              return;
-            }
-          }
-        }
-      } catch (err) {
-        console.error("Token decode failed:", err);
-        // If token is invalid/expired, optional: clear storage and redirect
-        // localStorage.clear();
-        // navigate("/user/login");
-      } finally {
-        setLoading(false);
-      }
+  async function decodeTokenAndConnect() {
+    if (!token || !storedRole) {
+      setLoading(false);
+      return;
     }
 
-    decodeTokenAndConnect();
+    try {
+      const endpoint = storedRole === "owner"
+          ? "https://vizit-backend-hubw.onrender.com/api/owner/decode/token/owner"
+          : "https://vizit-backend-hubw.onrender.com/api/user/decode/token/user";
 
-    // Storage listener remains the same...
-    const onStorageChange = (e) => {
-      if (e.key === "role") setRole(e.newValue);
-    };
-    window.addEventListener("storage", onStorageChange);
-    return () => window.removeEventListener("storage", onStorageChange);
-  }, [role, navigate]); // Added navigate to dependency array
+      const response = await axios.get(endpoint, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
 
+      if (response.status === 200) {
+        const userData = storedRole === "owner" ? response.data?.res : response.data?.user;
+        
+        if (userData) {
+          setuser(userData); // Update state
+          connectSocket(userData._id);
 
+          // Handle Banned Status
+          const status = userData?.accountstatus?.toLowerCase();
+          if (["suspended", "deactivated", "blocked"].includes(status)) {
+            navigate("/banned", { replace: true });
+          }
+        }
+      }
+    } catch (err) {
+      console.error("Auth failed:", err);
+      // Optional: if unauthorized, clear localstorage and go to login
+    } finally {
+      setLoading(false); // Stop showing the black "Loading..." screen
+    }
+  }
 
+  decodeTokenAndConnect();
+}, [role]); // Only re-run if role changes
 
 
 
