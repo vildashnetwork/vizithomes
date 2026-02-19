@@ -210,7 +210,7 @@ function ChatListItem({ chat, isActive, onSelect, onlineUsers = [], typingUsers 
 
             <div className="nok-chat-list-item__content">
                 <div className="nok-chat-list-item__header">
-                    <span className="nok-chat-list-item__name">{chat.name}
+                    <span className="nok-chat-list-item__name">{chat.name.slice(0,12) + ".."}
                        {
   chat?.role === "owner" && chat?.verified && (
     <RedVerificationBadge />

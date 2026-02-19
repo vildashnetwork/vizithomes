@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import VideoCall from "./Videocall/Videocall"
 // import VideoCall from "./Videocall/Videocall"
+import RedVerificationBadge from "./Badge"
 
 function ChatHeader({ typingUsers, chat, isMobileView, onBack, onlineUsers }) {
     // user
@@ -52,7 +53,13 @@ function ChatHeader({ typingUsers, chat, isMobileView, onBack, onlineUsers }) {
 
                 </div>
                 <div className="gbp-chat-header__details">
-                    <h2 className="gbp-chat-header__name">{chat.name}</h2>
+                    <h2 className="gbp-chat-header__name">{chat.name.slice(0,6) + "..."}
+                       {
+  chat?.role === "owner" && chat?.verified && (
+    <RedVerificationBadge />
+  )
+}
+                    </h2>
                     {
                         !typingUsers[chat?._id || chat?.id] ?
                             (
