@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import { Routes, Route, Navigate, useSearchParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import ResetPassword from "./pages/SeekerProfile/Resetpass.jsx";
-
+import RoleConflictPage from "./Failed.jsx";
 import KYCForm from "./KYCForm.jsx";
 import MainPage from "./MainPage";
 import OwnerLoginLanding from "./pages/Auth/Ownerlogin";
@@ -220,6 +220,9 @@ export default function App() {
         <Route path="/reset-password" element={<ResetPassword />} />
 
         <Route path="/kyc" element={<KYCForm />} />
+
+        <Route path="/login-failed" element={<RoleConflictPage />} />
+
 
 
 
