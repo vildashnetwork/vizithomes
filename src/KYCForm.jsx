@@ -142,7 +142,7 @@ export default function KYCForm() {
                 setFormData(data.kyc);
                 setIsSubmitted(true);
             } else {
-                alert(data.message);
+                alert("Please Change the Number or Company Name It has been used by another Registrar");
             }
         } catch (err) {
             alert("Submission failed");
