@@ -152,10 +152,11 @@ export default function Reviews() {
     loadOwnerReviews();
   }, [currentUser, loadOwnerReviews]);
   useEffect(() => {
-    if (currentUser?.status == "pending") {
+    if (user?.status != "approved") {
       window.location.href = "/kyc"
     }
-  }, [currentUser?.status])
+  }, [user?.status])
+
   /* ---------------------------
      Stats helper
   --------------------------- */

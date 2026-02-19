@@ -447,7 +447,7 @@ function Dashboard() {
 
 
   useEffect(() => {
-    if (user?.status == "pending") {
+    if (user?.status != "approved") {
       window.location.href = "/kyc"
     }
   }, [user?.status])

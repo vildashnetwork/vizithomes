@@ -135,10 +135,11 @@ function Appointments() {
   }, [])
 
   useEffect(() => {
-    if (user?.status == "pending") {
+    if (user?.status != "approved") {
       window.location.href = "/kyc"
     }
   }, [user?.status])
+
   const [filter, setFilter] = useState([
     { title: "All Requests", active: true },
     { title: "Upcoming", active: false },
