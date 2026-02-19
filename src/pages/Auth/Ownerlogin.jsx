@@ -49,7 +49,7 @@ export default function OwnerAuthLanding() {
 
 
         if (!email) return setMessage({ type: "error", text: "Enter your email." });
-        if (!isEmail(email)) return setMessage({ type: "error", text: "Enter a valid email." });
+        // if (!isEmail(email)) return setMessage({ type: "error", text: "Enter a valid email." });
         if (!password) return setMessage({ type: "error", text: "Enter your password." });
 
         const logindata = { identifier: email, password: password }
@@ -86,7 +86,7 @@ export default function OwnerAuthLanding() {
         setMessage({ type: "", text: "" });
 
         if (!fullName) return setMessage({ type: "error", text: "Please enter your full name." });
-        if (!phone) return setMessage({ type: "error", text: "Please enter your phone number." });
+        // if (!phone) return setMessage({ type: "error", text: "Please enter your phone number." });
         if (!regEmail) return setMessage({ type: "error", text: "Please enter your email." });
         if (!isEmail(regEmail)) return setMessage({ type: "error", text: "Enter a valid email address." });
         if (!regPassword || regPassword.length < 6) return setMessage({ type: "error", text: "Password must be at least 6 characters." });
@@ -100,7 +100,7 @@ export default function OwnerAuthLanding() {
                 location: location,
                 password: regPassword,
                 // companyname: companyname,
-                phone: phone,
+                // phone: phone,
                 interest: role,
                 IDno: idno,
                 bio: bio
@@ -341,10 +341,9 @@ export default function OwnerAuthLanding() {
                             </div>
                         </div>
 
-                        <div className="form-row">
+                        {/* <div className="form-row">
                             <label htmlFor="reg-phone" className="form-label">Phone</label>
                             <div className="input-wrap1">
-                                {/* <ion-icon name="call-outline" class="input-icon" /> */}
                                 <input
                                     id="reg-phone"
                                     type="tel"
@@ -355,7 +354,7 @@ export default function OwnerAuthLanding() {
                                     autoComplete="tel"
                                 />
                             </div>
-                        </div>
+                        </div> */}
 
                         <div className="form-row">
                             <label htmlFor="reg-email" className="form-label">Email</label>
