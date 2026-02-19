@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
 import { Lock, AlertOctagon, Mail, ShieldAlert, Gavel } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const AccountBlocked = ({ reason, nav }) => {
 
-
+    const navigate = useNavigate()
 
 
     useEffect(() => {
-        if (nav === "suspended" || nav === "deactivated" || nav === "blocked") {
+        if (nav === "active") {
 
             navigate("/", { replace: true });
             return;
@@ -146,6 +147,11 @@ const AccountBlocked = ({ reason, nav }) => {
                     onMouseOut={(e) => {
                         e.currentTarget.style.transform = 'scale(1)';
                         e.currentTarget.style.backgroundColor = '#ff4d4d';
+                    }}
+                    onClick={() => {
+                        const subject = encodeURIComponent("Appeal: Account Suspension");
+                        const body = encodeURIComponent("Hello Vizit Team, my account has been suspended and I would like to appeal...");
+                        window.location.href = `mailto:info@vizit.homes?subject=${subject}&body=${body}`;
                     }}
                 >
                     <Mail size={20} />
