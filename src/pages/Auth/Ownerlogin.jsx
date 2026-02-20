@@ -9,6 +9,8 @@ import axios from "axios";
 
 
 export default function OwnerAuthLanding() {
+    const [searchParams] = useSearchParams();
+
     const [mode, setMode] = useState("login"); // "login" | "register"
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState({ type: "", text: "" });
