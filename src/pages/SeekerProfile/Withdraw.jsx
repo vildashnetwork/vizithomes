@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// import axios from "axios";
+import axios from "axios";
 import { Banknote, ArrowUpRight, Loader2, AlertCircle } from "lucide-react";
 
 const WithdrawComponent = ({ user }) => {
@@ -11,62 +11,46 @@ const WithdrawComponent = ({ user }) => {
     // Force balance to a number to prevent "disabled" button bugs
     const balance = Number(user?.referalbalance);
 
- const handleWithdraw = async (e) => {
-    e.preventDefault();
-    setMessage({ type: "", text: "" });
+    const handleWithdraw = async (e) => {
+        e.preventDefault();
+        setMessage({ type: "", text: "" });
 
-    // 1. Frontend Validations
-    if (!number || number.length < 9) {
-        return setMessage({ type: "error", text: "Provide a valid phone number (e.g., 237...)" });
-    }
-
-    if (Number(amount) < 25) {
-        return setMessage({ type: "error", text: "Minimum withdrawal is 25 frs" });
-    }
-    
-    if (Number(amount) > balance) {
-        return setMessage({ type: "error", text: "Insufficient balance" });
-    }
-
-    setLoading(true);
-
-    try {
-        // Fetch equivalent of axios.post
-        const response = await fetch(`https://vizit-backend-hubw.onrender.com/api/referal/payments/${user._id}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                // If you use a token, add it here:
-                // 'Authorization': `Bearer ${localStorage.getItem('token')}`
-            },
-            body: JSON.stringify({
-                amount: Number(amount),
-                phone: number
-            }),
-        });
-
-        const data = await response.json();
-
-        // 2. Handle Response
-        if (response.ok) { // Check for status 200-299
-            setMessage({ 
-                type: "success", 
-                text: "Withdrawal successful! Your balance has been updated." 
-            });
-            setAmount("");
-            setnumber("");
-        } else {
-            // Handle specific backend error messages
-            const errorMsg = data.error?.message || data.message || data.error || "Withdrawal failed";
-            throw new Error(errorMsg);
+        // 1. Frontend Validations
+        if (!number || number.length < 9) {
+            return setMessage({ type: "error", text: "Provide a valid phone number (e.g., 237...)" });
         }
 
-    } catch (err) {
-        setMessage({ type: "error", text: err.message });
-    } finally {
-        setLoading(false);
-    }
-};
+        if (Number(amount) < 25) {
+            return setMessage({ type: "error", text: "Minimum withdrawal is 25 frs" });
+        }
+        
+        if (Number(amount) > balance) {
+            return setMessage({ type: "error", text: "Insufficient balance" });
+        }
+
+        setLoading(true);
+        try {
+            // Updated to match your backend route: /api/referal/payments/:id
+            const res = await axios.post(`https://vizit-backend-hubw.onrender.com/api/referal/payments/${user._id}`, {
+                amount: Number(amount),
+                phone: number // Backend expects 'phone'
+            });
+
+            // Match your backend's res.status(201) and res.data.success
+            if (res.status === 201 || res.data.success) {
+                setMessage({ type: "success", text: "Withdrawal successful! Your balance has been updated." });
+                setAmount("");
+                setnumber("");
+            }
+        } catch (err) {
+            // Catch detailed backend error message
+            const errorMsg = err.response?.data?.error?.message || err.response?.data?.error || "Withdrawal failed";
+            setMessage({ type: "error", text: errorMsg });
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <div style={styles.card}>
             <div style={styles.header}>
