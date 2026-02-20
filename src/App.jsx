@@ -121,7 +121,7 @@ useEffect(() => {
 
           // Handle Banned Status
           const status = userData?.accountstatus?.toLowerCase();
-          if (["suspended", "deactivated", "blocked"].includes(status)) {
+          if (["suspended", "deactivated", "blocked", "ban"].includes(status)) {
             navigate("/banned", { replace: true });
           }
         }
