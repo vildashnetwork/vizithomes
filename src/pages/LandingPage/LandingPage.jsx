@@ -215,7 +215,7 @@ export function Header({ carryOutSearch, changeRegion, user }) {
               <Select title="Building Type" data={biuldingTypes} />
               <Select title="Duration Of Stay" data={posibleDuration} />
             </div>
-            <button className="search-button" onClick={()=> window.location.href = "/search-property"}>
+            <button className="search-button" onClick={() => window.location.href = "/search-property"}>
               <SearchIcon />
               <p>Find My vizits</p>
             </button>
@@ -232,40 +232,40 @@ export function ListingsCard({ image, title, location, rent, id, how, user, isVe
   const splted = location.split(/[0#&\(=*]/);
   const result = splted[0] + "  " + (splted[5] ? "Around  " + splted[5] + " " + splted[6] : "");
 
-// alert(user?.email)
+  // alert(user?.email)
 
 
 
-const [me, setme] = useState([])
-    const [loadme, setloadme] = useState(false)
-     const fetchLatestTransaction = async () => {
-            try {
-                setloadme(true)
-                const res = await axios.get(
-                    `https://vizit-backend-hubw.onrender.com/api/user/me/${user.email}`
-                );
-                if (res.data) {
+  const [me, setme] = useState([])
+  const [loadme, setloadme] = useState(false)
+  const fetchLatestTransaction = async () => {
+    try {
+      setloadme(true)
+      const res = await axios.get(
+        `https://vizit-backend-hubw.onrender.com/api/user/me/${user.email}`
+      );
+      if (res.data) {
 
-                    setme(res.data.user)
-                }
-            } catch (error) {
-                console.error("Error fetching latest transaction:", error);
+        setme(res.data.user)
+      }
+    } catch (error) {
+      console.error("Error fetching latest transaction:", error);
 
-            } finally {
-                setloadme(false)
-            }
-        };
-    useEffect(() => {
-        if (!user?.email) return;
-       
-        fetchLatestTransaction()
-    }, [user?.email]);
+    } finally {
+      setloadme(false)
+    }
+  };
+  useEffect(() => {
+    if (!user?.email) return;
+
+    fetchLatestTransaction()
+  }, [user?.email]);
 
 
-const [Open , setisOpen] = useState(false)
-const onClose = ()=>{
-  setisOpen(!Open)
-}
+  const [Open, setisOpen] = useState(false)
+  const onClose = () => {
+    setisOpen(!Open)
+  }
 
   return (
     <div className="listings-card">
@@ -282,14 +282,14 @@ const onClose = ()=>{
           </div>
         )}
         <img src={image} onClick={() => checkuser ?
-      ( me.haspay?
-          (window.location = `/property/${id}`) :
-          setisOpen(!Open)
-      )
+          (me.haspay ?
+            (window.location = `/property/${id}`) :
+            setisOpen(!Open)
+          )
           :
-           setopen(!openit)
-           
-           } alt="" width={500} style={{ cursor: "pointer" }} />
+          setopen(!openit)
+
+        } alt="" width={500} style={{ cursor: "pointer" }} />
       </div>
       <div className="listings-description">
         <p className="listing-title">{title}</p>
@@ -300,24 +300,24 @@ const onClose = ()=>{
           <LocationOnIcon className="icon-xs" />
           <p className="location-literal">{result}</p>
         </div>
-        <Link 
-  className="details-btn" 
-  to={checkuser && me.haspay ? `/property/${id}` : "#"} 
-  onClick={(e) => {
-    if (!checkuser) {
-      // State 1: Not logged in
-      e.preventDefault();
-      setopen(true);
-    } else if (!me.haspay) {
-      // State 2: Logged in but hasn't paid
-      e.preventDefault();
-      setisOpen(true);
-    }
-    // State 3: Logged in and has paid (navigation happens automatically via 'to')
-  }}
->
-  View Details
-</Link>
+        <Link
+          className="details-btn"
+          to={checkuser && me.haspay ? `/property/${id}` : "#"}
+          onClick={(e) => {
+            if (!checkuser) {
+              // State 1: Not logged in
+              e.preventDefault();
+              setopen(true);
+            } else if (!me.haspay) {
+              // State 2: Logged in but hasn't paid
+              e.preventDefault();
+              setisOpen(true);
+            }
+            // State 3: Logged in and has paid (navigation happens automatically via 'to')
+          }}
+        >
+          View Details
+        </Link>
         {openit && (
           <div className="auth-overlay" onClick={() => setopen(!openit)}>
             <div className="auth-modal" onClick={(e) => e.stopPropagation()}>
@@ -332,9 +332,9 @@ const onClose = ()=>{
         )}
       </div>
 
-        { Open &&
-     <PayToViewModal userId={me?._id} onClose = {onClose} isOpen={Open} onRefreshUser={fetchLatestTransaction}/>
-    }
+      {Open &&
+        <PayToViewModal userId={me?._id} onClose={onClose} isOpen={Open} onRefreshUser={fetchLatestTransaction} />
+      }
     </div>
   );
 }
@@ -356,8 +356,8 @@ export function Footer() {
         <div className="legal-links">
           <h3>Legal</h3>
           <ul className="links">
-            <li><Link to=" ">Terms of service</Link></li>
-            <li><Link to="">Privacy Policy</Link></li>
+            <li><Link to="https://docs.vizit.homes/terms">Terms of service</Link></li>
+            <li><Link to="https://docs.vizit.homes/privacy">Privacy Policy</Link></li>
           </ul>
         </div>
       </div>
@@ -435,7 +435,7 @@ function LandingPage() {
       return;
     }
 
-    let searchArray = data.filter(item => 
+    let searchArray = data.filter(item =>
       cleanString(item.location.address).includes(inputTex) ||
       cleanString(item.title).includes(inputTex) ||
       cleanString(item.type).includes(inputTex)
@@ -462,12 +462,12 @@ function LandingPage() {
 
   return (
     <>
-      <Header carryOutSearch={carryOutSearch} changeRegion={() => {}} user={user} />
+      <Header carryOutSearch={carryOutSearch} changeRegion={() => { }} user={user} />
       <SideNav />
       <SectionHeader title="Vizit Verified Listings" description="Explore Vizit's top verified listings around Cameroon " />
-      
+
       <div className="listings-card-container">
-        {loading ? <p>Loading sorted listings...</p> : 
+        {loading ? <p>Loading sorted listings...</p> :
           listingsData.listings.map((item, index) => (
             <ListingsCard
               key={item.listingId || index}
@@ -491,7 +491,7 @@ function LandingPage() {
           <MapComponent zoom={zoom} locations={listingsData.locations} center={center} />
         </div>
       </div>
-  
+
       <BottomTabs user={user} />
       <Footer user={user} />
     </>
