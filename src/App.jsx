@@ -118,6 +118,7 @@ useEffect(() => {
         if (userData) {
           setuser(userData); // Update state
           connectSocket(userData._id);
+          localStorage.setItem("userId", userData?._id )
 
           // Handle Banned Status
           const status = userData?.accountstatus?.toLowerCase();
