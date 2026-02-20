@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useSearchParams } from "react-router-dom"; 
 import "./style/osner.css";
 import GoogleLoginButton from "./GoogleLoginButton";
 import Dropdown from "./Select";
@@ -25,6 +26,15 @@ export default function OwnerAuthLanding() {
     const [regEmail, setRegEmail] = useState("");
     const [regPassword, setRegPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+
+
+// Inside your App.js useEffect that handles searchParams
+useEffect(() => {
+    const refCode = searchParams.get("ref"); 
+    if (refCode) {
+        localStorage.setItem("pendingReferral", refCode); 
+    }
+}, [searchParams]);
 
     const firstInputRef = useRef(null);
 
