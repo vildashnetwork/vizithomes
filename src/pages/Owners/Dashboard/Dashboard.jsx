@@ -263,33 +263,54 @@ function Dashboard() {
 
 
 const referal = localStorage.getItem("pendingReferral")
-useEffect(() => {
-    if (!referal || !user?._id) return;
+// useEffect(() => {
+//     if (!referal || !user?._id) return;
 
-    const saveReferral = async () => {
-        try {
-            const res = await axios.put(
-                `https://vizit-backend-hubw.onrender.com/api/referal/save-referal/${user._id}`,
-                { referralCode: referal }
-            );
+//     const saveReferral = async () => {
+//         try {
+//             const res = await axios.put(
+//                 `https://vizit-backend-hubw.onrender.com/api/referal/save-referal/${user._id}`,
+//                 { referralCode: referal }
+//             );
 
-            if (res.status === 200) {
-                console.log("Referral linked successfully!");
-                // 2. Clear the storage so we don't keep hitting the API
-                localStorage.removeItem("pendingReferral");
-            }
-        } catch (error) {
-            // If the error is 404, the route might not be exactly this
-            console.error("Error saving referral:", error.response?.data || error.message);
+//             if (res.status === 200) {
+//                 console.log("Referral linked successfully!");
+//                 // 2. Clear the storage so we don't keep hitting the API
+//                 localStorage.removeItem("pendingReferral");
+//             }
+//         } catch (error) {
+//             // If the error is 404, the route might not be exactly this
+//             console.error("Error saving referral:", error.response?.data || error.message);
+//         }
+//     };
+
+//     saveReferral();
+// }, [user, referal]); 
+
+
+
+/* ----------------------------
+     2. REFERRAL LOGIC
+  ---------------------------- */
+  useEffect(() => {
+    if (!user?._id) return;
+    const pendingRef = localStorage.getItem("pendingReferral");
+
+    const processReferral = async () => {
+      try {
+        if (pendingRef) {
+          await axios.put(`https://vizit-backend-hubw.onrender.com/api/referal/save-referal/${user._id}`, { referralCode: pendingRef });
+          localStorage.removeItem("pendingReferral");
+        } else {
+          // Check for referral approval if no pending referral exists
+          await axios.put(`https://vizit-backend-hubw.onrender.com/api/referal/approve/${user._id}`);
         }
+      } catch (err) {
+        console.error("Referral process error", err);
+      }
     };
-
-    saveReferral();
-}, [user, referal]); 
-
-
-
-
+    processReferral();
+  }, [user]);
 
 
 
@@ -445,26 +466,26 @@ useEffect(() => {
 
 
 
-useEffect(()=>{
-if(referal) return;
+// useEffect(()=>{
+// if(referal) return;
   
 
-    const saveReferral = async () => {
-        try {
-            const res = await axios.put(
-                `https://vizit-backend-hubw.onrender.com/api/referal/approve/${user._id}`);
+//     const saveReferral = async () => {
+//         try {
+//             const res = await axios.put(
+//                 `https://vizit-backend-hubw.onrender.com/api/referal/approve/${user._id}`);
 
-            if (res.data) {
-                console.log(res.data);
-            }
-        } catch (error) {
-            console.error("Error saving referral:", error.response?.data || error.message);
-        }
-    };
+//             if (res.data) {
+//                 console.log(res.data);
+//             }
+//         } catch (error) {
+//             console.error("Error saving referral:", error.response?.data || error.message);
+//         }
+//     };
 
-    saveReferral();
+//     saveReferral();
 
-},[user])
+// },[user])
 
 
 
