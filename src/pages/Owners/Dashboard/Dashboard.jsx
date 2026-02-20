@@ -292,26 +292,29 @@ const referal = localStorage.getItem("pendingReferral")
 /* ----------------------------
      2. REFERRAL LOGIC
   ---------------------------- */
-  useEffect(() => {
-    if (!user?._id) return;
-    const pendingRef = localStorage.getItem("pendingReferral");
+useEffect(() => {
+    // 1. Only run if we have a user AND a pending referral AND the user is approved
+    if (!referal || !user?._id || user?.status !== "approved") return;
 
-    const processReferral = async () => {
-      try {
-        if (pendingRef) {
-          await axios.put(`https://vizit-backend-hubw.onrender.com/api/referal/save-referal/${user._id}`, { referralCode: pendingRef });
-          localStorage.removeItem("pendingReferral");
-        } else {
-          // Check for referral approval if no pending referral exists
-          await axios.put(`https://vizit-backend-hubw.onrender.com/api/referal/approve/${user._id}`);
+    const saveReferral = async () => {
+        try {
+            const res = await axios.put(
+                `https://vizit-backend-hubw.onrender.com/api/referal/save-referal/${user._id}`,
+                { referralCode: referal }
+            );
+
+            if (res.status === 200) {
+                console.log("Referral linked successfully!");
+                localStorage.removeItem("pendingReferral");
+            }
+        } catch (error) {
+            // Log the actual error message from the backend (like "Owner is not approved yet")
+            console.error("Referral Error:", error.response?.data?.message || error.message);
         }
-      } catch (err) {
-        console.error("Referral process error", err);
-      }
     };
-    processReferral();
-  }, [user]);
 
+    saveReferral();
+}, [user, referal]);
 
 
 
