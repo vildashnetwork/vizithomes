@@ -147,7 +147,7 @@ export function Head({ carryOutSearch, user }) {
   const [openit, setopen] = useState(false);
   const check = localStorage.getItem("token") ? true : false;
   const profile = user?.profile ? (
-    <img src={user?.profile} alt="" width={50} height={50} className="img-container" />
+    <img src={user?.profile} alt="" width={50} height={50} className="img-container" onClick={() => window.location.href = ""} />
   ) : (
     <PersonIcon style={{ fontSize: "40px" }} />
   );
