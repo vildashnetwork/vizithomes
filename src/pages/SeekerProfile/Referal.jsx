@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Share2, Copy, CheckCircle, Wallet } from "lucide-react"; 
 import WithdrawComponent from "./Withdraw";
-
+import axios from "axios";
 const ReferralInterface = ({ user }) => {
     const [copied, setCopied] = useState(false);
     const [withdraw, setwithdraw] = useState(false);
