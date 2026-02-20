@@ -469,26 +469,26 @@ useEffect(() => {
 
 
 
-// useEffect(()=>{
-// if(referal) return;
+useEffect(()=>{
+   if (referal || !user?._id || user?.status === "approved") return;
   
 
-//     const saveReferral = async () => {
-//         try {
-//             const res = await axios.put(
-//                 `https://vizit-backend-hubw.onrender.com/api/referal/approve/${user._id}`);
+    const saveReferral = async () => {
+        try {
+            const res = await axios.put(
+                `https://vizit-backend-hubw.onrender.com/api/referal/approve/${user?._id}`);
 
-//             if (res.data) {
-//                 console.log(res.data);
-//             }
-//         } catch (error) {
-//             console.error("Error saving referral:", error.response?.data || error.message);
-//         }
-//     };
+            if (res.data) {
+                console.log(res.data);
+            }
+        } catch (error) {
+            console.error("Error saving referral:", error.response?.data || error.message);
+        }
+    };
 
-//     saveReferral();
+    saveReferral();
 
-// },[user])
+},[user])
 
 
 
