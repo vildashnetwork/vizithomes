@@ -469,26 +469,51 @@ useEffect(() => {
 
 
 
-useEffect(()=>{
-   if (referal || !user?._id || user?.status === "approved") return;
-  
+useEffect(() => {
+    // 1. Guard Clauses
+    // Stop if user isn't loaded
+    if (!user?._id) return;
 
-    const saveReferral = async () => {
+    // Stop if the user doesn't have a referrer linked yet 
+    // (This is the ID that was previously sent to the owner)
+    if (!user.referredBy) {
+        console.log("No referrer linked to this account.");
+        return;
+    }
+
+    // Stop if they are already paid
+    if (user.isReferralPaid) {
+        return;
+    }
+
+    // Stop if the account isn't approved yet
+    if (user.status !== "approved") {
+        console.log("Owner is linked but not yet approved for payout.");
+        return;
+    }
+
+    const triggerReferralPayout = async () => {
         try {
+            // Calling the approve endpoint which handles the referalbalance += 50
             const res = await axios.put(
-                `https://vizit-backend-hubw.onrender.com/api/referal/approve/${user?._id}`);
+                `https://vizit-backend-hubw.onrender.com/api/referal/approve/${user._id}`
+            );
 
-            if (res.data) {
-                console.log(res.data);
+            if (res.status === 200) {
+                console.log("Referral payout processed successfully:", res.data.message);
+                // Optionally refresh the page or update local state so isReferralPaid becomes true
             }
         } catch (error) {
-            console.error("Error saving referral:", error.response?.data || error.message);
+            // We ignore 400 errors here because it usually means it was already processed
+            if (error.response?.status !== 400) {
+                console.error("Payout error:", error.response?.data || error.message);
+            }
         }
     };
 
-    saveReferral();
+    triggerReferralPayout();
 
-},[user])
+}, [user?.status, user?.referredBy, user?.isReferralPaid]);
 
 
 
