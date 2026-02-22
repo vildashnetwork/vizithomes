@@ -188,10 +188,12 @@ function Listings() {
         </td>
         <td className="table-data">
           <div className="actions">
-        <button onClick={() => window.location.href = `/updateprop/${listing?._id}`}>
+        <button onClick={() => window.location.href = `/updateprop/${listing?._id}`}
+             style={{color: "linear-gradient(135deg, #10ca8c 0%, #7cb870 100%)"}}>
   <EditIcon />
 </button>
-            <button disabled={loadingdel} onClick={handleDelete}>
+            <button disabled={loadingdel} onClick={handleDelete}
+               style={{color: "linear-gradient(135deg, #10ca8c 0%, #7cb870 100%)"}}>
               {loadingdel ? "Deleting..." : <DeleteIcon />}
             </button>
           </div>
