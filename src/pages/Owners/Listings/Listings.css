@@ -117,7 +117,7 @@
     padding: clamp(6px, 1.2vw, 10px) clamp(12px, 2vw, 16px);
     border-radius: 25px;
     border: 2px solid transparent;
-    background: linear-gradient(135deg, #d4a602, #b38b02);
+    background: linear-gradient(135deg, #02d402, #02b3a4);
     cursor: pointer;
     font-weight: 500;
     font-size: clamp(0.85rem, 1.8vw, 0.95rem);
@@ -1059,7 +1059,7 @@
     }
 
     .listings .search-filter .search svg {
-        color: #d4a602;
+        color: #02d459;
     }
 
     .listings .listing-table .table-container {
@@ -1078,7 +1078,7 @@
     }
 
     .listings .listing-table .table .property-details .property-title {
-        color: #d4a602;
+        color: #02d448;
     }
 
     .listings .listing-table .table .property-details .property-location {
@@ -1086,7 +1086,7 @@
     }
 
     .listings .listing-table .table .price {
-        color: #d4a602;
+        color: #02d441;
     }
 
     .listings .listing-table .table .last-updated {
@@ -1098,7 +1098,7 @@
     }
 
     .listings .listing-table .navigators .pagination-info {
-        color: #d4a602;
+        color: #4b7e29;
     }
 
     .listings .listing-table .navigators button {
@@ -1144,7 +1144,7 @@
 /* Focus styles for accessibility */
 .listings button:focus-visible,
 .listings input:focus-visible {
-    outline: 3px solid #d4a602;
+    outline: 3px solid #02d436;
     outline-offset: 2px;
 }
 
