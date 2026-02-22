@@ -978,17 +978,21 @@ export default function CreateHouseForm({ onCreated }) {
                                                 <ion-icon name="calendar-outline"></ion-icon>
                                             </span>
                                             <select
-                                                className="vans-input"
-                                                style={{ cursor: "pointer" }}
-                                                value={how}
-                                                onChange={(e) => setHow(e.target.value)}
-                                                required
-                                            >
-                                                <option value="select a payment plan">select a payment plan</option>
-                                                <option value="month">month</option>
-                                                <option value="day">day</option>
-                                                <option value="night">night</option>
-                                            </select>
+  className="vans-input"
+  value={how}
+  onChange={(e) => setHow(e.target.value)}
+  required
+  style={{ 
+    cursor: "pointer",
+    color: "#00976a", 
+    border: "2px solid #10ca8c",
+    
+  }}
+>
+  <option value="month">per month</option>
+  <option value="day">per day</option>
+  <option value="night">per night</option>
+</select>
                                         </div>
                                     </label>
                                 </div>
