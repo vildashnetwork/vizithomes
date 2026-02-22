@@ -9,7 +9,7 @@ import SaveAsIcon from "@mui/icons-material/SaveAs";
 import ReceiptIcon from "@mui/icons-material/Receipt";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
-import BarChartIcon from "@mui/icons-material/BarChart";
+import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SearchIcon from "@mui/icons-material/Search";
 import EditIcon from "@mui/icons-material/Edit";
@@ -188,7 +188,7 @@ function Listings() {
         <td className="table-data">
           <div className="actions">
         <button onClick={() => window.location.href = `/updateprop/${listing?._id}`}>
-  <BarChartIcon />
+  <EditIcon />
 </button>
             <button disabled={loadingdel} onClick={handleDelete}>
               {loadingdel ? "Deleting..." : <DeleteIcon />}
