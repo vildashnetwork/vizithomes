@@ -1842,6 +1842,7 @@ return (
                                             <input
                                                 type="number"
                                                 value={formData.rent}
+                                                   style={{color: "linear-gradient(135deg, #10ca8c 0%, #7cb870 100%)"}}
                                                 onChange={(e) => handleChange("rent", e.target.value)}
                                                 className="vans-input"
                                                 placeholder="250000"
@@ -1975,6 +1976,7 @@ return (
                                             value={formData.description}
                                             onChange={(e) => handleChange("description", e.target.value)}
                                             className="fendi-textarea"
+                                               style={{color: "linear-gradient(135deg, #10ca8c 0%, #7cb870 100%)"}}
                                             rows={5}
                                             placeholder="Describe your property in detail... What makes it special?"
                                             maxLength={500}
