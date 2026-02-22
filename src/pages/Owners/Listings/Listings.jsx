@@ -299,7 +299,8 @@ function Listings() {
                   <th>Actions</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody
+                  style={{background: "linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%)"}}>
 
                 {
 
