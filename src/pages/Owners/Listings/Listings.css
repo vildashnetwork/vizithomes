@@ -117,7 +117,7 @@
     padding: clamp(6px, 1.2vw, 10px) clamp(12px, 2vw, 16px);
     border-radius: 25px;
     border: 2px solid transparent;
-    background: linear-gradient(135deg, #02d402, #02b3a4);
+    background: linear-gradient(135deg, #d4a602, #b38b02);
     cursor: pointer;
     font-weight: 500;
     font-size: clamp(0.85rem, 1.8vw, 0.95rem);
@@ -1059,7 +1059,7 @@
     }
 
     .listings .search-filter .search svg {
-        color: #02d459;
+        color: #d4a602;
     }
 
     .listings .listing-table .table-container {
