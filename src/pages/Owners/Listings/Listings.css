@@ -129,22 +129,22 @@
 .listings .search-filter .filter-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(212, 166, 2, 0.4);
-    background: linear-gradient(135deg, #e6b800, #d4a602);
+    background: linear-gradient(135deg, #1a492f, #255a2c);
 }
 
 .listings .search-filter .filter-btn.active {
     animation: smothcolor linear 10s infinite;
     border-color: #014631;
-    background: linear-gradient(135deg, #f5c400, #d4a602);
+    background: linear-gradient(135deg, #127a41, #15642c);
     font-weight: 600;
 }
 
 @keyframes smothcolor {
-    0% { background: linear-gradient(135deg, #d4a602, #b38b02); }
-    25% { background: linear-gradient(135deg, #e6b800, #d4a602); }
-    50% { background: linear-gradient(135deg, #f5c400, #e6b800); }
-    75% { background: linear-gradient(135deg, #e6b800, #d4a602); }
-    100% { background: linear-gradient(135deg, #d4a602, #b38b02); }
+    0% { background: linear-gradient(135deg, #0c5832, #0e6943); }
+    25% { background: linear-gradient(135deg, #155e54, #116434); }
+    50% { background: linear-gradient(135deg, #12695e, #188a2b); }
+    75% { background: linear-gradient(135deg, #0f8054, #107a2b); }
+    100% { background: linear-gradient(135deg, #04573b, #166343); }
 }
 
 /* =======================
@@ -156,7 +156,7 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(95, 83, 83, 0.7);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -354,7 +354,7 @@
 
 .listings .listing-table .table .batch.pending {
     background: linear-gradient(135deg, #fff3e0, #ffe0b2);
-    color: #ef6c00;
+    color: #00ef34;
 }
 
 /* Action Buttons */
