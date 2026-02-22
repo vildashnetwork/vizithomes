@@ -1,203 +1,1164 @@
+/* =======================
+   LISTINGS MAIN CONTAINER
+======================= */
 .listings {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
+}
 
+/* =======================
+   SEARCH FILTER SECTION
+======================= */
+.listings .search-filter {
+    display: flex;
+    gap: clamp(12px, 2vw, 20px);
+    padding: clamp(15px, 3vw, 20px);
+    flex-wrap: wrap;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    margin: clamp(10px, 2vw, 20px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
 
-    .search-filter {
-        display: flex;
-        gap: 20px;
-        padding: 20px;
-        flex-wrap: wrap;
+/* Search Box */
+.listings .search-filter .search {
+    display: flex;
+    align-items: center;
+    padding: clamp(8px, 1.5vw, 12px) clamp(12px, 2vw, 15px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+    flex: 1 1 280px;
+    min-width: 200px;
+    transition: all 0.3s ease;
+}
+
+.listings .search-filter .search:focus-within {
+    box-shadow: 0 4px 12px rgba(1, 70, 49, 0.2);
+    transform: translateY(-1px);
+}
+
+.listings .search-filter .search input {
+    border: none;
+    outline: none;
+    padding: clamp(5px, 1vw, 8px);
+    width: 100%;
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    background: transparent;
+}
+
+.listings .search-filter .search input::placeholder {
+    color: #999;
+    font-size: clamp(0.85rem, 1.8vw, 0.95rem);
+}
+
+.listings .search-filter .search svg {
+    color: #014631;
+    width: clamp(18px, 2.5vw, 20px);
+    height: clamp(18px, 2.5vw, 20px);
+    flex-shrink: 0;
+}
+
+/* Filters Container */
+.listings .search-filter .filters {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: clamp(8px, 1.5vw, 10px);
+    flex: 1 1 auto;
+}
+
+/* Add New Button */
+.listings .search-filter .button {
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    gap: clamp(5px, 1vw, 8px);
+    padding: clamp(8px, 1.5vw, 12px) clamp(15px, 2.5vw, 20px);
+    border-radius: 25px;
+    border: none;
+    background: linear-gradient(135deg, #014631, #026b4a);
+    cursor: pointer;
+    font-weight: 600;
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    white-space: nowrap;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(1, 70, 49, 0.3);
+}
+
+.listings .search-filter .button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(1, 70, 49, 0.4);
+    background: linear-gradient(135deg, #026b4a, #014631);
+}
+
+.listings .search-filter .button:active {
+    transform: translateY(0);
+}
+
+.listings .search-filter .button .btn-icon {
+    width: clamp(16px, 2.2vw, 18px);
+    height: clamp(16px, 2.2vw, 18px);
+    fill: white;
+}
+
+/* Filter Buttons */
+.listings .search-filter .filter-btn {
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    gap: clamp(4px, 1vw, 6px);
+    padding: clamp(6px, 1.2vw, 10px) clamp(12px, 2vw, 16px);
+    border-radius: 25px;
+    border: 2px solid transparent;
+    background: linear-gradient(135deg, #d4a602, #b38b02);
+    cursor: pointer;
+    font-weight: 500;
+    font-size: clamp(0.85rem, 1.8vw, 0.95rem);
+    white-space: nowrap;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(212, 166, 2, 0.3);
+}
+
+.listings .search-filter .filter-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(212, 166, 2, 0.4);
+    background: linear-gradient(135deg, #e6b800, #d4a602);
+}
+
+.listings .search-filter .filter-btn.active {
+    animation: smothcolor linear 10s infinite;
+    border-color: #014631;
+    background: linear-gradient(135deg, #f5c400, #d4a602);
+    font-weight: 600;
+}
+
+@keyframes smothcolor {
+    0% { background: linear-gradient(135deg, #d4a602, #b38b02); }
+    25% { background: linear-gradient(135deg, #e6b800, #d4a602); }
+    50% { background: linear-gradient(135deg, #f5c400, #e6b800); }
+    75% { background: linear-gradient(135deg, #e6b800, #d4a602); }
+    100% { background: linear-gradient(135deg, #d4a602, #b38b02); }
+}
+
+/* =======================
+   LOADING OVERLAY
+======================= */
+.listings .loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    flex-direction: column;
+    backdrop-filter: blur(5px);
+}
+
+.listings .loading-spinner {
+    border: clamp(4px, 1vw, 6px) solid #f3f3f3;
+    border-top: clamp(4px, 1vw, 6px) solid #014631;
+    border-radius: 50%;
+    width: clamp(50px, 8vw, 70px);
+    height: clamp(50px, 8vw, 70px);
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+.listings .loading-text {
+    color: white;
+    font-size: clamp(14px, 3vw, 18px);
+    font-weight: bold;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* =======================
+   EMPTY STATE
+======================= */
+.listings .empty-state {
+    padding: clamp(30px, 8vw, 50px) clamp(15px, 4vw, 30px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+    font-size: clamp(1rem, 3vw, 1.2rem);
+    color: #666;
+    background: white;
+    border-radius: 12px;
+    margin: clamp(10px, 2vw, 20px);
+    min-height: 200px;
+}
+
+.listings .empty-state svg {
+    width: clamp(40px, 8vw, 60px);
+    height: clamp(40px, 8vw, 60px);
+    opacity: 0.5;
+}
+
+/* =======================
+   LISTING TABLE
+======================= */
+.listings .listing-table {
+    padding: clamp(12px, 2.5vw, 20px);
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.listings .listing-table .table-container {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    min-width: min(100%, 1000px);
+}
+
+/* Table Styles */
+.listings .listing-table .table {
+    width: 100%;
+    background-color: transparent;
+    border-spacing: 0;
+    border-collapse: separate;
+    text-indent: inherit;
+    min-width: 800px;
+}
+
+/* Table Header */
+.listings .listing-table .table thead {
+    background: linear-gradient(135deg, #014631, #026b4a);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.listings .listing-table .table th {
+    padding: clamp(12px, 2vw, 16px) clamp(10px, 1.5vw, 15px);
+    color: white;
+    font-weight: 600;
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    text-align: left;
+    white-space: nowrap;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.listings .listing-table .table th:first-child {
+    border-radius: 12px 0 0 0;
+}
+
+.listings .listing-table .table th:last-child {
+    border-radius: 0 12px 0 0;
+}
+
+/* Table Body */
+.listings .listing-table .table tbody tr {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.listings .listing-table .table tbody tr:hover {
+    background-color: rgba(1, 70, 49, 0.02);
+    transform: scale(1.01);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.listings .listing-table .table td {
+    padding: clamp(12px, 2vw, 16px) clamp(10px, 1.5vw, 15px);
+    background-color: white;
+    border-bottom: 1px solid #e9ecef;
+    font-size: clamp(0.85rem, 1.8vw, 0.95rem);
+    vertical-align: middle;
+}
+
+/* Property Details */
+.listings .listing-table .table .property-details {
+    display: flex;
+    gap: clamp(10px, 2vw, 15px);
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.listings .listing-table .table .property-details .property-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.listings .listing-table .table .property-details img {
+    width: clamp(50px, 8vw, 80px);
+    height: clamp(50px, 8vw, 80px);
+    border-radius: clamp(8px, 2vw, 12px);
+    object-fit: cover;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.listings .listing-table .table .property-details img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.listings .listing-table .table .property-details .property-title {
+    font-weight: 600;
+    color: #014631;
+    font-size: clamp(0.95rem, 2vw, 1.05rem);
+}
+
+.listings .listing-table .table .property-details .property-location {
+    color: #666;
+    font-size: clamp(0.8rem, 1.5vw, 0.9rem);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Status Badge */
+.listings .listing-table .table .batch {
+    padding: clamp(4px, 1vw, 6px) clamp(8px, 1.5vw, 12px);
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    justify-content: center;
+    border-radius: 20px;
+    font-size: clamp(0.8rem, 1.6vw, 0.9rem);
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.listings .listing-table .table .batch.available {
+    background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+    color: #2e7d32;
+}
+
+.listings .listing-table .table .batch.booked {
+    background: linear-gradient(135deg, #ffebee, #ffcdd2);
+    color: #c62828;
+}
+
+.listings .listing-table .table .batch.pending {
+    background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+    color: #ef6c00;
+}
+
+/* Action Buttons */
+.listings .listing-table .table .actions {
+    display: flex;
+    gap: clamp(6px, 1.2vw, 10px);
+    flex-wrap: wrap;
+}
+
+.listings .listing-table .table .actions button {
+    padding: clamp(5px, 1vw, 8px) clamp(8px, 1.5vw, 12px);
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    font-size: clamp(0.8rem, 1.6vw, 0.9rem);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.listings .listing-table .table .actions button.edit {
+    background: linear-gradient(135deg, #014631, #026b4a);
+    color: white;
+    box-shadow: 0 2px 6px rgba(1, 70, 49, 0.2);
+}
+
+.listings .listing-table .table .actions button.edit:hover {
+    background: linear-gradient(135deg, #026b4a, #014631);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(1, 70, 49, 0.3);
+}
+
+.listings .listing-table .table .actions button.delete {
+    background: linear-gradient(135deg, #d32f2f, #b71c1c);
+    color: white;
+    box-shadow: 0 2px 6px rgba(211, 47, 47, 0.2);
+}
+
+.listings .listing-table .table .actions button.delete:hover {
+    background: linear-gradient(135deg, #b71c1c, #d32f2f);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(211, 47, 47, 0.3);
+}
+
+.listings .listing-table .table .actions button.view {
+    background: linear-gradient(135deg, #1976d2, #1565c0);
+    color: white;
+    box-shadow: 0 2px 6px rgba(25, 118, 210, 0.2);
+}
+
+.listings .listing-table .table .actions button.view:hover {
+    background: linear-gradient(135deg, #1565c0, #1976d2);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(25, 118, 210, 0.3);
+}
+
+/* Price Styling */
+.listings .listing-table .table .price {
+    font-weight: 700;
+    color: #014631;
+    font-size: clamp(1rem, 2vw, 1.1rem);
+}
+
+/* Last Updated */
+.listings .listing-table .table .last-updated {
+    color: #666;
+    font-size: clamp(0.8rem, 1.5vw, 0.9rem);
+}
+
+/* =======================
+   PAGINATION / NAVIGATORS
+======================= */
+.listings .listing-table .navigators {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    margin-top: clamp(10px, 2vw, 15px);
+    padding: clamp(8px, 1.5vw, 12px) clamp(12px, 2vw, 16px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 8px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.listings .listing-table .navigators .pagination-info {
+    color: #014631;
+    font-size: clamp(0.85rem, 1.6vw, 0.95rem);
+    font-weight: 500;
+}
+
+.listings .listing-table .navigators .pagination-buttons {
+    display: flex;
+    gap: clamp(6px, 1.2vw, 10px);
+    flex-wrap: wrap;
+}
+
+.listings .listing-table .navigators button {
+    padding: clamp(6px, 1.2vw, 10px) clamp(10px, 1.8vw, 15px);
+    border-radius: 6px;
+    border: none;
+    background: white;
+    color: #014631;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    min-width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.listings .listing-table .navigators button:hover:not(:disabled) {
+    background: #014631;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(1, 70, 49, 0.2);
+}
+
+.listings .listing-table .navigators button.active {
+    background: #014631;
+    color: white;
+    font-weight: 600;
+}
+
+.listings .listing-table .navigators button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* =======================
+   RESPONSIVE BREAKPOINTS
+======================= */
+
+/* Extra Large Devices (1200px and up) */
+@media (min-width: 1200px) {
+    .listings .search-filter {
+        margin: 20px 40px;
+    }
+
+    .listings .listing-table {
+        padding: 20px 40px;
+    }
+}
+
+/* Large Devices (992px - 1199px) */
+@media (min-width: 992px) and (max-width: 1199px) {
+    .listings .search-filter {
+        margin: 15px 30px;
+    }
+
+    .listings .listing-table {
+        padding: 15px 30px;
+    }
+
+    .listings .listing-table .table th,
+    .listings .listing-table .table td {
+        padding: 12px;
+    }
+}
+
+/* Medium Devices (768px - 991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+    .listings .search-filter {
+        flex-direction: column;
+        align-items: stretch;
+        margin: 12px 20px;
+    }
+
+    .listings .search-filter .search {
+        width: 100%;
+    }
+
+    .listings .search-filter .filters {
+        justify-content: center;
+    }
+
+    .listings .search-filter .button {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .listings .listing-table {
+        padding: 12px 20px;
+    }
+
+    .listings .listing-table .table {
+        min-width: 700px;
+    }
+
+    .listings .listing-table .navigators {
+        flex-direction: column;
         align-items: center;
-
-        .search {
-            /* flex: 3; */
-            /* width: 400px; */
-            display: flex;
-            align-items: center;
-            padding: 5px 15px;
-            box-shadow: 0 0 2px 1px;
-            background-color: #FFf;
-            border-radius: 5px;
-            backdrop-filter: blur(10px);
-
-            input {
-                border: none;
-                outline: none;
-                padding: 5px;
-
-            }
-        }
-
-        .filters {
-            /* flex: 2; */
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        button {
-            color: #FFf;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            padding: 8px 15px;
-            border-radius: 20px;
-            border: none;
-            background-color: rgba(219, 168, 2, 0.945);
-            cursor: pointer;
-
-        }
-
-        .active {
-            animation: smothcolor linear 10s infinite;
-        }
-
-
-
-
+        text-align: center;
     }
 
-    .listing-table {
-        padding: 20px;
-
-        .table-container {
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 2px 1px;
-        }
-
-        .table {
-
-            background-color: transparent;
-            border-spacing: 0;
-            text-indent: inherit;
-
-            thead {
-                background-color: transparent;
-
-
-            }
-
-            tr td {
-                background-color: rgb(255, 255, 255);
-                border-bottom: 1px solid grey;
-            }
-
-            tr th {
-                border-bottom: 1px solid rgb(255, 255, 255);
-                animation: smothcolor linear 10s infinite;
-            }
-
-            td,
-            th {
-                border: none;
-                text-align: start;
-                background-color: transparent;
-                border-collapse: collapse;
-                /* vertical-align: unset; */
-                border-bottom: solid rgb(255, 255, 255);
-
-            }
-
-            .table-header {
-                border-bottom: solid red solid;
-                /* border-right: 2px white solid; */
-            }
-
-            .table-data {
-                background-color: rgba(2, 73, 46, 0.021);
-                color: black;
-                /* display:contents; */
-                unicode-bidi: unset;
-
-                .property-details {
-                    display: flex;
-                    gap: 10px;
-                    align-items: center;
-
-
-                    * div {
-                        display: flex;
-                        height: 100px;
-                        align-items: center;
-
-                    }
-
-                    img {
-                        display: flex;
-                        height: 80px;
-                        width: 80px;
-                        border-radius: 20px;
-                        background-size: cover;
-
-
-                    }
-
-                }
-
-                .batch {
-                    padding: 5px 10px;
-                    box-shadow:inset 0 0 2px 1px black;
-                    display: flex;
-                    align-items: center;
-                    gap: 6px;
-                    justify-content: center;
-                    border-radius: 20px;
-
-                }
-
-                .actions {
-                    display: flex;
-                    gap: 10px;
-
-                    button {
-                        padding: 5px 12px;
-                        border: none;
-                        background-color: transparent;
-                        cursor: pointer;
-                    }
-
-
-                }
-
-            }
-
-        }
-
-        .navigators{
-            background-color: rgba(209, 209, 209, 0.459);
-            margin-top: 15px ;
-            padding: 10px;
-            display: flex;
-            justify-content: space-between;
-            border-radius: 5px ;
-            div{
-                display: flex;
-                gap: 10px;
-            }
-            
-            button{
-                padding: 10px 15px;
-                border-radius: 50%;
-                border: none;
-                background-color:lightblue ;
-            }
-        }
+    .listings .listing-table .navigators .pagination-info {
+        margin-bottom: 10px;
     }
 }
 
-@media screen and (max-width:470px) {
+/* Small Devices (576px - 767px) */
+@media (min-width: 576px) and (max-width: 767px) {
+    .listings .search-filter {
+        flex-direction: column;
+        align-items: stretch;
+        margin: 10px 15px;
+        padding: 15px;
+    }
+
+    .listings .search-filter .search {
+        width: 100%;
+    }
+
+    .listings .search-filter .filters {
+        justify-content: center;
+    }
+
+    .listings .search-filter .button {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .listings .listing-table {
+        padding: 10px 15px;
+    }
+
+    .listings .listing-table .table {
+        min-width: 600px;
+    }
+
+    .listings .listing-table .table .property-details {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .listings .listing-table .table .actions {
+        flex-direction: column;
+    }
+
+    .listings .listing-table .table .actions button {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .listings .listing-table .navigators {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .listings .listing-table .navigators .pagination-buttons {
+        justify-content: center;
+    }
+}
+
+/* Extra Small Devices (470px - 575px) */
+@media (min-width: 470px) and (max-width: 575px) {
+    .listings .search-filter {
+        flex-direction: column;
+        align-items: stretch;
+        margin: 8px 12px;
+        padding: 12px;
+    }
+
+    .listings .search-filter .search {
+        width: 100%;
+    }
+
+    .listings .search-filter .filters {
+        justify-content: center;
+        gap: 6px;
+    }
+
+    .listings .search-filter .filter-btn {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+
+    .listings .search-filter .button {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .listings .listing-table {
+        padding: 8px 12px;
+    }
+
+    .listings .listing-table .table {
+        min-width: 500px;
+    }
+
+    .listings .listing-table .table th,
+    .listings .listing-table .table td {
+        padding: 8px 6px;
+        font-size: 0.8rem;
+    }
+
+    .listings .listing-table .table .property-details {
+        gap: 8px;
+    }
+
+    .listings .listing-table .table .property-details img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .listings .listing-table .table .actions button {
+        padding: 4px 8px;
+        font-size: 0.75rem;
+    }
+
+    .listings .listing-table .navigators button {
+        padding: 5px 8px;
+        min-width: 35px;
+    }
+}
+
+/* Mobile Devices (376px - 469px) */
+@media (min-width: 376px) and (max-width: 469px) {
+    .listings .search-filter {
+        flex-direction: column;
+        align-items: stretch;
+        margin: 5px 8px;
+        padding: 10px;
+    }
+
+    .listings .search-filter .search {
+        width: 100%;
+        padding: 6px 10px;
+    }
+
+    .listings .search-filter .search input {
+        font-size: 0.85rem;
+    }
+
+    .listings .search-filter .filters {
+        justify-content: center;
+        gap: 5px;
+    }
+
+    .listings .search-filter .filter-btn {
+        padding: 5px 10px;
+        font-size: 0.75rem;
+    }
+
+    .listings .search-filter .button {
+        width: 100%;
+        justify-content: center;
+        padding: 8px 15px;
+        font-size: 0.85rem;
+    }
+
+    .listings .listing-table {
+        padding: 5px 8px;
+    }
+
+    .listings .listing-table .table {
+        min-width: 400px;
+    }
+
+    .listings .listing-table .table th,
+    .listings .listing-table .table td {
+        padding: 6px 4px;
+        font-size: 0.75rem;
+    }
+
+    .listings .listing-table .table .property-details {
+        gap: 5px;
+    }
+
+    .listings .listing-table .table .property-details img {
+        width: 35px;
+        height: 35px;
+    }
+
+    .listings .listing-table .table .batch {
+        padding: 3px 6px;
+        font-size: 0.7rem;
+    }
+
+    .listings .listing-table .table .actions {
+        gap: 3px;
+    }
+
+    .listings .listing-table .table .actions button {
+        padding: 3px 6px;
+        font-size: 0.7rem;
+    }
+
+    .listings .listing-table .navigators {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .listings .listing-table .navigators .pagination-info {
+        font-size: 0.75rem;
+    }
+
+    .listings .listing-table .navigators button {
+        padding: 4px 7px;
+        min-width: 30px;
+        font-size: 0.75rem;
+    }
+}
+
+/* Small Mobile Devices (320px - 375px) */
+@media (min-width: 320px) and (max-width: 375px) {
+    .listings .search-filter {
+        flex-direction: column;
+        align-items: stretch;
+        margin: 5px;
+        padding: 8px;
+    }
+
+    .listings .search-filter .search {
+        width: 100%;
+        padding: 5px 8px;
+    }
+
+    .listings .search-filter .search input {
+        font-size: 0.8rem;
+    }
+
+    .listings .search-filter .search svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .listings .search-filter .filters {
+        justify-content: center;
+        gap: 4px;
+    }
+
+    .listings .search-filter .filter-btn {
+        padding: 4px 8px;
+        font-size: 0.7rem;
+    }
+
+    .listings .search-filter .button {
+        width: 100%;
+        justify-content: center;
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+
+    .listings .search-filter .button .btn-icon {
+        width: 14px;
+        height: 14px;
+    }
+
+    .listings .listing-table {
+        padding: 5px;
+        overflow-x: auto;
+    }
+
+    .listings .listing-table .table {
+        min-width: 350px;
+    }
+
+    .listings .listing-table .table th,
+    .listings .listing-table .table td {
+        padding: 5px 3px;
+        font-size: 0.7rem;
+    }
+
+    .listings .listing-table .table th {
+        font-size: 0.75rem;
+    }
+
+    .listings .listing-table .table .property-details {
+        gap: 4px;
+    }
+
+    .listings .listing-table .table .property-details img {
+        width: 30px;
+        height: 30px;
+    }
+
+    .listings .listing-table .table .property-details .property-title {
+        font-size: 0.75rem;
+    }
+
+    .listings .listing-table .table .property-details .property-location {
+        font-size: 0.65rem;
+    }
+
+    .listings .listing-table .table .batch {
+        padding: 2px 5px;
+        font-size: 0.65rem;
+        gap: 3px;
+    }
+
+    .listings .listing-table .table .price {
+        font-size: 0.8rem;
+    }
+
+    .listings .listing-table .table .last-updated {
+        font-size: 0.65rem;
+    }
+
+    .listings .listing-table .table .actions {
+        gap: 2px;
+        flex-direction: column;
+    }
+
+    .listings .listing-table .table .actions button {
+        padding: 2px 4px;
+        font-size: 0.65rem;
+    }
+
+    .listings .listing-table .navigators {
+        flex-direction: column;
+        gap: 6px;
+        padding: 6px 8px;
+    }
+
+    .listings .listing-table .navigators .pagination-info {
+        font-size: 0.7rem;
+    }
+
+    .listings .listing-table .navigators .pagination-buttons {
+        gap: 3px;
+        justify-content: center;
+    }
+
+    .listings .listing-table .navigators button {
+        padding: 3px 5px;
+        min-width: 25px;
+        font-size: 0.7rem;
+    }
+}
+
+/* Extra Small Devices (below 320px) */
+@media (max-width: 319px) {
+    .listings .search-filter {
+        flex-direction: column;
+        align-items: stretch;
+        margin: 3px;
+        padding: 5px;
+    }
+
+    .listings .search-filter .search {
+        width: 100%;
+        padding: 4px 6px;
+    }
+
+    .listings .search-filter .search input {
+        font-size: 0.7rem;
+    }
+
+    .listings .search-filter .filters {
+        justify-content: center;
+        gap: 3px;
+    }
+
+    .listings .search-filter .filter-btn {
+        padding: 3px 6px;
+        font-size: 0.65rem;
+    }
+
+    .listings .search-filter .button {
+        width: 100%;
+        justify-content: center;
+        padding: 5px 10px;
+        font-size: 0.7rem;
+    }
+
+    .listings .listing-table {
+        padding: 3px;
+    }
+
+    .listings .listing-table .table {
+        min-width: 280px;
+    }
+
+    .listings .listing-table .table th,
+    .listings .listing-table .table td {
+        padding: 3px 2px;
+        font-size: 0.6rem;
+    }
+
+    .listings .listing-table .table th {
+        font-size: 0.65rem;
+    }
+
+    .listings .listing-table .table .property-details img {
+        width: 25px;
+        height: 25px;
+    }
+
+    .listings .listing-table .table .batch {
+        padding: 2px 4px;
+        font-size: 0.6rem;
+    }
+
+    .listings .listing-table .table .actions button {
+        padding: 2px 3px;
+        font-size: 0.6rem;
+    }
+
+    .listings .listing-table .navigators {
+        flex-direction: column;
+        gap: 4px;
+        padding: 4px 5px;
+    }
+
+    .listings .listing-table .navigators button {
+        padding: 2px 4px;
+        min-width: 22px;
+        font-size: 0.6rem;
+    }
+}
+
+/* =======================
+   LANDSCAPE MODE
+======================= */
+@media (max-height: 600px) and (orientation: landscape) {
+    .listings .search-filter {
+        padding: 8px 15px;
+    }
+
+    .listings .listing-table .table-container {
+        max-height: 60vh;
+        overflow-y: auto;
+    }
+
+    .listings .listing-table .table thead {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+    }
+
+    .listings .loading-overlay .loading-spinner {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+/* =======================
+   HIGH DPI SCREENS
+======================= */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .listings .search-filter .button,
+    .listings .search-filter .filter-btn {
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+}
+
+/* =======================
+   PRINT STYLES
+======================= */
+@media print {
+    .listings .search-filter,
+    .listings .listing-table .actions,
+    .listings .listing-table .navigators,
+    .listings .loading-overlay {
+        display: none !important;
+    }
+
+    .listings .listing-table .table {
+        border: 1px solid #000;
+    }
+
+    .listings .listing-table .table th {
+        background: #f0f0f0;
+        color: #000;
+    }
+
+    .listings .listing-table .table td {
+        border: 1px solid #ddd;
+    }
+}
+
+/* =======================
+   DARK MODE SUPPORT
+======================= */
+@media (prefers-color-scheme: dark) {
     .listings {
-        .search-filter {
-
-            .search {
-                width: auto;
-            }
-        }
+        background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
     }
 
+    .listings .search-filter {
+        background: rgba(40, 40, 40, 0.95);
+    }
+
+    .listings .search-filter .search {
+        background: #2d2d2d;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .listings .search-filter .search input {
+        color: #e0e0e0;
+        background: transparent;
+    }
+
+    .listings .search-filter .search input::placeholder {
+        color: #888;
+    }
+
+    .listings .search-filter .search svg {
+        color: #d4a602;
+    }
+
+    .listings .listing-table .table-container {
+        background: #2d2d2d;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .listings .listing-table .table td {
+        background: #2d2d2d;
+        color: #e0e0e0;
+        border-bottom-color: #404040;
+    }
+
+    .listings .listing-table .table tbody tr:hover {
+        background-color: #3d3d3d;
+    }
+
+    .listings .listing-table .table .property-details .property-title {
+        color: #d4a602;
+    }
+
+    .listings .listing-table .table .property-details .property-location {
+        color: #aaa;
+    }
+
+    .listings .listing-table .table .price {
+        color: #d4a602;
+    }
+
+    .listings .listing-table .table .last-updated {
+        color: #aaa;
+    }
+
+    .listings .listing-table .navigators {
+        background: #2d2d2d;
+    }
+
+    .listings .listing-table .navigators .pagination-info {
+        color: #d4a602;
+    }
+
+    .listings .listing-table .navigators button {
+        background: #404040;
+        color: #e0e0e0;
+    }
+
+    .listings .empty-state {
+        background: #2d2d2d;
+        color: #aaa;
+    }
 }
 
+/* =======================
+   ACCESSIBILITY
+======================= */
+@media (prefers-reduced-motion: reduce) {
+    .listings .search-filter .button,
+    .listings .search-filter .filter-btn,
+    .listings .listing-table .table tbody tr,
+    .listings .listing-table .table .property-details img,
+    .listings .listing-table .table .actions button,
+    .listings .listing-table .navigators button,
+    .listings .loading-spinner {
+        animation: none;
+        transition: none;
+    }
 
+    .listings .search-filter .button:hover,
+    .listings .search-filter .filter-btn:hover,
+    .listings .listing-table .table tbody tr:hover,
+    .listings .listing-table .table .property-details img:hover,
+    .listings .listing-table .table .actions button:hover,
+    .listings .listing-table .navigators button:hover {
+        transform: none;
+    }
 
+    .listings .filter-btn.active {
+        animation: none;
+    }
+}
 
+/* Focus styles for accessibility */
+.listings button:focus-visible,
+.listings input:focus-visible {
+    outline: 3px solid #d4a602;
+    outline-offset: 2px;
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .listings .search-filter .button,
+    .listings .search-filter .filter-btn,
+    .listings .listing-table .table .actions button,
+    .listings .listing-table .navigators button {
+        min-height: 44px;
+        min-width: 44px;
+    }
+
+    .listings .search-filter .search {
+        min-height: 44px;
+    }
+}
