@@ -27,14 +27,15 @@
 .mozart-review-section {
     background: linear-gradient(135deg, var(--chopin-cream) 0%, #FFFFFF 100%);
     border-radius: 24px;
-    padding: 48px 56px;
-    margin: 60px auto;
-    /* max-width: 1200px; */
-    width: 100% !important;
+    padding: clamp(24px, 5vw, 48px) clamp(24px, 6vw, 56px);
+    margin: clamp(30px, 5vw, 60px) auto;
+    max-width: min(1200px, 95%);
+    width: 100%;
     box-shadow: var(--box-shadow);
     border: 1px solid var(--mozart-light);
     position: relative;
     overflow: hidden;
+    transition: var(--transition);
 }
 
 .mozart-review-section::before {
@@ -42,11 +43,12 @@
     position: absolute;
     top: 0;
     right: 0;
-    width: 400px;
-    height: 400px;
+    width: min(400px, 50vw);
+    height: min(400px, 50vw);
     background: radial-gradient(circle, var(--mozart-gold) 0%, transparent 70%);
     opacity: 0.04;
     z-index: 0;
+    pointer-events: none;
 }
 
 /* =======================
@@ -54,11 +56,11 @@
 ======================= */
 .mozart-review-section h4 {
     font-family: 'Playfair Display', serif;
-    font-size: 2.8rem;
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
     color: var(--beethoven-blue);
-    margin-bottom: 40px;
+    margin-bottom: clamp(20px, 4vw, 40px);
     position: relative;
-    padding-bottom: 20px;
+    padding-bottom: clamp(10px, 2vw, 20px);
     border-bottom: 2px solid var(--mozart-gold);
     z-index: 1;
     font-weight: 600;
@@ -66,12 +68,12 @@
 }
 
 .mozart-review-section h4::after {
-    /* content: '♪'; */
+    content: '';
     position: absolute;
     right: 0;
     bottom: -12px;
     color: var(--mozart-gold);
-    font-size: 1.8rem;
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
 }
 
 /* =======================
@@ -79,21 +81,22 @@
 ======================= */
 .mozart-error {
     background: linear-gradient(135deg, #FFE5E5 0%, #FFF5F5 100%);
-    padding: 16px 24px;
+    padding: clamp(12px, 2vw, 16px) clamp(16px, 3vw, 24px);
     border-radius: 12px;
     color: var(--rachmaninoff-crimson);
-    font-size: 1rem;
-    margin-bottom: 30px;
+    font-size: clamp(0.9rem, 1.5vw, 1rem);
+    margin-bottom: clamp(20px, 4vw, 30px);
     border: 1px solid #FFCDD2;
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: clamp(8px, 2vw, 12px);
     z-index: 1;
     position: relative;
+    flex-wrap: wrap;
 }
 
 .mozart-error .error-icon {
-    font-size: 1.2rem;
+    font-size: clamp(1rem, 2vw, 1.2rem);
 }
 
 .mozart-error button {
@@ -101,11 +104,11 @@
     background: transparent;
     border: none;
     color: var(--rachmaninoff-crimson);
-    font-size: 1.5rem;
+    font-size: clamp(1.2rem, 2.5vw, 1.5rem);
     cursor: pointer;
     padding: 0;
-    width: 24px;
-    height: 24px;
+    width: clamp(20px, 3vw, 24px);
+    height: clamp(20px, 3vw, 24px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -123,18 +126,19 @@
 .beethoven-overall {
     background: linear-gradient(135deg, var(--beethoven-blue) 0%, #1A1D23 100%);
     color: var(--chopin-cream);
-    padding: 32px 48px;
-    border-radius: 24px;
+    padding: clamp(20px, 4vw, 32px) clamp(24px, 5vw, 48px);
+    border-radius: clamp(16px, 3vw, 24px);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 50px;
-
+    margin-bottom: clamp(30px, 5vw, 50px);
     position: relative;
     overflow: hidden;
     z-index: 1;
     border: 1px solid var(--mozart-gold);
-    min-height: 140px;
+    min-height: clamp(100px, 20vw, 140px);
+    gap: clamp(15px, 3vw, 30px);
+    flex-wrap: wrap;
 }
 
 .beethoven-overall::before {
@@ -152,9 +156,9 @@
 }
 
 .rating-number {
-    font-size: 3.5rem;
+    font-size: clamp(2rem, 8vw, 3.5rem);
     font-weight: 700;
-    margin: 0 0 8px 0;
+    margin: 0 0 clamp(4px, 1vw, 8px) 0;
     background: linear-gradient(135deg, var(--mozart-gold), #F8E0A0);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -163,7 +167,7 @@
 }
 
 .review-count {
-    font-size: 1.2rem;
+    font-size: clamp(0.9rem, 2vw, 1.2rem);
     opacity: 0.9;
     margin: 0;
     font-weight: 400;
@@ -175,32 +179,40 @@
 .chopin-stars,
 .chopin-stars-input {
     display: flex;
-    gap: 10px;
+    gap: clamp(4px, 1vw, 10px);
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .chopin-star-filled {
     color: var(--mozart-gold) !important;
     filter: drop-shadow(0 2px 4px rgba(212, 175, 55, 0.3));
     transition: var(--transition);
-    font-size: 2.5rem !important;
+    font-size: clamp(1.8rem, 4vw, 2.5rem) !important;
 }
 
 .chopin-stars .chopin-star-filled {
-    font-size: 1.8rem !important;
+    font-size: clamp(1.2rem, 3vw, 1.8rem) !important;
 }
 
 .chopin-stars-input .clickable {
     transition: var(--transition);
     border-radius: 50%;
-    padding: 6px;
+    padding: clamp(3px, 1vw, 6px);
     cursor: pointer;
-    font-size: 2.8rem !important;
+    font-size: clamp(2rem, 5vw, 2.8rem) !important;
 }
 
 .chopin-stars-input .clickable:hover {
     background: rgba(212, 175, 55, 0.15);
-    transform: scale(1.2);
+    transform: scale(1.1);
+}
+
+@media (hover: none) and (pointer: coarse) {
+    .chopin-stars-input .clickable:active {
+        transform: scale(1.2);
+        background: rgba(212, 175, 55, 0.25);
+    }
 }
 
 /* =======================
@@ -208,9 +220,9 @@
 ======================= */
 .vivaldi-review-form {
     background: white;
-    padding: 40px;
-    border-radius: 24px;
-    margin: 50px 0;
+    padding: clamp(20px, 5vw, 40px);
+    border-radius: clamp(16px, 4vw, 24px);
+    margin: clamp(30px, 6vw, 50px) 0;
     border: 1px solid var(--handel-silver);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
     transition: var(--transition);
@@ -227,11 +239,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 25px;
+    margin-bottom: clamp(15px, 3vw, 25px);
+    gap: clamp(10px, 2vw, 20px);
+    flex-wrap: wrap;
 }
 
 .form-header h5 {
-    font-size: 1.5rem;
+    font-size: clamp(1.2rem, 3vw, 1.5rem);
     color: var(--beethoven-blue);
     margin: 0;
     font-weight: 600;
@@ -240,13 +254,13 @@
 
 .vivaldi-review-form textarea {
     width: 100%;
-    min-height: 140px;
-    padding: 24px;
+    min-height: clamp(100px, 30vw, 140px);
+    padding: clamp(16px, 3vw, 24px);
     border: 1px solid var(--handel-silver);
-    border-radius: 16px;
-    font-size: 1.1rem;
-    line-height: 1.7;
-    margin: 25px 0;
+    border-radius: clamp(12px, 3vw, 16px);
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
+    line-height: 1.6;
+    margin: clamp(15px, 3vw, 25px) 0;
     background: var(--mozart-light);
     transition: var(--transition);
     resize: vertical;
@@ -262,17 +276,18 @@
 
 .form-actions {
     display: flex;
-    gap: 16px;
+    gap: clamp(10px, 2vw, 16px);
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .vivaldi-review-form button {
     background: linear-gradient(135deg, var(--vivaldi-green) 0%, var(--vivaldi-green-light) 100%);
     color: white;
     border: none;
-    padding: 16px 40px;
+    padding: clamp(12px, 2.5vw, 16px) clamp(24px, 5vw, 40px);
     border-radius: 28px;
-    font-size: 1.05rem;
+    font-size: clamp(0.9rem, 2vw, 1.05rem);
     font-weight: 600;
     cursor: pointer;
     transition: var(--transition);
@@ -280,17 +295,19 @@
     letter-spacing: 0.8px;
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: clamp(6px, 1.5vw, 12px);
     box-shadow: 0 6px 20px rgba(27, 94, 32, 0.15);
+    flex: 1 1 auto;
+    justify-content: center;
 }
 
 .vivaldi-review-form button:hover {
-    transform: translateY(-3px);
+    transform: translateY(-2px);
     box-shadow: 0 12px 25px rgba(27, 94, 32, 0.25);
 }
 
 .vivaldi-review-form button .icon {
-    font-size: 1.2rem;
+    font-size: clamp(1rem, 2vw, 1.2rem);
     transition: var(--transition);
 }
 
@@ -307,7 +324,7 @@
 
 .cancel-btn:hover {
     background: var(--handel-silver) !important;
-    transform: translateY(-3px) !important;
+    transform: translateY(-2px) !important;
 }
 
 /* =======================
@@ -315,52 +332,54 @@
 ======================= */
 .mozart-info {
     background: linear-gradient(135deg, #E3F2FD 0%, #F3E5F5 100%);
-    padding: 24px 40px;
-    border-radius: 20px;
+    padding: clamp(16px, 3vw, 24px) clamp(20px, 4vw, 40px);
+    border-radius: clamp(16px, 3vw, 20px);
     color: var(--beethoven-blue);
-    font-size: 1.15rem;
-    margin: 40px 0;
+    font-size: clamp(0.95rem, 2vw, 1.15rem);
+    margin: clamp(20px, 5vw, 40px) 0;
     border: 1px solid #E1BEE7;
     text-align: center;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 20px;
+    gap: clamp(10px, 3vw, 20px);
     z-index: 1;
+    flex-wrap: wrap;
 }
 
 .mozart-info::before {
     content: '🎵';
     position: relative;
-    font-size: 1.8rem;
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
     opacity: 0.8;
 }
 
 .info-icon {
     background: var(--vivaldi-green);
     color: white;
-    width: 32px;
-    height: 32px;
+    width: clamp(24px, 5vw, 32px);
+    height: clamp(24px, 5vw, 32px);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: bold;
-    font-size: 1.2rem;
+    font-size: clamp(0.9rem, 2vw, 1.2rem);
 }
 
 .edit-existing-btn {
     background: transparent;
     color: var(--vivaldi-green);
     border: 2px solid var(--vivaldi-green);
-    padding: 10px 24px;
+    padding: clamp(6px, 1.5vw, 10px) clamp(12px, 3vw, 24px);
     border-radius: 20px;
-    font-size: 0.95rem;
+    font-size: clamp(0.8rem, 1.5vw, 0.95rem);
     font-weight: 600;
     cursor: pointer;
     transition: var(--transition);
-    margin-left: 20px;
+    margin-left: clamp(5px, 2vw, 20px);
+    white-space: nowrap;
 }
 
 .edit-existing-btn:hover {
@@ -374,14 +393,14 @@
 ======================= */
 .bach-review-list {
     display: grid;
-    gap: 30px;
-    margin-top: 50px;
+    gap: clamp(15px, 3vw, 30px);
+    margin-top: clamp(30px, 6vw, 50px);
 }
 
 .bach-review-card {
     background: white;
-    border-radius: 24px;
-    padding: 40px;
+    border-radius: clamp(16px, 4vw, 24px);
+    padding: clamp(20px, 4vw, 40px);
     border: 1px solid var(--handel-silver);
     transition: var(--transition);
     position: relative;
@@ -390,7 +409,7 @@
 }
 
 .bach-review-card:hover {
-    transform: translateY(-8px);
+    transform: translateY(-4px);
     box-shadow: var(--box-shadow-hover);
 }
 
@@ -399,7 +418,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 6px;
+    width: clamp(4px, 1vw, 6px);
     height: 100%;
     background: linear-gradient(180deg, var(--mozart-gold), var(--vivaldi-green));
     border-radius: 3px 0 0 3px;
@@ -411,14 +430,15 @@
 .bach-review-header {
     display: flex;
     align-items: flex-start;
-    gap: 24px;
-    margin-bottom: 25px;
+    gap: clamp(12px, 3vw, 24px);
+    margin-bottom: clamp(15px, 3vw, 25px);
     position: relative;
+    flex-wrap: wrap;
 }
 
 .profile-image {
-    width: 80px;
-    height: 80px;
+    width: clamp(50px, 12vw, 80px);
+    height: clamp(50px, 12vw, 80px);
     border-radius: 50%;
     object-fit: cover;
     border: 3px solid var(--mozart-gold);
@@ -430,29 +450,30 @@
 
 .header-content {
     flex: 1;
-    min-width: 0;
+    min-width: min(200px, 100%);
 }
 
 .name-date {
     display: flex;
     align-items: baseline;
-    gap: 16px;
-    margin-bottom: 12px;
+    gap: clamp(8px, 2vw, 16px);
+    margin-bottom: clamp(6px, 1.5vw, 12px);
     flex-wrap: wrap;
 }
 
 .name-date h5 {
-    font-size: 1.4rem;
+    font-size: clamp(1.1rem, 3vw, 1.4rem);
     font-weight: 700;
     color: var(--beethoven-blue);
     margin: 0;
     font-family: 'Crimson Text', serif;
     line-height: 1.3;
+    word-break: break-word;
 }
 
 .review-date {
     color: var(--ellington-charcoal);
-    font-size: 0.95rem;
+    font-size: clamp(0.8rem, 2vw, 0.95rem);
     opacity: 0.8;
     font-weight: 400;
 }
@@ -461,24 +482,32 @@
     display: inline-block;
     background: var(--handel-silver);
     color: var(--ellington-charcoal);
-    padding: 4px 10px;
+    padding: clamp(2px, 0.8vw, 4px) clamp(6px, 1.5vw, 10px);
     border-radius: 12px;
-    font-size: 0.85rem;
-    margin-left: 12px;
+    font-size: clamp(0.7rem, 1.5vw, 0.85rem);
+    margin-left: clamp(4px, 2vw, 12px);
     font-style: italic;
 }
 
 .review-actions {
     display: flex;
-    gap: 8px;
-    position: absolute;
-    top: 0;
-    right: 0;
+    gap: clamp(4px, 1vw, 8px);
+    position: static;
+    margin-left: auto;
+}
+
+@media (max-width: 640px) {
+    .review-actions {
+        position: static;
+        width: 100%;
+        justify-content: flex-end;
+        margin-top: 10px;
+    }
 }
 
 .action-btn {
-    width: 40px;
-    height: 40px;
+    width: clamp(32px, 8vw, 40px);
+    height: clamp(32px, 8vw, 40px);
     border-radius: 50%;
     border: 2px solid var(--handel-silver);
     background: white;
@@ -488,7 +517,7 @@
     align-items: center;
     justify-content: center;
     color: var(--ellington-charcoal);
-    font-size: 1.2rem;
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
 }
 
 .action-btn.edit:hover {
@@ -510,14 +539,15 @@
 ======================= */
 .bach-review-text {
     color: var(--ellington-charcoal);
-    font-size: 1.15rem;
-    line-height: 1.8;
-    margin: 30px 0;
-    padding: 30px;
+    font-size: clamp(0.95rem, 2.2vw, 1.15rem);
+    line-height: 1.7;
+    margin: clamp(15px, 4vw, 30px) 0;
+    padding: clamp(16px, 4vw, 30px);
     background: var(--mozart-light);
-    border-radius: 18px;
+    border-radius: clamp(12px, 3vw, 18px);
     border-left: 4px solid var(--debussy-teal);
     font-family: 'Inter', -apple-system, sans-serif;
+    word-break: break-word;
 }
 
 .bach-review-text p {
@@ -528,31 +558,31 @@
    REPLIES SECTION
 ======================= */
 .handel-replies-section {
-    margin-top: 35px;
-    padding-top: 30px;
+    margin-top: clamp(20px, 4vw, 35px);
+    padding-top: clamp(15px, 3vw, 30px);
     border-top: 1px solid var(--handel-silver);
 }
 
 .replies-title {
-    font-size: 1.3rem;
+    font-size: clamp(1.1rem, 2.5vw, 1.3rem);
     color: var(--beethoven-blue);
-    margin-bottom: 20px;
+    margin-bottom: clamp(12px, 3vw, 20px);
     font-weight: 600;
     font-family: 'Crimson Text', serif;
 }
 
 .handel-reply {
     background: linear-gradient(135deg, #F8F9FA 0%, #FFFFFF 100%);
-    border-radius: 16px;
-    padding: 24px 30px;
-    margin: 16px 0;
+    border-radius: clamp(12px, 3vw, 16px);
+    padding: clamp(16px, 4vw, 24px) clamp(20px, 4vw, 30px);
+    margin: clamp(10px, 2vw, 16px) 0;
     border-left: 4px solid var(--mozart-gold);
     transition: var(--transition);
     position: relative;
 }
 
 .handel-reply:hover {
-    transform: translateX(8px);
+    transform: translateX(clamp(2px, 1vw, 8px));
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
@@ -569,34 +599,39 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 12px;
+    margin-bottom: clamp(6px, 1.5vw, 12px);
+    gap: clamp(6px, 1.5vw, 12px);
+    flex-wrap: wrap;
 }
 
 .handel-reply strong {
     color: var(--beethoven-blue);
-    font-size: 1.05rem;
+    font-size: clamp(0.9rem, 2vw, 1.05rem);
     font-weight: 600;
+    word-break: break-word;
 }
 
 .reply-date {
     color: var(--ellington-charcoal);
-    font-size: 0.9rem;
+    font-size: clamp(0.75rem, 1.5vw, 0.9rem);
     opacity: 0.7;
+    white-space: nowrap;
 }
 
 .handel-reply p {
     color: var(--ellington-charcoal);
     margin: 0;
-    line-height: 1.7;
-    font-size: 1.05rem;
+    line-height: 1.6;
+    font-size: clamp(0.9rem, 2vw, 1.05rem);
+    word-break: break-word;
 }
 
 /* =======================
    REPLY TOGGLE
 ======================= */
 .reply-toggle {
-    margin-top: 25px;
-    padding-top: 20px;
+    margin-top: clamp(15px, 3vw, 25px);
+    padding-top: clamp(12px, 2.5vw, 20px);
     border-top: 1px dashed var(--handel-silver);
 }
 
@@ -604,16 +639,18 @@
     background: transparent;
     color: var(--debussy-teal);
     border: 2px solid var(--debussy-teal);
-    padding: 12px 28px;
+    padding: clamp(8px, 2vw, 12px) clamp(16px, 4vw, 28px);
     border-radius: 20px;
-    font-size: 1rem;
+    font-size: clamp(0.85rem, 2vw, 1rem);
     font-weight: 600;
     cursor: pointer;
     transition: var(--transition);
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: clamp(5px, 1.5vw, 10px);
     margin: 0 auto;
+    width: fit-content;
+    max-width: 100%;
 }
 
 .toggle-reply-btn:hover {
@@ -623,14 +660,19 @@
     box-shadow: 0 6px 15px rgba(0, 128, 128, 0.2);
 }
 
+.toggle-reply-btn svg {
+    width: clamp(16px, 3vw, 20px);
+    height: clamp(16px, 3vw, 20px);
+}
+
 /* =======================
    REPLY BOX
 ======================= */
 .debussy-reply-box {
-    margin-top: 30px;
-    padding: 28px;
+    margin-top: clamp(20px, 4vw, 30px);
+    padding: clamp(16px, 4vw, 28px);
     background: linear-gradient(135deg, var(--mozart-light) 0%, #FFFFFF 100%);
-    border-radius: 20px;
+    border-radius: clamp(16px, 3vw, 20px);
     border: 2px solid var(--debussy-teal);
     box-shadow: 0 6px 20px rgba(0, 128, 128, 0.1);
     animation: slideIn 0.3s ease-out;
@@ -638,13 +680,13 @@
 
 .debussy-reply-box textarea {
     width: 100%;
-    min-height: 100px;
-    padding: 20px;
+    min-height: clamp(80px, 20vw, 100px);
+    padding: clamp(12px, 3vw, 20px);
     border: 1px solid var(--handel-silver);
-    border-radius: 14px;
-    font-size: 1.05rem;
-    line-height: 1.6;
-    margin-bottom: 20px;
+    border-radius: clamp(10px, 2.5vw, 14px);
+    font-size: clamp(0.9rem, 2vw, 1.05rem);
+    line-height: 1.5;
+    margin-bottom: clamp(12px, 3vw, 20px);
     background: white;
     transition: var(--transition);
     resize: vertical;
@@ -666,15 +708,15 @@
     background: var(--debussy-teal);
     color: white;
     border: none;
-    padding: 14px 32px;
+    padding: clamp(10px, 2.5vw, 14px) clamp(20px, 5vw, 32px);
     border-radius: 22px;
-    font-size: 1rem;
+    font-size: clamp(0.85rem, 2vw, 1rem);
     font-weight: 600;
     cursor: pointer;
     transition: var(--transition);
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: clamp(5px, 1.5vw, 10px);
     box-shadow: 0 4px 15px rgba(0, 128, 128, 0.2);
 }
 
@@ -685,7 +727,7 @@
 }
 
 .debussy-reply-box button .icon {
-    font-size: 1.1rem;
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
 }
 
 /* =======================
@@ -693,31 +735,52 @@
 ======================= */
 .empty-state {
     text-align: center;
-    padding: 80px 40px;
+    padding: clamp(40px, 10vw, 80px) clamp(20px, 5vw, 40px);
     background: linear-gradient(135deg, var(--mozart-light) 0%, #FFFFFF 100%);
-    border-radius: 24px;
+    border-radius: clamp(16px, 4vw, 24px);
     border: 2px dashed var(--mozart-gold);
-    margin: 40px 0;
+    margin: clamp(20px, 5vw, 40px) 0;
 }
 
 .empty-icon {
-    font-size: 4rem;
-    margin-bottom: 25px;
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    margin-bottom: clamp(15px, 4vw, 25px);
     opacity: 0.6;
 }
 
 .empty-state h5 {
-    font-size: 2rem;
+    font-size: clamp(1.4rem, 5vw, 2rem);
     color: var(--beethoven-blue);
-    margin: 0 0 16px 0;
+    margin: 0 0 clamp(8px, 2vw, 16px) 0;
     font-family: 'Playfair Display', serif;
 }
 
 .empty-state p {
     color: var(--ellington-charcoal);
-    font-size: 1.2rem;
+    font-size: clamp(0.95rem, 3vw, 1.2rem);
     margin: 0;
     opacity: 0.8;
+}
+
+/* =======================
+   LOADING STATE
+======================= */
+.loading-review {
+    background: linear-gradient(90deg, var(--handel-silver) 25%, var(--chopin-cream) 50%, var(--handel-silver) 75%);
+    background-size: 1000px 100%;
+    animation: shimmer 2s infinite linear;
+    border-radius: 20px;
+    height: 200px;
+    margin: 20px 0;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
 }
 
 /* =======================
@@ -726,9 +789,8 @@
 @keyframes fadeIn {
     from {
         opacity: 0;
-        transform: translateY(30px);
+        transform: translateY(20px);
     }
-
     to {
         opacity: 1;
         transform: translateY(0);
@@ -738,13 +800,16 @@
 @keyframes slideIn {
     from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(-10px);
     }
-
     to {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+.bach-review-card {
+    animation: fadeIn 0.6s ease-out forwards;
 }
 
 .bach-review-card:nth-child(odd) {
@@ -756,69 +821,108 @@
 }
 
 /* =======================
-   LOADING STATE
+   RESPONSIVE BREAKPOINTS
 ======================= */
-@keyframes shimmer {
-    0% {
-        background-position: -1000px 0;
-    }
 
-    100% {
-        background-position: 1000px 0;
-    }
-}
-
-.loading-review {
-    background: linear-gradient(90deg, var(--handel-silver) 25%, var(--chopin-cream) 50%, var(--handel-silver) 75%);
-    background-size: 1000px 100%;
-    animation: shimmer 2s infinite linear;
-    border-radius: 20px;
-    height: 200px;
-    margin: 20px 0;
-}
-
-/* =======================
-   RESPONSIVE DESIGN
-======================= */
-@media (max-width: 1024px) {
+/* Extra Large Devices (1400px and up) */
+@media (min-width: 1400px) {
     .mozart-review-section {
-        padding: 0;
-        margin-top: auto 40px !important;
-        overflow-x: hidden !important;
-        width: 100% !important;
-        display: flex !important;
-        justify-content: center !important;
-        align-items: center !important;
-        flex-direction: column !important;
-
+        max-width: 1400px;
+        padding: 60px 80px;
     }
 
-    .mozart-review-section h4 {
-        font-size: 2.4rem;
+    .bach-review-list {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px;
+    }
+
+    .bach-review-card {
+        padding: 48px;
+    }
+
+    .profile-image {
+        width: 100px;
+        height: 100px;
+    }
+
+    .name-date h5 {
+        font-size: 1.6rem;
+    }
+}
+
+/* Large Devices (1200px - 1399px) */
+@media (min-width: 1200px) and (max-width: 1399px) {
+    .mozart-review-section {
+        max-width: 1140px;
+    }
+
+    .bach-review-list {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+    }
+}
+
+/* Medium-Large Devices (992px - 1199px) */
+@media (min-width: 992px) and (max-width: 1199px) {
+    .mozart-review-section {
+        max-width: 960px;
+        padding: 40px 48px;
+    }
+
+    .bach-review-list {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+    }
+
+    .profile-image {
+        width: 70px;
+        height: 70px;
+    }
+}
+
+/* Tablet Landscape (768px - 991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+    .mozart-review-section {
+        max-width: 720px;
+        padding: 32px 40px;
+    }
+
+    .bach-review-list {
+        grid-template-columns: 1fr;
+        gap: 25px;
     }
 
     .beethoven-overall {
-        padding: 28px 36px;
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
     }
 
-    .rating-number {
-        font-size: 3rem;
+    .rating-stats {
+        text-align: center;
+    }
+
+    .form-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .form-actions {
+        width: 100%;
+    }
+
+    .vivaldi-review-form button {
+        flex: 1;
     }
 }
 
-@media (max-width: 768px) {
+/* Tablet Portrait (576px - 767px) */
+@media (min-width: 576px) and (max-width: 767px) {
     .mozart-review-section {
-        padding: 0px !important;
-        margin: 30px 16px;
-        border-radius: 20px;
-        width: 100% !important;
-        overflow-x: hidden !important;
-
-        display: flex !important;
-        justify-content: center !important;
-        align-items: center !important;
-        flex-direction: column !important;
-
+        max-width: 540px;
+        padding: 28px 24px;
+        margin: 20px auto;
     }
 
     .mozart-review-section h4 {
@@ -828,9 +932,8 @@
 
     .beethoven-overall {
         flex-direction: column;
-        gap: 25px;
         text-align: center;
-        padding: 28px;
+        padding: 24px;
     }
 
     .rating-stats {
@@ -841,14 +944,32 @@
         font-size: 2.8rem;
     }
 
-    .vivaldi-review-form {
-        padding: 30px;
+    .bach-review-header {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+    }
+
+    .profile-image {
+        width: 70px;
+        height: 70px;
+    }
+
+    .review-actions {
+        position: static;
+        justify-content: center;
+        width: 100%;
+        margin-top: 15px;
+    }
+
+    .name-date {
+        justify-content: center;
     }
 
     .form-header {
         flex-direction: column;
         align-items: flex-start;
-        gap: 20px;
+        gap: 15px;
     }
 
     .form-actions {
@@ -862,98 +983,569 @@
         justify-content: center;
     }
 
-    .bach-review-header {
-        flex-direction: column;
-        text-align: center;
-        align-items: center;
-        gap: 20px;
-    }
-
-    .profile-image {
-        width: 70px;
-        height: 70px;
-    }
-
-    .review-actions {
-        position: static;
-        margin-top: 15px;
-        justify-content: center;
-    }
-
     .mozart-info {
         flex-direction: column;
         text-align: center;
         gap: 15px;
-        padding: 24px;
     }
 
     .edit-existing-btn {
         margin-left: 0;
-        margin-top: 10px;
+        width: 100%;
     }
 
     .bach-review-text {
-        padding: 24px;
-        font-size: 1.1rem;
+        padding: 20px;
+        font-size: 1rem;
     }
 
     .handel-reply {
-        padding: 20px;
+        padding: 16px 20px;
     }
 
     .reply-header {
         flex-direction: column;
         align-items: flex-start;
-        gap: 8px;
+        gap: 5px;
+    }
+
+    .reply-date {
+        white-space: normal;
     }
 }
 
-@media (max-width: 480px) {
+/* Mobile Landscape (480px - 575px) */
+@media (min-width: 480px) and (max-width: 575px) {
+    .mozart-review-section {
+        padding: 24px 16px;
+        margin: 15px auto;
+        border-radius: 20px;
+    }
+
     .mozart-review-section h4 {
         font-size: 1.8rem;
     }
 
-    .mozart-review-section {
-        overflow-x: hidden !important;
-        display: flex !important;
-        justify-content: center !important;
-        align-items: center !important;
-        flex-direction: column !important;
-
-    }
-
-    .vivaldi-review-form {
-        padding: 24px;
-    }
-
-    .vivaldi-review-form textarea {
+    .beethoven-overall {
         padding: 20px;
     }
 
+    .rating-number {
+        font-size: 2.4rem;
+    }
+
+    .review-count {
+        font-size: 1rem;
+    }
+
+    .vivaldi-review-form {
+        padding: 20px;
+    }
+
+    .vivaldi-review-form textarea {
+        padding: 16px;
+        font-size: 0.95rem;
+    }
+
     .bach-review-card {
-        padding: 28px;
+        padding: 20px;
+    }
+
+    .profile-image {
+        width: 60px;
+        height: 60px;
+    }
+
+    .name-date h5 {
+        font-size: 1.2rem;
+    }
+
+    .review-date {
+        font-size: 0.8rem;
+    }
+
+    .chopin-stars .chopin-star-filled {
+        font-size: 1.4rem !important;
+    }
+
+    .bach-review-text {
+        padding: 16px;
+        font-size: 0.95rem;
+    }
+
+    .handel-reply {
+        padding: 14px 16px;
     }
 
     .debussy-reply-box {
-        padding: 24px;
+        padding: 16px;
+    }
+
+    .debussy-reply-box textarea {
+        min-height: 80px;
+        padding: 12px;
+    }
+
+    .toggle-reply-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Mobile Portrait (320px - 479px) */
+@media (min-width: 320px) and (max-width: 479px) {
+    .mozart-review-section {
+        padding: 16px 12px;
+        margin: 10px auto;
+        border-radius: 16px;
+    }
+
+    .mozart-review-section h4 {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+    }
+
+    .beethoven-overall {
+        padding: 16px;
+        gap: 12px;
+    }
+
+    .rating-number {
+        font-size: 2rem;
+    }
+
+    .review-count {
+        font-size: 0.9rem;
+    }
+
+    .chopin-stars .chopin-star-filled {
+        font-size: 1.2rem !important;
+    }
+
+    .vivaldi-review-form {
+        padding: 16px;
+        margin: 20px 0;
+    }
+
+    .form-header h5 {
+        font-size: 1.2rem;
+    }
+
+    .vivaldi-review-form textarea {
+        padding: 12px;
+        font-size: 0.9rem;
+        min-height: 80px;
+    }
+
+    .vivaldi-review-form button {
+        padding: 12px 20px;
+        font-size: 0.85rem;
+    }
+
+    .bach-review-card {
+        padding: 16px;
+    }
+
+    .bach-review-header {
+        gap: 12px;
+    }
+
+    .profile-image {
+        width: 50px;
+        height: 50px;
+        border-width: 2px;
+    }
+
+    .name-date {
+        gap: 6px;
+    }
+
+    .name-date h5 {
+        font-size: 1rem;
+    }
+
+    .review-date {
+        font-size: 0.7rem;
+    }
+
+    .edited-badge {
+        font-size: 0.65rem;
+        padding: 2px 6px;
+    }
+
+    .action-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 0.9rem;
+    }
+
+    .bach-review-text {
+        padding: 12px;
+        font-size: 0.9rem;
+        margin: 15px 0;
+    }
+
+    .handel-replies-section {
+        margin-top: 15px;
+        padding-top: 12px;
+    }
+
+    .replies-title {
+        font-size: 1rem;
+    }
+
+    .handel-reply {
+        padding: 12px 14px;
+    }
+
+    .handel-reply strong {
+        font-size: 0.85rem;
+    }
+
+    .reply-date {
+        font-size: 0.65rem;
+    }
+
+    .handel-reply p {
+        font-size: 0.85rem;
+    }
+
+    .toggle-reply-btn {
+        padding: 8px 16px;
+        font-size: 0.8rem;
+    }
+
+    .debussy-reply-box {
+        padding: 12px;
+    }
+
+    .debussy-reply-box textarea {
+        min-height: 60px;
+        padding: 10px;
+        font-size: 0.85rem;
+    }
+
+    .debussy-reply-box button {
+        padding: 8px 16px;
+        font-size: 0.8rem;
+    }
+
+    .mozart-info {
+        padding: 12px 16px;
+        font-size: 0.85rem;
+    }
+
+    .empty-state {
+        padding: 30px 15px;
+    }
+
+    .empty-icon {
+        font-size: 2.5rem;
+    }
+
+    .empty-state h5 {
+        font-size: 1.2rem;
+    }
+
+    .empty-state p {
+        font-size: 0.85rem;
+    }
+}
+
+/* Extra Small Devices (below 320px) */
+@media (max-width: 319px) {
+    .mozart-review-section {
+        padding: 12px 8px;
+        margin: 8px auto;
+        border-radius: 12px;
+    }
+
+    .mozart-review-section h4 {
+        font-size: 1.3rem;
+    }
+
+    .beethoven-overall {
+        padding: 12px;
+    }
+
+    .rating-number {
+        font-size: 1.8rem;
+    }
+
+    .chopin-stars .chopin-star-filled {
+        font-size: 1rem !important;
+    }
+
+    .vivaldi-review-form {
+        padding: 12px;
+    }
+
+    .form-header h5 {
+        font-size: 1rem;
+    }
+
+    .vivaldi-review-form textarea {
+        padding: 10px;
+        font-size: 0.8rem;
+    }
+
+    .vivaldi-review-form button {
+        padding: 10px 16px;
+        font-size: 0.75rem;
+    }
+
+    .bach-review-card {
+        padding: 12px;
+    }
+
+    .profile-image {
+        width: 40px;
+        height: 40px;
+    }
+
+    .name-date h5 {
+        font-size: 0.9rem;
+    }
+
+    .bach-review-text {
+        padding: 10px;
+        font-size: 0.8rem;
+    }
+
+    .handel-reply {
+        padding: 10px;
+    }
+
+    .toggle-reply-btn {
+        padding: 6px 12px;
+        font-size: 0.75rem;
+    }
+
+    .debussy-reply-box {
+        padding: 10px;
+    }
+
+    .debussy-reply-box textarea {
+        min-height: 50px;
+        padding: 8px;
+        font-size: 0.8rem;
+    }
+
+    .debussy-reply-box button {
+        padding: 6px 12px;
+        font-size: 0.75rem;
     }
 }
 
 /* =======================
-   UTILITY CLASSES
+   LANDSCAPE MODE
 ======================= */
-.clickable {
-    cursor: pointer;
-}
+@media (max-height: 600px) and (orientation: landscape) {
+    .mozart-review-section {
+        margin: 10px auto;
+    }
 
-.icon {
-    font-size: 1.2rem;
+    .beethoven-overall {
+        min-height: auto;
+        padding: 15px 20px;
+    }
+
+    .vivaldi-review-form textarea {
+        min-height: 70px;
+    }
+
+    .bach-review-list {
+        gap: 15px;
+    }
+
+    .bach-review-card {
+        padding: 20px;
+    }
+
+    .profile-image {
+        width: 45px;
+        height: 45px;
+    }
+
+    .debussy-reply-box textarea {
+        min-height: 50px;
+    }
+
+    /* Allow scrolling on landscape */
+    .mozart-review-section {
+        max-height: 100vh;
+        overflow-y: auto;
+    }
 }
 
 /* =======================
-   FONT IMPORT (Add to your HTML head)
+   HIGH DPI SCREENS
 ======================= */
-/* 
-Add this to your HTML head or main CSS file:
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Crimson+Text:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-*/
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .profile-image {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+}
+
+/* =======================
+   PRINT STYLES
+======================= */
+@media print {
+    .mozart-review-section {
+        background: white;
+        box-shadow: none;
+        border: 1px solid #ddd;
+        margin: 0;
+        padding: 20px;
+    }
+
+    .vivaldi-review-form,
+    .reply-toggle,
+    .debussy-reply-box,
+    .review-actions,
+    .edit-existing-btn,
+    .mozart-error button,
+    .mozart-info::before {
+        display: none !important;
+    }
+
+    .bach-review-card {
+        break-inside: avoid;
+        border: 1px solid #ddd;
+        box-shadow: none;
+        page-break-inside: avoid;
+    }
+
+    .profile-image {
+        border: 1px solid #000;
+    }
+
+    .chopin-star-filled {
+        color: #000 !important;
+        filter: none;
+    }
+}
+
+/* =======================
+   DARK MODE SUPPORT
+======================= */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --chopin-cream: #1a1a1a;
+        --mozart-light: #2d2d2d;
+        --handel-silver: #404040;
+        --ellington-charcoal: #e0e0e0;
+        --beethoven-blue: #f0f0f0;
+    }
+
+    .mozart-review-section {
+        background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    }
+
+    .bach-review-card {
+        background: #2d2d2d;
+        border-color: #404040;
+    }
+
+    .vivaldi-review-form {
+        background: #2d2d2d;
+        border-color: #404040;
+    }
+
+    .vivaldi-review-form textarea {
+        background: #1a1a1a;
+        color: #e0e0e0;
+        border-color: #404040;
+    }
+
+    .vivaldi-review-form textarea:focus {
+        background: #2d2d2d;
+    }
+
+    .handel-reply {
+        background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    }
+
+    .handel-reply.admin {
+        background: linear-gradient(135deg, #2d1a1a 0%, #2d2d2d 100%);
+    }
+
+    .cancel-btn {
+        color: #e0e0e0 !important;
+        border-color: #404040 !important;
+    }
+
+    .empty-state {
+        background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    }
+}
+
+/* =======================
+   ACCESSIBILITY
+======================= */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    .bach-review-card,
+    .vivaldi-review-form,
+    .handel-reply,
+    .action-btn,
+    .vivaldi-review-form button,
+    .toggle-reply-btn,
+    .debussy-reply-box button {
+        animation: none;
+        transition: none;
+    }
+
+    .bach-review-card:hover,
+    .vivaldi-review-form:hover,
+    .handel-reply:hover,
+    .action-btn:hover,
+    .vivaldi-review-form button:hover,
+    .toggle-reply-btn:hover,
+    .debussy-reply-box button:hover {
+        transform: none;
+    }
+}
+
+/* Focus styles for accessibility */
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+a:focus-visible {
+    outline: 3px solid var(--mozart-gold);
+    outline-offset: 2px;
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .action-btn,
+    .vivaldi-review-form button,
+    .toggle-reply-btn,
+    .debussy-reply-box button,
+    .edit-existing-btn {
+        min-height: 44px;
+        min-width: 44px;
+    }
+
+    .action-btn {
+        width: 44px;
+        height: 44px;
+    }
+
+    .chopin-stars-input .clickable {
+        padding: 8px;
+    }
+}
+
+/* =======================
+   FONT IMPORTS
+======================= */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Crimson+Text:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
