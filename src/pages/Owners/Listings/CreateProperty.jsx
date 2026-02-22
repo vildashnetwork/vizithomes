@@ -381,477 +381,898 @@ export default function CreateHouseForm({ onCreated }) {
 
 
 
+    // return (
+    //     <div className="billion-dollar-container">
+    //         <div className="split-layout">
+    //             {/* Left Side - Visual Preview */}
+    //             <div className="preview-side">
+    //                 <div className="preview-overlay">
+    //                     <div className="preview-content">
+    //                         {/* <h1 className="preview-title">Create Your <span className="highlight">Premium</span> Listing</h1>
+    //                         <p className="preview-subtitle">Join thousands of property owners maximizing their returns with our platform</p> */}
+
+    //                         {/* <div className="preview-stats">
+    //                             <div className="stat-item">
+    //                                 <div className="stat-number">24.7%</div>
+    //                                 <div className="stat-label">Higher Rental Income</div>
+    //                             </div>
+    //                             <div className="stat-item">
+    //                                 <div className="stat-number">3.2x</div>
+    //                                 <div className="stat-label">Faster Booking</div>
+    //                             </div>
+    //                             <div className="stat-item">
+    //                                 <div className="stat-number">99%</div>
+    //                                 <div className="stat-label">Occupancy Rate</div>
+    //                             </div>
+
+    //                         </div> */}
+
+    //                         <div className="preview-card">
+    //                             <div className="card-image">
+    //                                 <div className="image-placeholder">
+    //                                     <div className="property-badge">
+    //                                         <span className="badge-icon">⭐</span>
+    //                                         <span>Premium Listing</span>
+    //                                     </div>
+    //                                 </div>
+    //                             </div>
+    //                             <div className="card-details">
+    //                                 <h3>{formData.title || "Your Property Title"}</h3>
+    //                                 <div className="property-meta">
+    //                                     <span className="meta-item">
+    //                                         <i className="icon"><ion-icon name="bed-outline"></ion-icon></i> {formData.bedrooms} bed
+    //                                     </span>
+    //                                     <span className="meta-item">
+    //                                         <i className="icon"><ion-icon name="bonfire-outline"></ion-icon></i> {formData.bathrooms} bath
+    //                                     </span>
+    //                                     <span className="meta-item">
+    //                                         <i className="icon"><ion-icon name="pencil-outline"></ion-icon></i> {formData.area_sqm} sqm
+    //                                     </span>
+    //                                 </div>
+    //                                 <div className="property-price">
+    //                                     {formData.rent ? `XAF ${parseInt(formData.rent).toLocaleString()}/${how}` : "Set your price"}
+    //                                 </div>
+    //                             </div>
+    //                         </div>
+    //                     </div>
+    //                 </div>
+    //             </div>
+
+    //             {/* Right Side - Form */}
+    //             <div className="form-side">
+    //                 <div className="form-container">
+    //                     <div className="form-header">
+    //                         <h2>Create New Property</h2>
+    //                         <p>Fill in the details to list your property</p>
+    //                     </div>
+
+    //                     {/* Progress Steps */}
+    //                     <div className="progress-steps">
+
+    //                         {steps.map((step, index) => (
+    //                             <div key={index} className={`step ${index === activeStep ? 'active' : ''} ${index < activeStep ? 'completed' : ''}`}>
+    //                                 <div className="step-circle">{index + 1}</div>
+    //                                 <div className="step-label">{step}</div>
+    //                                 {index < steps.length - 1 && <div className="step-connector"></div>}
+    //                             </div>
+    //                         ))}
+
+    //                     </div>
+
+    //                     <form className="newton-form" onSubmit={handleSubmit}>
+    //                         {/* Step 1: Basic Info */}
+    //                         {activeStep === 0 && (
+    //                             <div className="form-step">
+    //                                 <div className="form-group">
+    //                                     <label className="form-label">
+    //                                         <span className="label-text">Property Title *</span>
+    //                                         <input
+    //                                             type="text"
+    //                                             value={formData.title}
+    //                                             onChange={(e) => handleChange("title", e.target.value)}
+    //                                             className="form-input"
+    //                                             placeholder="Luxury Apartment with Ocean View"
+    //                                             required
+    //                                         />
+    //                                     </label>
+    //                                 </div>
+
+    //                                 <div className="form-group">
+    //                                     <label className="form-label">
+    //                                         <span className="label-text">Property Type</span>
+    //                                         <div className="property-type-grid">
+    //                                             {propertyTypes.map((type) => (
+    //                                                 <button
+    //                                                     key={type.value}
+    //                                                     type="button"
+    //                                                     className={`type-option ${formData.type === type.value ? 'selected' : ''}`}
+    //                                                     onClick={() => handleChange("type", type.value)}
+    //                                                 >
+    //                                                     <span className="type-icon icon">{type.icon}</span>
+    //                                                     <span className="type-name">{type.value}</span>
+    //                                                 </button>
+    //                                             ))}
+    //                                         </div>
+    //                                     </label>
+    //                                 </div>
+
+    //                                 <div className="form-group">
+    //                                     <label className="form-label">
+    //                                         <span className="label-text">Monthly Rent (XAF) *</span>
+    //                                         <div className="input-with-icon">
+    //                                             <span className="input-icon"><ion-icon name="card-outline"></ion-icon></span>
+    //                                             <input
+    //                                                 type="number"
+    //                                                 value={formData.rent}
+    //                                                 onChange={(e) => handleChange("rent", e.target.value)}
+    //                                                 className="form-input"
+    //                                                 placeholder="250000"
+    //                                                 required
+    //                                             />
+    //                                         </div>
+    //                                     </label>
+    //                                 </div>
+
+    //                                 <div className="form-group">
+    //                                     <label className="form-label">
+    //                                         <span className="label-text">Monthly Rent (XAF) *</span>
+    //                                         <div className="input-with-icon">
+    //                                             <span className="input-icon">
+    //                                                 <ion-icon name="calendar-outline"></ion-icon>
+    //                                             </span>
+
+
+    //                                             <select className="form-input"
+    //                                                 style={{ cursor: "pointer" }}
+    //                                                 value={how} onChange={(e) => sethow(e.target.value)}
+    //                                                 required>
+    //                                                 <option value="select a payment plan">select a payment plan</option>
+    //                                                 <option value="month">month</option>
+    //                                                 <option value="day">day</option>
+    //                                                 <option value="night">night</option>
+    //                                             </select>
+    //                                         </div>
+    //                                     </label>
+    //                                 </div>
+
+    //                                 <div className="form-group">
+    //                                     <label className="form-label">
+    //                                         <span className="label-text">Full Address *</span>
+    //                                         <div className="input-with-icon">
+    //                                             <span className="input-icon"><ion-icon name="compass-outline"></ion-icon></span>
+    //                                             <input
+    //                                                 type="text"
+    //                                                 value={formData.address}
+    //                                                 onChange={(e) => handleChange("address", e.target.value)}
+    //                                                 className="form-input"
+    //                                                 placeholder="123 Luxury Street, Douala, Cameroon"
+    //                                                 required
+    //                                                 disabled={true}
+    //                                             />
+    //                                         </div>
+    //                                     </label>
+    //                                 </div>
+
+    //                             </div>
+    //                         )}
+
+    //                         {/* Step 2: Details */}
+    //                         {activeStep === 1 && (
+    //                             <div className="form-step">
+    //                                 <div className="form-row">
+    //                                     <div className="form-group">
+    //                                         <label className="form-label">
+    //                                             <span className="label-text">Bedrooms</span>
+    //                                             <div className="counter-input">
+    //                                                 <button
+    //                                                     type="button"
+    //                                                     className="counter-btn"
+    //                                                     onClick={() => handleChange("bedrooms", Math.max(1, formData.bedrooms - 1))}
+    //                                                 >
+    //                                                     -
+    //                                                 </button>
+    //                                                 <span className="counter-value">{formData.bedrooms}</span>
+    //                                                 <button
+    //                                                     type="button"
+    //                                                     className="counter-btn"
+    //                                                     onClick={() => handleChange("bedrooms", formData.bedrooms + 1)}
+    //                                                 >
+    //                                                     +
+    //                                                 </button>
+    //                                             </div>
+    //                                         </label>
+    //                                     </div>
+
+    //                                     <div className="form-group">
+    //                                         <label className="form-label">
+    //                                             <span className="label-text">Bathrooms</span>
+    //                                             <div className="counter-input">
+    //                                                 <button
+    //                                                     type="button"
+    //                                                     className="counter-btn"
+    //                                                     onClick={() => handleChange("bathrooms", Math.max(1, formData.bathrooms - 1))}
+    //                                                 >
+    //                                                     -
+    //                                                 </button>
+    //                                                 <span className="counter-value">{formData.bathrooms}</span>
+    //                                                 <button
+    //                                                     type="button"
+    //                                                     className="counter-btn"
+    //                                                     onClick={() => handleChange("bathrooms", formData.bathrooms + 1)}
+    //                                                 >
+    //                                                     +
+    //                                                 </button>
+    //                                             </div>
+    //                                         </label>
+    //                                     </div>
+    //                                 </div>
+
+    //                                 <div className="form-group">
+    //                                     <label className="form-label">
+    //                                         <span className="label-text">Area (square meters)</span>
+    //                                         <div className="range-input">
+    //                                             <input
+    //                                                 type="range"
+    //                                                 min="20"
+    //                                                 max="500"
+    //                                                 value={formData.area_sqm}
+    //                                                 onChange={(e) => handleChange("area_sqm", e.target.value)}
+    //                                                 className="range-slider"
+    //                                             />
+    //                                             <div className="range-value">{formData.area_sqm} sqm</div>
+    //                                         </div>
+    //                                     </label>
+    //                                 </div>
+
+    //                                 <div className="form-group">
+    //                                     <label className="form-label">
+    //                                         <span className="label-text">Description</span>
+    //                                         <textarea
+    //                                             value={formData.description}
+    //                                             onChange={(e) => handleChange("description", e.target.value)}
+    //                                             className="form-textarea"
+    //                                             rows={5}
+    //                                             placeholder="Describe your property in detail... What makes it special?"
+    //                                         />
+    //                                         <div className="char-count">{formData.description.length}/500</div>
+    //                                     </label>
+    //                                 </div>
+    //                             </div>
+    //                         )}
+
+    //                         {/* Step 3: Amenities */}
+    //                         {activeStep === 2 && (
+    //                             <div className="form-step">
+    //                                 <div className="form-group">
+    //                                     <span className="label-text">Select Amenities</span>
+    //                                     <div className="amenities-grid">
+    //                                         {amenityOptions.map((amenity) => (
+    //                                             <button
+    //                                                 key={amenity}
+    //                                                 type="button"
+    //                                                 className={`amenity-option ${selectedAmenities.includes(amenity) ? 'selected' : ''}`}
+    //                                                 onClick={() => handleAmenityToggle(amenity)}
+    //                                             >
+    //                                                 <span className="amenity-checkbox">
+    //                                                     {selectedAmenities.includes(amenity) ? '✓' : '+'}
+    //                                                 </span>
+    //                                                 <span className="amenity-name">{amenity}</span>
+    //                                             </button>
+    //                                         ))}
+    //                                     </div>
+    //                                 </div>
+    //                             </div>
+    //                         )}
+
+    //                         {/* Step 4: Media */}
+    //                         {activeStep === 3 && (
+    //                             <div className="form-step">
+    //                                 <div className="form-group">
+    //                                     <span className="label-text">Upload Property Photos</span>
+    //                                     <p className="sub-label">Drag & drop images or click to browse</p>
+
+    //                                     <div
+    //                                         className={`image-dropzone ${dragOver ? "dragging" : ""}`}
+    //                                         onDragOver={(e) => {
+    //                                             e.preventDefault();
+    //                                             setDragOver(true);
+    //                                         }}
+    //                                         onDragLeave={() => setDragOver(false)}
+    //                                         onDrop={handleDrop}
+    //                                         onClick={() => fileInputRef.current.click()}
+    //                                     >
+    //                                         <div className="dropzone-content">
+    //                                             <div className="dropzone-icon"><ion-icon name="cloud-upload-outline"></ion-icon></div>
+    //                                             <h3>Add Property Photos</h3>
+    //                                             <p>Upload up to 20 photos. High-quality images get more views.</p>
+    //                                             <button type="button" className="browse-btn">
+    //                                                 {uploading ? "uplaoding media... " : "Browse Files"}
+    //                                             </button>
+    //                                             <input
+    //                                                 type="file"
+    //                                                 ref={fileInputRef}
+    //                                                 onChange={handleFileSelect}
+    //                                                 style={{ display: 'none' }}
+
+    //                                                 multiple
+    //                                                 accept="image/*,video/*"
+
+    //                                             />
+
+    //                                         </div>
+    //                                     </div>
+
+    //                                     {/* {formData.images.length > 0 && (
+    //                                         <div className="image-preview-grid">
+    //                                             {formData.images.map((img, i) => (
+    //                                                 <div key={i} className="image-preview-item">
+    //                                                     <img src={img} alt={`Preview ${i}`} />
+    //                                                     <button
+    //                                                         type="button"
+    //                                                         className="remove-image-btn"
+    //                                                         onClick={(e) => {
+    //                                                             e.stopPropagation();
+    //                                                             removeImage(i);
+    //                                                         }}
+    //                                                     >
+    //                                                         ×
+    //                                                     </button>
+    //                                                     {i === 0 && <div className="primary-badge">Primary</div>}
+    //                                                 </div>
+    //                                             ))}
+    //                                         </div>
+    //                                     )} */}
+
+
+
+
+
+    //                                     {formData.media.length > 0 && (
+    //                                         <div className="image-preview-grid">
+    //                                             {formData.media.map((item, i) => (
+    //                                                 <div key={i} className="image-preview-item">
+    //                                                     {item.type === "image" ? (
+    //                                                         <img src={item.url} alt={`Media ${i}`} />
+    //                                                     ) : (
+    //                                                         <video src={item.url} controls />
+    //                                                     )}
+
+    //                                                     <button
+    //                                                         type="button"
+    //                                                         className="remove-image-btn"
+    //                                                         onClick={(e) => {
+    //                                                             e.stopPropagation();
+    //                                                             removeMedia(i);
+    //                                                         }}
+    //                                                     >
+    //                                                         ×
+    //                                                     </button>
+
+    //                                                     {i === 0 && <div className="primary-badge">Primary</div>}
+    //                                                 </div>
+    //                                             ))}
+    //                                         </div>
+    //                                     )}
+
+
+
+
+    //                                 </div>
+    //                             </div>
+    //                         )}
+
+    //                         {/* Step 5: Review */}
+    //                         {activeStep === 4 && (
+    //                             <div className="form-step">
+    //                                 <div className="review-section" style={{ flexDirection: "column" }}>
+    //                                     <h3 className="review-title">Review Your Listing</h3>
+
+    //                                     <div className="review-card" style={{ flexDirection: "column" }}>
+    //                                         <div className="review-item">
+    //                                             <span className="review-label">Property Title:</span>
+    //                                             <span className="review-value">{formData.title}</span>
+    //                                         </div>
+    //                                         <div className="review-item">
+    //                                             <span className="review-label">Property Type:</span>
+    //                                             <span className="review-value">{formData.type}</span>
+    //                                         </div>
+    //                                         <div className="review-item">
+    //                                             <span className="review-label">{how} Rent:</span>
+    //                                             <span className="review-value">XAF {parseInt(formData.rent || 0).toLocaleString()}</span>
+    //                                         </div>
+    //                                         <div className="review-item">
+    //                                             <span className="review-label">Address:</span>
+    //                                             <span className="review-value">{formData.address}</span>
+    //                                         </div>
+    //                                         <div className="review-item">
+    //                                             <span className="review-label">How people will pay:</span>
+    //                                             <span className="review-value">per {how}</span>
+    //                                         </div>
+    //                                         <div className="review-item">
+    //                                             <span className="review-label">Bed/Bath:</span>
+    //                                             <span className="review-value">{formData.bedrooms} bed, {formData.bathrooms} bath</span>
+    //                                         </div>
+    //                                         <div className="review-item">
+    //                                             <span className="review-label">Area:</span>
+    //                                             <span className="review-value">{formData.area_sqm} sqm</span>
+    //                                         </div>
+    //                                         <div className="review-item">
+    //                                             <span className="review-label">Amenities:</span>
+    //                                             <span className="review-value">
+    //                                                 {selectedAmenities.length > 0
+    //                                                     ? selectedAmenities.join(', ')
+    //                                                     : 'None selected'}
+    //                                             </span>
+    //                                         </div>
+    //                                         <div className="review-item">
+    //                                             <span className="review-label">Photos:</span>
+    //                                             <span className="review-value">{formData.media.length} uploaded</span>
+    //                                         </div>
+    //                                     </div>
+
+    //                                     <div className="terms-agreement">
+    //                                         <input type="checkbox" id="terms" required />
+    //                                         <label htmlFor="terms" style={{ color: "#fff" }}>
+    //                                             I agree to the terms of service and confirm that I have the right to list this property
+    //                                         </label>
+    //                                     </div>
+    //                                 </div>
+    //                             </div>
+    //                         )}
+
+    //                         {/* Navigation Buttons */}
+    //                         <div className="form-navigation">
+    //                             {activeStep > 0 && (
+    //                                 <button type="button" className="nav-btn prev-btn" onClick={prevStep}>
+    //                                     ← Previous
+    //                                 </button>
+    //                             )}
+
+    //                             {activeStep < steps.length - 1 ? (
+    //                                 <button type="button" className="nav-btn next-btn" onClick={nextStep}>
+    //                                     Next →
+    //                                 </button>
+    //                             ) : (
+    //                                 <button type="submit" className="submit-btn" disabled={submitting}>
+    //                                     {submitting ? (
+    //                                         <>
+    //                                             <span className="spinner"></span>
+    //                                             Creating Listing...
+    //                                         </>
+    //                                     ) : (
+    //                                         'Publish Listing '
+    //                                     )}
+    //                                     <ion-icon name="subway-outline"></ion-icon>
+    //                                 </button>
+    //                             )}
+    //                         </div>
+    //                     </form>
+    //                 </div>
+    //             </div>
+    //         </div>
+    //     </div>
+    // );
+
+
     return (
-        <div className="billion-dollar-container">
-            <div className="split-layout">
-                {/* Left Side - Visual Preview */}
-                <div className="preview-side">
-                    <div className="preview-overlay">
-                        <div className="preview-content">
-                            {/* <h1 className="preview-title">Create Your <span className="highlight">Premium</span> Listing</h1>
-                            <p className="preview-subtitle">Join thousands of property owners maximizing their returns with our platform</p> */}
-
-                            {/* <div className="preview-stats">
-                                <div className="stat-item">
-                                    <div className="stat-number">24.7%</div>
-                                    <div className="stat-label">Higher Rental Income</div>
-                                </div>
-                                <div className="stat-item">
-                                    <div className="stat-number">3.2x</div>
-                                    <div className="stat-label">Faster Booking</div>
-                                </div>
-                                <div className="stat-item">
-                                    <div className="stat-number">99%</div>
-                                    <div className="stat-label">Occupancy Rate</div>
-                                </div>
-
-                            </div> */}
-
-                            <div className="preview-card">
-                                <div className="card-image">
-                                    <div className="image-placeholder">
-                                        <div className="property-badge">
-                                            <span className="badge-icon">⭐</span>
-                                            <span>Premium Listing</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="card-details">
-                                    <h3>{formData.title || "Your Property Title"}</h3>
-                                    <div className="property-meta">
-                                        <span className="meta-item">
-                                            <i className="icon"><ion-icon name="bed-outline"></ion-icon></i> {formData.bedrooms} bed
-                                        </span>
-                                        <span className="meta-item">
-                                            <i className="icon"><ion-icon name="bonfire-outline"></ion-icon></i> {formData.bathrooms} bath
-                                        </span>
-                                        <span className="meta-item">
-                                            <i className="icon"><ion-icon name="pencil-outline"></ion-icon></i> {formData.area_sqm} sqm
-                                        </span>
-                                    </div>
-                                    <div className="property-price">
-                                        {formData.rent ? `XAF ${parseInt(formData.rent).toLocaleString()}/${how}` : "Set your price"}
+    <div className="tesla-container">
+        <div className="rolex-layout">
+            {/* Left Side - Visual Preview */}
+            <div className="louisvuitton-side">
+                <div className="ferrari-overlay">
+                    <div className="gucci-content">
+                        <div className="bentley-preview-card">
+                            <div className="mercedes-card-image">
+                                <div className="audi-placeholder">
+                                    <div className="porsche-badge">
+                                        <span className="lamborghini-badge-icon">⭐</span>
+                                        <span>Premium Listing</span>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Right Side - Form */}
-                <div className="form-side">
-                    <div className="form-container">
-                        <div className="form-header">
-                            <h2>Create New Property</h2>
-                            <p>Fill in the details to list your property</p>
-                        </div>
-
-                        {/* Progress Steps */}
-                        <div className="progress-steps">
-
-                            {steps.map((step, index) => (
-                                <div key={index} className={`step ${index === activeStep ? 'active' : ''} ${index < activeStep ? 'completed' : ''}`}>
-                                    <div className="step-circle">{index + 1}</div>
-                                    <div className="step-label">{step}</div>
-                                    {index < steps.length - 1 && <div className="step-connector"></div>}
+                            <div className="rollsroyce-card-details">
+                                <h3>{formData.title || "Your Property Title"}</h3>
+                                <div className="bugatti-property-meta">
+                                    <span className="astonmartin-meta-item">
+                                        <i className="gap-icon"><ion-icon name="bed-outline"></ion-icon></i> {formData.bedrooms} bed
+                                    </span>
+                                    <span className="astonmartin-meta-item">
+                                        <i className="gap-icon"><ion-icon name="bonfire-outline"></ion-icon></i> {formData.bathrooms} bath
+                                    </span>
+                                    <span className="astonmartin-meta-item">
+                                        <i className="gap-icon"><ion-icon name="pencil-outline"></ion-icon></i> {formData.area_sqm} sqm
+                                    </span>
                                 </div>
-                            ))}
-
-                        </div>
-
-                        <form className="newton-form" onSubmit={handleSubmit}>
-                            {/* Step 1: Basic Info */}
-                            {activeStep === 0 && (
-                                <div className="form-step">
-                                    <div className="form-group">
-                                        <label className="form-label">
-                                            <span className="label-text">Property Title *</span>
-                                            <input
-                                                type="text"
-                                                value={formData.title}
-                                                onChange={(e) => handleChange("title", e.target.value)}
-                                                className="form-input"
-                                                placeholder="Luxury Apartment with Ocean View"
-                                                required
-                                            />
-                                        </label>
-                                    </div>
-
-                                    <div className="form-group">
-                                        <label className="form-label">
-                                            <span className="label-text">Property Type</span>
-                                            <div className="property-type-grid">
-                                                {propertyTypes.map((type) => (
-                                                    <button
-                                                        key={type.value}
-                                                        type="button"
-                                                        className={`type-option ${formData.type === type.value ? 'selected' : ''}`}
-                                                        onClick={() => handleChange("type", type.value)}
-                                                    >
-                                                        <span className="type-icon icon">{type.icon}</span>
-                                                        <span className="type-name">{type.value}</span>
-                                                    </button>
-                                                ))}
-                                            </div>
-                                        </label>
-                                    </div>
-
-                                    <div className="form-group">
-                                        <label className="form-label">
-                                            <span className="label-text">Monthly Rent (XAF) *</span>
-                                            <div className="input-with-icon">
-                                                <span className="input-icon"><ion-icon name="card-outline"></ion-icon></span>
-                                                <input
-                                                    type="number"
-                                                    value={formData.rent}
-                                                    onChange={(e) => handleChange("rent", e.target.value)}
-                                                    className="form-input"
-                                                    placeholder="250000"
-                                                    required
-                                                />
-                                            </div>
-                                        </label>
-                                    </div>
-
-                                    <div className="form-group">
-                                        <label className="form-label">
-                                            <span className="label-text">Monthly Rent (XAF) *</span>
-                                            <div className="input-with-icon">
-                                                <span className="input-icon">
-                                                    <ion-icon name="calendar-outline"></ion-icon>
-                                                </span>
-
-
-                                                <select className="form-input"
-                                                    style={{ cursor: "pointer" }}
-                                                    value={how} onChange={(e) => sethow(e.target.value)}
-                                                    required>
-                                                    <option value="select a payment plan">select a payment plan</option>
-                                                    <option value="month">month</option>
-                                                    <option value="day">day</option>
-                                                    <option value="night">night</option>
-                                                </select>
-                                            </div>
-                                        </label>
-                                    </div>
-
-                                    <div className="form-group">
-                                        <label className="form-label">
-                                            <span className="label-text">Full Address *</span>
-                                            <div className="input-with-icon">
-                                                <span className="input-icon"><ion-icon name="compass-outline"></ion-icon></span>
-                                                <input
-                                                    type="text"
-                                                    value={formData.address}
-                                                    onChange={(e) => handleChange("address", e.target.value)}
-                                                    className="form-input"
-                                                    placeholder="123 Luxury Street, Douala, Cameroon"
-                                                    required
-                                                    disabled={true}
-                                                />
-                                            </div>
-                                        </label>
-                                    </div>
-
+                                <div className="maserati-property-price">
+                                    {formData.rent ? `XAF ${parseInt(formData.rent).toLocaleString()}/${how}` : "Set your price"}
                                 </div>
-                            )}
-
-                            {/* Step 2: Details */}
-                            {activeStep === 1 && (
-                                <div className="form-step">
-                                    <div className="form-row">
-                                        <div className="form-group">
-                                            <label className="form-label">
-                                                <span className="label-text">Bedrooms</span>
-                                                <div className="counter-input">
-                                                    <button
-                                                        type="button"
-                                                        className="counter-btn"
-                                                        onClick={() => handleChange("bedrooms", Math.max(1, formData.bedrooms - 1))}
-                                                    >
-                                                        -
-                                                    </button>
-                                                    <span className="counter-value">{formData.bedrooms}</span>
-                                                    <button
-                                                        type="button"
-                                                        className="counter-btn"
-                                                        onClick={() => handleChange("bedrooms", formData.bedrooms + 1)}
-                                                    >
-                                                        +
-                                                    </button>
-                                                </div>
-                                            </label>
-                                        </div>
-
-                                        <div className="form-group">
-                                            <label className="form-label">
-                                                <span className="label-text">Bathrooms</span>
-                                                <div className="counter-input">
-                                                    <button
-                                                        type="button"
-                                                        className="counter-btn"
-                                                        onClick={() => handleChange("bathrooms", Math.max(1, formData.bathrooms - 1))}
-                                                    >
-                                                        -
-                                                    </button>
-                                                    <span className="counter-value">{formData.bathrooms}</span>
-                                                    <button
-                                                        type="button"
-                                                        className="counter-btn"
-                                                        onClick={() => handleChange("bathrooms", formData.bathrooms + 1)}
-                                                    >
-                                                        +
-                                                    </button>
-                                                </div>
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                    <div className="form-group">
-                                        <label className="form-label">
-                                            <span className="label-text">Area (square meters)</span>
-                                            <div className="range-input">
-                                                <input
-                                                    type="range"
-                                                    min="20"
-                                                    max="500"
-                                                    value={formData.area_sqm}
-                                                    onChange={(e) => handleChange("area_sqm", e.target.value)}
-                                                    className="range-slider"
-                                                />
-                                                <div className="range-value">{formData.area_sqm} sqm</div>
-                                            </div>
-                                        </label>
-                                    </div>
-
-                                    <div className="form-group">
-                                        <label className="form-label">
-                                            <span className="label-text">Description</span>
-                                            <textarea
-                                                value={formData.description}
-                                                onChange={(e) => handleChange("description", e.target.value)}
-                                                className="form-textarea"
-                                                rows={5}
-                                                placeholder="Describe your property in detail... What makes it special?"
-                                            />
-                                            <div className="char-count">{formData.description.length}/500</div>
-                                        </label>
-                                    </div>
-                                </div>
-                            )}
-
-                            {/* Step 3: Amenities */}
-                            {activeStep === 2 && (
-                                <div className="form-step">
-                                    <div className="form-group">
-                                        <span className="label-text">Select Amenities</span>
-                                        <div className="amenities-grid">
-                                            {amenityOptions.map((amenity) => (
-                                                <button
-                                                    key={amenity}
-                                                    type="button"
-                                                    className={`amenity-option ${selectedAmenities.includes(amenity) ? 'selected' : ''}`}
-                                                    onClick={() => handleAmenityToggle(amenity)}
-                                                >
-                                                    <span className="amenity-checkbox">
-                                                        {selectedAmenities.includes(amenity) ? '✓' : '+'}
-                                                    </span>
-                                                    <span className="amenity-name">{amenity}</span>
-                                                </button>
-                                            ))}
-                                        </div>
-                                    </div>
-                                </div>
-                            )}
-
-                            {/* Step 4: Media */}
-                            {activeStep === 3 && (
-                                <div className="form-step">
-                                    <div className="form-group">
-                                        <span className="label-text">Upload Property Photos</span>
-                                        <p className="sub-label">Drag & drop images or click to browse</p>
-
-                                        <div
-                                            className={`image-dropzone ${dragOver ? "dragging" : ""}`}
-                                            onDragOver={(e) => {
-                                                e.preventDefault();
-                                                setDragOver(true);
-                                            }}
-                                            onDragLeave={() => setDragOver(false)}
-                                            onDrop={handleDrop}
-                                            onClick={() => fileInputRef.current.click()}
-                                        >
-                                            <div className="dropzone-content">
-                                                <div className="dropzone-icon"><ion-icon name="cloud-upload-outline"></ion-icon></div>
-                                                <h3>Add Property Photos</h3>
-                                                <p>Upload up to 20 photos. High-quality images get more views.</p>
-                                                <button type="button" className="browse-btn">
-                                                    {uploading ? "uplaoding media... " : "Browse Files"}
-                                                </button>
-                                                <input
-                                                    type="file"
-                                                    ref={fileInputRef}
-                                                    onChange={handleFileSelect}
-                                                    style={{ display: 'none' }}
-
-                                                    multiple
-                                                    accept="image/*,video/*"
-
-                                                />
-
-                                            </div>
-                                        </div>
-
-                                        {/* {formData.images.length > 0 && (
-                                            <div className="image-preview-grid">
-                                                {formData.images.map((img, i) => (
-                                                    <div key={i} className="image-preview-item">
-                                                        <img src={img} alt={`Preview ${i}`} />
-                                                        <button
-                                                            type="button"
-                                                            className="remove-image-btn"
-                                                            onClick={(e) => {
-                                                                e.stopPropagation();
-                                                                removeImage(i);
-                                                            }}
-                                                        >
-                                                            ×
-                                                        </button>
-                                                        {i === 0 && <div className="primary-badge">Primary</div>}
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        )} */}
-
-
-
-
-
-                                        {formData.media.length > 0 && (
-                                            <div className="image-preview-grid">
-                                                {formData.media.map((item, i) => (
-                                                    <div key={i} className="image-preview-item">
-                                                        {item.type === "image" ? (
-                                                            <img src={item.url} alt={`Media ${i}`} />
-                                                        ) : (
-                                                            <video src={item.url} controls />
-                                                        )}
-
-                                                        <button
-                                                            type="button"
-                                                            className="remove-image-btn"
-                                                            onClick={(e) => {
-                                                                e.stopPropagation();
-                                                                removeMedia(i);
-                                                            }}
-                                                        >
-                                                            ×
-                                                        </button>
-
-                                                        {i === 0 && <div className="primary-badge">Primary</div>}
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        )}
-
-
-
-
-                                    </div>
-                                </div>
-                            )}
-
-                            {/* Step 5: Review */}
-                            {activeStep === 4 && (
-                                <div className="form-step">
-                                    <div className="review-section" style={{ flexDirection: "column" }}>
-                                        <h3 className="review-title">Review Your Listing</h3>
-
-                                        <div className="review-card" style={{ flexDirection: "column" }}>
-                                            <div className="review-item">
-                                                <span className="review-label">Property Title:</span>
-                                                <span className="review-value">{formData.title}</span>
-                                            </div>
-                                            <div className="review-item">
-                                                <span className="review-label">Property Type:</span>
-                                                <span className="review-value">{formData.type}</span>
-                                            </div>
-                                            <div className="review-item">
-                                                <span className="review-label">{how} Rent:</span>
-                                                <span className="review-value">XAF {parseInt(formData.rent || 0).toLocaleString()}</span>
-                                            </div>
-                                            <div className="review-item">
-                                                <span className="review-label">Address:</span>
-                                                <span className="review-value">{formData.address}</span>
-                                            </div>
-                                            <div className="review-item">
-                                                <span className="review-label">How people will pay:</span>
-                                                <span className="review-value">per {how}</span>
-                                            </div>
-                                            <div className="review-item">
-                                                <span className="review-label">Bed/Bath:</span>
-                                                <span className="review-value">{formData.bedrooms} bed, {formData.bathrooms} bath</span>
-                                            </div>
-                                            <div className="review-item">
-                                                <span className="review-label">Area:</span>
-                                                <span className="review-value">{formData.area_sqm} sqm</span>
-                                            </div>
-                                            <div className="review-item">
-                                                <span className="review-label">Amenities:</span>
-                                                <span className="review-value">
-                                                    {selectedAmenities.length > 0
-                                                        ? selectedAmenities.join(', ')
-                                                        : 'None selected'}
-                                                </span>
-                                            </div>
-                                            <div className="review-item">
-                                                <span className="review-label">Photos:</span>
-                                                <span className="review-value">{formData.media.length} uploaded</span>
-                                            </div>
-                                        </div>
-
-                                        <div className="terms-agreement">
-                                            <input type="checkbox" id="terms" required />
-                                            <label htmlFor="terms" style={{ color: "#fff" }}>
-                                                I agree to the terms of service and confirm that I have the right to list this property
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            )}
-
-                            {/* Navigation Buttons */}
-                            <div className="form-navigation">
-                                {activeStep > 0 && (
-                                    <button type="button" className="nav-btn prev-btn" onClick={prevStep}>
-                                        ← Previous
-                                    </button>
-                                )}
-
-                                {activeStep < steps.length - 1 ? (
-                                    <button type="button" className="nav-btn next-btn" onClick={nextStep}>
-                                        Next →
-                                    </button>
-                                ) : (
-                                    <button type="submit" className="submit-btn" disabled={submitting}>
-                                        {submitting ? (
-                                            <>
-                                                <span className="spinner"></span>
-                                                Creating Listing...
-                                            </>
-                                        ) : (
-                                            'Publish Listing '
-                                        )}
-                                        <ion-icon name="subway-outline"></ion-icon>
-                                    </button>
-                                )}
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            {/* Right Side - Form */}
+            <div className="apple-form-side">
+                <div className="microsoft-container">
+                    <div className="google-header">
+                        <h2>Create New Property</h2>
+                        <p>Fill in the details to list your property</p>
+                    </div>
+
+                    {/* Progress Steps */}
+                    <div className="amazon-progress-steps">
+                        {steps.map((step, index) => (
+                            <div key={index} className={`netflix-step ${index === activeStep ? 'active' : ''} ${index < activeStep ? 'completed' : ''}`}>
+                                <div className="disney-circle">{index + 1}</div>
+                                <div className="hbo-label">{step}</div>
+                                {index < steps.length - 1 && <div className="sony-connector"></div>}
+                            </div>
+                        ))}
+                    </div>
+
+                    <form className="nike-form" onSubmit={handleSubmit}>
+                        {/* Step 1: Basic Info */}
+                        {activeStep === 0 && (
+                            <div className="adidas-step">
+                                <div className="puma-group">
+                                    <label className="underarmour-label">
+                                        <span className="newbalance-text">Property Title *</span>
+                                        <input
+                                            type="text"
+                                            value={formData.title}
+                                            onChange={(e) => handleChange("title", e.target.value)}
+                                            className="vans-input"
+                                            placeholder="Luxury Apartment with Ocean View"
+                                            required
+                                        />
+                                    </label>
+                                </div>
+
+                                <div className="puma-group">
+                                    <label className="underarmour-label">
+                                        <span className="newbalance-text">Property Type</span>
+                                        <div className="zara-property-grid">
+                                            {propertyTypes.map((type) => (
+                                                <button
+                                                    key={type.value}
+                                                    type="button"
+                                                    className={`hm-option ${formData.type === type.value ? 'selected' : ''}`}
+                                                    onClick={() => handleChange("type", type.value)}
+                                                >
+                                                    <span className="uniqlo-icon gap-icon">{type.icon}</span>
+                                                    <span className="levis-name">{type.value}</span>
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </label>
+                                </div>
+
+                                <div className="puma-group">
+                                    <label className="underarmour-label">
+                                        <span className="newbalance-text">Monthly Rent (XAF) *</span>
+                                        <div className="timberland-icon-wrapper">
+                                            <span className="northface-icon"><ion-icon name="card-outline"></ion-icon></span>
+                                            <input
+                                                type="number"
+                                                value={formData.rent}
+                                                onChange={(e) => handleChange("rent", e.target.value)}
+                                                className="vans-input"
+                                                placeholder="250000"
+                                                required
+                                            />
+                                        </div>
+                                    </label>
+                                </div>
+
+                                <div className="puma-group">
+                                    <label className="underarmour-label">
+                                        <span className="newbalance-text">Payment Period *</span>
+                                        <div className="timberland-icon-wrapper">
+                                            <span className="northface-icon">
+                                                <ion-icon name="calendar-outline"></ion-icon>
+                                            </span>
+                                            <select
+                                                className="vans-input"
+                                                style={{ cursor: "pointer" }}
+                                                value={how}
+                                                onChange={(e) => setHow(e.target.value)}
+                                                required
+                                            >
+                                                <option value="select a payment plan">select a payment plan</option>
+                                                <option value="month">month</option>
+                                                <option value="day">day</option>
+                                                <option value="night">night</option>
+                                            </select>
+                                        </div>
+                                    </label>
+                                </div>
+
+                                <div className="puma-group">
+                                    <label className="underarmour-label">
+                                        <span className="newbalance-text">Full Address *</span>
+                                        <div className="timberland-icon-wrapper">
+                                            <span className="northface-icon"><ion-icon name="compass-outline"></ion-icon></span>
+                                            <input
+                                                type="text"
+                                                value={formData.address}
+                                                onChange={(e) => handleChange("address", e.target.value)}
+                                                className="vans-input"
+                                                placeholder="123 Luxury Street, Douala, Cameroon"
+                                                required
+                                                disabled={true}
+                                            />
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Step 2: Details */}
+                        {activeStep === 1 && (
+                            <div className="adidas-step">
+                                <div className="reebok-row">
+                                    <div className="puma-group">
+                                        <label className="underarmour-label">
+                                            <span className="newbalance-text">Bedrooms</span>
+                                            <div className="ck-counter">
+                                                <button
+                                                    type="button"
+                                                    className="ralphlauren-btn"
+                                                    onClick={() => handleChange("bedrooms", Math.max(1, formData.bedrooms - 1))}
+                                                >
+                                                    -
+                                                </button>
+                                                <span className="tommy-value">{formData.bedrooms}</span>
+                                                <button
+                                                    type="button"
+                                                    className="ralphlauren-btn"
+                                                    onClick={() => handleChange("bedrooms", formData.bedrooms + 1)}
+                                                >
+                                                    +
+                                                </button>
+                                            </div>
+                                        </label>
+                                    </div>
+
+                                    <div className="puma-group">
+                                        <label className="underarmour-label">
+                                            <span className="newbalance-text">Bathrooms</span>
+                                            <div className="ck-counter">
+                                                <button
+                                                    type="button"
+                                                    className="ralphlauren-btn"
+                                                    onClick={() => handleChange("bathrooms", Math.max(1, formData.bathrooms - 1))}
+                                                >
+                                                    -
+                                                </button>
+                                                <span className="tommy-value">{formData.bathrooms}</span>
+                                                <button
+                                                    type="button"
+                                                    className="ralphlauren-btn"
+                                                    onClick={() => handleChange("bathrooms", formData.bathrooms + 1)}
+                                                >
+                                                    +
+                                                </button>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div className="puma-group">
+                                    <label className="underarmour-label">
+                                        <span className="newbalance-text">Area (square meters)</span>
+                                        <div className="boss-range">
+                                            <input
+                                                type="range"
+                                                min="20"
+                                                max="500"
+                                                value={formData.area_sqm}
+                                                onChange={(e) => handleChange("area_sqm", e.target.value)}
+                                                className="dolce-slider"
+                                            />
+                                            <div className="gabbana-value">{formData.area_sqm} sqm</div>
+                                        </div>
+                                    </label>
+                                </div>
+
+                                <div className="puma-group">
+                                    <label className="underarmour-label">
+                                        <span className="newbalance-text">Description</span>
+                                        <textarea
+                                            value={formData.description}
+                                            onChange={(e) => handleChange("description", e.target.value)}
+                                            className="fendi-textarea"
+                                            rows={5}
+                                            placeholder="Describe your property in detail... What makes it special?"
+                                        />
+                                        <div className="versace-count">{formData.description.length}/500</div>
+                                    </label>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Step 3: Amenities */}
+                        {activeStep === 2 && (
+                            <div className="adidas-step">
+                                <div className="puma-group">
+                                    <span className="newbalance-text">Select Amenities</span>
+                                    <div className="prada-amenities-grid">
+                                        {amenityOptions.map((amenity) => (
+                                            <button
+                                                key={amenity}
+                                                type="button"
+                                                className={`miumiu-option ${selectedAmenities.includes(amenity) ? 'selected' : ''}`}
+                                                onClick={() => handleAmenityToggle(amenity)}
+                                            >
+                                                <span className="fendi-checkbox">
+                                                    {selectedAmenities.includes(amenity) ? '✓' : '+'}
+                                                </span>
+                                                <span className="kenzo-name">{amenity}</span>
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Step 4: Media */}
+                        {activeStep === 3 && (
+                            <div className="adidas-step">
+                                <div className="puma-group">
+                                    <span className="newbalance-text">Upload Property Photos</span>
+                                    <p className="converse-sub-label">Drag & drop images or click to browse</p>
+
+                                    <div
+                                        className={`omega-dropzone ${dragOver ? "dragging" : ""}`}
+                                        onDragOver={(e) => {
+                                            e.preventDefault();
+                                            setDragOver(true);
+                                        }}
+                                        onDragLeave={() => setDragOver(false)}
+                                        onDrop={handleDrop}
+                                        onClick={() => fileInputRef.current.click()}
+                                    >
+                                        <div className="tagheuer-content">
+                                            <div className="breitling-icon"><ion-icon name="cloud-upload-outline"></ion-icon></div>
+                                            <h3>Add Property Photos</h3>
+                                            <p>Upload up to 20 photos. High-quality images get more views.</p>
+                                            <button type="button" className="hublot-btn">
+                                                {uploading ? "uploading media..." : "Browse Files"}
+                                            </button>
+                                            <input
+                                                type="file"
+                                                ref={fileInputRef}
+                                                onChange={handleFileSelect}
+                                                style={{ display: 'none' }}
+                                                multiple
+                                                accept="image/*,video/*"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    {formData.media.length > 0 && (
+                                        <div className="patek-grid">
+                                            {formData.media.map((item, i) => (
+                                                <div key={i} className="audemars-item">
+                                                    {item.type === "image" ? (
+                                                        <img src={item.url} alt={`Media ${i}`} />
+                                                    ) : (
+                                                        <video src={item.url} controls />
+                                                    )}
+
+                                                    <button
+                                                        type="button"
+                                                        className="richardmille-remove-btn"
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            removeMedia(i);
+                                                        }}
+                                                    >
+                                                        ×
+                                                    </button>
+
+                                                    {i === 0 && <div className="vacheron-badge">Primary</div>}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Step 5: Review */}
+                        {activeStep === 4 && (
+                            <div className="adidas-step">
+                                <div className="jaeger-review-section" style={{ flexDirection: "column" }}>
+                                    <h3 className="iwc-title">Review Your Listing</h3>
+
+                                    <div className="blancpain-card" style={{ flexDirection: "column" }}>
+                                        <div className="glashutte-item">
+                                            <span className="panerai-label">Property Title:</span>
+                                            <span className="piaget-value">{formData.title}</span>
+                                        </div>
+                                        <div className="glashutte-item">
+                                            <span className="panerai-label">Property Type:</span>
+                                            <span className="piaget-value">{formData.type}</span>
+                                        </div>
+                                        <div className="glashutte-item">
+                                            <span className="panerai-label">{how} Rent:</span>
+                                            <span className="piaget-value">XAF {parseInt(formData.rent || 0).toLocaleString()}</span>
+                                        </div>
+                                        <div className="glashutte-item">
+                                            <span className="panerai-label">Address:</span>
+                                            <span className="piaget-value">{formData.address}</span>
+                                        </div>
+                                        <div className="glashutte-item">
+                                            <span className="panerai-label">How people will pay:</span>
+                                            <span className="piaget-value">per {how}</span>
+                                        </div>
+                                        <div className="glashutte-item">
+                                            <span className="panerai-label">Bed/Bath:</span>
+                                            <span className="piaget-value">{formData.bedrooms} bed, {formData.bathrooms} bath</span>
+                                        </div>
+                                        <div className="glashutte-item">
+                                            <span className="panerai-label">Area:</span>
+                                            <span className="piaget-value">{formData.area_sqm} sqm</span>
+                                        </div>
+                                        <div className="glashutte-item">
+                                            <span className="panerai-label">Amenities:</span>
+                                            <span className="piaget-value">
+                                                {selectedAmenities.length > 0
+                                                    ? selectedAmenities.join(', ')
+                                                    : 'None selected'}
+                                            </span>
+                                        </div>
+                                        <div className="glashutte-item">
+                                            <span className="panerai-label">Photos:</span>
+                                            <span className="piaget-value">{formData.media.length} uploaded</span>
+                                        </div>
+                                    </div>
+
+                                    <div className="girard-agreement">
+                                        <input type="checkbox" id="terms" required />
+                                        <label htmlFor="terms" style={{ color: "#fff" }}>
+                                            I agree to the terms of service and confirm that I have the right to list this property
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Navigation Buttons */}
+                        <div className="baume-navigation">
+                            {activeStep > 0 && (
+                                <button type="button" className="frederique-btn oris-prev" onClick={prevStep}>
+                                    ← Previous
+                                </button>
+                            )}
+
+                            {activeStep < steps.length - 1 ? (
+                                <button type="button" className="frederique-btn hamilton-next" onClick={nextStep}>
+                                    Next →
+                                </button>
+                            ) : (
+                                <button type="submit" className="longines-submit" disabled={submitting}>
+                                    {submitting ? (
+                                        <>
+                                            <span className="tissot-spinner"></span>
+                                            Creating Listing...
+                                        </>
+                                    ) : (
+                                        'Publish Listing '
+                                    )}
+                                    <ion-icon name="checkmark-done-outline"></ion-icon>
+                                </button>
+                            )}
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-    );
+    </div>
+);
+
 }
 
 

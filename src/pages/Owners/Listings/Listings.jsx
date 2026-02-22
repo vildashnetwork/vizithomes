@@ -35,6 +35,7 @@ function Listings() {
     { title: "Rented", active: false },
   ]);
 
+
   // ------------------- Decode user -------------------
   useEffect(() => {
     const decodeUser = async () => {
@@ -186,7 +187,9 @@ function Listings() {
         </td>
         <td className="table-data">
           <div className="actions">
-            <button><BarChartIcon /></button>
+        <button onClick={() => window.location.href = `/updateprop/${listing?._id}`}>
+  <BarChartIcon />
+</button>
             <button disabled={loadingdel} onClick={handleDelete}>
               {loadingdel ? "Deleting..." : <DeleteIcon />}
             </button>

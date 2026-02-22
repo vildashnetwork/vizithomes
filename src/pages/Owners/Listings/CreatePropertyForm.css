@@ -1,65 +1,69 @@
-.billion-dollar-container {
+/* Tesla Container - Main wrapper */
+.tesla-container {
     min-height: 100vh;
-    /* height: 90vh; */
     background: linear-gradient(135deg, #0a2f1b 0%, #113e40 50%, #0a2f2a 100%);
     display: flex;
     align-items: center;
     justify-content: center;
-    /* padding: 20px; */
+    position: relative;
+    overflow-x: hidden;
 }
 
-.split-layout {
+/* Rolex Layout - Split layout */
+.rolex-layout {
     display: flex;
     width: 100%;
     max-width: 1600px;
-    height: 120vh;
+    min-height: 100vh;
     background: transparent;
     border-radius: 24px;
     overflow: hidden;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 }
 
-@media (max-width: 600px) {
-    .preview-side {
-        display: none !important;
-    }
-}
-
-/* Preview Side */
-.preview-side {
+/* LouisVuitton - Preview Side */
+.louisvuitton-side {
     flex: 1;
     background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
         url('https://images.unsplash.com/photo-1613977257363-707ba9348227?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
     background-size: cover;
     background-position: center;
-    padding: 60px;
+    padding: clamp(20px, 5vw, 60px);
     display: flex;
     align-items: center;
     position: relative;
-    overflow: hidden;
+    overflow-y: auto;
 }
 
-.preview-side::before {
+.louisvuitton-side::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(45deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+    background: linear-gradient(45deg, rgba(16, 185, 129, 0.2), rgba(5, 150, 105, 0.2));
     z-index: 1;
 }
 
-.preview-overlay {
+/* Ferrari Overlay */
+.ferrari-overlay {
     position: relative;
     z-index: 2;
     color: white;
     width: 100%;
 }
 
-.preview-title {
-    font-size: 3.5rem;
+/* Gucci Content */
+.gucci-content {
+    width: 100%;
+}
+
+/* Prada Title */
+.prada-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
     font-weight: 800;
-    margin-bottom: 20px;
+    margin-bottom: clamp(15px, 3vw, 20px);
     line-height: 1.2;
     background: linear-gradient(45deg, #fff, #f0f0f0);
     -webkit-background-clip: text;
@@ -67,57 +71,73 @@
     background-clip: text;
 }
 
-.highlight {
-    background: linear-gradient(45deg, #087736, #046b04);
+/* Chanel Highlight */
+.chanel-highlight {
+    background: linear-gradient(45deg, #10b981, #059669);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
 
-.preview-subtitle {
-    font-size: 1.2rem;
-    margin-bottom: 50px;
+/* Armani Subtitle */
+.armani-subtitle {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    margin-bottom: clamp(30px, 5vw, 50px);
     opacity: 0.9;
     max-width: 600px;
+    line-height: 1.6;
 }
 
-.preview-stats {
+/* Cartier Stats */
+.cartier-stats {
     display: flex;
-    gap: 40px;
-    margin-bottom: 60px;
+    gap: clamp(20px, 4vw, 40px);
+    margin-bottom: clamp(40px, 6vw, 60px);
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
-.stat-item {
+/* Bvlgari Stat Item */
+.bvlgari-stat-item {
     text-align: center;
+    flex: 1 1 auto;
+    min-width: 120px;
 }
 
-.stat-number {
-    font-size: 2.5rem;
+/* Tiffany Stat Number */
+.tiffany-stat-number {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
     font-weight: 700;
-    background: linear-gradient(45deg, #0a5455, #186411);
+    background: linear-gradient(45deg, #10b981, #059669);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     margin-bottom: 8px;
 }
 
-.stat-label {
-    font-size: 0.9rem;
+/* Hermes Stat Label */
+.hermes-stat-label {
+    font-size: clamp(0.8rem, 1.5vw, 0.9rem);
     opacity: 0.8;
 }
 
-.preview-card {
+/* Bentley Preview Card */
+.bentley-preview-card {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-radius: 20px;
-    padding: 30px;
+    padding: clamp(20px, 4vw, 30px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     max-width: 500px;
+    width: 100%;
+    margin: 0 auto;
 }
 
-.card-image {
-    height: 200px;
-    background: linear-gradient(45deg, #104b4d, #1e630a);
+/* Mercedes Card Image */
+.mercedes-card-image {
+    height: clamp(150px, 25vw, 200px);
+    background: linear-gradient(45deg, #10b981, #059669);
     border-radius: 15px;
     margin-bottom: 20px;
     display: flex;
@@ -127,7 +147,24 @@
     overflow: hidden;
 }
 
-.property-badge {
+.mercedes-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Audi Placeholder */
+.audi-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+/* Porsche Badge */
+.porsche-badge {
     position: absolute;
     top: 15px;
     right: 15px;
@@ -139,143 +176,196 @@
     align-items: center;
     gap: 8px;
     font-size: 0.9rem;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
 }
 
-.badge-icon {
+/* Lamborghini Badge Icon */
+.lamborghini-badge-icon {
     font-size: 1.2rem;
     font-weight: bolder;
-
 }
 
-.card-details h3 {
-    font-size: 1.8rem;
+/* RollsRoyce Card Details */
+.rollsroyce-card-details h3 {
+    font-size: clamp(1.4rem, 3vw, 1.8rem);
     margin-bottom: 15px;
     font-weight: 700;
+    word-break: break-word;
 }
 
-.property-meta {
+/* Bugatti Property Meta */
+.bugatti-property-meta {
     display: flex;
-    gap: 20px;
+    gap: clamp(15px, 3vw, 20px);
     margin-bottom: 15px;
     opacity: 0.9;
+    flex-wrap: wrap;
 }
 
-.meta-item {
+/* AstonMartin Meta Item */
+.astonmartin-meta-item {
     display: flex;
     align-items: center;
     gap: 8px;
+    font-size: clamp(0.9rem, 1.5vw, 1rem);
 }
 
-.property-price {
-    font-size: 2rem;
+.astonmartin-meta-item ion-icon {
+    font-size: 1.2rem;
+    color: #10b981;
+}
+
+/* Maserati Property Price */
+.maserati-property-price {
+    font-size: clamp(1.5rem, 3vw, 2rem);
     font-weight: 700;
-    color: #00dbde;
+    color: #10b981;
+    word-break: break-word;
 }
 
-/* Form Side */
-.form-side {
+/* Apple Form Side */
+.apple-form-side {
     flex: 1;
     background: linear-gradient(135deg, #094239 0%, #11403e 50%, #0a2c2f 100%);
-    padding: 40px;
+    padding: clamp(20px, 4vw, 40px);
     overflow-y: auto;
-    padding-bottom: 40px;
-    color: #fff !important;
-    overflow-x: none;
+    color: #fff;
+    scrollbar-width: thin;
+    scrollbar-color: #10b981 #0a2f1b;
 }
 
-.form-container {
+.apple-form-side::-webkit-scrollbar {
+    width: 8px;
+}
+
+.apple-form-side::-webkit-scrollbar-track {
+    background: #0a2f1b;
+}
+
+.apple-form-side::-webkit-scrollbar-thumb {
+    background: #10b981;
+    border-radius: 4px;
+}
+
+.apple-form-side::-webkit-scrollbar-thumb:hover {
+    background: #059669;
+}
+
+/* Microsoft Container */
+.microsoft-container {
     max-width: 600px;
     margin: 0 auto;
+    width: 100%;
 }
 
-.form-header {
+/* Google Header */
+.google-header {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: clamp(30px, 5vw, 40px);
 }
 
-.form-header h2 {
-    font-size: 2.5rem;
+.google-header h2 {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
     color: #ffffff;
     margin-bottom: 10px;
     font-weight: 800;
+    line-height: 1.2;
 }
 
-.form-header p {
+.google-header p {
     color: #ffffff;
-    font-size: 1.1rem;
+    font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+    opacity: 0.9;
 }
 
-/* Progress Steps */
-.progress-steps {
+/* Amazon Progress Steps */
+.amazon-progress-steps {
     display: flex;
     justify-content: space-between;
     margin-bottom: 40px;
     position: relative;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
-.step {
+/* Netflix Step */
+.netflix-step {
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
     z-index: 1;
     flex: 1;
+    min-width: 60px;
 }
 
-.step-circle {
-    width: 40px;
-    height: 40px;
+/* Disney Circle */
+.disney-circle {
+    width: clamp(35px, 5vw, 40px);
+    height: clamp(35px, 5vw, 40px);
     border-radius: 50%;
-    background: #e2e8f0;
+    background: rgba(255, 255, 255, 0.1);
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 700;
-    color: #64748b;
+    color: #fff;
     margin-bottom: 10px;
     transition: all 0.3s ease;
-    border: 3px solid transparent;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    font-size: clamp(0.9rem, 1.5vw, 1rem);
 }
 
-.step.active .step-circle {
-    background: linear-gradient(45deg, #255e23, #245019);
+.netflix-step.active .disney-circle {
+    background: linear-gradient(45deg, #10b981, #059669);
     color: white;
-    border-color: #c7d2fe;
+    border-color: rgba(255, 255, 255, 0.5);
     transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
 }
 
-.step.completed .step-circle {
+.netflix-step.completed .disney-circle {
     background: #10b981;
     color: white;
+    border-color: #10b981;
 }
 
-.step-label {
-    font-size: 0.9rem;
-    color: #9da1a7;
+/* HBO Label */
+.hbo-label {
+    font-size: clamp(0.7rem, 1.2vw, 0.9rem);
+    color: rgba(255, 255, 255, 0.7);
     font-weight: 600;
     text-align: center;
+    white-space: nowrap;
 }
 
-.step.active .step-label {
+.netflix-step.active .hbo-label {
     color: #ffffff;
 }
 
-.step-connector {
+/* Sony Connector */
+.sony-connector {
     position: absolute;
-    top: 20px;
+    top: clamp(17px, 2.5vw, 20px);
     left: 50%;
     right: -50%;
     height: 2px;
-    background: #e2e8f0;
+    background: rgba(255, 255, 255, 0.2);
     z-index: 0;
 }
 
-.step:last-child .step-connector {
+.netflix-step:last-child .sony-connector {
     display: none;
 }
 
-/* Form Elements */
-.form-step {
+/* Nike Form */
+.nike-form {
+    width: 100%;
+}
+
+/* Adidas Step */
+.adidas-step {
     animation: slideIn 0.3s ease;
 }
 
@@ -284,353 +374,425 @@
         opacity: 0;
         transform: translateX(20px);
     }
-
     to {
         opacity: 1;
         transform: translateX(0);
     }
 }
 
-.form-group {
-    margin-bottom: 30px;
+/* Puma Group */
+.puma-group {
+    margin-bottom: clamp(20px, 3vw, 30px);
 }
 
-.form-row {
+/* Reebok Row */
+.reebok-row {
     display: flex;
-    gap: 20px;
+    gap: clamp(15px, 2vw, 20px);
+    flex-wrap: wrap;
 }
 
-.form-row .form-group {
-    flex: 1;
+.reebok-row .puma-group {
+    flex: 1 1 200px;
+    min-width: 150px;
 }
 
-.form-label {
+/* UnderArmour Label */
+.underarmour-label {
     display: block;
 }
 
-.label-text {
+/* NewBalance Text */
+.newbalance-text {
     display: block;
     font-weight: 600;
     color: #fff;
     margin-bottom: 8px;
-    font-size: 0.95rem;
+    font-size: clamp(0.9rem, 1.5vw, 0.95rem);
 }
 
-.sub-label {
-    color: #64748b;
+/* Converse Sub Label */
+.converse-sub-label {
+    color: rgba(255, 255, 255, 0.7);
     font-size: 0.9rem;
     margin-top: -5px;
     margin-bottom: 15px;
 }
 
-.form-input {
+/* Vans Input */
+.vans-input {
     width: 100%;
-    padding: 16px 20px;
-    border: 2px solid #e2e8f0;
+    padding: clamp(14px, 2vw, 16px) clamp(16px, 2.5vw, 20px);
+    border: 2px solid rgba(255, 255, 255, 0.1);
     border-radius: 12px;
-    font-size: 1rem;
+    font-size: clamp(0.95rem, 1.5vw, 1rem);
     transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.95);
+    color: #1e293b;
+}
+
+.vans-input:focus {
+    outline: none;
+    border-color: #10b981;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
     background: white;
 }
 
-.form-input:focus {
-    outline: none;
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+.vans-input::placeholder {
+    color: #94a3b8;
 }
 
-.input-with-icon {
+/* Timberland Icon Wrapper */
+.timberland-icon-wrapper {
     position: relative;
 }
 
-.input-icon {
+/* NorthFace Icon */
+.northface-icon {
     color: #10b981;
     position: absolute;
-    left: 20px;
+    left: clamp(16px, 2.5vw, 20px);
     top: 50%;
     transform: translateY(-50%);
-    font-size: 1.5rem;
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
+    z-index: 1;
 }
 
-.input-with-icon .form-input {
-    padding-left: 50px;
+.timberland-icon-wrapper .vans-input {
+    padding-left: clamp(45px, 6vw, 50px);
 }
 
-/* Property Type Grid */
-.property-type-grid {
+/* Zara Property Grid */
+.zara-property-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     gap: 12px;
     margin-top: 10px;
 }
 
-.type-option {
-    padding: 15px;
-    border: 2px solid #e2e8f0;
+/* H&M Option */
+.hm-option {
+    padding: clamp(12px, 2vw, 15px);
+    border: 2px solid rgba(255, 255, 255, 0.1);
     border-radius: 12px;
-    background: white;
+    background: rgba(255, 255, 255, 0.95);
     display: flex;
     align-items: center;
     gap: 10px;
     cursor: pointer;
     transition: all 0.3s ease;
+    width: 100%;
 }
 
-.type-option:hover {
-    border-color: #c7d2fe;
+.hm-option:hover {
+    border-color: #10b981;
     transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
-.type-option.selected {
-    border-color: #667eea;
-    background: linear-gradient(45deg, #667eea15, #764ba215);
+.hm-option.selected {
+    border-color: #10b981;
+    background: rgba(16, 185, 129, 0.1);
+    box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
 }
 
-.type-icon {
-    font-size: 1.5rem;
-    color: #059669 !important;
+/* Uniqlo Icon */
+.uniqlo-icon {
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
+    color: #10b981 !important;
 }
 
-.icon {
-    color: #059669;
-    font-size: 1.5rem;
+.uniqlo-icon ion-icon {
+    color: #10b981;
 }
 
-.type-name {
+/* GAP Icon */
+.gap-icon {
+    color: #10b981;
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
+}
+
+/* Levi's Name */
+.levis-name {
     font-weight: 600;
-    color: #aeaeae;
+    color: #1e293b;
+    font-size: clamp(0.9rem, 1.5vw, 1rem);
 }
 
-/* Counter Input */
-.counter-input {
+/* CK Counter */
+.ck-counter {
     display: flex;
     align-items: center;
-    background: white;
-    border: 2px solid #e2e8f0;
+    background: rgba(255, 255, 255, 0.95);
+    border: 2px solid rgba(255, 255, 255, 0.1);
     border-radius: 12px;
     padding: 5px;
     width: fit-content;
+    max-width: 100%;
 }
 
-.counter-btn {
-    width: 40px;
-    height: 40px;
+/* Ralph Lauren Button */
+.ralphlauren-btn {
+    width: clamp(35px, 5vw, 40px);
+    height: clamp(35px, 5vw, 40px);
     border: none;
-    background: #f1f5f9;
+    background: rgba(0, 0, 0, 0.05);
     border-radius: 8px;
-    font-size: 1.2rem;
+    font-size: clamp(1.1rem, 2vw, 1.2rem);
     cursor: pointer;
     transition: all 0.3s ease;
+    color: #1e293b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.counter-btn:hover {
-    background: #e2e8f0;
+.ralphlauren-btn:hover {
+    background: rgba(0, 0, 0, 0.1);
 }
 
-.counter-value {
-    width: 60px;
+/* Tommy Value */
+.tommy-value {
+    width: clamp(50px, 8vw, 60px);
     text-align: center;
-    font-size: 1.2rem;
+    font-size: clamp(1.1rem, 2vw, 1.2rem);
     font-weight: 700;
     color: #1e293b;
 }
 
-/* Range Input */
-.range-input {
-    background: white;
-    border: 2px solid #e2e8f0;
+/* Boss Range */
+.boss-range {
+    background: rgba(255, 255, 255, 0.95);
+    border: 2px solid rgba(255, 255, 255, 0.1);
     border-radius: 12px;
-    padding: 20px;
+    padding: clamp(15px, 2.5vw, 20px);
 }
 
-.range-slider {
+/* Dolce Slider */
+.dolce-slider {
     width: 100%;
     height: 8px;
     -webkit-appearance: none;
-    background: linear-gradient(to right, #e2e8f0, #176422);
+    background: linear-gradient(to right, #e2e8f0, #10b981);
     border-radius: 4px;
     outline: none;
 }
 
-.range-slider::-webkit-slider-thumb {
+.dolce-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 24px;
-    height: 24px;
+    width: clamp(20px, 3vw, 24px);
+    height: clamp(20px, 3vw, 24px);
     border-radius: 50%;
     background: white;
-    border: 3px solid #667eea;
+    border: 3px solid #10b981;
     cursor: pointer;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
-.range-value {
+.dolce-slider::-moz-range-thumb {
+    width: clamp(20px, 3vw, 24px);
+    height: clamp(20px, 3vw, 24px);
+    border-radius: 50%;
+    background: white;
+    border: 3px solid #10b981;
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Gabbana Value */
+.gabbana-value {
     text-align: center;
-    font-size: 1.2rem;
+    font-size: clamp(1.1rem, 2vw, 1.2rem);
     font-weight: 700;
     color: #1e293b;
     margin-top: 15px;
 }
 
-/* Textarea */
-.form-textarea {
+/* Fendi Textarea */
+.fendi-textarea {
     width: 100%;
-    padding: 16px 20px;
-    border: 2px solid #e2e8f0;
+    padding: clamp(14px, 2vw, 16px) clamp(16px, 2.5vw, 20px);
+    border: 2px solid rgba(255, 255, 255, 0.1);
     border-radius: 12px;
-    font-size: 1rem;
+    font-size: clamp(0.95rem, 1.5vw, 1rem);
     transition: all 0.3s ease;
-    background: white;
+    background: rgba(255, 255, 255, 0.95);
+    color: #1e293b;
     resize: vertical;
     min-height: 120px;
     font-family: inherit;
 }
 
-.form-textarea:focus {
+.fendi-textarea:focus {
     outline: none;
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    border-color: #10b981;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+    background: white;
 }
 
-.char-count {
+/* Versace Count */
+.versace-count {
     text-align: right;
     font-size: 0.9rem;
-    color: #64748b;
+    color: rgba(255, 255, 255, 0.7);
     margin-top: 5px;
 }
 
-/* Amenities Grid */
-.amenities-grid {
+/* Prada Amenities Grid */
+.prada-amenities-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     gap: 12px;
     margin-top: 15px;
 }
 
-.amenity-option {
-    padding: 12px;
-    border: 2px solid #e2e8f0;
+/* MiuMiu Option */
+.miumiu-option {
+    padding: clamp(10px, 1.5vw, 12px);
+    border: 2px solid rgba(255, 255, 255, 0.1);
     border-radius: 10px;
-    background: white;
+    background: rgba(255, 255, 255, 0.95);
     display: flex;
     align-items: center;
     gap: 10px;
     cursor: pointer;
     transition: all 0.3s ease;
+    width: 100%;
 }
 
-.amenity-option:hover {
-    border-color: #c7d2fe;
-    transform: translateY(-2px);
-}
-
-.amenity-option.selected {
+.miumiu-option:hover {
     border-color: #10b981;
-    background: rgba(16, 185, 129, 0.05);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-.amenity-checkbox {
-    width: 24px;
-    height: 24px;
-    border: 2px solid #e2e8f0;
+.miumiu-option.selected {
+    border-color: #10b981;
+    background: rgba(16, 185, 129, 0.1);
+}
+
+/* Fendi Checkbox */
+.fendi-checkbox {
+    width: clamp(20px, 3vw, 24px);
+    height: clamp(20px, 3vw, 24px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
     border-radius: 6px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 0.9rem;
     font-weight: 700;
+    background: white;
 }
 
-.amenity-option.selected .amenity-checkbox {
+.miumiu-option.selected .fendi-checkbox {
     background: #10b981;
     color: white;
     border-color: #10b981;
 }
 
-.amenity-name {
+/* Kenzo Name */
+.kenzo-name {
     font-weight: 500;
-    color: #939393;
+    color: #1e293b;
+    font-size: clamp(0.85rem, 1.4vw, 0.95rem);
 }
 
-/* Image Dropzone */
-.image-dropzone {
-    border: 3px dashed #cbd5e1;
+/* Omega Dropzone */
+.omega-dropzone {
+    border: 3px dashed rgba(255, 255, 255, 0.2);
     border-radius: 20px;
-    padding: 60px 20px;
+    padding: clamp(30px, 5vw, 60px) clamp(15px, 3vw, 20px);
     text-align: center;
     cursor: pointer;
     transition: all 0.3s ease;
-    background: #f8fafc;
+    background: rgba(255, 255, 255, 0.05);
     margin-top: 15px;
 }
 
-.image-dropzone:hover,
-.image-dropzone.dragging {
-    border-color: #667eea;
-    background: rgba(102, 126, 234, 0.05);
+.omega-dropzone:hover,
+.omega-dropzone.dragging {
+    border-color: #10b981;
+    background: rgba(16, 185, 129, 0.1);
 }
 
-.dropzone-content {
+/* TagHeuer Content */
+.tagheuer-content {
     max-width: 400px;
     margin: 0 auto;
+    width: 100%;
 }
 
-.dropzone-icon {
-    font-size: 3rem;
-    color: #059669;
+/* Breitling Icon */
+.breitling-icon {
+    font-size: clamp(2.5rem, 5vw, 3rem);
+    color: #10b981;
     margin-bottom: 20px;
     opacity: 0.7;
 }
 
-.dropzone-content h3 {
-    font-size: 1.5rem;
-    color: #717171;
+.tagheuer-content h3 {
+    font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+    color: #fff;
     margin-bottom: 10px;
 }
 
-.dropzone-content p {
-    color: #a6a6a6;
+.tagheuer-content p {
+    color: rgba(255, 255, 255, 0.7);
     margin-bottom: 20px;
+    font-size: clamp(0.9rem, 1.5vw, 1rem);
 }
 
-.browse-btn {
-    background: linear-gradient(45deg, #66ea8e, #196969);
+/* Hublot Button */
+.hublot-btn {
+    background: linear-gradient(45deg, #10b981, #059669);
     color: white;
     border: none;
-    padding: 12px 30px;
+    padding: clamp(10px, 2vw, 12px) clamp(20px, 3vw, 30px);
     border-radius: 10px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
+    font-size: clamp(0.95rem, 1.5vw, 1rem);
 }
 
-.browse-btn:hover {
+.hublot-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(102, 126, 234, 0.2);
+    box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
 }
 
-/* Image Preview */
-.image-preview-grid {
+.hublot-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Patek Grid */
+.patek-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     gap: 15px;
     margin-top: 30px;
 }
 
-.image-preview-item {
+/* Audemars Item */
+.audemars-item {
     position: relative;
     aspect-ratio: 1;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-.image-preview-item img {
+.audemars-item img,
+.audemars-item video {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.remove-image-btn {
+/* RichardMille Remove Button */
+.richardmille-remove-btn {
     position: absolute;
     top: 8px;
     right: 8px;
@@ -646,27 +808,30 @@
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
+    z-index: 2;
 }
 
-.remove-image-btn:hover {
+.richardmille-remove-btn:hover {
     background: #dc2626;
     transform: scale(1.1);
 }
 
-.primary-badge {
+/* Vacheron Badge */
+.vacheron-badge {
     position: absolute;
     top: 8px;
     left: 8px;
-    background: linear-gradient(45deg, #667eea, #764ba2);
+    background: linear-gradient(45deg, #10b981, #059669);
     color: white;
     padding: 4px 10px;
     border-radius: 20px;
     font-size: 0.8rem;
     font-weight: 600;
+    z-index: 2;
 }
 
-/* Review Section */
-.review-section {
+/* Jaeger Review Section */
+.jaeger-review-section {
     animation: fadeIn 0.5s ease;
     display: flex;
     flex-direction: column !important;
@@ -676,124 +841,140 @@
     from {
         opacity: 0;
     }
-
     to {
         opacity: 1;
     }
 }
 
-.review-title {
-    font-size: 1.8rem;
+/* IWC Title */
+.iwc-title {
+    font-size: clamp(1.4rem, 3vw, 1.8rem);
     color: #ffffff;
-    margin-bottom: 30px;
+    margin-bottom: clamp(20px, 4vw, 30px);
     text-align: center;
 }
 
-.review-card {
-    background: white;
+/* Blancpain Card */
+.blancpain-card {
+    background: rgba(255, 255, 255, 0.95);
     border-radius: 20px;
-    padding: 30px;
-    border: 2px solid #e2e8f0;
+    padding: clamp(20px, 4vw, 30px);
+    border: 2px solid rgba(255, 255, 255, 0.1);
     margin-bottom: 30px;
 }
 
-.review-item {
+/* Glashutte Item */
+.glashutte-item {
     display: flex;
     justify-content: space-between;
-    padding: 15px 0;
-    border-bottom: 1px solid #f1f5f9;
+    padding: clamp(10px, 2vw, 15px) 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
-.review-item:last-child {
+.glashutte-item:last-child {
     border-bottom: none;
 }
 
-.review-label {
+/* Panerai Label */
+.panerai-label {
     font-weight: 600;
     color: #64748b;
+    font-size: clamp(0.9rem, 1.5vw, 1rem);
 }
 
-.review-value {
+/* Piaget Value */
+.piaget-value {
     font-weight: 600;
     color: #1e293b;
     text-align: right;
     max-width: 60%;
+    word-break: break-word;
+    font-size: clamp(0.9rem, 1.5vw, 1rem);
 }
 
-.terms-agreement {
+/* Girard Agreement */
+.girard-agreement {
     display: flex;
     align-items: flex-start;
     gap: 12px;
-    background: rgba(16, 185, 129, 0.05);
-    padding: 20px;
+    background: rgba(16, 185, 129, 0.1);
+    padding: clamp(15px, 3vw, 20px);
     border-radius: 12px;
-    border: 1px solid #ffffff20;
-    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.terms-agreement input[type="checkbox"] {
-    width: 20px;
-    height: 20px;
+.girard-agreement input[type="checkbox"] {
+    width: clamp(18px, 2.5vw, 20px);
+    height: clamp(18px, 2.5vw, 20px);
     margin-top: 3px;
     accent-color: #10b981;
+    flex-shrink: 0;
 }
 
-.terms-agreement label {
-    color: #1e293b;
-    font-size: 0.95rem;
+.girard-agreement label {
+    color: #fff;
+    font-size: clamp(0.9rem, 1.5vw, 0.95rem);
     line-height: 1.5;
 }
 
-/* Navigation Buttons */
-.form-navigation {
+/* Baume Navigation */
+.baume-navigation {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 60px;
+    margin-bottom: 40px;
     padding-top: 30px;
-    border-top: 2px solid #e2e8f0;
+    border-top: 2px solid rgba(255, 255, 255, 0.1);
+    gap: 15px;
+    flex-wrap: wrap;
 }
 
-.nav-btn {
-    padding: 16px 30px;
+/* Frederique Button */
+.frederique-btn {
+    padding: clamp(14px, 2vw, 16px) clamp(20px, 3vw, 30px);
     border-radius: 12px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    font-size: 1rem;
+    font-size: clamp(0.95rem, 1.5vw, 1rem);
     border: 2px solid transparent;
+    flex: 1 1 auto;
 }
 
-.prev-btn {
-    background: #f1f5f9;
-    color: #64748b;
-    border-color: #e2e8f0;
+/* Oris Previous */
+.oris-prev {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.2);
 }
 
-.prev-btn:hover {
-    background: #e2e8f0;
+.oris-prev:hover {
+    background: rgba(255, 255, 255, 0.2);
     transform: translateX(-2px);
 }
 
-
-.next-btn {
-    background: linear-gradient(45deg, #093f0c, #075c34);
+/* Hamilton Next */
+.hamilton-next {
+    background: linear-gradient(45deg, #10b981, #059669);
     color: white;
     margin-left: auto;
 }
 
-.next-btn:hover {
+.hamilton-next:hover {
     transform: translateX(2px);
-    box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+    box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
 }
 
-.submit-btn {
-    padding: 18px 40px;
+/* Longines Submit */
+.longines-submit {
+    padding: clamp(16px, 2.5vw, 18px) clamp(30px, 4vw, 40px);
     background: linear-gradient(45deg, #10b981, #059669);
     color: white;
     border: none;
     border-radius: 12px;
     font-weight: 700;
-    font-size: 1.1rem;
+    font-size: clamp(1rem, 1.8vw, 1.1rem);
     cursor: pointer;
     transition: all 0.3s ease;
     display: flex;
@@ -801,130 +982,1025 @@
     justify-content: center;
     gap: 12px;
     width: 100%;
-    margin-left: auto;
 }
 
-.submit-btn:hover:not(:disabled) {
+.longines-submit:hover:not(:disabled) {
     transform: translateY(-2px);
     box-shadow: 0 15px 30px rgba(16, 185, 129, 0.3);
 }
 
-.submit-btn:disabled {
+.longines-submit:disabled {
     opacity: 0.7;
     cursor: not-allowed;
 }
 
-.spinner {
+/* Tissot Spinner */
+.tissot-spinner {
     width: 20px;
     height: 20px;
     border: 3px solid rgba(255, 255, 255, 0.3);
     border-radius: 50%;
     border-top-color: white;
-    animation: spin 1s ease-in-out infinite;
+    animation: tissot-spin 1s ease-in-out infinite;
 }
 
-@keyframes spin {
+@keyframes tissot-spin {
     to {
         transform: rotate(360deg);
     }
 }
 
-/* Responsive Design */
+/* Rado Loading */
+.rado-loading {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #0a2f1b 0%, #113e40 50%, #0a2f2a 100%);
+    color: white;
+    gap: 20px;
+}
+
+.rado-loading .tissot-spinner {
+    width: 40px;
+    height: 40px;
+    border-width: 4px;
+}
+
+/* Movado Location */
+.movado-location {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: clamp(10px, 1.5vw, 12px) clamp(15px, 2.5vw, 20px);
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: clamp(0.9rem, 1.5vw, 1rem);
+}
+
+.movado-location:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: #10b981;
+}
+
+.movado-location ion-icon {
+    font-size: 1.2rem;
+    color: #10b981;
+}
+
+/* All existing media queries remain the same but with updated class names */
+/* Responsive Breakpoints with Luxury Brand Names */
+
+@media (max-width: 1400px) {
+    .bentley-preview-card {
+        max-width: 450px;
+    }
+    
+    .zara-property-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .prada-amenities-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
 @media (max-width: 1200px) {
-    .split-layout {
+    .rolex-layout {
         flex-direction: column;
-        height: auto;
-        max-height: none;
+        min-height: auto;
+        border-radius: 0;
     }
 
-    .preview-side {
+    .louisvuitton-side {
         padding: 40px 20px;
+        min-height: auto;
     }
 
-    .preview-title {
+    .prada-title {
         font-size: 2.5rem;
     }
 
-    .preview-stats {
+    .cartier-stats {
         gap: 20px;
     }
 
-    .property-type-grid,
-    .amenities-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 768px) {
-    .split-layout {
-        border-radius: 16px;
-    }
-
-    .preview-side {
+    .apple-form-side {
         padding: 30px 20px;
     }
 
-    .preview-title {
-        font-size: 2rem;
+    .zara-property-grid {
+        grid-template-columns: repeat(3, 1fr);
     }
 
-    .preview-stats {
-        flex-direction: column;
-        gap: 30px;
+    .prada-amenities-grid {
+        grid-template-columns: repeat(3, 1fr);
     }
 
-    .progress-steps {
-        flex-direction: row !important;
-        /* overflow-x: auto !important; */
-        /* flex-direction: row !important; */
-        /* gap: -29px !important; */
-        gap: -11px !important;
-        width: 120px !important;
-        margin-bottom: 20px;
-        margin-left: -19px;
-        position: relative;
-
+    .patek-grid {
+        grid-template-columns: repeat(3, 1fr);
     }
 
-    .step {
-        flex: none;
-        width: calc(50% - 10px);
-    }
-
-    .step-connector {
-        display: none;
-    }
-
-    .property-type-grid,
-    .amenities-grid,
-    .image-preview-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .form-row {
-        flex-direction: column;
-        gap: 0;
+    .bentley-preview-card {
+        max-width: 100%;
     }
 }
 
-@media (max-width: 480px) {
-
-    .property-type-grid,
-    .amenities-grid,
-    .image-preview-grid {
-        grid-template-columns: 1fr;
+@media (max-width: 1024px) {
+    .zara-property-grid {
+        grid-template-columns: repeat(3, 1fr);
     }
 
-    .step {
-        width: 100%;
+    .prada-amenities-grid {
+        grid-template-columns: repeat(3, 1fr);
     }
 
-    .form-navigation {
+    .patek-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .google-header h2 {
+        font-size: 2rem;
+    }
+
+    .reebok-row {
         flex-direction: column;
         gap: 15px;
     }
 
-    .nav-btn {
+    .reebok-row .puma-group {
         width: 100%;
+    }
+}
+
+@media (max-width: 992px) {
+    .louisvuitton-side {
+        display: none;
+    }
+
+    .apple-form-side {
+        flex: none;
+        width: 100%;
+    }
+
+    .amazon-progress-steps {
+        overflow-x: auto;
+        padding-bottom: 15px;
+    }
+
+    .netflix-step {
+        min-width: 100px;
+    }
+
+    .sony-connector {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .rolex-layout {
+        border-radius: 0;
+    }
+
+    .louisvuitton-side {
+        padding: 30px 15px;
+        display: none;
+    }
+
+    .prada-title {
+        font-size: 2rem;
+    }
+
+    .armani-subtitle {
+        font-size: 1rem;
+    }
+
+    .cartier-stats {
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+    }
+
+    .bvlgari-stat-item {
+        width: 100%;
+        max-width: 200px;
+    }
+
+    .amazon-progress-steps {
+        overflow-x: auto;
+        padding-bottom: 10px;
+        margin-bottom: 30px;
+        gap: 0;
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+    }
+
+    .netflix-step {
+        min-width: 80px;
+        flex: 0 0 auto;
+    }
+
+    .sony-connector {
+        display: none;
+    }
+
+    .zara-property-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .prada-amenities-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .patek-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .reebok-row {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .reebok-row .puma-group {
+        width: 100%;
+    }
+
+    .glashutte-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .piaget-value {
+        text-align: left;
+        max-width: 100%;
+    }
+
+    .baume-navigation {
+        flex-direction: column;
+    }
+
+    .frederique-btn {
+        width: 100%;
+    }
+
+    .hamilton-next {
+        margin-left: 0;
+    }
+
+    .omega-dropzone {
+        padding: 30px 15px;
+    }
+
+    .tagheuer-content h3 {
+        font-size: 1.3rem;
+    }
+
+    .blancpain-card {
+        padding: 20px;
+    }
+
+    .girard-agreement {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 640px) {
+    .apple-form-side {
+        padding: 20px 15px;
+    }
+
+    .google-header h2 {
+        font-size: 1.8rem;
+    }
+
+    .google-header p {
+        font-size: 0.95rem;
+    }
+
+    .disney-circle {
+        width: 35px;
+        height: 35px;
+        font-size: 0.9rem;
+    }
+
+    .hbo-label {
+        font-size: 0.7rem;
+        white-space: normal;
+        word-break: break-word;
+        max-width: 70px;
+    }
+
+    .zara-property-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .hm-option {
+        padding: 10px;
+    }
+
+    .levis-name {
+        font-size: 0.85rem;
+    }
+
+    .prada-amenities-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .miumiu-option {
+        padding: 8px;
+    }
+
+    .kenzo-name {
+        font-size: 0.85rem;
+    }
+
+    .patek-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .ck-counter {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .ralphlauren-btn {
+        width: 45px;
+        height: 45px;
+    }
+
+    .boss-range {
+        padding: 15px;
+    }
+
+    .omega-dropzone {
+        padding: 20px 10px;
+    }
+
+    .breitling-icon {
+        font-size: 2.5rem;
+    }
+
+    .tagheuer-content h3 {
+        font-size: 1.2rem;
+    }
+
+    .hublot-btn {
+        padding: 8px 20px;
+        font-size: 0.9rem;
+    }
+
+    .longines-submit {
+        padding: 14px 30px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .louisvuitton-side {
+        padding: 20px 15px;
+    }
+
+    .prada-title {
+        font-size: 1.8rem;
+    }
+
+    .armani-subtitle {
+        font-size: 0.95rem;
+    }
+
+    .tiffany-stat-number {
+        font-size: 2rem;
+    }
+
+    .hermes-stat-label {
+        font-size: 0.8rem;
+    }
+
+    .apple-form-side {
+        padding: 20px 12px;
+    }
+
+    .google-header h2 {
+        font-size: 1.6rem;
+    }
+
+    .netflix-step {
+        min-width: 70px;
+    }
+
+    .disney-circle {
+        width: 32px;
+        height: 32px;
+        font-size: 0.85rem;
+    }
+
+    .hbo-label {
+        font-size: 0.65rem;
+        max-width: 60px;
+    }
+
+    .zara-property-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .prada-amenities-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .patek-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hm-option {
+        padding: 12px;
+    }
+
+    .miumiu-option {
+        padding: 10px;
+    }
+
+    .uniqlo-icon {
+        font-size: 1.3rem;
+    }
+
+    .levis-name {
+        font-size: 0.9rem;
+    }
+
+    .kenzo-name {
+        font-size: 0.9rem;
+    }
+
+    .ck-counter {
+        justify-content: space-between;
+    }
+
+    .ralphlauren-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+
+    .tommy-value {
+        width: 50px;
+        font-size: 1rem;
+    }
+
+    .dolce-slider::-webkit-slider-thumb {
+        width: 20px;
+        height: 20px;
+    }
+
+    .fendi-textarea {
+        min-height: 100px;
+        padding: 12px 15px;
+    }
+
+    .versace-count {
+        font-size: 0.8rem;
+    }
+
+    .omega-dropzone {
+        padding: 15px 10px;
+    }
+
+    .breitling-icon {
+        font-size: 2rem;
+        margin-bottom: 15px;
+    }
+
+    .tagheuer-content h3 {
+        font-size: 1.1rem;
+    }
+
+    .tagheuer-content p {
+        font-size: 0.85rem;
+        margin-bottom: 15px;
+    }
+
+    .hublot-btn {
+        padding: 8px 16px;
+        font-size: 0.85rem;
+    }
+
+    .audemars-item {
+        border-radius: 8px;
+    }
+
+    .richardmille-remove-btn {
+        width: 24px;
+        height: 24px;
+        font-size: 1rem;
+    }
+
+    .vacheron-badge {
+        font-size: 0.7rem;
+        padding: 3px 8px;
+    }
+
+    .iwc-title {
+        font-size: 1.4rem;
+    }
+
+    .blancpain-card {
+        padding: 15px;
+    }
+
+    .panerai-label,
+    .piaget-value {
+        font-size: 0.85rem;
+    }
+
+    .girard-agreement {
+        padding: 15px;
+    }
+
+    .girard-agreement label {
+        font-size: 0.85rem;
+    }
+
+    .baume-navigation {
+        margin-bottom: 30px;
+        padding-top: 20px;
+    }
+
+    .frederique-btn {
+        padding: 12px 20px;
+        font-size: 0.9rem;
+    }
+
+    .longines-submit {
+        padding: 12px 25px;
+        font-size: 0.95rem;
+    }
+
+    .tissot-spinner {
+        width: 16px;
+        height: 16px;
+    }
+
+    .movado-location {
+        padding: 8px 15px;
+        font-size: 0.85rem;
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Extra Small Devices */
+@media (max-width: 360px) {
+    .apple-form-side {
+        padding: 15px 10px;
+    }
+
+    .google-header h2 {
+        font-size: 1.4rem;
+    }
+
+    .newbalance-text {
+        font-size: 0.85rem;
+    }
+
+    .vans-input {
+        padding: 12px 15px;
+        font-size: 0.9rem;
+    }
+
+    .northface-icon {
+        font-size: 1.2rem;
+        left: 12px;
+    }
+
+    .timberland-icon-wrapper .vans-input {
+        padding-left: 40px;
+    }
+
+    .netflix-step {
+        min-width: 60px;
+    }
+
+    .disney-circle {
+        width: 28px;
+        height: 28px;
+        font-size: 0.8rem;
+    }
+
+    .hbo-label {
+        font-size: 0.6rem;
+        max-width: 50px;
+    }
+
+    .hm-option {
+        padding: 10px;
+    }
+
+    .uniqlo-icon {
+        font-size: 1.2rem;
+    }
+
+    .levis-name {
+        font-size: 0.8rem;
+    }
+
+    .miumiu-option {
+        padding: 8px;
+    }
+
+    .fendi-checkbox {
+        width: 18px;
+        height: 18px;
+        font-size: 0.8rem;
+    }
+
+    .kenzo-name {
+        font-size: 0.8rem;
+    }
+
+    .ck-counter {
+        padding: 3px;
+    }
+
+    .ralphlauren-btn {
+        width: 35px;
+        height: 35px;
+    }
+
+    .tommy-value {
+        width: 40px;
+        font-size: 0.95rem;
+    }
+
+    .boss-range {
+        padding: 12px;
+    }
+
+    .gabbana-value {
+        font-size: 1rem;
+    }
+}
+
+/* Landscape Mode */
+@media (max-height: 600px) and (orientation: landscape) {
+    .rolex-layout {
+        min-height: auto;
+    }
+
+    .louisvuitton-side {
+        padding: 20px;
+    }
+
+    .bentley-preview-card {
+        max-width: 400px;
+    }
+
+    .mercedes-card-image {
+        height: 120px;
+    }
+
+    .apple-form-side {
+        padding: 20px;
+    }
+
+    .adidas-step {
+        max-height: 60vh;
+        overflow-y: auto;
+        padding-right: 10px;
+    }
+
+    .amazon-progress-steps {
+        margin-bottom: 20px;
+    }
+
+    .puma-group {
+        margin-bottom: 15px;
+    }
+
+    .fendi-textarea {
+        min-height: 80px;
+    }
+
+    .baume-navigation {
+        margin-bottom: 20px;
+        padding-top: 15px;
+    }
+}
+
+/* Tablet Landscape */
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+    .louisvuitton-side {
+        display: flex;
+        flex: 0.8;
+    }
+
+    .bentley-preview-card {
+        max-width: 350px;
+    }
+
+    .bugatti-property-meta {
+        gap: 10px;
+    }
+
+    .astonmartin-meta-item {
+        font-size: 0.85rem;
+    }
+
+    .maserati-property-price {
+        font-size: 1.5rem;
+    }
+}
+
+/* High DPI Screens */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .louisvuitton-side {
+        background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+            url('https://images.unsplash.com/photo-1613977257363-707ba9348227?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+    }
+}
+
+/* Print Styles */
+@media print {
+    .tesla-container {
+        background: white;
+        min-height: auto;
+    }
+
+    .louisvuitton-side,
+    .baume-navigation,
+    .amazon-progress-steps,
+    .omega-dropzone,
+    .movado-location,
+    .hublot-btn,
+    .ralphlauren-btn,
+    .frederique-btn,
+    .longines-submit {
+        display: none;
+    }
+
+    .apple-form-side {
+        background: white;
+        color: black;
+        padding: 20px;
+        overflow: visible;
+    }
+
+    .vans-input,
+    .fendi-textarea,
+    .hm-option,
+    .miumiu-option,
+    .blancpain-card {
+        border: 1px solid #ddd;
+        background: white;
+        color: black;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .newbalance-text,
+    .hbo-label,
+    .disney-circle,
+    .panerai-label,
+    .piaget-value,
+    .google-header h2,
+    .google-header p {
+        color: black;
+    }
+
+    .blancpain-card {
+        box-shadow: none;
+        border: 1px solid #ddd;
+    }
+
+    .glashutte-item {
+        border-bottom-color: #ddd;
+    }
+
+    .girard-agreement {
+        background: #f5f5f5;
+        border: 1px solid #ddd;
+    }
+
+    .girard-agreement label {
+        color: black;
+    }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    .vans-input,
+    .fendi-textarea,
+    .hm-option,
+    .miumiu-option,
+    .blancpain-card,
+    .boss-range,
+    .ck-counter {
+        background: rgba(0, 0, 0, 0.8);
+        color: #fff;
+        border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .levis-name,
+    .kenzo-name,
+    .tommy-value,
+    .gabbana-value,
+    .panerai-label,
+    .piaget-value,
+    .glashutte-item {
+        color: #fff;
+    }
+
+    .ralphlauren-btn {
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+    }
+
+    .ralphlauren-btn:hover {
+        background: rgba(255, 255, 255, 0.2);
+    }
+
+    .fendi-checkbox {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .vans-input::placeholder,
+    .fendi-textarea::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    .disney-circle {
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+    }
+
+    .omega-dropzone {
+        background: rgba(0, 0, 0, 0.3);
+    }
+
+    .tagheuer-content h3 {
+        color: #fff;
+    }
+
+    .tagheuer-content p {
+        color: rgba(255, 255, 255, 0.7);
+    }
+}
+
+/* Accessibility - Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    .adidas-step {
+        animation: none;
+    }
+
+    .hm-option:hover,
+    .miumiu-option:hover,
+    .hublot-btn:hover,
+    .longines-submit:hover,
+    .frederique-btn:hover {
+        transform: none;
+    }
+}
+
+/* Focus Styles for Accessibility */
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+    outline: 3px solid #10b981;
+    outline-offset: 2px;
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .hm-option,
+    .miumiu-option,
+    .hublot-btn,
+    .longines-submit,
+    .frederique-btn,
+    .ralphlauren-btn,
+    .movado-location {
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+    }
+
+    .hm-option:active,
+    .miumiu-option:active,
+    .hublot-btn:active,
+    .longines-submit:active {
+        transform: scale(0.98);
+    }
+
+    .vans-input,
+    .fendi-textarea,
+    select.vans-input {
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+}
+
+/* Foldable Devices */
+@media (max-width: 280px) {
+    .netflix-step {
+        min-width: 50px;
+    }
+
+    .disney-circle {
+        width: 25px;
+        height: 25px;
+        font-size: 0.7rem;
+    }
+
+    .hbo-label {
+        font-size: 0.5rem;
+        max-width: 45px;
+    }
+
+    .hm-option {
+        flex-direction: column;
+        text-align: center;
+        padding: 8px;
+    }
+
+    .miumiu-option {
+        flex-direction: column;
+        text-align: center;
+        padding: 8px;
+    }
+
+    .uniqlo-icon {
+        margin-bottom: 5px;
+    }
+
+    .fendi-checkbox {
+        margin-bottom: 5px;
+    }
+}
+
+/* Ultrawide Screens */
+@media (min-width: 2000px) {
+    .rolex-layout {
+        max-width: 2000px;
+    }
+
+    .bentley-preview-card {
+        max-width: 600px;
+    }
+
+    .mercedes-card-image {
+        height: 250px;
+    }
+
+    .rollsroyce-card-details h3 {
+        font-size: 2.2rem;
+    }
+
+    .maserati-property-price {
+        font-size: 2.5rem;
+    }
+
+    .astonmartin-meta-item {
+        font-size: 1.2rem;
+    }
+
+    .google-header h2 {
+        font-size: 3rem;
+    }
+
+    .google-header p {
+        font-size: 1.3rem;
+    }
+
+    .microsoft-container {
+        max-width: 800px;
+    }
+
+    .vans-input {
+        padding: 20px 25px;
+        font-size: 1.1rem;
+    }
+
+    .northface-icon {
+        font-size: 1.8rem;
+        left: 25px;
+    }
+
+    .timberland-icon-wrapper .vans-input {
+        padding-left: 60px;
     }
 }

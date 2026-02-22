@@ -13,7 +13,7 @@ html {
      display: flex;
      flex-direction: row;
      justify-content: space-around;
-     /* background-color:#00474DFF ; */
+     background-color:#00474DFF  !important;
      color: white;
      /* background-color: var(--white); */
      border: solid var(--border-width) var(--light-gray);

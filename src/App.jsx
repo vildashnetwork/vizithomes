@@ -30,6 +30,7 @@ import UserReelsApp from "./pages/Reel/App"
 import CreateHouseForm from "./pages/Owners/Listings/CreateProperty";
 import VideoCallPage from "./pages/Chats/components/ChatMain/Videocall/Videocall"
 import AccountBlocked from "./Suspend.jsx";
+import UpdateHouseForm from "./pages/Owners/Listings/Update"
 import { Toaster } from "react-hot-toast";
 
 /* ================= PROTECTED ROUTES ================= */
@@ -45,14 +46,14 @@ import { Toaster } from "react-hot-toast";
 const ProtectedOwner = ({ user, children }) => {
   // If we are still loading, don't redirect anywhere yet
   if (!user || Object.keys(user).length === 0) {
-     return null; // Or a small spinner
+    return null; // Or a small spinner
   }
-  
+
   // If the user isn't approved, send to KYC
   if (user.status !== "approved") {
     return <Navigate to="/kyc" replace />;
   }
-  
+
   return children;
 }
 
@@ -72,7 +73,7 @@ export default function App() {
   const [iscall, setiscall] = useState(false)
 
   const [user, setuser] = useState([])
- 
+
 
 
 
@@ -93,50 +94,50 @@ export default function App() {
 
 
 
-useEffect(() => {
-  const storedRole = localStorage.getItem("role");
-  const token = localStorage.getItem("token");
+  useEffect(() => {
+    const storedRole = localStorage.getItem("role");
+    const token = localStorage.getItem("token");
 
-  async function decodeTokenAndConnect() {
-    if (!token || !storedRole) {
-      setLoading(false);
-      return;
-    }
+    async function decodeTokenAndConnect() {
+      if (!token || !storedRole) {
+        setLoading(false);
+        return;
+      }
 
-    try {
-      const endpoint = storedRole === "owner"
+      try {
+        const endpoint = storedRole === "owner"
           ? "https://vizit-backend-hubw.onrender.com/api/owner/decode/token/owner"
           : "https://vizit-backend-hubw.onrender.com/api/user/decode/token/user";
 
-      const response = await axios.get(endpoint, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+        const response = await axios.get(endpoint, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
 
-      if (response.status === 200) {
-        const userData = storedRole === "owner" ? response.data?.res : response.data?.user;
-        
-        if (userData) {
-          setuser(userData); // Update state
-          connectSocket(userData._id);
-          localStorage.setItem("userId", userData?._id )
+        if (response.status === 200) {
+          const userData = storedRole === "owner" ? response.data?.res : response.data?.user;
 
-          // Handle Banned Status
-          const status = userData?.accountstatus?.toLowerCase();
-          if (["suspended", "deactivated", "blocked", "ban"].includes(status)) {
-            navigate("/banned", { replace: true });
+          if (userData) {
+            setuser(userData); // Update state
+            connectSocket(userData._id);
+            localStorage.setItem("userId", userData?._id)
+
+            // Handle Banned Status
+            const status = userData?.accountstatus?.toLowerCase();
+            if (["suspended", "deactivated", "blocked", "ban"].includes(status)) {
+              navigate("/banned", { replace: true });
+            }
           }
         }
+      } catch (err) {
+        console.error("Auth failed:", err);
+        // Optional: if unauthorized, clear localstorage and go to login
+      } finally {
+        setLoading(false); // Stop showing the black "Loading..." screen
       }
-    } catch (err) {
-      console.error("Auth failed:", err);
-      // Optional: if unauthorized, clear localstorage and go to login
-    } finally {
-      setLoading(false); // Stop showing the black "Loading..." screen
     }
-  }
 
-  decodeTokenAndConnect();
-}, [role]); // Only re-run if role changes
+    decodeTokenAndConnect();
+  }, [role]); // Only re-run if role changes
 
 
 
@@ -254,28 +255,38 @@ useEffect(() => {
         {/* OWNER ROUTES */}
 
         <Route path="/chat" element={
-          <ProtectedOwner  user={user}>
+          <ProtectedOwner user={user}>
             <AdminChatApp />
           </ProtectedOwner>
 
         } />
-        <Route 
-  path="/dashboard" 
-  element={
-    <ProtectedOwner user={user}>
-      <Dashboard />
-    </ProtectedOwner>
-  } 
-/>
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedOwner user={user}>
+              <Dashboard />
+            </ProtectedOwner>
+          }
+        />
 
         <Route
           path="/createproperty"
           element={
-            <ProtectedOwner  user={user}>
+            <ProtectedOwner user={user}>
               <CreateHouseForm />
             </ProtectedOwner>
           }
         />
+        <Route
+          path="/updateprop/:id"
+          element={
+            <ProtectedOwner user={user}>
+              <UpdateHouseForm />
+            </ProtectedOwner>
+          }
+        />
+
+
         <Route
           path="/reels"
           element={
@@ -287,7 +298,7 @@ useEffect(() => {
         <Route
           path="/reviews"
           element={
-            <ProtectedOwner   user={user}>
+            <ProtectedOwner user={user}>
               <Reviews />
             </ProtectedOwner>
           }
@@ -295,7 +306,7 @@ useEffect(() => {
         <Route
           path="/listings"
           element={
-            <ProtectedOwner   user={user}>
+            <ProtectedOwner user={user}>
               <Listings />
             </ProtectedOwner>
           }
@@ -303,7 +314,7 @@ useEffect(() => {
         <Route
           path="/calender"
           element={
-            <ProtectedOwner  user={user}>
+            <ProtectedOwner user={user}>
               <Calender />
             </ProtectedOwner>
           }
@@ -311,7 +322,7 @@ useEffect(() => {
         <Route
           path="/appointments"
           element={
-            <ProtectedOwner  user={user}>
+            <ProtectedOwner user={user}>
               <Appointments />
             </ProtectedOwner>
           }
@@ -324,7 +335,7 @@ useEffect(() => {
         <Route
           path="/owner/home"
           element={
-            <ProtectedOwner  user={user}>
+            <ProtectedOwner user={user}>
               <OwnerDashboard onLogout={() => setAppRole(null)} />
             </ProtectedOwner>
           }
