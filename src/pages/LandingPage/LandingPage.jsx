@@ -381,7 +381,9 @@ export function Footer() {
           <ul className="links">
             <li><Link to="https://docs.vizit.homes/terms">Terms of service</Link></li>
             <li><Link to="https://docs.vizit.homes/privacy">Privacy Policy</Link></li>
+             <li><Link to="https://docs.vizit.homes">Documentation</Link></li>
           </ul>
+          
         </div>
       </div>
     </footer>
