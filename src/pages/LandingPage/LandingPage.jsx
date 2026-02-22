@@ -133,7 +133,12 @@ export function SideNav() {
 
 export function BottomTabs() {
   return (
-    <nav className="bottom-tabs">
+    <nav className="bottom-tabs"
+    style={{ 
+    background: "linear-gradient(135deg, #094239 0%, #11403e 50%, #0a2c2f 100%)",
+   
+  }}
+    >
       {links.slice(0, 5).map((item, key) => (
         <NavLink key={key} to={item.link} className={({ isActive }) => `link ${isActive ? "on" : ""}`}>
           <li>{item.icon}</li>

@@ -313,7 +313,11 @@ export function SideNav() {
 
 export function BottomTabs() {
   return (
-    <nav className="bottom-tabs">
+    <nav className="bottom-tabs"
+      style={{ 
+    background: "linear-gradient(135deg, #094239 0%, #11403e 50%, #0a2c2f 100%)",
+   
+  }}>
       {links.map((item, key) => (
         <NavLink
           key={key}
