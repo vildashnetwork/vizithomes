@@ -989,7 +989,7 @@ export default function CreateHouseForm({ onCreated }) {
     
   }}
 >
-     <option value="">--select a payment plan--</option>
+    <option value="">-- select a payment plan --</option>
   <option value="month">per month</option>
   <option value="day">per day</option>
   <option value="night">per night</option>
