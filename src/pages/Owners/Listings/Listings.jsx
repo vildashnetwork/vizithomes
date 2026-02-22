@@ -200,7 +200,8 @@ function Listings() {
   }
 
   return (
-    <div className="listings">
+    <div className="listings"
+    style={{background: "linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%)"}}>
       <Header />
       <Container>
         <PageTitle
@@ -221,10 +222,10 @@ function Listings() {
               Add New Listings
             </button>
           </div>
-          <div className="search">
+          {/* <div className="search">
             <SearchIcon />
             <input type="search" placeholder="Search name or location ..." />
-          </div>
+          </div> */}
 
 
           <div className="filters">
