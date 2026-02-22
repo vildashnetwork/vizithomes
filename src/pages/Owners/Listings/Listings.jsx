@@ -146,7 +146,8 @@ function Listings() {
     };
 
     return (
-      <tr>
+      <tr
+          style={{background: "linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%)"}}>
         <td className="table-data">
           <div className="property-details">
             <img src={listing.image} alt={listing.title} />
@@ -210,7 +211,8 @@ function Listings() {
         />
         <ReelsPage />
 
-        <div className="search-filter">
+        <div className="search-filter"
+            style={{background: "linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%)"}}>
           <div>
             <button
               className="button"
