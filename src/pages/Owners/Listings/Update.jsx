@@ -1866,7 +1866,7 @@ return (
                                            <select
   className="vans-input"
   value={how}
-  onChange={(e) => setHow(e.target.value)}
+  onChange={(e) => sethow(e.target.value)}
   required
   style={{ 
     cursor: "pointer",
@@ -1875,6 +1875,8 @@ return (
    
   }}
 >
+     <option value="">--select a payment plan--</option>
+
   <option value="month">per month</option>
   <option value="day">per day</option>
   <option value="night">per night</option>
