@@ -183,7 +183,13 @@ export function Head({ carryOutSearch, user }) {
           <SearchIcon />
           <input type="text" className="input-search" id="rxt-search-input" placeholder="Search Location, Property type..." onChange={carryOutSearch} />
         </div>
-        {check ? profile : <button className="details-btn loginin" onClick={() => setopen(!openit)}>LogIn </button>}
+        {check ? profile :<button 
+  className="details-btn loginin"
+ 
+  onClick={() => setopen(!openit)}
+>
+  LogIn 
+</button>}
         {openit && (
           <div className="auth-overlay" onClick={() => setopen(!openit)}>
             <div className="auth-modal" onClick={(e) => e.stopPropagation()}>
@@ -217,7 +223,12 @@ export function Header({ carryOutSearch, changeRegion, user }) {
               <Select title="Building Type" data={biuldingTypes} />
               <Select title="Duration Of Stay" data={posibleDuration} />
             </div>
-            <button className="search-button" onClick={() => window.location.href = "/search-property"}>
+            <button className="search-button"
+             style={{ 
+    background: "linear-gradient(135deg, #094239 0%, #11403e 50%, #0a2c2f 100%)",
+   
+  }}
+            onClick={() => window.location.href = "/search-property"}>
               <SearchIcon />
               <p>Find My vizits</p>
             </button>
@@ -304,6 +315,10 @@ export function ListingsCard({ image, title, location, rent, id, how, user, isVe
         </div>
         <Link
           className="details-btn"
+         style={{ 
+    background: "linear-gradient(135deg, #094239 0%, #11403e 50%, #0a2c2f 100%)",
+   
+  }}
           to={checkuser && me.haspay ? `/property/${id}` : "#"}
           onClick={(e) => {
             if (!checkuser) {
@@ -317,6 +332,7 @@ export function ListingsCard({ image, title, location, rent, id, how, user, isVe
             }
             // State 3: Logged in and has paid (navigation happens automatically via 'to')
           }}
+           
         >
           View Details
         </Link>

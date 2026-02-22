@@ -528,7 +528,7 @@ a {
 }
 
 .details-btn {
-     background-color: #44444400;
+     background-color: #44444400 !important;
      animation: smothcolor linear 10s infinite;
      padding: 10px;
      font-weight: 600;
